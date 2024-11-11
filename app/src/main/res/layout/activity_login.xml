@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".Login">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/font_name_app"
+        android:gravity="center"
+        android:text="@string/app_name"
+        android:textColor="@color/main_color"
+        android:textSize="50sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/font_text_view"
+        android:gravity="center"
+        android:text="@string/login"
+        android:textColor="@color/color_text_background"
+        android:textSize="40sp" />
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+
+        android:id="@+id/edit_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:hint="OU's email"
+        android:text="nguyenhuutuan1704@gmail.com"
+        android:textSize="30sp" />
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/edit_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:hint="PassWord"
+        android:inputType="textPassword"
+        android:text="123456"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/tv_ForgotPass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:fontFamily="@font/font_text_view"
+        android:text="Forgot password?"
+        android:textColor="@color/color_text_background"
+        android:textSize="20sp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_Login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="80dp"
+        android:background="@drawable/gradient_button_lognin_signup"
+        android:fontFamily="@font/font_button"
+        android:text="@string/login"
+        android:textColor="@color/color_text_within_gradient_button_login_signup"
+        android:textSize="25dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_text_view"
+            android:text="Not a member? "
+            android:textColor="@color/black"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/tv_SignupNow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_text_view"
+            android:text="Signup now"
+            android:textColor="@color/color_text_background"
+            android:textSize="20dp" />
+
+    </LinearLayout>
+
+</LinearLayout>

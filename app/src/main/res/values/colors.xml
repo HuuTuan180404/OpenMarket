@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="red">#FF0000</color>
+    <color name="gray">#808080</color>
+    <color name="green">#008000</color>
+    <color name="xanh_chuoi">#7fff00</color>
+
+    <color name="color_btn_dang_ky">#347928</color>
+    <color name="background">#C4E1F6</color>
+
+    <color name="color_background_Mode_Login_Signup">#6b8587</color>
+
+    <color name="overlayBackground">#7f333639</color>
+    <color name="overlayActionBar">#0e0d0e</color>
+
+    <color name="color_text_background">#604CC3</color>
+
+    <color name="color_text_within_gradient_button_login_signup">#605678</color>
+
+    <color name="color_nav_bar_home_title">#B1D690</color>
+    <color name="color_nav_header_home_title">#973131</color>
+
+    <color name="main_color">#72BF78</color>
+
+</resources>
