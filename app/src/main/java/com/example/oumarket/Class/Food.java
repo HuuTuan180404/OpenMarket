@@ -7,17 +7,28 @@ public class Food {
     private String CategoryId;
     private String Name;
     private String Price;
+    private String URL;
+
 
     public Food() {
     }
 
-    public Food(String description, String discount, String image, String menuID, String name, String price) {
+    public Food(String description, String discount, String image, String categoryId, String name, String price, String URL) {
         Description = description;
         Discount = discount;
         Image = image;
-        CategoryId = menuID;
+        CategoryId = categoryId;
         Name = name;
         Price = price;
+        this.URL = URL;
+    }
+
+    public String getURL() {
+        return URL;
+    }
+
+    public void setURL(String URL) {
+        this.URL = URL;
     }
 
     public String getDescription() {

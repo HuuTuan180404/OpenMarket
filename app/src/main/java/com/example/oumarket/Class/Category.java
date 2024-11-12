@@ -4,14 +4,24 @@ public class Category {
 
     private String Image;
     private String Name;
+    private String URL;
 
 
     public Category() {
     }
 
-    public Category(String image, String name) {
+    public Category(String image, String name, String uRL) {
         Image = image;
         Name = name;
+        URL = uRL;
+    }
+
+    public String getURL() {
+        return URL;
+    }
+
+    public void setURL(String URL) {
+        this.URL = URL;
     }
 
     public String getImage() {
