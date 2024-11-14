@@ -13,15 +13,11 @@ import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.example.oumarket.Class.User;
 import com.example.oumarket.Common.Common;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -102,6 +98,9 @@ public class Login extends AppCompatActivity {
                 finish();
             }
         });
+
+//
+        signIn("nguyenhuutuan1704@gmail.com", "123456");
     }
 
     private void signIn(String email, String password) {
@@ -110,7 +109,7 @@ public class Login extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 mDialog.dismiss();
                 if (task.isSuccessful()) {
-                    Toast.makeText(Login.this, "success", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Login.this, "Successfully!", Toast.LENGTH_SHORT).show();
                     table_user.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot snapshot) {
@@ -119,7 +118,7 @@ public class Login extends AppCompatActivity {
 
                             User user = snapshot.child(email).getValue(User.class);
                             Intent homeIntent = new Intent(Login.this, Home.class);
-                            Common.currentUser = user;
+                            Common.CURRENTUSER = user;
                             startActivity(homeIntent);
                             finish();
                         }

@@ -9,7 +9,6 @@ public class Food {
     private String Price;
     private String URL;
 
-
     public Food() {
     }
 

@@ -11,9 +11,10 @@ public class Order {
         ProductId = productId;
         ProductName = productName;
         Price = price;
-        Discount = discount;
         Quantity = quantity;
+        Discount = discount;
     }
+
 
     public Order() {
     }
@@ -57,4 +58,9 @@ public class Order {
     public void setQuantity(String quantity) {
         Quantity = quantity;
     }
+
+    public int compareTo(Order order){
+        return this.ProductId.compareTo(order.getProductId());
+    }
+
 }

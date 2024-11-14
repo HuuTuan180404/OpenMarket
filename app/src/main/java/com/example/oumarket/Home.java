@@ -7,11 +7,13 @@ import android.view.Menu;
 import android.widget.TextView;
 
 import com.example.oumarket.Class.Category;
+import com.example.oumarket.Class.Food;
+import com.example.oumarket.Class.SetUpRecyclerView;
 import com.example.oumarket.Common.Common;
 import com.example.oumarket.Interface.ItemClickListener;
 import com.example.oumarket.ViewHolder.CategoryViewHolder;
+import com.example.oumarket.ViewHolder.FoodViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.navigation.NavController;
@@ -21,7 +23,6 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.oumarket.databinding.ActivityHomeBinding;
 import com.google.firebase.database.DatabaseReference;
@@ -39,12 +40,13 @@ public class Home extends AppCompatActivity {
     StorageReference storageReference;
 
     FirebaseDatabase database;
-    DatabaseReference category;
+    DatabaseReference category, foodList;
     TextView txt_full_name;
 
-    RecyclerView recycler_menu;
-    GridLayoutManager layoutManager;
+    androidx.recyclerview.widget.RecyclerView recycler_menu, recycler_category1;
+    GridLayoutManager layoutManager, layoutManager_category;
     FirebaseRecyclerAdapter<Category, CategoryViewHolder> adapter;
+    FirebaseRecyclerAdapter<Food, FoodViewHolder> adapterFood;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,14 +58,14 @@ public class Home extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         category = database.getReference("Category");
 
-        storage=FirebaseStorage.getInstance();
-        storageReference = storage.getReference("Category");
+        foodList = Common.DATABASE.getReference("Foods");
 
         setSupportActionBar(binding.appBarHome.toolbar);
         binding.appBarHome.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).setAnchorView(R.id.fab).show();
+                Intent intent = new Intent(Home.this, Cart.class);
+                startActivity(intent);
             }
         });
         DrawerLayout drawer = binding.drawerLayout;
@@ -81,46 +83,66 @@ public class Home extends AppCompatActivity {
         // init name for user
         View heardView = navigationView.getHeaderView(0);
         txt_full_name = heardView.findViewById(R.id.txt_full_name);
-        txt_full_name.setText(Common.currentUser.getName());
+        txt_full_name.setText(Common.CURRENTUSER.getName());
 
-        // load menu
+        // load recycler menu
         recycler_menu = findViewById(R.id.recycler_menu);
-        recycler_menu.setHasFixedSize(true);
-        layoutManager = new GridLayoutManager(this,2,RecyclerView.HORIZONTAL,false);
+        loadRecycler();
 
-        recycler_menu.setLayoutManager(layoutManager);
+        // load recycler category
+        recycler_category1 = findViewById(R.id.recycler_category1);
+        loadRecyclerCategory();
 
-        loadCategory();
     }
 
-    private void loadCategory() {
+    private void loadRecycler() {
         adapter = new FirebaseRecyclerAdapter<Category, CategoryViewHolder>(Category.class, R.layout.category_item, CategoryViewHolder.class, category) {
             @Override
             protected void populateViewHolder(CategoryViewHolder menuViewHolder, Category category, int i) {
                 // load theo firebase storage
-                String path=category.getImage();
-                StorageReference imageRef = storageReference.child(path);
-                imageRef.getDownloadUrl().addOnSuccessListener(uri -> {
-                    Picasso picasso = new Picasso.Builder(Home.this).build();
-                    picasso.load(uri).into(menuViewHolder.imageView);
-                    menuViewHolder.txtMenuName.setText(category.getName());
-                }).addOnFailureListener(exception -> {
-                    menuViewHolder.txtMenuName.setText("NULL");
-                });
+                String path = category.getURL();
+                Picasso picasso = new Picasso.Builder(Home.this).build();
+                picasso.load(path).into(menuViewHolder.imageView);
+                menuViewHolder.txtMenuName.setText(category.getName());
 
-                ////////
 //                final Category clickItem = category;
                 menuViewHolder.setItemClickListener(new ItemClickListener() {
                     @Override
                     public void onClick(View view, int position, boolean isLongClick) {
-                        Intent foodList=new Intent(Home.this, FoodList.class);
-                        foodList.putExtra("CategoryId",adapter.getRef(position).getKey());
+                        Intent foodList = new Intent(Home.this, FoodList.class);
+                        foodList.putExtra("CategoryId", adapter.getRef(position).getKey());
                         startActivity(foodList);
                     }
                 });
             }
         };
-        recycler_menu.setAdapter(adapter);
+        SetUpRecyclerView.setupGridLayout(this, recycler_menu, adapter, 2, androidx.recyclerview.widget.RecyclerView.HORIZONTAL);
+    }
+
+    private void loadRecyclerCategory() {
+        adapterFood = new FirebaseRecyclerAdapter<Food, FoodViewHolder>(Food.class, R.layout.food_item, FoodViewHolder.class, foodList.orderByChild("MenuID").equalTo("0001")) {
+            @Override
+            protected void populateViewHolder(FoodViewHolder foodViewHolder, Food food, int i) {
+
+//                load image from github
+                String path = food.getURL();
+
+                Picasso.get().load(path).into(foodViewHolder.food_image);
+
+                foodViewHolder.food_name.setText(food.getName());
+
+                foodViewHolder.setItemClickListener((new ItemClickListener() {
+                    @Override
+                    public void onClick(View view, int position, boolean isLongClick) {
+                        Intent foodDetail = new Intent(Home.this, FoodDetail.class);
+                        foodDetail.putExtra("FoodId", adapter.getRef(position).getKey());
+                        startActivity(foodDetail);
+                    }
+                }));
+            }
+        };
+//        recycler_menu.setAdapter(adapter);
+        SetUpRecyclerView.setupGridLayout(this, recycler_category1, adapterFood, 1, androidx.recyclerview.widget.RecyclerView.HORIZONTAL);
     }
 
 
