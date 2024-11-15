@@ -1,16 +1,17 @@
 package com.example.oumarket;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
@@ -24,7 +25,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class Login extends AppCompatActivity {
@@ -34,7 +34,6 @@ public class Login extends AppCompatActivity {
     private TextInputEditText edit_email, edit_password;
 
     ProgressDialog mDialog;
-    FirebaseDatabase database;
     DatabaseReference table_user;
     FirebaseAuth firebaseAuth;
 
@@ -48,8 +47,7 @@ public class Login extends AppCompatActivity {
         mDialog.setMessage("Waiting...");
 
 //         firebase
-        database = FirebaseDatabase.getInstance();
-        table_user = database.getReference("User");
+        table_user = Common.FIREBASE_DATABASE.getReference("User");
         firebaseAuth = FirebaseAuth.getInstance();
 
         edit_email = findViewById(R.id.edit_email);
@@ -63,22 +61,23 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                mDialog.show();
 
-                String email = edit_email.getText().toString();
-                String password = edit_password.getText().toString();
+//                String email = edit_email.getText().toString();
+//                String password = edit_password.getText().toString();
 
-                if (TextUtils.isEmpty(email)) {
+                if (TextUtils.isEmpty(edit_email.getText().toString())) {
                     Toast.makeText(Login.this, "Hãy nhập email!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if (TextUtils.isEmpty(password)) {
+                if (TextUtils.isEmpty(edit_password.getText().toString())) {
                     Toast.makeText(Login.this, "Hãy nhập password!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                signIn(email, password);
+                mDialog.show();
+
+                login(edit_email.getText().toString(), edit_password.getText().toString());
 
             }
         });
@@ -104,24 +103,40 @@ public class Login extends AppCompatActivity {
 //        signIn("nguyenhuutuan1704@gmail.com", "123456");
     }
 
-    private void signIn(String email, String password) {
+    private void login(String email, String password) {
         firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(Login.this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 mDialog.dismiss();
                 if (task.isSuccessful()) {
-                    Toast.makeText(Login.this, "Successfully!", Toast.LENGTH_SHORT).show();
                     table_user.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot snapshot) {
-                            String email = edit_email.getText().toString();
-                            email = email.substring(0, email.indexOf("@"));
+                            if (firebaseAuth.getCurrentUser().isEmailVerified()){
+                                Toast.makeText(Login.this, "Successfully!", Toast.LENGTH_SHORT).show();
+                                String email = edit_email.getText().toString();
+                                email = email.substring(0, email.indexOf("@"));
 
-                            User user = snapshot.child(email).getValue(User.class);
-                            Intent homeIntent = new Intent(Login.this, Home.class);
-                            Common.CURRENTUSER = user;
-                            startActivity(homeIntent);
-                            finish();
+                                User user = snapshot.child(email).getValue(User.class);
+                                Intent homeIntent = new Intent(Login.this, Home.class);
+                                Common.CURRENTUSER = user;
+                                startActivity(homeIntent);
+                                finish();
+                            }
+                            else {
+                                AlertDialog.Builder alert = new AlertDialog.Builder(Login.this);
+                                alert.setTitle("Warming!");
+                                alert.setMessage("Please check your email and click the URL to activate your account");
+                                alert.setIcon(R.drawable.baseline_info_24);
+
+                                alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                    }
+                                });
+                                alert.show();
+                            }
                         }
 
                         @Override

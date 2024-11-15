@@ -45,7 +45,7 @@ public class Cart extends AppCompatActivity {
         setContentView(R.layout.activity_cart);
 
 //        firebase
-        requests = Common.DATABASE.getReference("Requests");
+        requests = Common.FIREBASE_DATABASE.getReference("Requests");
 
 //        init
         tv_total = findViewById(R.id.total);

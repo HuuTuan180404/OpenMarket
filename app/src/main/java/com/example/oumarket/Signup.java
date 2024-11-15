@@ -1,24 +1,28 @@
 package com.example.oumarket;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
+import com.example.oumarket.Class.Request;
 import com.example.oumarket.Class.User;
+import com.example.oumarket.Common.Common;
+import com.example.oumarket.Database.Database;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -28,12 +32,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class Signup extends AppCompatActivity {
-    EditText edit_name, edit_email, edit_password, edit_confPass, edit_phone;
+    TextInputEditText edit_name, edit_email, edit_password, edit_confPass, edit_phone;
     AppCompatButton btn_signup;
     TextView tv_loginnow;
 
     FirebaseAuth firebaseAuth;
-    FirebaseDatabase database;
     DatabaseReference table_user;
 
     @Override
@@ -43,8 +46,7 @@ public class Signup extends AppCompatActivity {
         setContentView(R.layout.activity_signup);
 
 
-        database = FirebaseDatabase.getInstance();
-        table_user = database.getReference("User");
+        table_user = Common.FIREBASE_DATABASE.getReference("User");
 
         edit_name = findViewById(R.id.edit_name_user);
         edit_email = findViewById(R.id.edit_email_signup);
@@ -57,15 +59,10 @@ public class Signup extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-
 //         button Signup - mbtn_Signup
         btn_signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(Signup.this, ConfirmationCode.class);
-//                intent.putExtra("email", edt_email.getText().toString());
-//                intent.putExtra("password", medt_Pass.getText().toString());
-//                startActivity(intent);
                 String name = edit_name.getText().toString();
                 String email = edit_email.getText().toString();
                 String password = edit_password.getText().toString();
@@ -90,7 +87,7 @@ public class Signup extends AppCompatActivity {
                     return;
                 }
 
-                createAccount(email, password, name);
+                createAccount(email, password);
             }
         });
 
@@ -105,23 +102,30 @@ public class Signup extends AppCompatActivity {
         });
     }
 
-    private void createAccount(String email, String password, String name) {
+    private void createAccount(String email, String password) {
         // [START create_user_with_email]
-        firebaseAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(getApplicationContext(), "success", Toast.LENGTH_SHORT).show();
-                            data(name);
-                        } else {
-                            Toast.makeText(getApplicationContext(), "Tài khoản đã tồn ta", Toast.LENGTH_SHORT).show();
+        firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    firebaseAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                createInfo();
+                            } else {
+                                Toast.makeText(getApplicationContext(), "Failed!", Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
-                });
+                    });
+                } else {
+                    Toast.makeText(getApplicationContext(), "Failed!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
-    private void data(String name) {
+    private void createInfo() {
         table_user.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
@@ -129,16 +133,6 @@ public class Signup extends AppCompatActivity {
                 email = email.substring(0, email.indexOf("@"));
                 User user = new User(edit_name.getText().toString(), edit_phone.getText().toString());
                 table_user.child(email).setValue(user);
-
-                try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-
-                Intent intent = new Intent(Signup.this, Login.class);
-                startActivity(intent);
-                finish();
             }
 
             @Override
@@ -146,5 +140,20 @@ public class Signup extends AppCompatActivity {
 
             }
         });
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(Signup.this);
+        alert.setTitle("Successfully!");
+        alert.setMessage("Please check your email and click the URL to activate your account");
+        alert.setIcon(R.drawable.baseline_account_circle_24);
+
+        alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(Signup.this, Login.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        alert.show();
     }
 }

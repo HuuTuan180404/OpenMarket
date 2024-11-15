@@ -34,7 +34,7 @@ public class FoodList extends AppCompatActivity {
         setContentView(R.layout.activity_food_list);
 
 //         firebase
-        foodList = Common.DATABASE.getReference("Foods");
+        foodList = Common.FIREBASE_DATABASE.getReference("Foods");
 
         recyclerView = findViewById(R.id.recycler_food);
 

@@ -1,6 +1,5 @@
 package com.example.oumarket;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,7 +27,6 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.example.oumarket.databinding.ActivityHomeBinding;
 import com.google.firebase.database.DatabaseReference;
@@ -40,7 +38,6 @@ public class Home extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityHomeBinding binding;
 
-    FirebaseDatabase database;
     DatabaseReference category, foodList;
     TextView txt_full_name;
 
@@ -55,10 +52,9 @@ public class Home extends AppCompatActivity {
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        database = FirebaseDatabase.getInstance();
-        category = database.getReference("Category");
+        category = Common.FIREBASE_DATABASE.getReference("Category");
 
-        foodList = Common.DATABASE.getReference("Foods");
+        foodList = Common.FIREBASE_DATABASE.getReference("Foods");
 
         setSupportActionBar(binding.appBarHome.toolbar);
         binding.appBarHome.fab.setOnClickListener(new View.OnClickListener() {
@@ -68,6 +64,8 @@ public class Home extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
 
         DrawerLayout drawer = binding.drawerLayout;
 

@@ -1,27 +1,17 @@
 package com.example.oumarket;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.oumarket.Class.Food;
 import com.example.oumarket.Class.Request;
 import com.example.oumarket.Class.SetUpRecyclerView;
 import com.example.oumarket.Common.Common;
-import com.example.oumarket.Interface.ItemClickListener;
-import com.example.oumarket.ViewHolder.FoodViewHolder;
 import com.example.oumarket.ViewHolder.OrderViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.squareup.picasso.Picasso;
 
 public class OrderStatus extends AppCompatActivity {
 
@@ -38,7 +28,7 @@ public class OrderStatus extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_order_status);
 
-        databaseReference = Common.DATABASE.getReference("Requests");
+        databaseReference = Common.FIREBASE_DATABASE.getReference("Requests");
 
         recyclerView = findViewById(R.id.recycler_order);
 

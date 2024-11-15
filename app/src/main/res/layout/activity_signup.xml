@@ -47,6 +47,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_name_user"
             android:layout_width="match_parent"
+            android:text="Tuan"
             android:layout_height="wrap_content"
             android:inputType="text" />
 
@@ -87,7 +88,8 @@
         app:boxCornerRadiusTopStart="20sp">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_password_signup"
+            android:id="@+id/edit_phone"
+            android:text="123456"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number" />
@@ -109,10 +111,11 @@
         app:endIconMode="password_toggle">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_phone"
+            android:id="@+id/edit_password_signup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:text="123456" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -134,7 +137,8 @@
             android:id="@+id/edit_confPass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:text="123456" />
 
     </com.google.android.material.textfield.TextInputLayout>
 

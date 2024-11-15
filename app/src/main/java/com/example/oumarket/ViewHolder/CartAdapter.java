@@ -189,7 +189,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
         });
 
 //        holder.image_cart_item.set
-        Common.DATABASE.getReference("Foods").child(foodId).addValueEventListener(new ValueEventListener() {
+        Common.FIREBASE_DATABASE.getReference("Foods").child(foodId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Food currentFood = snapshot.getValue(Food.class);
