@@ -1,7 +1,10 @@
 package com.example.oumarket;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.widget.TextView;
@@ -16,6 +19,9 @@ import com.example.oumarket.ViewHolder.FoodViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.core.view.GravityCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -27,8 +33,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import com.example.oumarket.databinding.ActivityHomeBinding;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 public class Home extends AppCompatActivity {
@@ -36,15 +40,11 @@ public class Home extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityHomeBinding binding;
 
-    FirebaseStorage storage;
-    StorageReference storageReference;
-
     FirebaseDatabase database;
     DatabaseReference category, foodList;
     TextView txt_full_name;
 
     androidx.recyclerview.widget.RecyclerView recycler_menu, recycler_category1;
-    GridLayoutManager layoutManager, layoutManager_category;
     FirebaseRecyclerAdapter<Category, CategoryViewHolder> adapter;
     FirebaseRecyclerAdapter<Food, FoodViewHolder> adapterFood;
 
@@ -68,17 +68,35 @@ public class Home extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
         DrawerLayout drawer = binding.drawerLayout;
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, binding.appBarHome.toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
         NavigationView navigationView = binding.navView;
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
-                .setOpenableLayout(drawer)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home);
-        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-        NavigationUI.setupWithNavController(navigationView, navController);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id = item.getItemId();
+                if (id == R.id.nav_menu) {
+                    Log.d(Common.TAG, "menu");
+                } else if (id == R.id.nav_cart) {
+                    Intent intent = new Intent(Home.this, Cart.class);
+                    startActivity(intent);
+                } else if (id == R.id.nav_orders) {
+                    Intent intent = new Intent(Home.this, OrderStatus.class);
+                    startActivity(intent);
+                } else if (id == R.id.nav_log_out) {
+                    Intent intent = new Intent(Home.this, Login.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                }
+                drawer.closeDrawer(GravityCompat.START);
+                return true;
+            }
+        });
 
         // init name for user
         View heardView = navigationView.getHeaderView(0);
@@ -96,7 +114,7 @@ public class Home extends AppCompatActivity {
     }
 
     private void loadRecycler() {
-        adapter = new FirebaseRecyclerAdapter<Category, CategoryViewHolder>(Category.class, R.layout.category_item, CategoryViewHolder.class, category) {
+        adapter = new FirebaseRecyclerAdapter<Category, CategoryViewHolder>(Category.class, R.layout.item_category, CategoryViewHolder.class, category) {
             @Override
             protected void populateViewHolder(CategoryViewHolder menuViewHolder, Category category, int i) {
                 // load theo firebase storage
@@ -120,7 +138,7 @@ public class Home extends AppCompatActivity {
     }
 
     private void loadRecyclerCategory() {
-        adapterFood = new FirebaseRecyclerAdapter<Food, FoodViewHolder>(Food.class, R.layout.food_item, FoodViewHolder.class, foodList.orderByChild("MenuID").equalTo("0001")) {
+        adapterFood = new FirebaseRecyclerAdapter<Food, FoodViewHolder>(Food.class, R.layout.item_food, FoodViewHolder.class, foodList.orderByChild("MenuID").equalTo("0001")) {
             @Override
             protected void populateViewHolder(FoodViewHolder foodViewHolder, Food food, int i) {
 
@@ -145,7 +163,6 @@ public class Home extends AppCompatActivity {
         SetUpRecyclerView.setupGridLayout(this, recycler_category1, adapterFood, 1, androidx.recyclerview.widget.RecyclerView.HORIZONTAL);
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -156,7 +173,6 @@ public class Home extends AppCompatActivity {
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home);
-        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
-                || super.onSupportNavigateUp();
+        return NavigationUI.navigateUp(navController, mAppBarConfiguration) || super.onSupportNavigateUp();
     }
 }

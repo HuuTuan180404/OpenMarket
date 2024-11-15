@@ -28,7 +28,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class Signup extends AppCompatActivity {
-    EditText edit_name, edit_email, edit_password, edit_confPass;
+    EditText edit_name, edit_email, edit_password, edit_confPass, edit_phone;
     AppCompatButton btn_signup;
     TextView tv_loginnow;
 
@@ -52,6 +52,8 @@ public class Signup extends AppCompatActivity {
         edit_confPass = findViewById(R.id.edit_confPass);
         btn_signup = findViewById(R.id.btn_signup);
         tv_loginnow = findViewById(R.id.tv_loginNow);
+
+        edit_phone = findViewById(R.id.edit_phone);
 
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -125,7 +127,7 @@ public class Signup extends AppCompatActivity {
             public void onDataChange(DataSnapshot snapshot) {
                 String email = edit_email.getText().toString();
                 email = email.substring(0, email.indexOf("@"));
-                User user = new User(edit_name.getText().toString());
+                User user = new User(edit_name.getText().toString(), edit_phone.getText().toString());
                 table_user.child(email).setValue(user);
 
                 try {

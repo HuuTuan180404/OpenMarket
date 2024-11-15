@@ -86,7 +86,7 @@ public class Login extends AppCompatActivity {
         tv_forgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(Login.this, "ConfPass", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Login.this, "forgot password", Toast.LENGTH_SHORT).show();
             }
         });
 

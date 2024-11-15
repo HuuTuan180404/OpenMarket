@@ -76,7 +76,7 @@ public class Cart extends AppCompatActivity {
         alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Request request = new Request("phone number", Common.CURRENTUSER.getName(), editText.getText().toString(), tv_total.getText().toString(), cart);
+                Request request = new Request(Common.CURRENTUSER.getPhone(), Common.CURRENTUSER.getName(), editText.getText().toString(), tv_total.getText().toString(), cart);
                 requests.child(String.valueOf(System.currentTimeMillis())).setValue(request);
                 new Database(getBaseContext()).cleanCart();
                 Toast.makeText(getBaseContext(), "Thank you", Toast.LENGTH_SHORT).show();
