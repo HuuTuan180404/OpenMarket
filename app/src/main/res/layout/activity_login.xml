@@ -29,42 +29,71 @@
         android:textColor="@color/color_text_background"
         android:textSize="40sp" />
 
-        <com.rengwuxian.materialedittext.MaterialEditText
+    <!--        <com.rengwuxian.materialedittext.MaterialEditText-->
+    <!--            android:id="@+id/edit_email"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_marginLeft="10dp"-->
+    <!--            android:layout_marginRight="10dp"-->
+    <!--            android:layout_marginBottom="10dp"-->
+    <!--            android:hint="OU's email"-->
+    <!--            android:text="nguyenhuutuan1704@gmail.com"-->
+    <!--            android:textSize="30sp" />-->
+
+
+    <!--    <com.rengwuxian.materialedittext.MaterialEditText-->
+    <!--        android:id="@+id/edit_password"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginLeft="10dp"-->
+    <!--        android:layout_marginTop="10dp"-->
+    <!--        android:layout_marginRight="10dp"-->
+    <!--        android:hint="PassWord"-->
+    <!--        android:inputType="textPassword"-->
+    <!--        android:text="123456"-->
+    <!--        android:textSize="30sp" />-->
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/ThemeOverlay.Material3.AutoCompleteTextView.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20sp"
+        android:layout_marginRight="20sp"
+        android:hint="Ou's Email"
+        app:boxCornerRadiusBottomEnd="20sp"
+        app:boxCornerRadiusBottomStart="20sp"
+        app:boxCornerRadiusTopEnd="20sp"
+        app:boxCornerRadiusTopStart="20sp">
+
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp"
-            android:hint="OU's email"
-            android:text="nguyenhuutuan1704@gmail.com"
-            android:textSize="30sp" />
+            android:inputType="text" />
 
-<!--    <com.google.android.material.textfield.TextInputLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:startIconContentDescription="dsad"-->
-<!--        -->
-<!--        app:endIconMode="password_toggle">-->
-<!--        -->
-<!--        <com.google.android.material.textfield.TextInputEditText-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:inputType="textPassword"-->
-<!--            android:layout_height="wrap_content"/>-->
-<!--        -->
-<!--    </com.google.android.material.textfield.TextInputLayout>-->
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <com.rengwuxian.materialedittext.MaterialEditText
-        android:id="@+id/edit_password"
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/ThemeOverlay.Material3.AutoCompleteTextView.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp"
-        android:hint="PassWord"
-        android:inputType="textPassword"
-        android:text="123456"
-        android:textSize="30sp" />
+        android:layout_marginLeft="20sp"
+        android:layout_marginRight="20sp"
+        android:hint="Password"
+        app:boxCornerRadiusBottomEnd="20sp"
+        app:boxCornerRadiusBottomStart="20sp"
+        app:boxCornerRadiusTopEnd="20sp"
+        app:boxCornerRadiusTopStart="20sp"
+        app:endIconMode="password_toggle">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
 
     <TextView
         android:id="@+id/tv_ForgotPass"
