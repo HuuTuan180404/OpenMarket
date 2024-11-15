@@ -20,6 +20,8 @@ import com.example.oumarket.Class.SetUpRecyclerView;
 import com.example.oumarket.Common.Common;
 import com.example.oumarket.Database.Database;
 import com.example.oumarket.ViewHolder.CartAdapter;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
@@ -66,17 +68,18 @@ public class Cart extends AppCompatActivity {
         AlertDialog.Builder alert = new AlertDialog.Builder(Cart.this);
         alert.setTitle("Confirm!!");
         alert.setMessage("Enter your address: ");
-        final EditText editText = new EditText(Cart.this);
+
+        final TextInputEditText edit_address = new TextInputEditText(Cart.this);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-        editText.setLayoutParams(params);
-        alert.setView(editText);
+        edit_address.setLayoutParams(params);
+        alert.setView(edit_address);
 
         alert.setIcon(R.drawable.baseline_add_shopping_cart_24);
 
         alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Request request = new Request(Common.CURRENTUSER.getPhone(), Common.CURRENTUSER.getName(), editText.getText().toString(), tv_total.getText().toString(), cart);
+                Request request = new Request(Common.CURRENTUSER.getPhone(), Common.CURRENTUSER.getName(), edit_address.getText().toString(), tv_total.getText().toString(), cart);
                 requests.child(String.valueOf(System.currentTimeMillis())).setValue(request);
                 new Database(getBaseContext()).cleanCart();
                 Toast.makeText(getBaseContext(), "Thank you", Toast.LENGTH_SHORT).show();

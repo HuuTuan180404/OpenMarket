@@ -100,7 +100,7 @@ public class Login extends AppCompatActivity {
         });
 
 //
-//        signIn("nguyenhuutuan1704@gmail.com", "123456");
+        login("ngay26thang6nam2021@gmail.com", "123456");
     }
 
     private void login(String email, String password) {
