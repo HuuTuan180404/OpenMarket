@@ -1,22 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-    android:id="@+id/action_default"
-    android:orderInCategory="100"
-    android:title="Default"
-    app:showAsAction="never" />
+        android:id="@+id/action_search"
+        android:orderInCategory="100"
+        android:title="Search"
+        android:icon="@drawable/ic_search"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/action_default"
+        android:orderInCategory="200"
+        android:title="Default"
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/action_round_rect"
-        android:orderInCategory="100"
+        android:orderInCategory="300"
         android:title="Rounded Rectangle"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/action_round_right"
-        android:orderInCategory="100"
+        android:orderInCategory="400"
         android:title="Rounded Right Corner"
         app:showAsAction="never" />
+
 </menu>

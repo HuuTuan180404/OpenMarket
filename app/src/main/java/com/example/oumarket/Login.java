@@ -127,7 +127,7 @@ public class Login extends AppCompatActivity {
                                 AlertDialog.Builder alert = new AlertDialog.Builder(Login.this);
                                 alert.setTitle("Warming!");
                                 alert.setMessage("Please check your email and click the URL to activate your account");
-                                alert.setIcon(R.drawable.baseline_info_24);
+                                alert.setIcon(R.drawable.ic_info_24);
 
                                 alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                     @Override

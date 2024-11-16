@@ -36,6 +36,8 @@ android {
 }
 
 dependencies {
+
+    implementation(libs.materialSearchBar)
     implementation(libs.firebase.auth)
     implementation(libs.sqliteassethelper)
     implementation(libs.design)

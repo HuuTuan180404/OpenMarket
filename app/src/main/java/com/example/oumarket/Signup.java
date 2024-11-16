@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,10 +14,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
-import com.example.oumarket.Class.Request;
 import com.example.oumarket.Class.User;
 import com.example.oumarket.Common.Common;
-import com.example.oumarket.Database.Database;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
@@ -28,7 +24,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class Signup extends AppCompatActivity {
@@ -144,7 +139,7 @@ public class Signup extends AppCompatActivity {
         AlertDialog.Builder alert = new AlertDialog.Builder(Signup.this);
         alert.setTitle("Successfully!");
         alert.setMessage("Please check your email and click the URL to activate your account");
-        alert.setIcon(R.drawable.baseline_account_circle_24);
+        alert.setIcon(R.drawable.ic_account_circle_24);
 
         alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override

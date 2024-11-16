@@ -45,7 +45,6 @@ public class FoodDetail extends AppCompatActivity {
 
     String foodId = "";
 
-    FirebaseDatabase database;
     DatabaseReference databaseReference;
 
     Food currentFood;
@@ -57,8 +56,7 @@ public class FoodDetail extends AppCompatActivity {
         setContentView(R.layout.activity_food_detail);
 
 //         innit firebase
-        database = FirebaseDatabase.getInstance();
-        databaseReference = database.getReference("Foods");
+        databaseReference = Common.FIREBASE_DATABASE.getReference("Foods");
 
 //         init view
         button_cart = findViewById(R.id.button_cart);

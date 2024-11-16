@@ -29,30 +29,6 @@
         android:textColor="@color/color_text_background"
         android:textSize="40sp" />
 
-    <!--        <com.rengwuxian.materialedittext.MaterialEditText-->
-    <!--            android:id="@+id/edit_email"-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:layout_marginLeft="10dp"-->
-    <!--            android:layout_marginRight="10dp"-->
-    <!--            android:layout_marginBottom="10dp"-->
-    <!--            android:hint="OU's email"-->
-    <!--            android:text="nguyenhuutuan1704@gmail.com"-->
-    <!--            android:textSize="30sp" />-->
-
-
-    <!--    <com.rengwuxian.materialedittext.MaterialEditText-->
-    <!--        android:id="@+id/edit_password"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginLeft="10dp"-->
-    <!--        android:layout_marginTop="10dp"-->
-    <!--        android:layout_marginRight="10dp"-->
-    <!--        android:hint="PassWord"-->
-    <!--        android:inputType="textPassword"-->
-    <!--        android:text="123456"-->
-    <!--        android:textSize="30sp" />-->
-
     <com.google.android.material.textfield.TextInputLayout
         style="@style/ThemeOverlay.Material3.AutoCompleteTextView.OutlinedBox"
         android:layout_width="match_parent"

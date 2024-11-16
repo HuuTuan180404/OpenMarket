@@ -3,7 +3,6 @@ package com.example.oumarket;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,7 +20,6 @@ import com.example.oumarket.Common.Common;
 import com.example.oumarket.Database.Database;
 import com.example.oumarket.ViewHolder.CartAdapter;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
@@ -74,7 +72,7 @@ public class Cart extends AppCompatActivity {
         edit_address.setLayoutParams(params);
         alert.setView(edit_address);
 
-        alert.setIcon(R.drawable.baseline_add_shopping_cart_24);
+        alert.setIcon(R.drawable.ic_add_shopping_cart_24);
 
         alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override

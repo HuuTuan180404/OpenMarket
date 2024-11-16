@@ -34,6 +34,7 @@ design = "26.+"
 firebase-auth="21.0.1"
 sqliteassethelper="+"
 annotation = "1.6.0"
+materialSearchBar="0.8.3"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -68,6 +69,8 @@ design = { group = "com.android.support", name = "design", version.ref = "design
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebase-auth" }
 sqliteassethelper = { group = "com.readystatesoftware.sqliteasset", name = "sqliteassethelper", version.ref = "sqliteassethelper" }
 annotation = { group = "androidx.annotation", name = "annotation", version.ref = "annotation" }
+materialSearchBar = { group = "com.github.mancj", name = "MaterialSearchBar", version.ref = "materialSearchBar" }
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

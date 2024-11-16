@@ -8,20 +8,20 @@
         android:checkableBehavior="single">
         <item
             android:id="@+id/nav_menu"
-            android:icon="@drawable/baseline_collections_bookmark_24"
+            android:icon="@drawable/ic_collections_bookmark_24"
             android:title="Menu" />
         <item
             android:id="@+id/nav_cart"
-            android:icon="@drawable/baseline_add_shopping_cart_24"
+            android:icon="@drawable/ic_add_shopping_cart_24"
             android:title="Cart" />
         <item
             android:id="@+id/nav_orders"
-            android:icon="@drawable/baseline_attach_money_64"
+            android:icon="@drawable/ic_attach_money_64"
             android:title="Orders" />
 
         <item
             android:id="@+id/nav_log_out"
-            android:icon="@drawable/baseline_exit_to_app_24"
+            android:icon="@drawable/ic_exit_to_app_24"
             android:title="Log out" />
     </group>
 </menu>

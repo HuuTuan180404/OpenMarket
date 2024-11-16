@@ -20,6 +20,7 @@ import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.widget.SearchView;
 import androidx.core.view.GravityCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -29,9 +30,14 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.oumarket.databinding.ActivityHomeBinding;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Home extends AppCompatActivity {
 
@@ -43,7 +49,9 @@ public class Home extends AppCompatActivity {
 
     androidx.recyclerview.widget.RecyclerView recycler_menu, recycler_category1;
     FirebaseRecyclerAdapter<Category, CategoryViewHolder> adapter;
-    FirebaseRecyclerAdapter<Food, FoodViewHolder> adapterFood;
+    FirebaseRecyclerAdapter<Food, FoodViewHolder> adapterFood, foodSuggest;
+
+    List<Food> suggestFood = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +72,6 @@ public class Home extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
 
 
         DrawerLayout drawer = binding.drawerLayout;
@@ -109,7 +116,10 @@ public class Home extends AppCompatActivity {
         recycler_category1 = findViewById(R.id.recycler_category1);
         loadRecyclerCategory();
 
+//        loadSuggestSearch("a");
+
     }
+
 
     private void loadRecycler() {
         adapter = new FirebaseRecyclerAdapter<Category, CategoryViewHolder>(Category.class, R.layout.item_category, CategoryViewHolder.class, category) {
@@ -163,9 +173,64 @@ public class Home extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.home, menu);
+
+        MenuItem item = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) item.getActionView();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                loadSuggestSearch(query.toLowerCase());
+
+                for (Food food : suggestFood) {
+                    Log.d(Common.TAG, food.getName());
+                }
+
+
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
+
+        searchView.setOnCloseListener(() -> {
+            searchView.onActionViewCollapsed(); // Đóng SearchView
+            return true;
+        });
+
         return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    private void loadSuggestSearch(String name) {
+        foodList.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    Food food = dataSnapshot.getValue(Food.class);
+                    if (food.getName().toLowerCase().contains(name)) {
+                        suggestFood.add(food);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 
     @Override
