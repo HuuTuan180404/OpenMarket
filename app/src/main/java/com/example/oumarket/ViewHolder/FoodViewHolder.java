@@ -5,6 +5,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.oumarket.Interface.ItemClickListener;
@@ -14,6 +15,7 @@ public class FoodViewHolder extends RecyclerView.ViewHolder implements View.OnCl
 
     public TextView food_name;
     public ImageView food_image;
+    public CardView cardView;
 
     private ItemClickListener itemClickListener;
 
@@ -25,6 +27,7 @@ public class FoodViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         super(itemView);
         food_name = itemView.findViewById(R.id.food_name);
         food_image = itemView.findViewById(R.id.food_image);
+        cardView=itemView.findViewById(R.id.card_food);
         itemView.setOnClickListener(this);
     }
 

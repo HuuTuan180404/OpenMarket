@@ -28,7 +28,7 @@ public class OrderStatus extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_order_status);
 
-        databaseReference = Common.FIREBASE_DATABASE.getReference("Requests");
+        databaseReference = Common.FIREBASE_DATABASE.getReference(Common.REF_REQUESTS);
 
         recyclerView = findViewById(R.id.recycler_order);
 

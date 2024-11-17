@@ -41,7 +41,7 @@ public class Signup extends AppCompatActivity {
         setContentView(R.layout.activity_signup);
 
 
-        table_user = Common.FIREBASE_DATABASE.getReference("User");
+        table_user = Common.FIREBASE_DATABASE.getReference(Common.REF_USERS);
 
         edit_name = findViewById(R.id.edit_name_user);
         edit_email = findViewById(R.id.edit_email_signup);

@@ -47,7 +47,7 @@ public class Login extends AppCompatActivity {
         mDialog.setMessage("Waiting...");
 
 //         firebase
-        table_user = Common.FIREBASE_DATABASE.getReference("User");
+        table_user = Common.FIREBASE_DATABASE.getReference(Common.REF_USERS);
         firebaseAuth = FirebaseAuth.getInstance();
 
         edit_email = findViewById(R.id.edit_email);

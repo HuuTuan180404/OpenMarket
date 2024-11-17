@@ -3,6 +3,7 @@ package com.example.oumarket;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,7 +35,7 @@ public class FoodList extends AppCompatActivity {
         setContentView(R.layout.activity_food_list);
 
 //         firebase
-        foodList = Common.FIREBASE_DATABASE.getReference("Foods");
+        foodList = Common.FIREBASE_DATABASE.getReference(Common.REF_FOODS);
 
         recyclerView = findViewById(R.id.recycler_food);
 
@@ -68,6 +69,7 @@ public class FoodList extends AppCompatActivity {
                         startActivity(foodDetail);
                     }
                 }));
+                foodViewHolder.cardView.startAnimation(AnimationUtils.loadAnimation(foodViewHolder.itemView.getContext(), R.anim.anim_recycler_linearlayout));
             }
         };
 

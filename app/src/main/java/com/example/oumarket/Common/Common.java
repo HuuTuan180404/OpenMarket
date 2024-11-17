@@ -16,6 +16,10 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Map;
 
 public class Common {
+    public static final String REF_CATEGORIES="Category";
+    public static final String REF_FOODS="Foods";
+    public static final String REF_USERS="User";
+    public static final String REF_REQUESTS="Requests";
     public static User CURRENTUSER;
     public static final String TAG = "ZZZZZ";
     public static final FirebaseDatabase FIREBASE_DATABASE = FirebaseDatabase.getInstance();

@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.oumarket.Class.Category;
 import com.example.oumarket.Class.Food;
@@ -51,7 +52,9 @@ public class Home extends AppCompatActivity {
     FirebaseRecyclerAdapter<Category, CategoryViewHolder> adapter;
     FirebaseRecyclerAdapter<Food, FoodViewHolder> adapterFood, foodSuggest;
 
-    List<Food> suggestFood = new ArrayList<>();
+    List<Food> foods = new ArrayList<>();
+
+    SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,9 +63,9 @@ public class Home extends AppCompatActivity {
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        category = Common.FIREBASE_DATABASE.getReference("Category");
+        category = Common.FIREBASE_DATABASE.getReference(Common.REF_CATEGORIES);
 
-        foodList = Common.FIREBASE_DATABASE.getReference("Foods");
+        foodList = Common.FIREBASE_DATABASE.getReference(Common.REF_FOODS);
 
         setSupportActionBar(binding.appBarHome.toolbar);
         binding.appBarHome.fab.setOnClickListener(new View.OnClickListener() {
@@ -72,7 +75,6 @@ public class Home extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
 
         DrawerLayout drawer = binding.drawerLayout;
 
@@ -117,6 +119,7 @@ public class Home extends AppCompatActivity {
         loadRecyclerCategory();
 
 //        loadSuggestSearch("a");
+        loadAllFood();
 
     }
 
@@ -176,27 +179,23 @@ public class Home extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.home, menu);
 
         MenuItem item = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView) item.getActionView();
+        searchView = (SearchView) item.getActionView();
+        searchView.clearFocus();
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                loadSuggestSearch(query.toLowerCase());
-
-                for (Food food : suggestFood) {
-                    Log.d(Common.TAG, food.getName());
-                }
-
-
-                return true;
+                return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                return false;
+
+                filterList(newText.toLowerCase());
+
+                return true;
             }
         });
-
 
         searchView.setOnCloseListener(() -> {
             searchView.onActionViewCollapsed(); // Đóng SearchView
@@ -206,22 +205,35 @@ public class Home extends AppCompatActivity {
         return true;
     }
 
+    private void filterList(String text) {
+        List<Food> filter = new ArrayList<>();
+        for (Food food : foods) {
+            if (food.getName().toLowerCase().contains(text)) {
+                filter.add(food);
+            }
+        }
+
+        if (filter.isEmpty()) {
+            Toast.makeText(this, "No data found", Toast.LENGTH_SHORT).show();
+        }
+        else {
+
+        }
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         return super.onOptionsItemSelected(item);
     }
 
-
-    private void loadSuggestSearch(String name) {
+    private void loadAllFood() {
         foodList.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Food food = dataSnapshot.getValue(Food.class);
-                    if (food.getName().toLowerCase().contains(name)) {
-                        suggestFood.add(food);
-                    }
+                    foods.add(food);
                 }
             }
 
