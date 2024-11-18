@@ -112,19 +112,17 @@ public class Home extends AppCompatActivity {
 
         // load recycler menu
         recycler_menu = findViewById(R.id.recycler_menu);
-        loadRecycler();
+        setupRecyclerCategories();
 
         // load recycler category
         recycler_category1 = findViewById(R.id.recycler_category1);
-        loadRecyclerCategory();
+        setupRecyclerCategory();
 
-//        loadSuggestSearch("a");
         loadAllFood();
 
     }
 
-
-    private void loadRecycler() {
+    private void setupRecyclerCategories() {
         adapter = new FirebaseRecyclerAdapter<Category, CategoryViewHolder>(Category.class, R.layout.item_category, CategoryViewHolder.class, category) {
             @Override
             protected void populateViewHolder(CategoryViewHolder menuViewHolder, Category category, int i) {
@@ -148,7 +146,7 @@ public class Home extends AppCompatActivity {
         SetUpRecyclerView.setupGridLayout(this, recycler_menu, adapter, 2, androidx.recyclerview.widget.RecyclerView.HORIZONTAL);
     }
 
-    private void loadRecyclerCategory() {
+    private void setupRecyclerCategory() {
         adapterFood = new FirebaseRecyclerAdapter<Food, FoodViewHolder>(Food.class, R.layout.item_food, FoodViewHolder.class, foodList.orderByChild("MenuID").equalTo("0001")) {
             @Override
             protected void populateViewHolder(FoodViewHolder foodViewHolder, Food food, int i) {
@@ -170,7 +168,6 @@ public class Home extends AppCompatActivity {
                 }));
             }
         };
-//        recycler_menu.setAdapter(adapter);
         SetUpRecyclerView.setupGridLayout(this, recycler_category1, adapterFood, 1, androidx.recyclerview.widget.RecyclerView.HORIZONTAL);
     }
 
@@ -215,8 +212,7 @@ public class Home extends AppCompatActivity {
 
         if (filter.isEmpty()) {
             Toast.makeText(this, "No data found", Toast.LENGTH_SHORT).show();
-        }
-        else {
+        } else {
 
         }
     }

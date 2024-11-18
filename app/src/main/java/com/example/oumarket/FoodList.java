@@ -2,6 +2,7 @@ package com.example.oumarket;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AnimationUtils;
@@ -13,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.oumarket.Class.Category;
 import com.example.oumarket.Class.Food;
 import com.example.oumarket.Class.SetUpRecyclerView;
 import com.example.oumarket.Common.Common;
@@ -48,7 +50,10 @@ public class FoodList extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_food_list);
 
+
         toolbar = findViewById(R.id.toolbar);
+
+        toolbar.setTitle("Category");
         setSupportActionBar(toolbar);
 
         // Hiển thị nút mũi tên trở về
@@ -75,26 +80,26 @@ public class FoodList extends AppCompatActivity {
             }
         });
 
+        searchView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchView.setFocusable(true);
+            }
+        });
+
 //        get intent here
         if (getIntent() != null) {
             categoryId = getIntent().getStringExtra("CategoryId");
         }
         if (!categoryId.isEmpty() && categoryId != "") {
-            loadListFood(categoryId);
+            setupRecycler(categoryId);
         }
 
-        loadListFood(categoryId);
-
-    }
-
-    private void loadFullSuggest() {
-        foodList.addValueEventListener(new ValueEventListener() {
+        Common.FIREBASE_DATABASE.getReference(Common.REF_CATEGORIES).child(categoryId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    Food food = dataSnapshot.getValue(Food.class);
-                    allSuggest.add(food);
-                }
+                String name = snapshot.getValue(Category.class).getName();
+                getSupportActionBar().setTitle(name);
             }
 
             @Override
@@ -102,14 +107,12 @@ public class FoodList extends AppCompatActivity {
 
             }
         });
+
+        setupRecycler(categoryId);
+
     }
 
-    private void filterSuggest(String text) {
-
-    }
-
-
-    private void loadListFood(String categoryId) {
+    private void setupRecycler(String categoryId) {
         adapter = new FirebaseRecyclerAdapter<Food, FoodViewHolder>(Food.class, R.layout.item_food, FoodViewHolder.class, foodList.orderByChild("MenuID").equalTo(categoryId)) {
             @Override
             protected void populateViewHolder(FoodViewHolder foodViewHolder, Food food, int i) {
