@@ -15,7 +15,6 @@ import com.example.oumarket.Class.SetUpRecyclerView;
 import com.example.oumarket.Common.Common;
 import com.example.oumarket.Interface.ItemClickListener;
 import com.example.oumarket.ViewHolder.CategoryViewHolder;
-import com.example.oumarket.ViewHolder.FoodViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.material.navigation.NavigationView;
 
@@ -50,7 +49,7 @@ public class Home extends AppCompatActivity {
 
     androidx.recyclerview.widget.RecyclerView recycler_menu, recycler_category1;
     FirebaseRecyclerAdapter<Category, CategoryViewHolder> adapter;
-    FirebaseRecyclerAdapter<Food, FoodViewHolder> adapterFood, foodSuggest;
+//    FirebaseRecyclerAdapter<Food, FoodViewHolder> adapterFood, foodSuggest;
 
     List<Food> foods = new ArrayList<>();
 
@@ -147,28 +146,30 @@ public class Home extends AppCompatActivity {
     }
 
     private void setupRecyclerCategory() {
-        adapterFood = new FirebaseRecyclerAdapter<Food, FoodViewHolder>(Food.class, R.layout.item_food, FoodViewHolder.class, foodList.orderByChild("MenuID").equalTo("0001")) {
-            @Override
-            protected void populateViewHolder(FoodViewHolder foodViewHolder, Food food, int i) {
+//        adapterFood = new FirebaseRecyclerAdapter<Food, FoodViewHolder>(Food.class, R.layout.item_food, FoodViewHolder.class, foodList.orderByChild("MenuID").equalTo("0001")) {
+//            @Override
+//            protected void populateViewHolder(FoodViewHolder foodViewHolder, Food food, int i) {
+//
+////                load image from github
+//                String path = food.getURL();
+//
+//                Picasso.get().load(path).into(foodViewHolder.food_image);
+//
+//                foodViewHolder.food_name.setText(food.getName());
+//
+//                foodViewHolder.setItemClickListener((new ItemClickListener() {
+//                    @Override
+//                    public void onClick(View view, int position, boolean isLongClick) {
+//                        Intent foodDetail = new Intent(Home.this, FoodDetail.class);
+//                        foodDetail.putExtra("FoodId", adapter.getRef(position).getKey());
+//                        startActivity(foodDetail);
+//                    }
+//                }));
+//            }
+//        };
+//        SetUpRecyclerView.setupGridLayout(this, recycler_category1, adapterFood, 1, androidx.recyclerview.widget.RecyclerView.HORIZONTAL);
 
-//                load image from github
-                String path = food.getURL();
 
-                Picasso.get().load(path).into(foodViewHolder.food_image);
-
-                foodViewHolder.food_name.setText(food.getName());
-
-                foodViewHolder.setItemClickListener((new ItemClickListener() {
-                    @Override
-                    public void onClick(View view, int position, boolean isLongClick) {
-                        Intent foodDetail = new Intent(Home.this, FoodDetail.class);
-                        foodDetail.putExtra("FoodId", adapter.getRef(position).getKey());
-                        startActivity(foodDetail);
-                    }
-                }));
-            }
-        };
-        SetUpRecyclerView.setupGridLayout(this, recycler_category1, adapterFood, 1, androidx.recyclerview.widget.RecyclerView.HORIZONTAL);
     }
 
     @Override

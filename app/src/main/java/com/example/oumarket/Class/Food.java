@@ -1,6 +1,7 @@
 package com.example.oumarket.Class;
 
 public class Food {
+    private String id="";
     private String Description;
     private String Discount;
     private String Image;
@@ -20,6 +21,14 @@ public class Food {
         Name = name;
         Price = price;
         this.URL = URL;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getURL() {

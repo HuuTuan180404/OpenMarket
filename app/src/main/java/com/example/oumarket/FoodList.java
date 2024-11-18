@@ -2,7 +2,6 @@ package com.example.oumarket;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AnimationUtils;
@@ -19,7 +18,7 @@ import com.example.oumarket.Class.Food;
 import com.example.oumarket.Class.SetUpRecyclerView;
 import com.example.oumarket.Common.Common;
 import com.example.oumarket.Interface.ItemClickListener;
-import com.example.oumarket.ViewHolder.FoodViewHolder;
+import com.example.oumarket.ViewHolder.FoodAdapter;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -40,7 +39,9 @@ public class FoodList extends AppCompatActivity {
 
     SearchView searchView;
     Toolbar toolbar;
-    FirebaseRecyclerAdapter<Food, FoodViewHolder> adapter;
+//    FirebaseRecyclerAdapter<Food, FoodViewHolder> adapter;
+
+    FoodAdapter adapter;
 
     List<Food> allSuggest = new ArrayList<>();
 
@@ -95,6 +96,7 @@ public class FoodList extends AppCompatActivity {
             setupRecycler(categoryId);
         }
 
+//        titel
         Common.FIREBASE_DATABASE.getReference(Common.REF_CATEGORIES).child(categoryId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -113,28 +115,47 @@ public class FoodList extends AppCompatActivity {
     }
 
     private void setupRecycler(String categoryId) {
-        adapter = new FirebaseRecyclerAdapter<Food, FoodViewHolder>(Food.class, R.layout.item_food, FoodViewHolder.class, foodList.orderByChild("MenuID").equalTo(categoryId)) {
+//        adapter = new FirebaseRecyclerAdapter<Food, FoodViewHolder>(Food.class, R.layout.item_food, FoodViewHolder.class, foodList.orderByChild("MenuID").equalTo(categoryId)) {
+//            @Override
+//            protected void populateViewHolder(FoodViewHolder foodViewHolder, Food food, int i) {
+////                load image from github
+//                String path = food.getURL();
+//                Picasso.get().load(path).into(foodViewHolder.food_image);
+//
+//                foodViewHolder.food_name.setText(food.getName());
+//
+//                foodViewHolder.setItemClickListener((new ItemClickListener() {
+//                    @Override
+//                    public void onClick(View view, int position, boolean isLongClick) {
+//                        Intent foodDetail = new Intent(FoodList.this, FoodDetail.class);
+//                        foodDetail.putExtra("FoodId", adapter.getRef(position).getKey());
+//                        startActivity(foodDetail);
+//                    }
+//                }));
+//                foodViewHolder.cardView.startAnimation(AnimationUtils.loadAnimation(foodViewHolder.itemView.getContext(), R.anim.anim_recycler_linearlayout));
+//            }
+//        };
+        foodList.orderByChild("MenuID").equalTo(categoryId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            protected void populateViewHolder(FoodViewHolder foodViewHolder, Food food, int i) {
-//                load image from github
-                String path = food.getURL();
-                Picasso.get().load(path).into(foodViewHolder.food_image);
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                List<Food> list = new ArrayList<>();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    Food food = dataSnapshot.getValue(Food.class);
+                    food.setId(dataSnapshot.getKey());
+                    list.add(food);
+                }
 
-                foodViewHolder.food_name.setText(food.getName());
-
-                foodViewHolder.setItemClickListener((new ItemClickListener() {
-                    @Override
-                    public void onClick(View view, int position, boolean isLongClick) {
-                        Intent foodDetail = new Intent(FoodList.this, FoodDetail.class);
-                        foodDetail.putExtra("FoodId", adapter.getRef(position).getKey());
-                        startActivity(foodDetail);
-                    }
-                }));
-                foodViewHolder.cardView.startAnimation(AnimationUtils.loadAnimation(foodViewHolder.itemView.getContext(), R.anim.anim_recycler_linearlayout));
+                adapter = new FoodAdapter(list, FoodList.this);
+                SetUpRecyclerView.setupGridLayout(FoodList.this, recyclerView, adapter, 2, RecyclerView.VERTICAL);
             }
-        };
 
-        SetUpRecyclerView.setupGridLayout(this, recyclerView, adapter, 2, RecyclerView.VERTICAL);
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
     }
 
     @Override
