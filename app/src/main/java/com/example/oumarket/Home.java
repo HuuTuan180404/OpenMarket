@@ -87,7 +87,6 @@ public class Home extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
                 if (id == R.id.nav_menu) {
-                    Log.d(Common.TAG, "menu");
                 } else if (id == R.id.nav_cart) {
                     Intent intent = new Intent(Home.this, Cart.class);
                     startActivity(intent);
