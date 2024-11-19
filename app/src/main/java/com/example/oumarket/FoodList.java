@@ -1,10 +1,14 @@
 package com.example.oumarket;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.SearchView;
+import android.widget.ImageView;
+import android.widget.Toast;
 
+import androidx.appcompat.widget.SearchView;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,11 +38,7 @@ public class FoodList extends AppCompatActivity {
 
     SearchView searchView;
     Toolbar toolbar;
-//    FirebaseRecyclerAdapter<Food, FoodViewHolder> adapter;
-
     FoodAdapter adapter;
-
-    List<Food> allSuggest = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,36 +46,20 @@ public class FoodList extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_food_list);
 
-
         toolbar = findViewById(R.id.toolbar);
 
         toolbar.setTitle("Category");
         setSupportActionBar(toolbar);
 
-        // Hiển thị nút mũi tên trở về
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
+//         Hiển thị nút mũi tên trở về
+//        if (getSupportActionBar() != null) {
+//            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        }
 
 //         firebase
         foodList = Common.FIREBASE_DATABASE.getReference(Common.REF_FOODS);
 
         recyclerView = findViewById(R.id.recycler_food);
-
-        searchView = findViewById(R.id.search_bar_food_list);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                filter(query);
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                filter(newText);
-                return false;
-            }
-        });
 
 //        get intent here
         if (getIntent() != null) {
@@ -85,7 +69,7 @@ public class FoodList extends AppCompatActivity {
             setupRecycler(categoryId);
         }
 
-//        titel
+//        title
         Common.FIREBASE_DATABASE.getReference(Common.REF_CATEGORIES).child(categoryId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -118,12 +102,11 @@ public class FoodList extends AppCompatActivity {
                 }
 
                 if (!list.isEmpty()) {
-                    adapter.setList(list);
-                    adapter.notifyDataSetChanged();
-                } else {
-                    adapter.setList(list);
-                    adapter.notifyDataSetChanged();
+                    Toast.makeText(FoodList.this, "No data found", Toast.LENGTH_SHORT).show();
                 }
+
+                adapter.setList(list);
+                adapter.notifyDataSetChanged();
 
             }
 
@@ -154,6 +137,39 @@ public class FoodList extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_food_list, menu);
+
+        MenuItem item = menu.findItem(R.id.action_search);
+
+        searchView = (SearchView) item.getActionView();
+
+
+        searchView.clearFocus();
+
+        searchView.setOnQueryTextListener(new androidx.appcompat.widget.SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                filter(query.toLowerCase());
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filter(newText.toLowerCase());
+                return true;
+            }
+        });
+
+        searchView.setOnCloseListener(() -> {
+            searchView.onActionViewCollapsed();
+            return true;
+        });
+
+        return true;
     }
 
     @Override

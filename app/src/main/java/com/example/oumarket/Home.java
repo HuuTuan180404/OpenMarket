@@ -49,7 +49,6 @@ public class Home extends AppCompatActivity {
 
     androidx.recyclerview.widget.RecyclerView recycler_menu, recycler_category1;
     FirebaseRecyclerAdapter<Category, CategoryViewHolder> adapter;
-//    FirebaseRecyclerAdapter<Food, FoodViewHolder> adapterFood, foodSuggest;
 
     List<Food> foods = new ArrayList<>();
 
@@ -174,7 +173,6 @@ public class Home extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.home, menu);
-
         MenuItem item = menu.findItem(R.id.action_search);
         searchView = (SearchView) item.getActionView();
         searchView.clearFocus();
