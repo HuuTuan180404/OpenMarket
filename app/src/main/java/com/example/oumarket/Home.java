@@ -2,18 +2,17 @@ package com.example.oumarket;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Menu;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.oumarket.Class.Category;
 import com.example.oumarket.Class.Food;
-import com.example.oumarket.Class.SetUpRecyclerView;
 import com.example.oumarket.Common.Common;
-import com.example.oumarket.Interface.ItemClickListener;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
@@ -28,8 +27,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.oumarket.databinding.ActivityHomeBinding;
-import com.google.firebase.database.DatabaseReference;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +40,9 @@ public class Home extends AppCompatActivity {
 
     List<Food> foods = new ArrayList<>();
 
+    FrameLayout frameLayout_home, frameLayout_search;
     SearchView searchView;
+    FragmentHomeSearch fragmentHomeSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +52,6 @@ public class Home extends AppCompatActivity {
         setContentView(binding.getRoot());
 
 //        content home
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_home, new FragmentHome()).commit();
 
         setSupportActionBar(binding.appBarHome.toolbar);
         binding.appBarHome.fab.setOnClickListener(new View.OnClickListener() {
@@ -92,10 +90,27 @@ public class Home extends AppCompatActivity {
             }
         });
 
+
+//
+
+//        FrameLayout fragmentManager = findViewById(R.id.fragment_search);
+
+        fragmentHomeSearch = new FragmentHomeSearch("");
+
+        frameLayout_home = findViewById(R.id.fragment_home);
+        frameLayout_search = findViewById(R.id.fragment_search);
+        vissibaleFragmentSearch();
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_home, new FragmentHome()).commit();
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_search, fragmentHomeSearch).commit();
+
+
 //        init name for user
         View heardView = navigationView.getHeaderView(0);
         txt_full_name = heardView.findViewById(R.id.txt_full_name);
         txt_full_name.setText(Common.CURRENTUSER.getName());
+
 
     }
 
@@ -126,6 +141,33 @@ public class Home extends AppCompatActivity {
 //
 //    }
 
+    private void vissibaleFragmentSearch() {
+        frameLayout_home.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    // Ẩn fragmentContainer2 nếu nó đang hiển thị
+                    if (frameLayout_search.getVisibility() == View.VISIBLE) {
+                        frameLayout_search.setVisibility(View.GONE);
+                    }
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        frameLayout_search.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    return true;
+                }
+                return false;
+            }
+        });
+    }
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.home, menu);
@@ -133,46 +175,39 @@ public class Home extends AppCompatActivity {
         searchView = (SearchView) item.getActionView();
         searchView.clearFocus();
 
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                fragmentHomeSearch.setText(query.toLowerCase());
+                frameLayout_search.setVisibility(View.VISIBLE);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-
-                filterList(newText.toLowerCase());
-
+                fragmentHomeSearch.setText(newText.toLowerCase());
+                frameLayout_search.setVisibility(View.VISIBLE);
                 return true;
             }
         });
 
         searchView.setOnCloseListener(() -> {
-            searchView.onActionViewCollapsed(); // Đóng SearchView
+            frameLayout_search.setVisibility(View.GONE);
+            searchView.onActionViewCollapsed();
             return true;
         });
 
         return true;
     }
 
-    private void filterList(String text) {
-        List<Food> filter = new ArrayList<>();
-        for (Food food : foods) {
-            if (food.getName().toLowerCase().contains(text)) {
-                filter.add(food);
-            }
-        }
-
-        if (filter.isEmpty()) {
-            Toast.makeText(this, "No data found", Toast.LENGTH_SHORT).show();
-        } else {
-
-        }
-    }
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if (item.getItemId() == R.id.action_search) {
+            Log.d("ZZZZZ", "action_search");
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
