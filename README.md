@@ -1,8 +1,13 @@
 Link to get URL of Image: https://github.com/HuuTuan180404/Image_OU-sMarket
 
 
-Install App
+How to Install this app
 
-![image](https://github.com/user-attachments/assets/6989d4f7-881e-44d3-9e03-0cc06c617362)
+First, download google-services.json file
 
-![image](https://github.com/user-attachments/assets/39820f7e-d0a3-4bbb-9f4b-eae94fd82539)
+Second, move your downloaded google-services.json file
+into your module (app-level) root directory, like that: 
+          ![image](https://github.com/user-attachments/assets/89937e3f-d705-426c-aaf0-97632dc0a135)
+
+
+
