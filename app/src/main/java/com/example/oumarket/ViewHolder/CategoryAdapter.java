@@ -1,5 +1,6 @@
 package com.example.oumarket.ViewHolder;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -84,7 +85,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CategoryViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Picasso.get().load(list.get(position).getURL()).into(holder.imageView);
         holder.txtMenuName.setText(list.get(position).getName());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
