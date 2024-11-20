@@ -1,11 +1,8 @@
 package com.example.oumarket;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.SearchView;
@@ -50,11 +47,6 @@ public class FoodList extends AppCompatActivity {
 
         toolbar.setTitle("Category");
         setSupportActionBar(toolbar);
-
-//         Hiển thị nút mũi tên trở về
-//        if (getSupportActionBar() != null) {
-//            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        }
 
 //         firebase
         foodList = Common.FIREBASE_DATABASE.getReference(Common.REF_FOODS);
@@ -146,7 +138,6 @@ public class FoodList extends AppCompatActivity {
         MenuItem item = menu.findItem(R.id.action_search);
 
         searchView = (SearchView) item.getActionView();
-
 
         searchView.clearFocus();
 

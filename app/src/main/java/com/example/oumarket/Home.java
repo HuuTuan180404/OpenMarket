@@ -2,7 +2,6 @@ package com.example.oumarket;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
@@ -14,7 +13,6 @@ import com.example.oumarket.Class.Food;
 import com.example.oumarket.Class.SetUpRecyclerView;
 import com.example.oumarket.Common.Common;
 import com.example.oumarket.Interface.ItemClickListener;
-import com.example.oumarket.ViewHolder.CategoryViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.material.navigation.NavigationView;
 
@@ -30,10 +28,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.oumarket.databinding.ActivityHomeBinding;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -44,11 +39,7 @@ public class Home extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityHomeBinding binding;
 
-    DatabaseReference category, foodList;
     TextView txt_full_name;
-
-    androidx.recyclerview.widget.RecyclerView recycler_menu, recycler_category1;
-    FirebaseRecyclerAdapter<Category, CategoryViewHolder> adapter;
 
     List<Food> foods = new ArrayList<>();
 
@@ -61,9 +52,8 @@ public class Home extends AppCompatActivity {
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        category = Common.FIREBASE_DATABASE.getReference(Common.REF_CATEGORIES);
-
-        foodList = Common.FIREBASE_DATABASE.getReference(Common.REF_FOODS);
+//        content home
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_home, new FragmentHome()).commit();
 
         setSupportActionBar(binding.appBarHome.toolbar);
         binding.appBarHome.fab.setOnClickListener(new View.OnClickListener() {
@@ -102,48 +92,14 @@ public class Home extends AppCompatActivity {
             }
         });
 
-        // init name for user
+//        init name for user
         View heardView = navigationView.getHeaderView(0);
         txt_full_name = heardView.findViewById(R.id.txt_full_name);
         txt_full_name.setText(Common.CURRENTUSER.getName());
 
-        // load recycler menu
-        recycler_menu = findViewById(R.id.recycler_menu);
-        setupRecyclerCategories();
-
-        // load recycler category
-        recycler_category1 = findViewById(R.id.recycler_category1);
-        setupRecyclerCategory();
-
-        loadAllFood();
-
     }
 
-    private void setupRecyclerCategories() {
-        adapter = new FirebaseRecyclerAdapter<Category, CategoryViewHolder>(Category.class, R.layout.item_category, CategoryViewHolder.class, category) {
-            @Override
-            protected void populateViewHolder(CategoryViewHolder menuViewHolder, Category category, int i) {
-                // load theo firebase storage
-                String path = category.getURL();
-                Picasso picasso = new Picasso.Builder(Home.this).build();
-                picasso.load(path).into(menuViewHolder.imageView);
-                menuViewHolder.txtMenuName.setText(category.getName());
-
-//                final Category clickItem = category;
-                menuViewHolder.setItemClickListener(new ItemClickListener() {
-                    @Override
-                    public void onClick(View view, int position, boolean isLongClick) {
-                        Intent foodList = new Intent(Home.this, FoodList.class);
-                        foodList.putExtra("CategoryId", adapter.getRef(position).getKey());
-                        startActivity(foodList);
-                    }
-                });
-            }
-        };
-        SetUpRecyclerView.setupGridLayout(this, recycler_menu, adapter, 2, androidx.recyclerview.widget.RecyclerView.HORIZONTAL);
-    }
-
-    private void setupRecyclerCategory() {
+//    private void setupRecyclerCategory() {
 //        adapterFood = new FirebaseRecyclerAdapter<Food, FoodViewHolder>(Food.class, R.layout.item_food, FoodViewHolder.class, foodList.orderByChild("MenuID").equalTo("0001")) {
 //            @Override
 //            protected void populateViewHolder(FoodViewHolder foodViewHolder, Food food, int i) {
@@ -166,9 +122,9 @@ public class Home extends AppCompatActivity {
 //            }
 //        };
 //        SetUpRecyclerView.setupGridLayout(this, recycler_category1, adapterFood, 1, androidx.recyclerview.widget.RecyclerView.HORIZONTAL);
-
-
-    }
+//
+//
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -215,28 +171,9 @@ public class Home extends AppCompatActivity {
         }
     }
 
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         return super.onOptionsItemSelected(item);
-    }
-
-    private void loadAllFood() {
-        foodList.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    Food food = dataSnapshot.getValue(Food.class);
-                    foods.add(food);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
     }
 
     @Override

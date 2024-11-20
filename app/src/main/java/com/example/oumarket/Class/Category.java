@@ -5,6 +5,7 @@ public class Category {
     private String Image;
     private String Name;
     private String URL;
+    private String id="";
 
 
     public Category() {
@@ -14,6 +15,14 @@ public class Category {
         Image = image;
         Name = name;
         URL = uRL;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getURL() {
