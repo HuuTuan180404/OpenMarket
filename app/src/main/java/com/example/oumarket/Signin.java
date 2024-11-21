@@ -89,6 +89,8 @@ public class Signin extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(Signin.this, "forgot password", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Signin.this, Requests.class);
+                startActivity(intent);
             }
         });
 
@@ -113,7 +115,7 @@ public class Signin extends AppCompatActivity {
                 login(user, password);
             }
         }
-        
+
 //        login("ngay26thang6nam2021@gmail.com", "123456");
 
     }

@@ -58,6 +58,7 @@ public class Home extends AppCompatActivity {
         binding.appBarHome.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                Intent intent = new Intent(Home.this, Requests.class);
                 Intent intent = new Intent(Home.this, Cart.class);
                 startActivity(intent);
             }
