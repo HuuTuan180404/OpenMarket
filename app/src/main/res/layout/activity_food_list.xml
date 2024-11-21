@@ -9,19 +9,17 @@
     android:orientation="vertical"
     tools:context=".FoodList">
 
-
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/Theme.OuMarket.AppBarOverlay">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/toolbar_FoodList"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/main_color"
             android:theme="@style/ThemeOverlay.AppCompat.SearchView"
-            app:menu="@menu/menu_food_list"
             app:navigationIcon="@drawable/ic_arrow_back_24"
             app:title="Title"
             app:titleTextColor="@android:color/white" />
@@ -44,8 +42,19 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_food"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="5sp"
         android:scrollbars="vertical" />
+
+    <com.rey.material.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="@dimen/fab_margin"
+        android:layout_marginBottom="16dp"
+        android:contentDescription=" "
+        app:fab_iconSrc="@drawable/ic_cart" />
+
 
 </LinearLayout>

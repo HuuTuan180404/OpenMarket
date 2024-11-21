@@ -27,7 +27,7 @@ import java.util.List;
 
 public class FoodList extends AppCompatActivity {
 
-    DatabaseReference foodList;
+    DatabaseReference data_foods;
 
     RecyclerView recyclerView;
 
@@ -43,13 +43,13 @@ public class FoodList extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_food_list);
 
-        toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar_FoodList);
 
         toolbar.setTitle("Category");
         setSupportActionBar(toolbar);
 
 //         firebase
-        foodList = Common.FIREBASE_DATABASE.getReference(Common.REF_FOODS);
+        data_foods = Common.FIREBASE_DATABASE.getReference(Common.REF_FOODS);
 
         recyclerView = findViewById(R.id.recycler_food);
 
@@ -80,7 +80,7 @@ public class FoodList extends AppCompatActivity {
     }
 
     private void filter(String text) {
-        foodList.orderByChild("MenuID").equalTo(categoryId).addListenerForSingleValueEvent(new ValueEventListener() {
+        data_foods.orderByChild("MenuID").equalTo(categoryId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
@@ -110,7 +110,7 @@ public class FoodList extends AppCompatActivity {
     }
 
     private void setupRecycler(String categoryId) {
-        foodList.orderByChild("MenuID").equalTo(categoryId).addListenerForSingleValueEvent(new ValueEventListener() {
+        data_foods.orderByChild("MenuID").equalTo(categoryId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 List<Food> list = new ArrayList<>();

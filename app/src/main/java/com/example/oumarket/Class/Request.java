@@ -8,10 +8,19 @@ public class Request {
     private String address;
     private String total;
     private List<Order> foods;
+    private String id = "";
 
     private String status;
 
     public Request() {
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public Request(String phone, String name, String address, String total, List<Order> foods) {
@@ -20,7 +29,7 @@ public class Request {
         this.address = address;
         this.total = total;
         this.foods = foods;
-        status="0";
+        status = "0";
     }
 
     public String getStatus() {

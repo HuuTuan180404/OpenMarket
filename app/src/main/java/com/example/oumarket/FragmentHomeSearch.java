@@ -3,23 +3,18 @@ package com.example.oumarket;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.oumarket.Class.Category;
 import com.example.oumarket.Class.Food;
 import com.example.oumarket.Class.SetUpRecyclerView;
 import com.example.oumarket.Common.Common;
 import com.example.oumarket.ViewHolder.CategoryAdapter;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -39,7 +34,7 @@ public class FragmentHomeSearch extends Fragment {
 
     List<Food> foods = new ArrayList<>();
 
-    DatabaseReference category, foodList;
+    DatabaseReference data_categories, data_foods;
 
     RecyclerView recyclerView;
 
@@ -89,9 +84,9 @@ public class FragmentHomeSearch extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home_search, container, false);
 
 
-        category = Common.FIREBASE_DATABASE.getReference(Common.REF_CATEGORIES);
+        data_categories = Common.FIREBASE_DATABASE.getReference(Common.REF_CATEGORIES);
 
-        foodList = Common.FIREBASE_DATABASE.getReference(Common.REF_FOODS);
+        data_foods = Common.FIREBASE_DATABASE.getReference(Common.REF_FOODS);
 
         recyclerView = view.findViewById(R.id.recycler_filter);
 
@@ -102,7 +97,7 @@ public class FragmentHomeSearch extends Fragment {
     }
 
     private void filter() {
-        category.addValueEventListener(new ValueEventListener() {
+        data_categories.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 List<Category> list = new ArrayList<>();

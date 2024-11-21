@@ -3,7 +3,6 @@ package com.example.oumarket;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,13 +23,11 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 public class FoodDetail extends AppCompatActivity {
+
     TextView food_price_detail, food_description_detail;
     Toolbar food_name_detail;
     ImageView food_image_detail;
@@ -41,7 +38,7 @@ public class FoodDetail extends AppCompatActivity {
 
     String foodId = "";
 
-    DatabaseReference databaseReference;
+    DatabaseReference data_foods;
 
     Food currentFood;
 
@@ -52,7 +49,7 @@ public class FoodDetail extends AppCompatActivity {
         setContentView(R.layout.activity_food_detail);
 
 //         innit firebase
-        databaseReference = Common.FIREBASE_DATABASE.getReference(Common.REF_FOODS);
+        data_foods = Common.FIREBASE_DATABASE.getReference(Common.REF_FOODS);
 
 //         init view
         button_cart = findViewById(R.id.button_cart);
@@ -128,7 +125,7 @@ public class FoodDetail extends AppCompatActivity {
     }
 
     private void getDetailFood(String foodId) {
-        databaseReference.child(foodId).addValueEventListener(new ValueEventListener() {
+        data_foods.child(foodId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 currentFood = snapshot.getValue(Food.class);

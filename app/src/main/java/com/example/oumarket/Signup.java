@@ -40,7 +40,6 @@ public class Signup extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_signup);
 
-
         table_user = Common.FIREBASE_DATABASE.getReference(Common.REF_USERS);
 
         edit_name = findViewById(R.id.edit_name_user);

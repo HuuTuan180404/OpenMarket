@@ -21,6 +21,7 @@
     </style>
 
     <style name="ThemeOverlay.AppCompat.SearchView" parent="">
+        <item name="titleCentered">true</item>
         <item name="android:editTextColor">@color/white</item>
         <item name="android:textColorHint">@color/white</item>
     </style>

@@ -2,6 +2,7 @@ package com.example.oumarket;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -11,6 +12,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.oumarket.Class.Order;
@@ -27,9 +29,10 @@ import java.util.List;
 
 public class Cart extends AppCompatActivity {
     RecyclerView recyclerView;
-    RecyclerView.LayoutManager layoutManager;
 
-    DatabaseReference requests;
+    Toolbar toolbar;
+
+    DatabaseReference data_requests;
 
     TextView tv_total;
     AppCompatButton btn_order;
@@ -44,8 +47,11 @@ public class Cart extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_cart);
 
+        toolbar = findViewById(R.id.toolbar_Cart);
+        setSupportActionBar(toolbar);
+
 //        firebase
-        requests = Common.FIREBASE_DATABASE.getReference(Common.REF_REQUESTS);
+        data_requests = Common.FIREBASE_DATABASE.getReference(Common.REF_REQUESTS);
 
 //        init
         tv_total = findViewById(R.id.total);
@@ -60,6 +66,15 @@ public class Cart extends AppCompatActivity {
         recyclerView = findViewById(R.id.list_cart);
         loadListCart();
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void showAlertDialog() {
@@ -78,7 +93,7 @@ public class Cart extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Request request = new Request(Common.CURRENTUSER.getPhone(), Common.CURRENTUSER.getName(), edit_address.getText().toString(), tv_total.getText().toString(), cart);
-                requests.child(String.valueOf(System.currentTimeMillis())).setValue(request);
+                data_requests.child(String.valueOf(System.currentTimeMillis())).setValue(request);
                 new Database(getBaseContext()).cleanCart();
                 Toast.makeText(getBaseContext(), "Thank you", Toast.LENGTH_SHORT).show();
                 finish();

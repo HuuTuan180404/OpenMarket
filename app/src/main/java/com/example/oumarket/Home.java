@@ -104,12 +104,10 @@ public class Home extends AppCompatActivity {
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_search, fragmentHomeSearch).commit();
 
-
 //        init name for user
         View heardView = navigationView.getHeaderView(0);
         txt_full_name = heardView.findViewById(R.id.txt_full_name);
         txt_full_name.setText(Common.CURRENTUSER.getName());
-
 
     }
 
@@ -165,7 +163,6 @@ public class Home extends AppCompatActivity {
             }
         });
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
