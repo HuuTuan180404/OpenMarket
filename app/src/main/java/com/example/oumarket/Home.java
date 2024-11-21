@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.Menu;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.oumarket.Class.Food;
 import com.example.oumarket.Common.Common;
@@ -31,14 +30,14 @@ import com.example.oumarket.databinding.ActivityHomeBinding;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.paperdb.Paper;
+
 public class Home extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityHomeBinding binding;
 
     TextView txt_full_name;
-
-    List<Food> foods = new ArrayList<>();
 
     FrameLayout frameLayout_home, frameLayout_search;
     SearchView searchView;
@@ -47,6 +46,8 @@ public class Home extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Paper.init(this);
 
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -81,7 +82,10 @@ public class Home extends AppCompatActivity {
                     Intent intent = new Intent(Home.this, OrderStatus.class);
                     startActivity(intent);
                 } else if (id == R.id.nav_log_out) {
-                    Intent intent = new Intent(Home.this, Login.class);
+
+                    Paper.book().destroy();
+
+                    Intent intent = new Intent(Home.this, Signin.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                 }
@@ -89,11 +93,6 @@ public class Home extends AppCompatActivity {
                 return true;
             }
         });
-
-
-//
-
-//        FrameLayout fragmentManager = findViewById(R.id.fragment_search);
 
         fragmentHomeSearch = new FragmentHomeSearch("");
 
@@ -203,11 +202,6 @@ public class Home extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
-        if (item.getItemId() == R.id.action_search) {
-            Log.d("ZZZZZ", "action_search");
-        }
-
         return super.onOptionsItemSelected(item);
     }
 

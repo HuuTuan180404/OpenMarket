@@ -90,7 +90,7 @@ public class Signup extends AppCompatActivity {
         tv_loginnow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Signup.this, Login.class);
+                Intent intent = new Intent(Signup.this, Signin.class);
                 startActivity(intent);
                 finish();
             }
@@ -144,7 +144,7 @@ public class Signup extends AppCompatActivity {
         alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Intent intent = new Intent(Signup.this, Login.class);
+                Intent intent = new Intent(Signup.this, Signin.class);
                 startActivity(intent);
                 finish();
             }
