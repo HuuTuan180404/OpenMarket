@@ -2,17 +2,15 @@ package com.example.oumarket.Class;
 
 public class Category {
 
-    private String Image;
     private String Name;
     private String URL;
-    private String id="";
+    private String id = "";
 
 
     public Category() {
     }
 
-    public Category(String image, String name, String uRL) {
-        Image = image;
+    public Category(String name, String uRL) {
         Name = name;
         URL = uRL;
     }
@@ -33,14 +31,6 @@ public class Category {
         this.URL = URL;
     }
 
-    public String getImage() {
-        return Image;
-    }
-
-    public void setImage(String image) {
-        Image = image;
-    }
-
     public String getName() {
         return Name;
     }
@@ -52,9 +42,8 @@ public class Category {
     @Override
     public String toString() {
         return "Category{" +
-                "Image='" + Image + '\'' +
-                ", Name='" + Name + '\'' +
-                ", URL='" + URL + '\'' +
+                "Name='" + Name + '\'' +
+                ", id='" + id + '\'' +
                 '}';
     }
 }

@@ -6,6 +6,16 @@
     android:layout_marginTop="10sp"
     tools:context=".ui.home_class.FragmentHomeSearch">
 
+    <TextView
+        android:id="@+id/tv_noData"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/font_text_view"
+        android:gravity="center"
+        android:text="@string/no_data_found"
+        android:textSize="20sp" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_filter"
         android:layout_width="match_parent"

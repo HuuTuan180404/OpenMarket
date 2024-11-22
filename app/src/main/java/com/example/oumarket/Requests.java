@@ -2,6 +2,8 @@ package com.example.oumarket;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.example.oumarket.ui.requests_class.FragmentRequests;
@@ -10,6 +12,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 public class Requests extends AppCompatActivity {
@@ -19,6 +22,8 @@ public class Requests extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
 
     FragmentRequests fragmentRequests;
+
+    FrameLayout frameLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +61,19 @@ public class Requests extends AppCompatActivity {
 
         fragmentRequests = new FragmentRequests();
 
+        frameLayout = findViewById(R.id.frg_Requests);
+
         loadFragment(fragmentRequests);
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void loadFragment(FragmentRequests fragmentRequests) {

@@ -86,4 +86,13 @@ public class Food {
     public void setPrice(String price) {
         Price = price;
     }
+
+    @Override
+    public String toString() {
+        return "Food{" +
+                "id='" + id + '\'' +
+                ", Name='" + Name + '\'' +
+                ", CategoryId='" + CategoryId + '\'' +
+                '}';
+    }
 }

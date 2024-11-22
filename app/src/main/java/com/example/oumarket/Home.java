@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.Menu;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.oumarket.Common.Common;
 import com.example.oumarket.ui.home_class.FragmentHome;
@@ -19,10 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.view.GravityCompat;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -93,13 +89,13 @@ public class Home extends AppCompatActivity {
             }
         });
 
-        fragmentHomeSearch = new FragmentHomeSearch("");
+        fragmentHomeSearch = new FragmentHomeSearch();
 
-        frameLayout_home = findViewById(R.id.fragment_home);
+        frameLayout_home = findViewById(R.id.fragment_home_categories);
         frameLayout_search = findViewById(R.id.fragment_search);
         vissibaleFragmentSearch();
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_home, new FragmentHome()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_home_categories, new FragmentHome()).commit();
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_search, fragmentHomeSearch).commit();
 
@@ -174,15 +170,24 @@ public class Home extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                fragmentHomeSearch.setText(query.toLowerCase());
-                frameLayout_search.setVisibility(View.VISIBLE);
+                if (query.trim().isEmpty()) {
+                    frameLayout_search.setVisibility(View.GONE);
+                } else {
+                    fragmentHomeSearch.setText(query.toLowerCase());
+                    frameLayout_search.setVisibility(View.VISIBLE);
+                }
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                fragmentHomeSearch.setText(newText.toLowerCase());
-                frameLayout_search.setVisibility(View.VISIBLE);
+                if (newText.trim().isEmpty()) {
+                    frameLayout_search.setVisibility(View.GONE);
+
+                } else {
+                    fragmentHomeSearch.setText(newText.toLowerCase());
+                    frameLayout_search.setVisibility(View.VISIBLE);
+                }
                 return true;
             }
         });

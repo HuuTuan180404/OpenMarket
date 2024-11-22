@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.oumarket.Class.Category;
 import com.example.oumarket.Class.Food;
@@ -31,7 +32,7 @@ public class FragmentHomeSearch extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private String text;
+    private String text = "";
 
     List<Food> foods = new ArrayList<>();
 
@@ -40,6 +41,8 @@ public class FragmentHomeSearch extends Fragment {
     RecyclerView recyclerView;
 
     CategoryAdapter adapter;
+
+    TextView tv_noData;
 
     public List<Food> getFoods() {
         return foods;
@@ -58,12 +61,12 @@ public class FragmentHomeSearch extends Fragment {
         this.foods = foods;
     }
 
-    public FragmentHomeSearch(String s) {
-        this.text = s;
+    public FragmentHomeSearch() {
+
     }
 
     public static FragmentHomeSearch newInstance(String param1, String param2) {
-        FragmentHomeSearch fragment = new FragmentHomeSearch("");
+        FragmentHomeSearch fragment = new FragmentHomeSearch();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -84,6 +87,7 @@ public class FragmentHomeSearch extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home_search, container, false);
 
+        tv_noData = view.findViewById(R.id.tv_noData);
 
         data_categories = Common.FIREBASE_DATABASE.getReference(Common.REF_CATEGORIES);
 
@@ -109,8 +113,17 @@ public class FragmentHomeSearch extends Fragment {
                         list.add(category1);
                     }
                 }
-                adapter.setList(list);
-                adapter.notifyDataSetChanged();
+
+                if (list.isEmpty()) {
+                    tv_noData.setVisibility(View.VISIBLE);
+                    recyclerView.setVisibility(View.GONE);
+                } else {
+                    tv_noData.setVisibility(View.GONE);
+                    adapter.setList(list);
+                    adapter.notifyDataSetChanged();
+                    recyclerView.setVisibility(View.VISIBLE);
+                }
+
             }
 
             @Override

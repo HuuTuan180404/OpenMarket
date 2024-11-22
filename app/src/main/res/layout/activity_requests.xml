@@ -5,39 +5,47 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbarlayout_Requests"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:theme="@style/Theme.OuMarket.AppBarOverlay">
+        android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar_Requests"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbarlayout_Requests"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/main_color"
-            android:theme="@style/ThemeOverlay.AppCompat.SearchView"
-            app:navigationIcon="@drawable/ic_arrow_back_24"
-            app:title="Title"
-            app:titleTextColor="@android:color/white" />
+            android:layout_alignParentTop="true"
+            android:theme="@style/Theme.OuMarket.AppBarOverlay">
 
-    </com.google.android.material.appbar.AppBarLayout>
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar_Requests"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/main_color"
+                android:theme="@style/ThemeOverlay.AppCompat.SearchView"
+                app:navigationIcon="@drawable/ic_arrow_back_24"
+                app:title="Title"
+                app:titleTextColor="@android:color/white" />
 
-    <FrameLayout
-        android:id="@+id/frg_Requests"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="?attr/actionBarSize"
-        android:layout_marginBottom="?attr/actionBarSize"
-        android:background="@color/black" />
+        </com.google.android.material.appbar.AppBarLayout>
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="?android:attr/windowBackground"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/menu_requests" />
+        <FrameLayout
+            android:id="@+id/frg_Requests"
+            android:layout_width="match_parent"
+            android:layout_height="0sp"
+            android:layout_above="@+id/bottomNavigation"
+            android:layout_below="@+id/appbarlayout_Requests"
+            android:background="@drawable/round_corners"
+            android:scrollbars="vertical" />
+
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="?android:attr/windowBackground"
+            app:menu="@menu/menu_requests" />
+
+    </RelativeLayout>
 
 </FrameLayout>

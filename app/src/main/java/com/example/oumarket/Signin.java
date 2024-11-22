@@ -122,15 +122,12 @@ public class Signin extends AppCompatActivity {
         firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(Signin.this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                mDialog.dismiss();
                 if (task.isSuccessful()) {
                     if (firebaseAuth.getCurrentUser().isEmailVerified()) {
-
                         if (checkBox.isChecked()) {
                             Paper.book().write(Common.USER_KEY, edit_email.getText().toString());
                             Paper.book().write(Common.PWD_KEY, edit_password.getText().toString());
                         }
-
                         String email = edit_email.getText().toString();
                         email = email.substring(0, email.indexOf("@"));
 
@@ -141,15 +138,16 @@ public class Signin extends AppCompatActivity {
                                 Intent homeIntent = new Intent(Signin.this, Home.class);
                                 Common.CURRENTUSER = user;
                                 startActivity(homeIntent);
+                                mDialog.dismiss();
                                 finish();
                             }
 
                             @Override
                             public void onCancelled(@NonNull DatabaseError error) {
-
                             }
                         });
                     } else {
+                        mDialog.dismiss();
                         AlertDialog.Builder alert = new AlertDialog.Builder(Signin.this);
                         alert.setTitle("Warming!");
                         alert.setMessage("Please check your email and click the URL to activate your account");
@@ -164,6 +162,7 @@ public class Signin extends AppCompatActivity {
                         alert.show();
                     }
                 } else {
+                    mDialog.dismiss();
                     Toast.makeText(Signin.this, "Tài khoản không đúng!", Toast.LENGTH_SHORT).show();
                 }
             }
