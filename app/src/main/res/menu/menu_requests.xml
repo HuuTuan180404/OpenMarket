@@ -2,17 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_home"
+        android:id="@+id/item_prepare"
         android:icon="@drawable/image_prepare"
         android:title="@string/title_prepare" />
 
     <item
-        android:id="@+id/navigation_dashboard"
-        android:icon="@drawable/image_delivery"
+        android:id="@+id/item_delivery"
+        android:icon="@drawable/image_prepare"
         android:title="@string/title_delivery" />
 
     <item
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/item_delivered"
         android:icon="@drawable/image_delivered"
         android:title="@string/title_delivered" />
 

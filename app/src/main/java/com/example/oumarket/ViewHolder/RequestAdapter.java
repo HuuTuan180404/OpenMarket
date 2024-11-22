@@ -87,7 +87,7 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestViewHolder> {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "cilick", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "click", Toast.LENGTH_SHORT).show();
             }
         });
 

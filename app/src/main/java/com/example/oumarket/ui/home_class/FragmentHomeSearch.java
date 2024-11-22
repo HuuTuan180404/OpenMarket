@@ -1,4 +1,4 @@
-package com.example.oumarket;
+package com.example.oumarket.ui.home_class;
 
 import android.os.Bundle;
 
@@ -14,6 +14,7 @@ import com.example.oumarket.Class.Category;
 import com.example.oumarket.Class.Food;
 import com.example.oumarket.Class.SetUpRecyclerView;
 import com.example.oumarket.Common.Common;
+import com.example.oumarket.R;
 import com.example.oumarket.ViewHolder.CategoryAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

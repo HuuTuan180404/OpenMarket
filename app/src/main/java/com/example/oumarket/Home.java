@@ -2,16 +2,17 @@ package com.example.oumarket;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Menu;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.example.oumarket.Class.Food;
 import com.example.oumarket.Common.Common;
+import com.example.oumarket.ui.home_class.FragmentHome;
+import com.example.oumarket.ui.home_class.FragmentHomeSearch;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
@@ -26,9 +27,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.oumarket.databinding.ActivityHomeBinding;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import io.paperdb.Paper;
 
@@ -80,7 +78,7 @@ public class Home extends AppCompatActivity {
                     Intent intent = new Intent(Home.this, Cart.class);
                     startActivity(intent);
                 } else if (id == R.id.nav_orders) {
-                    Intent intent = new Intent(Home.this, OrderStatus.class);
+                    Intent intent = new Intent(Home.this, Requests.class);
                     startActivity(intent);
                 } else if (id == R.id.nav_log_out) {
 
@@ -205,7 +203,6 @@ public class Home extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home);
-        return NavigationUI.navigateUp(navController, mAppBarConfiguration) || super.onSupportNavigateUp();
+        return true;
     }
 }

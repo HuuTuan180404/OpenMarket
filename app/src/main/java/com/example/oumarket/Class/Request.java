@@ -12,6 +12,8 @@ public class Request {
 
     private String status;
 
+
+
     public Request() {
     }
 
@@ -78,5 +80,21 @@ public class Request {
 
     public void setFoods(List<Order> foods) {
         this.foods = foods;
+    }
+
+    public void loadRequests(){
+    }
+
+    @Override
+    public String toString() {
+        return "Request{" +
+                "phone='" + phone + '\'' +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", total='" + total + '\'' +
+                ", foods=" + foods +
+                ", id='" + id + '\'' +
+                ", status='" + status + '\'' +
+                '}';
     }
 }
