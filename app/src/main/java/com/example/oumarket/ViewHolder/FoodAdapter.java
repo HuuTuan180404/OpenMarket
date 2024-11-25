@@ -9,12 +9,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.oumarket.Class.Food;
+import com.example.oumarket.Class.Order;
+import com.example.oumarket.Database.Database;
 import com.example.oumarket.FoodDetail;
 import com.example.oumarket.Interface.ItemClickListener;
 import com.example.oumarket.R;
@@ -29,12 +33,15 @@ class FoodViewHolder extends RecyclerView.ViewHolder implements View.OnClickList
     public ImageView food_image;
     private ItemClickListener itemClickListener;
 
+    LinearLayout add_to_cart;
+
     public void setItemClickListener(ItemClickListener itemClickListener) {
         this.itemClickListener = itemClickListener;
     }
 
     public FoodViewHolder(@NonNull View itemView) {
         super(itemView);
+        add_to_cart = itemView.findViewById(R.id.add_to_card);
         food_image = itemView.findViewById(R.id.food_image);
         food_name = itemView.findViewById(R.id.food_name);
         food_price = itemView.findViewById(R.id.food_price);
@@ -90,7 +97,15 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodViewHolder> {
         holder.food_name.setText(list.get(position).getName());
         holder.food_price.setText(list.get(position).getPrice());
         holder.food_rate.setText("Rate: 4 sao");
-
+        holder.add_to_cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "Add_to_cart", Toast.LENGTH_SHORT).show();
+                Order order = new Order(list.get(position).getId(), list.get(position).getName(), list.get(position).getPrice(), "1", list.get(position).getDiscount());
+                Database database1 = new Database(getContext());
+                database1.addToCart(order);
+            }
+        });
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

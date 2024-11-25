@@ -1,28 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_pressed="true">
-
         <shape>
-            <gradient
-                android:startColor="#FEEE91"
-                android:endColor="#FFBD73"
-                android:angle="30" />
-            <corners
-                android:topLeftRadius="20dp"
-                android:bottomRightRadius="20dp"/>
+            <solid android:color="@color/xanh_bien" />
+            <corners android:bottomRightRadius="20dp" android:topLeftRadius="20dp" />
         </shape>
+
     </item>
 
     <item>
         <shape>
-            <gradient
-                android:startColor="#FFBD73"
-                android:endColor="#FEEE91"
-                android:angle="30" />
-            <corners
-                android:topRightRadius="20dp"
-                android:bottomLeftRadius="20dp"/>
+            <solid android:color="@color/xanh_bien" />
+            <corners android:bottomLeftRadius="20dp" android:topRightRadius="20dp" />
         </shape>
     </item>
 
 </selector>
+

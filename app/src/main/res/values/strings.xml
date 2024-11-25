@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">App name</string>
-    <string name="login">Login</string>
-    <string name="signup">Signup</string>
+    <string name="login">Log in</string>
+    <string name="signup">Sign up</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
@@ -36,7 +36,7 @@
     <string name="title_activity_requests">Requests</string>
     <string name="title_prepare">Chuẩn bị</string>
     <string name="title_delivered">Đã giao hàng</string>
-    <string name="title_delivery">Đang giao hàng</string>
+    <string name="title_delivery">Đang vận chuyển</string>
     <string name="title_activity_bottom_navigation">BottomNavigation</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>

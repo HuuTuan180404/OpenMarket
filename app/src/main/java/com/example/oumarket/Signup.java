@@ -38,7 +38,7 @@ public class Signup extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_signup);
+        setContentView(R.layout.page_sign_up);
 
         table_user = Common.FIREBASE_DATABASE.getReference(Common.REF_USERS);
 

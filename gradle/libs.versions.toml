@@ -37,6 +37,7 @@ annotation = "1.6.0"
 materialSearchBar="0.8.3"
 paperdb="2.7.1"
 rey5137="1.2.4"
+android-SocialButtons="1.3"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -74,6 +75,8 @@ annotation = { group = "androidx.annotation", name = "annotation", version.ref =
 materialSearchBar = { group = "com.github.mancj", name = "MaterialSearchBar", version.ref = "materialSearchBar" }
 paperdb = { group = "io.github.pilgr", name = "paperdb", version.ref = "paperdb" }
 rey5137 = { group = "com.github.rey5137", name = "material", version.ref = "rey5137" }
+android-socialButtons = { group = "in.championswimmer", name = "Android-SocialButtons", version.ref = "android-SocialButtons" }
+
 
 
 [plugins]

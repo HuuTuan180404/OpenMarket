@@ -1,61 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_food"
-    android:layout_width="200sp"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:layout_margin="8dp"
-    android:layout_weight="1">
+    android:layout_width="210sp"
+    android:layout_height="320sp"
+    android:layout_marginBottom="20sp"
+    android:backgroundTint="@color/trang">
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <!-- Media -->
-        <ImageView
-            android:id="@+id/food_image"
-            android:layout_width="match_parent"
-            android:layout_height="194dp"
-            android:contentDescription=" "
-            android:scaleType="centerCrop"
-            app:srcCompat="@drawable/image_default_load_category_faile" />
+        android:layout_height="280sp"
+        android:layout_gravity="bottom"
+        android:background="@drawable/border"
+        android:backgroundTint="@color/background">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:layout_gravity="bottom"
+            android:orientation="vertical">
 
-            <!-- Title, secondary and supporting text -->
-            <TextView
-                android:id="@+id/food_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Name of food"
-                android:textAppearance="?attr/textAppearanceTitleMedium" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60sp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="5sp">
 
-            <TextView
-                android:id="@+id/food_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Money"
-                android:textAppearance="?attr/textAppearanceBodyMedium"
-                android:textColor="?android:attr/textColorSecondary" />
+                <TextView
+                    android:id="@+id/food_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="name"
+                    android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/food_rate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="đánh giá sao"
-                android:textAppearance="?attr/textAppearanceBodyMedium"
-                android:textColor="?android:attr/textColorSecondary" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="$ "
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/food_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="price"
+                            android:textSize="20sp" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/food_rate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:text="đánh giá" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/add_to_card"
+                android:layout_width="match_parent"
+                android:layout_height="40sp"
+                android:background="@drawable/rounded_bottom_20sp"
+                android:backgroundTint="@color/xanh_bien"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/im_cart" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/satoshi_variable"
+                    android:text="ADD TO CART"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
-    </LinearLayout>
+    </FrameLayout>
 
-</com.google.android.material.card.MaterialCardView>
+    <ImageView
+        android:id="@+id/food_image"
+        android:layout_width="150sp"
+        android:layout_height="200sp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10sp"
+        android:background="@drawable/rounded_20sp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/image_default_load_category_faile" />
+
+</androidx.cardview.widget.CardView>

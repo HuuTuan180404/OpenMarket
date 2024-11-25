@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.oumarket.Class.Category;
 import com.example.oumarket.Class.Food;
@@ -34,6 +36,8 @@ public class FragmentHome extends Fragment {
     private String mParam2;
 
     DatabaseReference data_categories, data_foods;
+
+    View include_category1;
 
 
     public FragmentHome() {
@@ -76,7 +80,18 @@ public class FragmentHome extends Fragment {
         setupRecyclerCategories(view);
 
 //        recycler category
-        setupRecyclerOneCategory(view, 1, 5);
+        include_category1 = view.findViewById(R.id.include_category1);
+
+        LinearLayout linearLayout = view.findViewById(R.id.see_all);
+        linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "See all", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+//        recycler category
+//        setupRecyclerOneCategory(view, Common.n_Category, Common.n_Food);
 
         return view;
     }
@@ -144,8 +159,8 @@ public class FragmentHome extends Fragment {
 
     private void loadN_Food(View view, Category category, int n_food) {
 //        init recycler
-        View view_recycler = view.findViewById(R.id.include_category1);
-        RecyclerView recyclerView = view_recycler.findViewById(R.id.recycler_category);
+
+        RecyclerView recyclerView = include_category1.findViewById(R.id.recycler_category);
 
 //        get data
         data_foods.orderByChild("MenuID").equalTo(category.getId()).addListenerForSingleValueEvent(new ValueEventListener() {

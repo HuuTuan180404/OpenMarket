@@ -36,6 +36,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.android.socialButtons)
     implementation(libs.rey5137)
     implementation(libs.paperdb)
     implementation(libs.materialSearchBar)
