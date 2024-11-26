@@ -1,9 +1,12 @@
 package com.example.oumarket.ui.requests_class;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
@@ -12,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.oumarket.Cart;
 import com.example.oumarket.Class.Request;
 import com.example.oumarket.Class.SetUpRecyclerView;
 import com.example.oumarket.Common.Common;
@@ -51,7 +55,6 @@ public class FragmentRequests extends Fragment {
     }
 
     public FragmentRequests() {
-
     }
 
     public static FragmentRequests newInstance(String param1, String param2) {
@@ -77,13 +80,13 @@ public class FragmentRequests extends Fragment {
         View view = inflater.inflate(R.layout.fragment_requests, container, false);
 
         data_requests = Common.FIREBASE_DATABASE.getReference(Common.REF_REQUESTS);
-//
+
         recyclerView = view.findViewById(R.id.recycler_fgm_re);
 
         adapter = new RequestAdapter(new ArrayList<>(), getContext());
         SetUpRecyclerView.setupLinearLayout(getContext(), recyclerView, adapter);
 
-        loadRequests("123456");
+        loadRequests(Common.CURRENTUSER.getPhone());
 
         return view;
     }

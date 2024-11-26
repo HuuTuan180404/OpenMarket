@@ -17,10 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.OuMarket"
         tools:targetApi="31">
-        <activity
-            android:name=".BottomNavigation"
-            android:exported="false"
-            android:label="@string/title_activity_bottom_navigation" />
+
         <activity
             android:name=".Requests"
             android:exported="false"

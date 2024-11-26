@@ -2,7 +2,6 @@ package com.example.oumarket;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
@@ -12,7 +11,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 public class Requests extends AppCompatActivity {
@@ -28,7 +26,7 @@ public class Requests extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_requests);
+        setContentView(R.layout.page_requests);
 
         toolbar = findViewById(R.id.toolbar_Requests);
         setSupportActionBar(toolbar);
@@ -66,6 +64,8 @@ public class Requests extends AppCompatActivity {
         loadFragment(fragmentRequests);
 
     }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

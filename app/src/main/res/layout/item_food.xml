@@ -5,7 +5,7 @@
     android:layout_width="210sp"
     android:layout_height="320sp"
     android:layout_marginBottom="20sp"
-    android:backgroundTint="@color/trang">
+    app:cardElevation="0sp">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -89,7 +89,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/satoshi_variable"
-                    android:text="ADD TO CART"
+                    android:text=" ADD TO CART"
                     android:textSize="15sp" />
 
             </LinearLayout>
@@ -98,14 +98,21 @@
 
     </FrameLayout>
 
-    <ImageView
-        android:id="@+id/food_image"
+    <androidx.cardview.widget.CardView
         android:layout_width="150sp"
         android:layout_height="200sp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10sp"
-        android:background="@drawable/rounded_20sp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/image_default_load_category_faile" />
+        app:cardCornerRadius="20sp">
+
+        <ImageView
+            android:id="@+id/food_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/image_default_load_category_faile" />
+
+    </androidx.cardview.widget.CardView>
+
 
 </androidx.cardview.widget.CardView>

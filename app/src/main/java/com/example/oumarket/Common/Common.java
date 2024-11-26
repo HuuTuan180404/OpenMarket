@@ -16,5 +16,7 @@ public class Common {
     public static final FirebaseDatabase FIREBASE_DATABASE = FirebaseDatabase.getInstance();
     public static final int n_Category = 1;
     public static final int n_Food = 5;
+    public static String CURRENCY = "$";
+
 
 }

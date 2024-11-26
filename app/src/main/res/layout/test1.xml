@@ -22,6 +22,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/item_cart_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="160sp"
@@ -44,6 +45,7 @@
                     android:textSize="25sp" />
 
                 <TextView
+                    android:id="@+id/itemcart_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="price"
@@ -84,7 +86,7 @@
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/edittext_quantity"
-            android:layout_width="30sp"
+            android:layout_width="50sp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/futuramedium"
             android:gravity="center"

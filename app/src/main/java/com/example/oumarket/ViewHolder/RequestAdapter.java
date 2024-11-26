@@ -45,7 +45,7 @@ class RequestViewHolder extends RecyclerView.ViewHolder implements View.OnClickL
 
 public class RequestAdapter extends RecyclerView.Adapter<RequestViewHolder> {
 
-    List<Request> list = new ArrayList<>();
+    List<Request> list;
     Context context;
 
     public RequestAdapter(List<Request> list, Context context) {

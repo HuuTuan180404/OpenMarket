@@ -22,8 +22,16 @@
 
     <style name="ThemeOverlay.AppCompat.SearchView" parent="">
         <item name="titleCentered">true</item>
-        <item name="android:editTextColor">@color/white</item>
-        <item name="android:textColorHint">@color/white</item>
+        <item name="fontFamily">@font/satoshi_variable</item>
+        <item name="android:editTextColor">@color/trang</item>
+        <item name="android:textColorHint">@color/trang</item>
+    </style>
+
+    <style name="toolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="collapseIcon">@drawable/im_menu</item>
+        <item name="icon">@drawable/im_menu</item>
+        <item name="titleTextColor">@color/den</item>
+        <item name="fontFamily">@font/satoshi_variable</item>
     </style>
 
 </resources>

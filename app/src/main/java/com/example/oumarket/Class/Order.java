@@ -15,6 +15,14 @@ public class Order {
         Discount = discount;
     }
 
+    public Order(Food food, int quantity) {
+        ProductId = food.getId();
+        ProductName = food.getName();
+        Price = food.getPrice();
+        Quantity = String.valueOf(quantity);
+        Discount = food.getDiscount();
+    }
+
 
     public Order() {
     }
@@ -59,7 +67,7 @@ public class Order {
         Quantity = quantity;
     }
 
-    public int compareTo(Order order){
+    public int compareTo(Order order) {
         return this.ProductId.compareTo(order.getProductId());
     }
 

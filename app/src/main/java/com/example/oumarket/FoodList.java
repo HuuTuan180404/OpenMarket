@@ -3,6 +3,8 @@ package com.example.oumarket;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.SearchView;
@@ -37,11 +39,15 @@ public class FoodList extends AppCompatActivity {
     Toolbar toolbar;
     FoodAdapter adapter;
 
+    TextView tv_noData;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_food_list);
+        setContentView(R.layout.page_food_list);
+
+        tv_noData = findViewById(R.id.tv_noData);
 
         toolbar = findViewById(R.id.toolbar_FoodList);
 
@@ -93,12 +99,15 @@ public class FoodList extends AppCompatActivity {
                     }
                 }
 
-                if (!list.isEmpty()) {
-                    Toast.makeText(FoodList.this, "No data found", Toast.LENGTH_SHORT).show();
+                if (list.isEmpty()) {
+                    tv_noData.setVisibility(View.VISIBLE);
+                    recyclerView.setVisibility(View.GONE);
+                } else {
+                    tv_noData.setVisibility(View.GONE);
+                    adapter.setList(list);
+                    adapter.notifyDataSetChanged();
+                    recyclerView.setVisibility(View.VISIBLE);
                 }
-
-                adapter.setList(list);
-                adapter.notifyDataSetChanged();
 
             }
 

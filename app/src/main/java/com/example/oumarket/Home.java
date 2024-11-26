@@ -15,6 +15,7 @@ import com.example.oumarket.ui.home_class.FragmentHomeSearch;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.view.GravityCompat;
@@ -47,12 +48,11 @@ public class Home extends AppCompatActivity {
         setContentView(binding.getRoot());
 
 //        content home
-
         setSupportActionBar(binding.appBarHome.toolbar);
+
         binding.appBarHome.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(Home.this, Requests.class);
                 Intent intent = new Intent(Home.this, Cart.class);
                 startActivity(intent);
             }
@@ -61,25 +61,27 @@ public class Home extends AppCompatActivity {
         DrawerLayout drawer = binding.drawerLayout;
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, binding.appBarHome.toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+        drawer.addDrawerListener(toggle);
         toggle.syncState();
+
+        ActionBar actionbar = getSupportActionBar();
+        actionbar.setDisplayHomeAsUpEnabled(true);
+        actionbar.setHomeAsUpIndicator(R.drawable.im_menu);
 
         NavigationView navigationView = binding.navView;
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
-                if (id == R.id.nav_menu) {
-                } else if (id == R.id.nav_cart) {
+
+                if (id == R.id.nav_cart) {
                     Intent intent = new Intent(Home.this, Cart.class);
                     startActivity(intent);
                 } else if (id == R.id.nav_orders) {
                     Intent intent = new Intent(Home.this, Requests.class);
                     startActivity(intent);
                 } else if (id == R.id.nav_log_out) {
-
                     Paper.book().destroy();
-
                     Intent intent = new Intent(Home.this, Signin.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
@@ -105,33 +107,6 @@ public class Home extends AppCompatActivity {
         txt_full_name.setText(Common.CURRENTUSER.getName());
 
     }
-
-//    private void setupRecyclerCategory() {
-//        adapterFood = new FirebaseRecyclerAdapter<Food, FoodViewHolder>(Food.class, R.layout.item_food, FoodViewHolder.class, foodList.orderByChild("MenuID").equalTo("0001")) {
-//            @Override
-//            protected void populateViewHolder(FoodViewHolder foodViewHolder, Food food, int i) {
-//
-////                load image from github
-//                String path = food.getURL();
-//
-//                Picasso.get().load(path).into(foodViewHolder.food_image);
-//
-//                foodViewHolder.food_name.setText(food.getName());
-//
-//                foodViewHolder.setItemClickListener((new ItemClickListener() {
-//                    @Override
-//                    public void onClick(View view, int position, boolean isLongClick) {
-//                        Intent foodDetail = new Intent(Home.this, FoodDetail.class);
-//                        foodDetail.putExtra("FoodId", adapter.getRef(position).getKey());
-//                        startActivity(foodDetail);
-//                    }
-//                }));
-//            }
-//        };
-//        SetUpRecyclerView.setupGridLayout(this, recycler_category1, adapterFood, 1, androidx.recyclerview.widget.RecyclerView.HORIZONTAL);
-//
-//
-//    }
 
     private void vissibaleFragmentSearch() {
         frameLayout_home.setOnTouchListener(new View.OnTouchListener() {

@@ -64,12 +64,6 @@ public class FragmentHome extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-//        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-//        app:spanCount="2"
-
-//        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-//        app:spanCount="1"
-
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
 //        firebase
@@ -81,14 +75,6 @@ public class FragmentHome extends Fragment {
 
 //        recycler category
         include_category1 = view.findViewById(R.id.include_category1);
-
-        LinearLayout linearLayout = view.findViewById(R.id.see_all);
-        linearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(), "See all", Toast.LENGTH_SHORT).show();
-            }
-        });
 
 //        recycler category
 //        setupRecyclerOneCategory(view, Common.n_Category, Common.n_Food);

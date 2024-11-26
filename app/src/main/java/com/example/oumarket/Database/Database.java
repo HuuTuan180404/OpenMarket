@@ -52,13 +52,13 @@ public class Database extends SQLiteAssetHelper {
 
         removeDuplicates(result);
 
-//        cleanCart();
-//
-//        for (Order order : result) {
-//            addToCart(order);
-//        }
-
         return result;
+    }
+
+    public void add_list_to_cart(List<Order> list) {
+        for (Order order : list) {
+            addToCart(order);
+        }
     }
 
     public void removeDuplicates(List<Order> result) {
@@ -77,14 +77,6 @@ public class Database extends SQLiteAssetHelper {
         }
     }
 
-//    public void clearDatabase() {
-//
-//        List<Order> result = getCarts();
-//
-//        removeDuplicates(result);
-//
-//    }
-
     public void addToCart(Order order) {
         SQLiteDatabase db = getReadableDatabase();
         ContentValues values = new ContentValues();
@@ -94,6 +86,15 @@ public class Database extends SQLiteAssetHelper {
         values.put("Quantity", order.getQuantity());
         values.put("Discount", order.getDiscount());
         db.insert("OrderDetail", null, values);
+        db.close();
+    }
+
+    public void delete_from_cart(Order order){
+        SQLiteDatabase db = getWritableDatabase(); // Lấy cơ sở dữ liệu ở chế độ ghi
+        String whereClause = "ProductId = ?";
+        String[] whereArgs = { order.getProductId() };
+
+        db.delete("OrderDetail", whereClause, whereArgs);
         db.close();
     }
 

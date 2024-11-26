@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.oumarket.Cart;
 import com.example.oumarket.Class.Food;
 import com.example.oumarket.Class.Order;
 import com.example.oumarket.Common.Common;
@@ -53,6 +54,13 @@ class CartViewHolder extends RecyclerView.ViewHolder implements View.OnClickList
 
     }
 
+    @Override
+    public void onClick(View v) {
+
+    }
+
+    /////////////////////////////////////////////////////
+//    getter + setter
     public TextView getName_cart_item() {
         return name_cart_item;
     }
@@ -80,11 +88,9 @@ class CartViewHolder extends RecyclerView.ViewHolder implements View.OnClickList
     public void setItemClickListener(ItemClickListener itemClickListener) {
         this.itemClickListener = itemClickListener;
     }
+//    getter + setter
+///////////////////////////////////////////////////////////
 
-    @Override
-    public void onClick(View v) {
-
-    }
 }
 
 public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
@@ -155,8 +161,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
 //                    update quantity to list_order
                     list.get(position).setQuantity(String.valueOf(quantity));
 
-//                    update price total after quantity was changed
-                    updateTotalPrice();
+                    ((Cart) context).updateBill();
                 }
             }
         });
@@ -174,7 +179,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
 
                 new Database(context).addToCart(order);
 
-                updateTotalPrice();
+                ((Cart) context).updateBill();
 
             }
         });
@@ -212,10 +217,45 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
         tv_total.setText(String.valueOf(total));
     }
 
+    public void removeOrder(int pos) {
+        list.remove(pos);
+        new Database(getContext()).cleanCart();
+        Database database1 = new Database(getContext());
+        database1.add_list_to_cart(list);
+    }
+
     @Override
     public int getItemCount() {
         return list.size();
     }
+
+    ///////////////////////////////////////////////////////////
+//    getter + setter
+    public List<Order> getList() {
+        return list;
+    }
+
+    public void setList(List<Order> list) {
+        this.list = list;
+    }
+
+    public Context getContext() {
+        return context;
+    }
+
+    public void setContext(Context context) {
+        this.context = context;
+    }
+
+    public TextView getTv_total() {
+        return tv_total;
+    }
+
+    public void setTv_total(TextView tv_total) {
+        this.tv_total = tv_total;
+    }
+//    getter + setter
+    ///////////////////////////////////////////////////////////
 }
 
 

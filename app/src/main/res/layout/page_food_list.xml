@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="25sp"
+    android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context=".FoodList">
 
@@ -25,6 +26,16 @@
             app:titleTextColor="@android:color/white" />
 
     </com.google.android.material.appbar.AppBarLayout>
+
+    <TextView
+        android:id="@+id/tv_noData"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/satoshi_bold"
+        android:gravity="center"
+        android:text="@string/no_data_found"
+        android:textSize="20sp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_filter"
