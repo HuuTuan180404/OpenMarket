@@ -45,7 +45,7 @@ public class Signin extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.page_log_in);
+        setContentView(R.layout.page_sign_in);
 
         mDialog = new ProgressDialog(Signin.this);
         mDialog.setTitle("Signin");
@@ -100,12 +100,15 @@ public class Signin extends AppCompatActivity {
                 finish();
             }
         });
-
 //
         Paper.init(this);
 
-        String user = Paper.book().read(Common.USER_KEY);
-        String password = Paper.book().read(Common.PWD_KEY);
+//        if (Paper.book().read(Common.ID_USER_KEY) != null) {
+//            checkBox.setChecked(true);
+//        }
+
+        String user = Paper.book().read(Common.USERNAME_KEY);
+        String password = Paper.book().read(Common.PASSWORD_KEY);
 
         if (user != null && password != null) {
             if (!user.isEmpty() && !password.isEmpty()) {
@@ -113,8 +116,6 @@ public class Signin extends AppCompatActivity {
                 login(user, password);
             }
         }
-
-//        login("ngay26thang6nam2021@gmail.com", "123456");
 
     }
 
@@ -125,8 +126,8 @@ public class Signin extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     if (firebaseAuth.getCurrentUser().isEmailVerified()) {
                         if (checkBox.isChecked()) {
-                            Paper.book().write(Common.USER_KEY, edit_email.getText().toString());
-                            Paper.book().write(Common.PWD_KEY, edit_password.getText().toString());
+                            Paper.book().write(Common.USERNAME_KEY, edit_email.getText().toString());
+                            Paper.book().write(Common.PASSWORD_KEY, edit_password.getText().toString());
                         }
                         String email = edit_email.getText().toString();
                         email = email.substring(0, email.indexOf("@"));
@@ -135,8 +136,10 @@ public class Signin extends AppCompatActivity {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 User user = snapshot.getValue(User.class);
+                                user.setIdUser(snapshot.getKey());
                                 Intent homeIntent = new Intent(Signin.this, Home.class);
                                 Common.CURRENTUSER = user;
+                                Paper.book().write(Common.ID_USER_KEY, Common.CURRENTUSER.getIdUser());
                                 startActivity(homeIntent);
                                 mDialog.dismiss();
                                 finish();

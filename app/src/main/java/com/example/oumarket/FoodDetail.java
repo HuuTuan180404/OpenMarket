@@ -3,7 +3,6 @@ package com.example.oumarket;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -63,26 +62,20 @@ public class FoodDetail extends AppCompatActivity {
         btn_decrease = findViewById(R.id.button_Decrease);
         edittext_quantity = findViewById(R.id.edittext_quantity);
 
-        btn_decrease.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int quantity = Integer.parseInt(edittext_quantity.getText().toString());
-                if (quantity == 1) {
-                    Toast.makeText(FoodDetail.this, "Lỗi số lượng", Toast.LENGTH_SHORT).show();
-                } else {
-                    quantity -= 1;
-                    edittext_quantity.setText(quantity + "");
-                }
+        btn_decrease.setOnClickListener((v) -> {
+            int quantity = Integer.parseInt(edittext_quantity.getText().toString());
+            if (quantity == 1) {
+                Toast.makeText(FoodDetail.this, "Lỗi số lượng", Toast.LENGTH_SHORT).show();
+            } else {
+                quantity -= 1;
+                edittext_quantity.setText(quantity + "");
             }
         });
 
-        btn_increase.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int quantity = Integer.parseInt(edittext_quantity.getText().toString());
-                quantity += 1;
-                edittext_quantity.setText(quantity + "");
-            }
+        btn_increase.setOnClickListener(v -> {
+            int quantity = Integer.parseInt(edittext_quantity.getText().toString());
+            quantity += 1;
+            edittext_quantity.setText(quantity + "");
         });
 
         edittext_quantity.addTextChangedListener(new TextWatcher() {
@@ -106,13 +99,10 @@ public class FoodDetail extends AppCompatActivity {
         });
 
 //        button cart
-        button_cart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Order order = new Order(foodId, currentFood.getName(), currentFood.getPrice(), edittext_quantity.getText() + "", currentFood.getDiscount());
-                Database database1 = new Database(FoodDetail.this);
-                database1.addToCart(order);
-            }
+        button_cart.setOnClickListener(v -> {
+            Order order = new Order(foodId, currentFood.getName(), currentFood.getPrice(), edittext_quantity.getText() + "", currentFood.getDiscount());
+            Database database1 = new Database(FoodDetail.this);
+            database1.addToCart(order);
         });
 
         if (getIntent() != null) {
@@ -129,7 +119,7 @@ public class FoodDetail extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 currentFood = snapshot.getValue(Food.class);
 
-                String pathURL = currentFood.getURL();
+                String pathURL = currentFood.getURL() != null ? currentFood.getURL() : "";
                 Picasso picasso = new Picasso.Builder(FoodDetail.this).build();
                 picasso.load(pathURL).into(food_image_detail);
 

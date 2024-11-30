@@ -10,8 +10,8 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.example.oumarket.Common.Common;
-import com.example.oumarket.ui.home_class.FragmentHome;
-import com.example.oumarket.ui.home_class.FragmentHomeSearch;
+import com.example.oumarket.ui.home_page.HomeFragment;
+import com.example.oumarket.ui.home_page.HomeSearchFragment;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
@@ -36,7 +36,7 @@ public class Home extends AppCompatActivity {
 
     FrameLayout frameLayout_home, frameLayout_search;
     SearchView searchView;
-    FragmentHomeSearch fragmentHomeSearch;
+    HomeSearchFragment homeSearchFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,12 +73,11 @@ public class Home extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
-
                 if (id == R.id.nav_cart) {
                     Intent intent = new Intent(Home.this, Cart.class);
                     startActivity(intent);
                 } else if (id == R.id.nav_orders) {
-                    Intent intent = new Intent(Home.this, Requests.class);
+                    Intent intent = new Intent(Home.this, MyOrder.class);
                     startActivity(intent);
                 } else if (id == R.id.nav_log_out) {
                     Paper.book().destroy();
@@ -91,20 +90,20 @@ public class Home extends AppCompatActivity {
             }
         });
 
-        fragmentHomeSearch = new FragmentHomeSearch();
+        homeSearchFragment = new HomeSearchFragment();
 
         frameLayout_home = findViewById(R.id.fragment_home_categories);
         frameLayout_search = findViewById(R.id.fragment_search);
         vissibaleFragmentSearch();
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_home_categories, new FragmentHome()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_home_categories, new HomeFragment()).commit();
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_search, fragmentHomeSearch).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_search, homeSearchFragment).commit();
 
 //        init name for user
         View heardView = navigationView.getHeaderView(0);
         txt_full_name = heardView.findViewById(R.id.txt_full_name);
-        txt_full_name.setText(Common.CURRENTUSER.getName());
+//        txt_full_name.setText(Common.CURRENTUSER.getName());
 
     }
 
@@ -148,7 +147,7 @@ public class Home extends AppCompatActivity {
                 if (query.trim().isEmpty()) {
                     frameLayout_search.setVisibility(View.GONE);
                 } else {
-                    fragmentHomeSearch.setText(query.toLowerCase());
+                    homeSearchFragment.setText(query.toLowerCase());
                     frameLayout_search.setVisibility(View.VISIBLE);
                 }
                 return false;
@@ -160,7 +159,7 @@ public class Home extends AppCompatActivity {
                     frameLayout_search.setVisibility(View.GONE);
 
                 } else {
-                    fragmentHomeSearch.setText(newText.toLowerCase());
+                    homeSearchFragment.setText(newText.toLowerCase());
                     frameLayout_search.setVisibility(View.VISIBLE);
                 }
                 return true;

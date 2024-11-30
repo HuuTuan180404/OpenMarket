@@ -120,7 +120,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
         holder.price_cart_item.setText(list.get(position).getPrice());
         holder.quantity_cart_item.setText(list.get(position).getQuantity());
 
-        String discount = list.get(position).getDiscount();
 
         holder.quantity_cart_item.addTextChangedListener(new TextWatcher() {
             @Override
@@ -130,7 +129,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
             }
 
             @Override
@@ -139,6 +137,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
                 if (valueString.isEmpty() || Integer.parseInt(valueString) < 1) {
                     holder.quantity_cart_item.setText("1");
                 }
+
+                int quantity = Integer.parseInt(holder.quantity_cart_item.getText().toString());
+                new Database(context).updateQuantity(list.get(position).getProductId(), holder.quantity_cart_item.getText().toString());
+                list.get(position).setQuantity(String.valueOf(quantity));
+                ((Cart) context).updateBill();
             }
         });
 
@@ -151,9 +154,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
                 } else {
                     quantity -= 1;
 
-                    Order order = new Order(foodId, holder.name_cart_item.getText().toString(), holder.price_cart_item.getText().toString(), "-1", discount);
-
-                    new Database(context).addToCart(order);
+                    new Database(context).updateQuantity(list.get(position).getProductId(), holder.quantity_cart_item.getText().toString());
 
 //                    update quantiry to quantity_cart_item
                     holder.quantity_cart_item.setText(String.valueOf(quantity));
@@ -173,11 +174,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
                 quantity += 1;
 
                 holder.quantity_cart_item.setText(String.valueOf(quantity));
+
                 list.get(position).setQuantity(String.valueOf(quantity));
 
-                Order order = new Order(foodId, holder.name_cart_item.getText().toString(), holder.price_cart_item.getText().toString(), "1", discount);
-
-                new Database(context).addToCart(order);
+                new Database(context).updateQuantity(list.get(position).getProductId(), holder.quantity_cart_item.getText().toString());
 
                 ((Cart) context).updateBill();
 
@@ -194,7 +194,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
         });
 
 //        holder.image_cart_item.set
-        Common.FIREBASE_DATABASE.getReference("Foods").child(foodId).addValueEventListener(new ValueEventListener() {
+        Common.FIREBASE_DATABASE.getReference(Common.REF_FOODS).child(foodId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Food currentFood = snapshot.getValue(Food.class);
@@ -207,14 +207,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
 
             }
         });
-    }
-
-    private void updateTotalPrice() {
-        int total = 0;
-        for (Order order : list) {
-            total += Integer.parseInt(order.getPrice()) * Integer.parseInt(order.getQuantity());
-        }
-        tv_total.setText(String.valueOf(total));
     }
 
     public void removeOrder(int pos) {

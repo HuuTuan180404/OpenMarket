@@ -5,10 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
-import android.util.Log;
 
 import com.example.oumarket.Class.Order;
-import com.example.oumarket.Common.Common;
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
 import java.util.ArrayList;
@@ -89,10 +87,21 @@ public class Database extends SQLiteAssetHelper {
         db.close();
     }
 
-    public void delete_from_cart(Order order){
+    public void updateQuantity(String productId, String newQuantity) {
+        SQLiteDatabase db = getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("Quantity", newQuantity);
+
+        db.update("OrderDetail", values, "ProductId = ?", new String[]{productId});
+
+        db.close();
+    }
+
+    public void removeItems(Order order) {
         SQLiteDatabase db = getWritableDatabase(); // Lấy cơ sở dữ liệu ở chế độ ghi
         String whereClause = "ProductId = ?";
-        String[] whereArgs = { order.getProductId() };
+        String[] whereArgs = {order.getProductId()};
 
         db.delete("OrderDetail", whereClause, whereArgs);
         db.close();

@@ -1,6 +1,7 @@
 package com.example.oumarket.Class;
 
 public class User {
+    private String idUser;
     private String Name;
     private String Phone;
 
@@ -11,6 +12,14 @@ public class User {
     public User(String name, String phone) {
         Name = name;
         Phone = phone;
+    }
+
+    public String getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(String idUser) {
+        this.idUser = idUser;
     }
 
     public String getName() {

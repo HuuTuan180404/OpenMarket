@@ -17,7 +17,9 @@
     <style name="Theme.OuMarket.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="ToolbarTitleTextAppearance" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
-        <item name="android:fontFamily">@font/font_text_view</item>
+        <item name="android:fontFamily">@font/satoshi_variable</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/den</item>
     </style>
 
     <style name="ThemeOverlay.AppCompat.SearchView" parent="">
@@ -32,6 +34,11 @@
         <item name="icon">@drawable/im_menu</item>
         <item name="titleTextColor">@color/den</item>
         <item name="fontFamily">@font/satoshi_variable</item>
+    </style>
+
+    <style name="font_tab_myOrder" parent="TextAppearance.Design.Tab">
+        <item name="android:fontFamily">@font/satoshi_variable</item>
+        <item name="android:textSize">20sp</item>
     </style>
 
 </resources>

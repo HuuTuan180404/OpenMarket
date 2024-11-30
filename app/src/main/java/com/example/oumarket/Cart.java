@@ -1,9 +1,12 @@
 package com.example.oumarket;
 
-import android.content.DialogInterface;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,6 +20,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.oumarket.Class.Notification;
 import com.example.oumarket.Class.Order;
 import com.example.oumarket.Class.Request;
 import com.example.oumarket.Class.SetUpRecyclerView;
@@ -60,17 +64,18 @@ public class Cart extends AppCompatActivity {
         tv_total = findViewById(R.id.total);
         tv_basketTotal = findViewById(R.id.basketTotal);
         btn_order = findViewById(R.id.btn_order);
-        btn_order.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (new Database(getBaseContext()).getCarts().isEmpty()) {
-                    Toast.makeText(Cart.this, "No item in cart", Toast.LENGTH_SHORT).show();
+        btn_order.setOnClickListener(v -> {
+            try (Database database = new Database(getBaseContext())) {
+                if (database.getCarts().isEmpty()) {
+                    scheduleNotification(20 * 1000);
                 } else {
                     showAlertDialog();
                 }
-
+            } catch (Exception e) {
+                Log.d("", "");
             }
         });
+
 
         recyclerView = findViewById(R.id.list_cart);
 
@@ -93,28 +98,39 @@ public class Cart extends AppCompatActivity {
             android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(Cart.this);
             builder.setTitle("Delete a requests?");
             builder.setMessage("Are you sure?");
-            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    int position = viewHolder.getAdapterPosition();
-                    Database database1 = new Database(Cart.this);
-                    database1.delete_from_cart(adapter.getList().get(position));
+            builder.setPositiveButton("Yes", (dialog, which) -> {
+                int position = viewHolder.getAdapterPosition();
+                try (Database database1 = new Database(Cart.this)) {
+                    database1.removeItems(adapter.getList().get(position));
                     adapter.removeOrder(position);
                     adapter.notifyItemRemoved(position);
                     updateBill();
+                } catch (Exception e) {
+                    Log.d("ZZZZZ", e.toString());
                 }
             });
 
-            builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    adapter.notifyItemChanged(viewHolder.getAdapterPosition());
-                }
-            });
+            builder.setNegativeButton("No", (dialog, which) -> adapter.notifyItemChanged(viewHolder.getAdapterPosition()));
 
             builder.show();
         }
     };
+
+    private void scheduleNotification(int delayTime) {
+        Intent notificationIntent = new Intent(Cart.this, Notification.class);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                Cart.this, Common.NOTIFICATION_ID, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+        );
+
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        if (alarmManager != null) {
+            long triggerTime = System.currentTimeMillis() + delayTime; // Thời gian kích hoạt
+            alarmManager.set(AlarmManager.RTC_WAKEUP, triggerTime, pendingIntent);
+        }
+
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -137,70 +153,71 @@ public class Cart extends AppCompatActivity {
 
         alert.setIcon(R.drawable.ic_add_shopping_cart_24);
 
-        alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Request request = new Request(Common.CURRENTUSER.getPhone(), Common.CURRENTUSER.getName(), edit_address.getText().toString(), tv_basketTotal.getText().toString(), cart);
-                data_requests.child(String.valueOf(System.currentTimeMillis())).setValue(request);
-                new Database(getBaseContext()).cleanCart();
+        alert.setPositiveButton("Yes", (dialog, which) -> {
+            Request request = new Request(Common.CURRENTUSER.getPhone(), Common.CURRENTUSER.getName(), edit_address.getText() != null ? edit_address.getText().toString() : "", tv_basketTotal.getText().toString(), cart);
+            String id = String.valueOf(System.currentTimeMillis());
+            request.setIdCurrentUser(Common.CURRENTUSER.getIdUser());
+            request.setIdRequest(id);
+            data_requests.child(id).setValue(request);
+            try (Database database = new Database(getBaseContext())) {
+                database.cleanCart();
                 Toast.makeText(getBaseContext(), "Thank you", Toast.LENGTH_SHORT).show();
+                scheduleNotification(Common.DELAY_TIME);
                 finish();
             }
         });
 
-        alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
+        alert.setNegativeButton("No", (dialog, which) -> dialog.dismiss());
 
         alert.show();
 
     }
 
     private void loadListCart() {
-        cart = new Database(Cart.this).getCarts();
-        adapter = new CartAdapter(cart, Cart.this, tv_basketTotal);
-        SetUpRecyclerView.setupLinearLayout(Cart.this, recyclerView, adapter);
-        updateBill();
+        try (Database database = new Database(Cart.this)) {
+            cart = database.getCarts();
+            adapter = new CartAdapter(cart, Cart.this, tv_basketTotal);
+            SetUpRecyclerView.setupLinearLayout(Cart.this, recyclerView, adapter);
+            updateBill();
+        }
     }
 
     public void updateBill() {
-        List<Order> orders = new Database(getBaseContext()).getCarts();
-        int basketTotal = 0; // Tổng giá trị
-        double discount = 0; // Giảm giá
-        if (!orders.isEmpty()) {
-            for (Order order : orders) {
-                int price = Integer.parseInt(order.getPrice());
-                int quantity = Integer.parseInt(order.getQuantity());
-                int itemTotal = price * quantity;
-                basketTotal += itemTotal;
+        try (Database database = new Database(getBaseContext())) {
+            List<Order> orders = database.getCarts();
+            int basketTotal = 0; // Tổng giá trị
+            double discount = 0; // Giảm giá
+            if (!orders.isEmpty()) {
+                for (Order order : orders) {
+                    int price = Integer.parseInt(order.getPrice());
+                    int quantity = Integer.parseInt(order.getQuantity());
+                    int itemTotal = price * quantity;
+                    basketTotal += itemTotal;
 
-                // Thêm logic giảm giá (nếu có discount)
-                if (!order.getDiscount().isEmpty()) {
-                    discount += itemTotal * Integer.parseInt(order.getDiscount()) / 100; // Ví dụ giảm giá theo %
+                    // Thêm logic giảm giá (nếu có discount)
+                    if (!order.getDiscount().isEmpty()) {
+                        discount += itemTotal * Integer.parseInt(order.getDiscount()) / 100.0; // Ví dụ giảm giá theo %
+                    }
                 }
+
+                if (basketTotal >= 0) {
+                    tv_basketTotal.setText(String.valueOf(basketTotal));
+                } else tv_basketTotal.setText("---");
+
+                if (discount >= 0) {
+                    tv_discount.setText(String.valueOf(discount));
+                } else tv_discount.setText("---");
+
+                double total = basketTotal - discount;
+                if (total >= 0) {
+                    tv_total.setText(String.valueOf(total));
+                } else tv_total.setText("---");
+            } else {
+                tv_basketTotal.setText("---");
+                tv_discount.setText("---");
+                tv_total.setText("---");
             }
-
-            if (basketTotal >= 0) {
-                tv_basketTotal.setText(String.valueOf(basketTotal));
-            } else tv_basketTotal.setText("---");
-
-            if (discount >= 0) {
-                tv_discount.setText(String.valueOf(discount));
-            } else tv_discount.setText("---");
-
-            double total = basketTotal - discount;
-            if (total >= 0) {
-                tv_total.setText(String.valueOf(total));
-            } else tv_total.setText("---");
-        } else {
-            tv_basketTotal.setText("---");
-            tv_discount.setText("---");
-            tv_total.setText("---");
         }
-
     }
 
 }

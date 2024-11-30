@@ -1,12 +1,12 @@
 package com.example.oumarket.Class;
 
 public class Food {
-    private String id="";
-    private String Description;
-    private String Discount;
-    private String Image;
+    private String id = "";
     private String CategoryId;
     private String Name;
+    private String Image;
+    private String Description;
+    private String Discount;
     private String Price;
     private String URL;
 

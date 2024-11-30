@@ -3,26 +3,17 @@ package com.example.oumarket.Class;
 import java.util.List;
 
 public class Request {
+    private String idRequest = "";
     private String phone;
     private String name;
     private String address;
     private String total;
     private List<Order> foods;
-    private String id = "";
+    private String idCurrentUser = "";
 
-    private String status;
-
-
+    private String status; // -1: canceled  0: ordered  1:completed
 
     public Request() {
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public Request(String phone, String name, String address, String total, List<Order> foods) {
@@ -32,6 +23,37 @@ public class Request {
         this.total = total;
         this.foods = foods;
         status = "0";
+    }
+
+    @Override
+    public String toString() {
+        return "Request{" +
+                "phone='" + phone + '\'' +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", total='" + total + '\'' +
+                ", foods=" + foods +
+                ", id='" + idRequest + '\'' +
+                ", status='" + status + '\'' +
+                '}';
+    }
+
+////////////////////////////////
+//    getter + setter
+    public String getIdCurrentUser() {
+        return idCurrentUser;
+    }
+
+    public void setIdCurrentUser(String idCurrentUser) {
+        this.idCurrentUser = idCurrentUser;
+    }
+
+    public String getIdRequest() {
+        return idRequest;
+    }
+
+    public void setIdRequest(String idRequest) {
+        this.idRequest = idRequest;
     }
 
     public String getStatus() {
@@ -82,19 +104,7 @@ public class Request {
         this.foods = foods;
     }
 
-    public void loadRequests(){
-    }
+//    getter + setter
+///////////////////////////////////////////
 
-    @Override
-    public String toString() {
-        return "Request{" +
-                "phone='" + phone + '\'' +
-                ", name='" + name + '\'' +
-                ", address='" + address + '\'' +
-                ", total='" + total + '\'' +
-                ", foods=" + foods +
-                ", id='" + id + '\'' +
-                ", status='" + status + '\'' +
-                '}';
-    }
 }

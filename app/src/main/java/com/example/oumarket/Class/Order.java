@@ -71,4 +71,14 @@ public class Order {
         return this.ProductId.compareTo(order.getProductId());
     }
 
+    @Override
+    public String toString() {
+        return "Order{" +
+                "ProductId='" + ProductId + '\'' +
+                ", ProductName='" + ProductName + '\'' +
+                ", Price='" + Price + '\'' +
+                ", Quantity='" + Quantity + '\'' +
+                ", Discount='" + Discount + '\'' +
+                '}';
+    }
 }

@@ -1,4 +1,4 @@
-package com.example.oumarket.ui.home_class;
+package com.example.oumarket.ui.home_page;
 
 import android.os.Bundle;
 
@@ -9,8 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.example.oumarket.Class.Category;
 import com.example.oumarket.Class.Food;
@@ -28,37 +26,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class FragmentHome extends Fragment {
-
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-    private String mParam1;
-    private String mParam2;
+public class HomeFragment extends Fragment {
 
     DatabaseReference data_categories, data_foods;
 
     View include_category1;
 
 
-    public FragmentHome() {
-    }
-
-    public static FragmentHome newInstance(String param1, String param2) {
-        FragmentHome fragment = new FragmentHome();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+    public HomeFragment() {
     }
 
     @Override
