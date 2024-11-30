@@ -67,15 +67,15 @@ public class Cart extends AppCompatActivity {
         btn_order.setOnClickListener(v -> {
             try (Database database = new Database(getBaseContext())) {
                 if (database.getCarts().isEmpty()) {
-                    scheduleNotification(20 * 1000);
+                    Toast.makeText(this, "is empty", Toast.LENGTH_SHORT).show();
                 } else {
+                    scheduleNotification(Common.DELAY_TIME);
                     showAlertDialog();
                 }
             } catch (Exception e) {
                 Log.d("", "");
             }
         });
-
 
         recyclerView = findViewById(R.id.list_cart);
 
