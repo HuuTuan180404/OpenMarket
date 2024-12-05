@@ -145,7 +145,7 @@ public class AnAddressAdapter extends RecyclerView.Adapter<AnAddressViewHolder> 
             holder.ward_getPath.setVisibility(View.GONE);
         }
 
-        if (anAddress.isDefault()) {
+        if (anAddress.getIsDefault()) {
             holder.isDefault.setVisibility(View.VISIBLE);
         } else {
             holder.isDefault.setVisibility(View.GONE);

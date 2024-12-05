@@ -177,14 +177,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                 AnAddress address = new AnAddress(editText_name.getText().toString(), editText_phone.getText().toString(), (Ward) spinner_ward.getSelectedItem(), editText_house_number.getText().toString(), addressType, switchMaterial.isChecked(), false);
 
-                Common.CURRENTUSER.addAddress(address);
+                addNewAddress(address);
 
-                Common.FIREBASE_DATABASE.getReference(Common.REF_USERS).child("Address").setValue(Common.CURRENTUSER.getAddresses());
-
-                Intent intent = new Intent(MapsActivity.this, YourAddressesActivity.class);
-                startActivity(intent);
-
-                finish();
 
             }
         });
@@ -199,19 +193,37 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 }
 
                 AnAddress address = new AnAddress(editText_name.getText().toString(), editText_phone.getText().toString(), centerLatLng.latitude, centerLatLng.longitude, addressType, switchMaterial.isChecked(), true);
-                address.setIsMap(true);
 
-                Common.CURRENTUSER.addAddress(address);
+                addNewAddress(address);
 
-                Common.FIREBASE_DATABASE.getReference(Common.REF_USERS).child(Common.CURRENTUSER.getIdUser()).child("Addresses").setValue(Common.CURRENTUSER.getAddresses());
-                Intent intent = new Intent(MapsActivity.this, YourAddressesActivity.class);
-                startActivity(intent);
-                finish();
             }
         });
 
         mapFragment.getMapAsync(MapsActivity.this);
 
+    }
+
+    private void addNewAddress(AnAddress anAddress) {
+        List<AnAddress> list = Common.CURRENTUSER.getAddresses();
+
+        if (list == null) {
+            anAddress.setIsDefault(true);
+            list = new ArrayList<>();
+        } else {
+            if (anAddress.getIsDefault()) {
+                for (AnAddress i : list) {
+                    i.setIsDefault(false);
+                }
+            }
+        }
+
+        list.add(anAddress);
+        Common.CURRENTUSER.setAddresses(list);
+
+        Common.FIREBASE_DATABASE.getReference(Common.REF_USERS).child(Common.CURRENTUSER.getIdUser()).child("Addresses").setValue(list);
+        Intent intent = new Intent(MapsActivity.this, YourAddressesActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override
