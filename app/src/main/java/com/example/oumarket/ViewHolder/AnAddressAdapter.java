@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.oumarket.Class.AnAddress;
 import com.example.oumarket.Class.Ward;
+import com.example.oumarket.Interface.ItemClickListener;
 import com.example.oumarket.R;
 
 import java.util.ArrayList;
@@ -40,10 +41,13 @@ class AnAddressViewHolder extends RecyclerView.ViewHolder implements View.OnClic
         this.isMap = itemView.findViewById(R.id.isMap);
         this.isDefault = itemView.findViewById(R.id.isDefault);
 
+        itemView.setOnClickListener(this);
+
     }
 
     @Override
     public void onClick(View v) {
+        v.setOnClickListener(this);
     }
 
 //getter+setter//////////////////
@@ -170,5 +174,25 @@ public class AnAddressAdapter extends RecyclerView.Adapter<AnAddressViewHolder> 
     @Override
     public int getItemCount() {
         return list.size();
+    }
+
+    public void removeOrder(int position) {
+        list.remove(position);
+    }
+
+    public List<AnAddress> getList() {
+        return list;
+    }
+
+    public void setList(List<AnAddress> list) {
+        this.list = list;
+    }
+
+    public Context getContext() {
+        return context;
+    }
+
+    public void setContext(Context context) {
+        this.context = context;
     }
 }

@@ -40,7 +40,7 @@
             android:value="AIzaSyDwyPW5cfV3osMQ1sTA5KZp8xIUPm3GuuE" />
 
         <activity
-            android:name=".MapsActivity"
+            android:name=".AddNewAddressActivity"
             android:exported="false"
             android:label="@string/title_activity_maps" />
         <activity

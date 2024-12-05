@@ -50,7 +50,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class AddNewAddressActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private final int FINE_PERMISSION_CODE = 7;
@@ -95,12 +95,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                 List<Address> list = null;
                 if (location != null) {
-                    Geocoder geocoder = new Geocoder(MapsActivity.this);
+                    Geocoder geocoder = new Geocoder(AddNewAddressActivity.this);
                     try {
                         list = geocoder.getFromLocationName(location, 1);
 
                     } catch (IOException e) {
-                        Toast.makeText(MapsActivity.this, "None", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddNewAddressActivity.this, "None", Toast.LENGTH_SHORT).show();
                     }
                 }
                 Address address = list.get(0);
@@ -199,7 +199,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
 
-        mapFragment.getMapAsync(MapsActivity.this);
+        mapFragment.getMapAsync(AddNewAddressActivity.this);
 
     }
 
@@ -221,7 +221,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         Common.CURRENTUSER.setAddresses(list);
 
         Common.FIREBASE_DATABASE.getReference(Common.REF_USERS).child(Common.CURRENTUSER.getIdUser()).child("Addresses").setValue(list);
-        Intent intent = new Intent(MapsActivity.this, YourAddressesActivity.class);
+        Intent intent = new Intent(AddNewAddressActivity.this, YourAddressesActivity.class);
         startActivity(intent);
         finish();
     }
@@ -238,7 +238,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap = googleMap;
         mMap.setOnCameraIdleListener(() -> {
             centerLatLng = mMap.getCameraPosition().target;
-            Geocoder geocoder = new Geocoder(MapsActivity.this, Locale.getDefault());
+            Geocoder geocoder = new Geocoder(AddNewAddressActivity.this, Locale.getDefault());
             try {
 
                 Address address = geocoder.getFromLocation(centerLatLng.latitude, centerLatLng.longitude, 1).get(0);
