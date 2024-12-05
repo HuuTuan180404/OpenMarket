@@ -111,14 +111,15 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderViewHolder> {
     public void onBindViewHolder(@NonNull MyOrderViewHolder holder, @SuppressLint("RecyclerView") int position) {
         if (list.get(position).getStatus().equals("0")) { //ongoing
             holder.status.setVisibility(View.GONE);
+            holder.status.setText(R.string.status_0);
             holder.buttonLayoutHistory.setVisibility(View.GONE);
         } else { // history
             holder.buttonLayoutOngoing.setVisibility(View.GONE);
-            holder.status.setText("Completed");
+            holder.status.setText(R.string.status_1);
             holder.status.setTextColor(ContextCompat.getColor(context, R.color.xanh_chuoi));
             if (list.get(position).getStatus().equals("-1")) {
                 holder.rate.setVisibility(View.INVISIBLE);
-                holder.status.setText("Canceled");
+                holder.status.setText(R.string.status__1);
                 holder.status.setTextColor(ContextCompat.getColor(context, R.color.Do));
             }
         }

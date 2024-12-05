@@ -2,7 +2,6 @@ package com.example.oumarket;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.FrameLayout;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,7 +9,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.widget.Toolbar;
 
-import com.example.oumarket.ViewHolder.ViewPageMyOrderAdapter;
+import com.example.oumarket.Adapter.ViewPageMyOrderAdapter;
 import com.google.android.material.tabs.TabLayout;
 
 public class MyOrder extends AppCompatActivity {

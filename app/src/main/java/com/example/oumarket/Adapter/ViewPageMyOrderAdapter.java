@@ -1,4 +1,4 @@
-package com.example.oumarket.ViewHolder;
+package com.example.oumarket.Adapter;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

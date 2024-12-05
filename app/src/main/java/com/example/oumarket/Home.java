@@ -73,7 +73,10 @@ public class Home extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
-                if (id == R.id.nav_cart) {
+                if (id == R.id.nav_addresses) {
+                    Intent intent = new Intent(Home.this, YourAddressesActivity.class);
+                    startActivity(intent);
+                } else if (id == R.id.nav_cart) {
                     Intent intent = new Intent(Home.this, Cart.class);
                     startActivity(intent);
                 } else if (id == R.id.nav_orders) {
@@ -139,7 +142,6 @@ public class Home extends AppCompatActivity {
         MenuItem item = menu.findItem(R.id.action_search);
         searchView = (SearchView) item.getActionView();
         searchView.clearFocus();
-
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override

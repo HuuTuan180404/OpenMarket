@@ -27,7 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class OrderDetailFragment extends BottomSheetDialogFragment {
 
-    TextView username, phone, address, total, idRequest, paymentMethod, orderTime;
+    TextView username, phone, address, total, idRequest, paymentMethod, orderTime, status;
     AppCompatButton buttonDone;
     RecyclerView recyclerOrderDetail;
 
@@ -52,6 +52,7 @@ public class OrderDetailFragment extends BottomSheetDialogFragment {
         orderTime = view.findViewById(R.id.orderTime);
         buttonDone = view.findViewById(R.id.buttonDone);
         recyclerOrderDetail = view.findViewById(R.id.recyclerOrderDetail);
+        status = view.findViewById(R.id.status);
 
         idRequest.setText(id);
 
@@ -64,6 +65,8 @@ public class OrderDetailFragment extends BottomSheetDialogFragment {
                     phone.setText(request.getPhone());
                     address.setText(request.getAddress());
                     total.setText(request.getTotal());
+
+                    status.setText(getStringStatus(request.getStatus()));
 
                     adapter = new OrderDetailAdapter(request.getFoods(), getContext());
                     SetUpRecyclerView.setupLinearLayout(getContext(), recyclerOrderDetail, adapter);
@@ -82,5 +85,18 @@ public class OrderDetailFragment extends BottomSheetDialogFragment {
         });
 
         return view;
+    }
+
+    private String getStringStatus(String sta) {
+
+        if (sta.equals("1")) {
+            return getContext().getResources().getString(R.string.status_1);
+        }
+
+        if (sta.equals("-1")) {
+            return getContext().getResources().getString(R.string.status__1);
+        }
+
+        return getContext().getResources().getString(R.string.status_0);
     }
 }

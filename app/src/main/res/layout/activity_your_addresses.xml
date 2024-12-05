@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".YourAddressesActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbarlayout"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_alignParentTop="true"
+        android:theme="@style/Theme.OuMarket.AppBarOverlay">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/trang"
+            android:theme="@style/ThemeOverlay.AppCompat.SearchView"
+            app:navigationIcon="@drawable/im_back"
+            app:title="Địa chỉ"
+            app:titleTextColor="@color/den" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <TextView
+        android:id="@+id/addressesIsNull"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btn_add_address"
+        android:layout_below="@+id/appbarlayout"
+        android:layout_marginVertical="10sp"
+        android:fontFamily="@font/satoshi_variable"
+        android:gravity="center"
+        android:text="Bạn chưa thiết lập địa chỉ nào"
+        android:textSize="20sp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btn_add_address"
+        android:layout_below="@+id/appbarlayout"
+        android:layout_marginVertical="10sp"
+        android:scrollbars="vertical">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_add_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10sp"
+        android:background="@drawable/border"
+        android:backgroundTint="@color/xanh_bien"
+        android:drawableLeft="@drawable/ic_add_address"
+        android:fontFamily="@font/satoshi_variable"
+        android:text="Thêm địa chỉ mới"
+        android:textColor="@color/trang" />
+
+</RelativeLayout>

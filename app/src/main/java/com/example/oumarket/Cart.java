@@ -69,11 +69,10 @@ public class Cart extends AppCompatActivity {
                 if (database.getCarts().isEmpty()) {
                     Toast.makeText(this, "is empty", Toast.LENGTH_SHORT).show();
                 } else {
-                    scheduleNotification(Common.DELAY_TIME);
                     showAlertDialog();
                 }
             } catch (Exception e) {
-                Log.d("", "");
+                Log.d("", e.toString());
             }
         });
 
@@ -154,7 +153,7 @@ public class Cart extends AppCompatActivity {
         alert.setIcon(R.drawable.ic_add_shopping_cart_24);
 
         alert.setPositiveButton("Yes", (dialog, which) -> {
-            Request request = new Request(Common.CURRENTUSER.getPhone(), Common.CURRENTUSER.getName(), edit_address.getText() != null ? edit_address.getText().toString() : "", tv_basketTotal.getText().toString(), cart);
+            Request request = new Request(Common.CURRENTUSER.getPhone(), Common.CURRENTUSER.getName(), edit_address.getText().toString(), tv_basketTotal.getText().toString(), cart);
             String id = String.valueOf(System.currentTimeMillis());
             request.setIdCurrentUser(Common.CURRENTUSER.getIdUser());
             request.setIdRequest(id);

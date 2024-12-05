@@ -26,6 +26,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+
+import com.rejowan.cutetoast.CuteToast;
 import com.rey.material.widget.CheckBox;
 
 import io.paperdb.Paper;
@@ -67,6 +69,9 @@ public class Signin extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+//                Intent intent = new Intent(Signin.this, MapsActivity.class);
+//                startActivity(intent);
+
                 if (TextUtils.isEmpty(edit_email.getText().toString())) {
                     Toast.makeText(Signin.this, "Hãy nhập email!", Toast.LENGTH_SHORT).show();
                     return;
@@ -103,9 +108,9 @@ public class Signin extends AppCompatActivity {
 //
         Paper.init(this);
 
-//        if (Paper.book().read(Common.ID_USER_KEY) != null) {
-//            checkBox.setChecked(true);
-//        }
+        if (Paper.book().read(Common.ID_USER_KEY) != null) {
+            checkBox.setChecked(true);
+        }
 
         String user = Paper.book().read(Common.USERNAME_KEY);
         String password = Paper.book().read(Common.PASSWORD_KEY);
@@ -166,7 +171,7 @@ public class Signin extends AppCompatActivity {
                     }
                 } else {
                     mDialog.dismiss();
-                    Toast.makeText(Signin.this, "Tài khoản không đúng!", Toast.LENGTH_SHORT).show();
+                    CuteToast.ct(Signin.this, "Tài khoản không đúng!", CuteToast.LENGTH_SHORT, CuteToast.WARN, true).show();
                 }
             }
         });

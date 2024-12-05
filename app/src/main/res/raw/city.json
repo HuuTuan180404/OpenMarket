@@ -1,0 +1,191 @@
+{
+  "01": {
+    "name": "Hà Nội"
+  },
+  "02": {
+    "name": "Hà Giang"
+  },
+  "04": {
+    "name": "Cao Bằng"
+  },
+  "06": {
+    "name": "Bắc Kạn"
+  },
+  "08": {
+    "name": "Tuyên Quang"
+  },
+  "10": {
+    "name": "Lào Cai"
+  },
+  "11": {
+    "name": "Điện Biên"
+  },
+  "12": {
+    "name": "Lai Châu"
+  },
+  "14": {
+    "name": "Sơn La"
+  },
+  "15": {
+    "name": "Yên Bái"
+  },
+  "17": {
+    "name": "Hoà Bình"
+  },
+  "19": {
+    "name": "Thái Nguyên"
+  },
+  "20": {
+    "name": "Lạng Sơn"
+  },
+  "22": {
+    "name": "Quảng Ninh"
+  },
+  "24": {
+    "name": "Bắc Giang"
+  },
+  "25": {
+    "name": "Phú Thọ"
+  },
+  "26": {
+    "name": "Vĩnh Phúc"
+  },
+  "27": {
+    "name": "Bắc Ninh"
+  },
+  "30": {
+    "name": "Hải Dương"
+  },
+  "31": {
+    "name": "Hải Phòng"
+  },
+  "33": {
+    "name": "Hưng Yên"
+  },
+  "34": {
+    "name": "Thái Bình"
+  },
+  "35": {
+    "name": "Hà Nam"
+  },
+  "36": {
+    "name": "Nam Định"
+  },
+  "37": {
+    "name": "Ninh Bình"
+  },
+  "38": {
+    "name": "Thanh Hóa"
+  },
+  "40": {
+    "name": "Nghệ An"
+  },
+  "42": {
+    "name": "Hà Tĩnh"
+  },
+  "44": {
+    "name": "Quảng Bình"
+  },
+  "45": {
+    "name": "Quảng Trị"
+  },
+  "46": {
+    "name": "Thừa Thiên Huế"
+  },
+  "48": {
+    "name": "Đà Nẵng"
+  },
+  "49": {
+    "name": "Quảng Nam"
+  },
+  "51": {
+    "name": "Quảng Ngãi"
+  },
+  "52": {
+    "name": "Bình Định"
+  },
+  "54": {
+    "name": "Phú Yên"
+  },
+  "56": {
+    "name": "Khánh Hòa"
+  },
+  "58": {
+    "name": "Ninh Thuận"
+  },
+  "60": {
+    "name": "Bình Thuận"
+  },
+  "62": {
+    "name": "Kon Tum"
+  },
+  "64": {
+    "name": "Gia Lai"
+  },
+  "66": {
+    "name": "Đắk Lắk"
+  },
+  "67": {
+    "name": "Đắk Nông"
+  },
+  "68": {
+    "name": "Lâm Đồng"
+  },
+  "70": {
+    "name": "Bình Phước"
+  },
+  "72": {
+    "name": "Tây Ninh"
+  },
+  "74": {
+    "name": "Bình Dương"
+  },
+  "75": {
+    "name": "Đồng Nai"
+  },
+  "77": {
+    "name": "Bà Rịa - Vũng Tàu"
+  },
+  "79": {
+    "name": "Hồ Chí Minh"
+  },
+  "80": {
+    "name": "Long An"
+  },
+  "82": {
+    "name": "Tiền Giang"
+  },
+  "83": {
+    "name": "Bến Tre"
+  },
+  "84": {
+    "name": "Trà Vinh"
+  },
+  "86": {
+    "name": "Vĩnh Long"
+  },
+  "87": {
+    "name": "Đồng Tháp"
+  },
+  "89": {
+    "name": "An Giang"
+  },
+  "91": {
+    "name": "Kiên Giang"
+  },
+  "92": {
+    "name": "Cần Thơ"
+  },
+  "93": {
+    "name": "Hậu Giang"
+  },
+  "94": {
+    "name": "Sóc Trăng"
+  },
+  "95": {
+    "name": "Bạc Liêu"
+  },
+  "96": {
+    "name": "Cà Mau"
+  }
+}

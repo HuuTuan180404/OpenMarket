@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.google.services)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.google.android.libraries.mapsplatform.secrets.gradle.plugin)
 }
 
 android {
@@ -36,6 +37,8 @@ android {
 }
 
 dependencies {
+    implementation(libs.play.services.location)
+    implementation(libs.cuteToast)
     implementation(libs.android.socialButtons)
     implementation(libs.rey5137)
     implementation(libs.paperdb)
@@ -54,7 +57,7 @@ dependencies {
     implementation(libs.appcompat.v7)
     implementation(libs.core)
     implementation(libs.firebase.database)
-    implementation(libs.library)
+    implementation(libs.materialedittext)
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.bom)
 //
@@ -67,6 +70,7 @@ dependencies {
     implementation(libs.lifecycle.viewmodel.ktx)
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
+    implementation(libs.play.services.maps)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

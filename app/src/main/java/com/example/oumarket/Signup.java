@@ -26,6 +26,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 public class Signup extends AppCompatActivity {
     TextInputEditText edit_name, edit_email, edit_password, edit_confPass, edit_phone;
     AppCompatButton btn_signup;
@@ -125,7 +127,7 @@ public class Signup extends AppCompatActivity {
             public void onDataChange(DataSnapshot snapshot) {
                 String email = edit_email.getText().toString();
                 email = email.substring(0, email.indexOf("@"));
-                User user = new User(edit_name.getText().toString(), edit_phone.getText().toString());
+                User user = new User(edit_name.getText().toString(), edit_phone.getText().toString(), new ArrayList<>());
                 table_user.child(email).setValue(user);
             }
 

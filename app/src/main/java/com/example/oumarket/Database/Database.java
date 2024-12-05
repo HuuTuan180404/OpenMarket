@@ -108,8 +108,14 @@ public class Database extends SQLiteAssetHelper {
     }
 
     public void cleanCart() {
+        deleteTable("OrderDetail");
+    }
+
+    ////////////////////////////////
+
+    public void deleteTable(String table) {
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
-        String query = String.format("DELETE FROM OrderDetail");
+        String query = String.format("DELETE FROM %s", table);
         sqLiteDatabase.execSQL(query);
     }
 }

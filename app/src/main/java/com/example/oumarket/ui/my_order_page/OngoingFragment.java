@@ -66,7 +66,6 @@ public class OngoingFragment extends Fragment {
     private void loadRequests() {
         Paper.init(getContext());
         String idCurrentUser = Paper.book().read(Common.ID_USER_KEY);
-        Log.d("ZZZZZ", idCurrentUser);
 
         data_requests.orderByChild("idCurrentUser").equalTo(idCurrentUser).addValueEventListener(new ValueEventListener() {
             @Override
