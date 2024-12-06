@@ -82,9 +82,6 @@ public class YourAddressesActivity extends AppCompatActivity {
                 if (Common.CURRENTUSER.getAddresses().isEmpty()) {
                     addressesIsNull.setVisibility(View.VISIBLE);
                     recyclerView.setVisibility(View.GONE);
-                } else {
-                    addressesIsNull.setVisibility(View.GONE);
-                    recyclerView.setVisibility(View.VISIBLE);
                 }
             });
 
