@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,7 @@ import com.example.oumarket.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
+import com.rey.material.widget.CheckBox;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -38,6 +40,7 @@ class CartViewHolder extends RecyclerView.ViewHolder implements View.OnClickList
     public TextView name_cart_item, price_cart_item;
     public ImageView image_cart_item;
     EditText quantity_cart_item;
+    CheckBox isBuy;
     AppCompatButton btnIncrease, btnDecrease;
 
     private ItemClickListener itemClickListener;
@@ -50,6 +53,7 @@ class CartViewHolder extends RecyclerView.ViewHolder implements View.OnClickList
         btnIncrease = itemView.findViewById(R.id.button_Increase);
         btnDecrease = itemView.findViewById(R.id.button_Decrease);
         quantity_cart_item = itemView.findViewById(R.id.edittext_quantity);
+        isBuy = itemView.findViewById(R.id.buy);
         itemView.setOnClickListener(this);
 
     }
@@ -97,12 +101,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
 
     private List<Order> list = new ArrayList<>();
     private Context context;
-    private TextView tv_total;
 
-    public CartAdapter(List<Order> list, Context context, TextView tv_total) {
+    public CartAdapter(List<Order> list, Context context) {
         this.list = list;
         this.context = context;
-        this.tv_total = tv_total;
     }
 
     @NonNull
@@ -119,7 +121,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
         holder.name_cart_item.setText(list.get(position).getProductName());
         holder.price_cart_item.setText(list.get(position).getPrice());
         holder.quantity_cart_item.setText(list.get(position).getQuantity());
-
 
         holder.quantity_cart_item.addTextChangedListener(new TextWatcher() {
             @Override
@@ -145,25 +146,22 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
             }
         });
 
-        holder.btnDecrease.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int quantity = Integer.parseInt(holder.quantity_cart_item.getText().toString());
-                if (quantity == 1) {
-                    Toast.makeText(context, "Lỗi số lượng", Toast.LENGTH_SHORT).show();
-                } else {
-                    quantity -= 1;
+        holder.btnDecrease.setOnClickListener(v -> {
+            int quantity = Integer.parseInt(holder.quantity_cart_item.getText().toString());
+            if (quantity == 1) {
+                Toast.makeText(context, "Lỗi số lượng", Toast.LENGTH_SHORT).show();
+            } else {
+                quantity -= 1;
 
-                    new Database(context).updateQuantity(list.get(position).getProductId(), holder.quantity_cart_item.getText().toString());
+                new Database(context).updateQuantity(list.get(position).getProductId(), holder.quantity_cart_item.getText().toString());
 
 //                    update quantiry to quantity_cart_item
-                    holder.quantity_cart_item.setText(String.valueOf(quantity));
+                holder.quantity_cart_item.setText(String.valueOf(quantity));
 
 //                    update quantity to list_order
-                    list.get(position).setQuantity(String.valueOf(quantity));
+                list.get(position).setQuantity(String.valueOf(quantity));
 
-                    ((Cart) context).updateBill();
-                }
+                ((Cart) context).updateBill();
             }
         });
 
@@ -182,6 +180,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
                 ((Cart) context).updateBill();
 
             }
+        });
+
+        holder.isBuy.setChecked(list.get(position).getIsBuy().equals("1") ? true : false);
+
+        holder.isBuy.setOnClickListener(v -> {
+            list.get(position).setIsBuy(holder.isBuy.isChecked() == true ? "1" : "0");
+            new Database(context).updateIsBuy(list.get(position).getProductId(), list.get(position).getIsBuy());
+            ((Cart) context).updateBill();
         });
 
         holder.image_cart_item.setOnClickListener(new View.OnClickListener() {
@@ -239,13 +245,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
         this.context = context;
     }
 
-    public TextView getTv_total() {
-        return tv_total;
-    }
-
-    public void setTv_total(TextView tv_total) {
-        this.tv_total = tv_total;
-    }
 //    getter + setter
     ///////////////////////////////////////////////////////////
 }

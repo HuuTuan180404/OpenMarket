@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/trang"
-            android:theme="@style/ThemeOverlay.AppCompat.SearchView"
+            android:theme="@style/Customer.Theme.SearchView"
             app:navigationIcon="@drawable/im_back"
             app:title="\tCart"
             app:titleTextColor="@color/den" />

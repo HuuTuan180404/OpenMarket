@@ -4,8 +4,8 @@
     android:id="@+id/card_food"
     android:layout_width="match_parent"
     android:layout_height="320sp"
-    android:layout_marginBottom="20sp"
     android:layout_marginHorizontal="5sp"
+    android:layout_marginBottom="20sp"
     android:fitsSystemWindows="true"
     app:cardElevation="0sp">
 
@@ -74,25 +74,23 @@
 
             </LinearLayout>
 
+
             <LinearLayout
-                android:id="@+id/add_to_card"
                 android:layout_width="match_parent"
                 android:layout_height="40sp"
                 android:background="@drawable/rounded_bottom_20sp"
                 android:backgroundTint="@color/xanh_bien"
                 android:gravity="center">
 
-                <ImageView
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/add_to_card"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:src="@drawable/im_cart" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/xanh_bien"
+                    android:drawableStart="@drawable/add_to_cart"
                     android:fontFamily="@font/satoshi_variable"
-                    android:text=" ADD TO CART"
-                    android:textSize="15sp" />
+                    android:text=" Thêm vào giỏ hàng"
+                    android:textColor="@color/trang" />
 
             </LinearLayout>
 

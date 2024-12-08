@@ -66,13 +66,13 @@ public class Cart extends AppCompatActivity {
         btn_order = findViewById(R.id.btn_order);
         btn_order.setOnClickListener(v -> {
             try (Database database = new Database(getBaseContext())) {
-                if (database.getCarts().isEmpty()) {
+                if (tv_basketTotal.getText().equals("---") && tv_discount.getText().equals("---")) {
                     Toast.makeText(this, "is empty", Toast.LENGTH_SHORT).show();
                 } else {
                     showAlertDialog();
                 }
             } catch (Exception e) {
-                Log.d("", e.toString());
+                Log.d("ZZZZZ", e.toString());
             }
         });
 
@@ -115,18 +115,19 @@ public class Cart extends AppCompatActivity {
         }
     };
 
-    private void scheduleNotification(int delayTime) {
+    private void scheduleNotification(int delayTime, String idRequest) {
         Intent notificationIntent = new Intent(Cart.this, Notification.class);
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                Cart.this, Common.NOTIFICATION_ID, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
-        );
+        notificationIntent.putExtra("idRequest", idRequest);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(Cart.this, Common.NOTIFICATION_ID, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
         if (alarmManager != null) {
             long triggerTime = System.currentTimeMillis() + delayTime; // Thời gian kích hoạt
             alarmManager.set(AlarmManager.RTC_WAKEUP, triggerTime, pendingIntent);
+
         }
 
     }
@@ -157,11 +158,11 @@ public class Cart extends AppCompatActivity {
             String id = String.valueOf(System.currentTimeMillis());
             request.setIdCurrentUser(Common.CURRENTUSER.getIdUser());
             request.setIdRequest(id);
+            scheduleNotification(Common.DELAY_TIME, id);
             data_requests.child(id).setValue(request);
             try (Database database = new Database(getBaseContext())) {
                 database.cleanCart();
                 Toast.makeText(getBaseContext(), "Thank you", Toast.LENGTH_SHORT).show();
-                scheduleNotification(Common.DELAY_TIME);
                 finish();
             }
         });
@@ -175,7 +176,7 @@ public class Cart extends AppCompatActivity {
     private void loadListCart() {
         try (Database database = new Database(Cart.this)) {
             cart = database.getCarts();
-            adapter = new CartAdapter(cart, Cart.this, tv_basketTotal);
+            adapter = new CartAdapter(cart, Cart.this);
             SetUpRecyclerView.setupLinearLayout(Cart.this, recyclerView, adapter);
             updateBill();
         }
@@ -188,14 +189,16 @@ public class Cart extends AppCompatActivity {
             double discount = 0; // Giảm giá
             if (!orders.isEmpty()) {
                 for (Order order : orders) {
-                    int price = Integer.parseInt(order.getPrice());
-                    int quantity = Integer.parseInt(order.getQuantity());
-                    int itemTotal = price * quantity;
-                    basketTotal += itemTotal;
+                    if (order.getIsBuy().equals("1")) {
+                        int price = Integer.parseInt(order.getPrice());
+                        int quantity = Integer.parseInt(order.getQuantity());
+                        int itemTotal = price * quantity;
+                        basketTotal += itemTotal;
 
-                    // Thêm logic giảm giá (nếu có discount)
-                    if (!order.getDiscount().isEmpty()) {
-                        discount += itemTotal * Integer.parseInt(order.getDiscount()) / 100.0; // Ví dụ giảm giá theo %
+                        // Thêm logic giảm giá (nếu có discount)
+                        if (!order.getDiscount().isEmpty()) {
+                            discount += itemTotal * Integer.parseInt(order.getDiscount()) / 100.0; // Ví dụ giảm giá theo %
+                        }
                     }
                 }
 

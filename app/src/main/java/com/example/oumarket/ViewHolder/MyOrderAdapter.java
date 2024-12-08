@@ -3,6 +3,7 @@ package com.example.oumarket.ViewHolder;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,15 +20,21 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.oumarket.Class.Food;
+import com.example.oumarket.Class.Order;
 import com.example.oumarket.Class.Request;
 import com.example.oumarket.Common.Common;
+import com.example.oumarket.Database.Database;
 import com.example.oumarket.Interface.ItemClickListener;
 import com.example.oumarket.R;
+import com.example.oumarket.RatingFoodActivity;
 import com.example.oumarket.ui.my_order_page.OrderDetailFragment;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
+import com.rejowan.cutetoast.CuteToast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 class MyOrderViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -75,7 +82,6 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderViewHolder> {
 
     List<Request> list;
     Context context;
-
 
     public MyOrderAdapter(List<Request> list, Context context) {
         this.list = list;
@@ -128,52 +134,40 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderViewHolder> {
         holder.total.setText(list.get(position).getTotal());
         holder.time.setText("TIME");
 
-        int countItems = (list.get(position).getFoods()).size();
+        int countItems = (list.get(position).getOrders()).size();
         holder.countItems.setText(String.valueOf(countItems));
         holder.item_items.setText(list.size() == 1 ? "item" : "items");
 
-        holder.rate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context, "rate", Toast.LENGTH_SHORT).show();
+        holder.rate.setVisibility(View.INVISIBLE);
+        for (Order order : list.get(position).getOrders()) {
+            if (!order.getIsRate()) {
+                holder.rate.setVisibility(View.VISIBLE);
+                break;
             }
+        }
+        holder.rate.setOnClickListener(v -> {
+
+            Intent intent = new Intent(context, RatingFoodActivity.class);
+            intent.putExtra("idRequest", list.get(position).getIdRequest());
+            context.startActivity(intent);
+
         });
 
-        holder.reOrder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context, "reOrder", Toast.LENGTH_SHORT).show();
-            }
-        });
+        holder.reOrder.setOnClickListener(v -> {
 
-        holder.cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Common.FIREBASE_DATABASE.getReference(Common.REF_REQUESTS).child(list.get(position).getIdRequest()).addListenerForSingleValueEvent(new ValueEventListener() {
+            List<Order> orders = list.get(position).getOrders();
+
+            for (Order order : orders) {
+                order.setCountStars(5);
+                order.setIsBuy("0");
+                order.setIsRate(false);
+                Common.FIREBASE_DATABASE.getReference(Common.REF_FOODS).child(order.getProductId()).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (snapshot.exists()) {
-                            AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                            builder.setTitle("Warming");
-//                            builder.setIcon()
-                            builder.setMessage("Bạn chắc chắn muốn hủy đơn hàng này?");
-                            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    Common.FIREBASE_DATABASE.getReference(Common.REF_REQUESTS).child(list.get(position).getIdRequest()).child("status").setValue("-1");
-                                }
-                            });
-
-                            builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                }
-                            });
-
-                            builder.show();
-
-
-                        }
+                        Food food = snapshot.getValue(Food.class);
+                        order.setDiscount(food.getDiscount());
+                        order.setPrice(food.getPrice());
+                        new Database(context).addToCart(order);
                     }
 
                     @Override
@@ -182,17 +176,54 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderViewHolder> {
                     }
                 });
             }
+
+            CuteToast.ct(context, "Đã thêm vào giỏ hàng", Toast.LENGTH_SHORT, CuteToast.SUCCESS, true).show();
+
         });
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                OrderDetailFragment fragment = new OrderDetailFragment(list.get(position).getIdRequest());
+        holder.cancel.setOnClickListener(v -> {
+            Common.FIREBASE_DATABASE.getReference(Common.REF_REQUESTS).child(list.get(position).getIdRequest()).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                        builder.setTitle("Warming");
+//                            builder.setIcon()
+                        builder.setMessage("Bạn chắc chắn muốn hủy đơn hàng này?");
+                        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Common.FIREBASE_DATABASE.getReference(Common.REF_REQUESTS).child(list.get(position).getIdRequest()).child("status").setValue("-1");
+                            }
+                        });
 
-                AppCompatActivity activity = (AppCompatActivity) context;
-                fragment.show(activity.getSupportFragmentManager(), "OrderDetailFragment");
+                        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });
 
-            }
+                        builder.show();
+
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+        });
+
+        holder.itemView.setOnClickListener(v -> {
+
+            OrderDetailFragment fragment = new OrderDetailFragment(list.get(position).getIdRequest());
+
+            AppCompatActivity activity = (AppCompatActivity) context;
+            fragment.show(activity.getSupportFragmentManager(), "OrderDetailFragment");
+
         });
 
     }

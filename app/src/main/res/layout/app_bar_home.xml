@@ -11,14 +11,15 @@
         android:layout_height="?attr/actionBarSize"
         android:theme="@style/Theme.OuMarket.AppBarOverlay">
 
-        <androidx.appcompat.widget.Toolbar
+        <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/trang"
             android:backgroundTint="@color/xanh_bien"
-            android:theme="@style/toolbar"
-            app:menu="@menu/home" />
+            android:theme="@style/Customer.Theme.SearchView"
+            app:menu="@menu/home"
+            app:navigationIcon="@drawable/im_menu" />
 
     </com.google.android.material.appbar.AppBarLayout>
 

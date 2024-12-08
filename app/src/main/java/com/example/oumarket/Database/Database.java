@@ -24,7 +24,7 @@ public class Database extends SQLiteAssetHelper {
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
         SQLiteQueryBuilder sqLiteQueryBuilder = new SQLiteQueryBuilder();
 
-        String[] sqlSelect = {"ProductName", "ProductId", "Price", "Quantity", "Discount"};
+        String[] sqlSelect = {"ProductName", "ProductId", "Price", "Quantity", "Discount", "isBuy"};
         String sqlTable = "OrderDetail";
 
         sqLiteQueryBuilder.setTables(sqlTable);
@@ -38,17 +38,16 @@ public class Database extends SQLiteAssetHelper {
                 int priceIndex = cursor.getColumnIndex("Price");
                 int quantityIndex = cursor.getColumnIndex("Quantity");
                 int discountIndex = cursor.getColumnIndex("Discount");
+                int isBuyIndex = cursor.getColumnIndex("isBuy");
 
                 // Kiểm tra nếu các cột đều tồn tại
-                if (productIdIndex != -1 && priceIndex != -1 && productNameIndex != -1 && quantityIndex != -1 && discountIndex != -1) {
-                    result.add(new Order(cursor.getString(productIdIndex), cursor.getString(productNameIndex), cursor.getString(priceIndex), cursor.getString(quantityIndex), cursor.getString(discountIndex)));
+                if (productIdIndex != -1 && priceIndex != -1 && productNameIndex != -1 && quantityIndex != -1 && discountIndex != -1 && isBuyIndex != -1) {
+                    result.add(new Order(cursor.getString(productIdIndex), cursor.getString(productNameIndex), cursor.getString(priceIndex), cursor.getString(quantityIndex), cursor.getString(discountIndex), cursor.getString(isBuyIndex)));
                 } else {
 
                 }
             } while (cursor.moveToNext());
         }
-
-        removeDuplicates(result);
 
         return result;
     }
@@ -59,31 +58,32 @@ public class Database extends SQLiteAssetHelper {
         }
     }
 
-    public void removeDuplicates(List<Order> result) {
-        result.sort((a, b) -> a.compareTo(b));
-        for (int i = 0; i < result.size() - 1; i++) {
-            int j = i + 1;
-            while (j < result.size()) {
-                if (result.get(i).getProductId().equals(result.get(j).getProductId())) {
-                    int x = Integer.parseInt(result.get(i).getQuantity()) + Integer.parseInt(result.get(j).getQuantity());
-                    result.get(i).setQuantity(x + "");
-                    result.remove(j);
-                } else {
-                    j++;
-                }
-            }
-        }
-    }
-
     public void addToCart(Order order) {
         SQLiteDatabase db = getReadableDatabase();
-        ContentValues values = new ContentValues();
-        values.put("ProductId", order.getProductId());
-        values.put("ProductName", order.getProductName());
-        values.put("Price", order.getPrice());
-        values.put("Quantity", order.getQuantity());
-        values.put("Discount", order.getDiscount());
-        db.insert("OrderDetail", null, values);
+        String query = "SELECT Quantity FROM OrderDetail WHERE ProductId = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{order.getProductId()});
+
+        if (cursor.moveToFirst()) {
+            // Sản phẩm đã tồn tại, tăng số lượng
+            int currentQuantity = cursor.getInt(0); // Lấy số lượng hiện tại
+            int newQuantity = currentQuantity + Integer.parseInt(order.getQuantity());
+
+            ContentValues values = new ContentValues();
+            values.put("Quantity", String.valueOf(newQuantity));
+            db.update("OrderDetail", values, "ProductId = ?", new String[]{order.getProductId()});
+        } else {
+            // Sản phẩm chưa tồn tại, thêm mới
+            ContentValues values = new ContentValues();
+            values.put("ProductId", order.getProductId());
+            values.put("ProductName", order.getProductName());
+            values.put("Price", order.getPrice());
+            values.put("Quantity", order.getQuantity());
+            values.put("Discount", order.getDiscount());
+            values.put("isBuy", order.getIsBuy());
+            db.insert("OrderDetail", null, values);
+        }
+
+        cursor.close(); // Đóng Cursor sau khi sử dụng
         db.close();
     }
 
@@ -97,6 +97,18 @@ public class Database extends SQLiteAssetHelper {
 
         db.close();
     }
+
+    public void updateIsBuy(String productId, String buy) {
+        SQLiteDatabase db = getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("isBuy", buy);
+
+        db.update("OrderDetail", values, "ProductId = ?", new String[]{productId});
+
+        db.close();
+    }
+
 
     public void removeItems(Order order) {
         SQLiteDatabase db = getWritableDatabase(); // Lấy cơ sở dữ liệu ở chế độ ghi

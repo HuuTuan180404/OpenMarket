@@ -20,11 +20,9 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/trang"
-            android:theme="@style/ThemeOverlay.AppCompat.SearchView"
+            android:theme="@style/Customer.ToolBar"
             app:navigationIcon="@drawable/im_back"
-            app:title="Địa chỉ"
-            app:titleTextColor="@color/den" />
+            app:title="Địa chỉ" />
 
     </com.google.android.material.appbar.AppBarLayout>
 

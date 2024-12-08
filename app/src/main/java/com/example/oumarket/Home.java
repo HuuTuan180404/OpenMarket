@@ -29,7 +29,6 @@ import io.paperdb.Paper;
 
 public class Home extends AppCompatActivity {
 
-    private AppBarConfiguration mAppBarConfiguration;
     private ActivityHomeBinding binding;
 
     TextView txt_full_name;
@@ -106,7 +105,8 @@ public class Home extends AppCompatActivity {
 //        init name for user
         View heardView = navigationView.getHeaderView(0);
         txt_full_name = heardView.findViewById(R.id.txt_full_name);
-//        txt_full_name.setText(Common.CURRENTUSER.getName());
+
+        txt_full_name.setText(Common.CURRENTUSER.getName());
 
     }
 

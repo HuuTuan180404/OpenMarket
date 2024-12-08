@@ -68,7 +68,7 @@ public class OrderDetailFragment extends BottomSheetDialogFragment {
 
                     status.setText(getStringStatus(request.getStatus()));
 
-                    adapter = new OrderDetailAdapter(request.getFoods(), getContext());
+                    adapter = new OrderDetailAdapter(request.getOrders(), getContext());
                     SetUpRecyclerView.setupLinearLayout(getContext(), recyclerOrderDetail, adapter);
 
                 }

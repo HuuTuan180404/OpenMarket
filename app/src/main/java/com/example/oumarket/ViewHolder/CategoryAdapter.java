@@ -92,7 +92,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
             @Override
             public void onClick(View v) {
                 Intent foodDetail = new Intent(context, FoodList.class);
-                foodDetail.putExtra("CategoryId", list.get(position).getId());
+                foodDetail.putExtra("categoryId", list.get(position).getId());
                 context.startActivity(foodDetail);
             }
         });

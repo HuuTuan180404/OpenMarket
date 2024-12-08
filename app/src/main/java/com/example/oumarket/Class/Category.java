@@ -38,12 +38,5 @@ public class Category {
     public void setName(String name) {
         Name = name;
     }
-
-    @Override
-    public String toString() {
-        return "Category{" +
-                "Name='" + Name + '\'' +
-                ", id='" + id + '\'' +
-                '}';
-    }
+    
 }

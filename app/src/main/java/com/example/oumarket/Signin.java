@@ -15,6 +15,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
+import com.example.oumarket.Class.Food;
 import com.example.oumarket.Class.User;
 import com.example.oumarket.Common.Common;
 import com.google.android.gms.tasks.OnCompleteListener;

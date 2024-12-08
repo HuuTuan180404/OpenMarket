@@ -6,6 +6,7 @@ import android.app.TaskStackBuilder;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 
@@ -19,6 +20,10 @@ public class Notification extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 
         Intent intent1 = new Intent(context, MyOrder.class);
+
+        String idRequest = intent.getStringExtra("idRequest");
+
+        Log.d("ZZZZZ",idRequest);
 
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
         stackBuilder.addNextIntentWithParentStack(intent1);
@@ -36,6 +41,7 @@ public class Notification extends BroadcastReceiver {
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         if (notificationManager != null) {
             notificationManager.notify(Common.NOTIFICATION_ID, builder.build());
+            Common.FIREBASE_DATABASE.getReference(Common.REF_REQUESTS).child(idRequest).child("status").setValue("1");
         }
     }
 

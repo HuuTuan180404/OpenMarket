@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.oumarket.Class.Food;
@@ -33,7 +34,7 @@ class FoodViewHolder extends RecyclerView.ViewHolder implements View.OnClickList
     public ImageView food_image;
     private ItemClickListener itemClickListener;
 
-    LinearLayout add_to_cart;
+    AppCompatButton add_to_cart;
 
     public void setItemClickListener(ItemClickListener itemClickListener) {
         this.itemClickListener = itemClickListener;
@@ -101,7 +102,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodViewHolder> {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getContext(), "Add_to_cart", Toast.LENGTH_SHORT).show();
-                Order order = new Order(list.get(position).getId(), list.get(position).getName(), list.get(position).getPrice(), "1", list.get(position).getDiscount());
+                Order order = new Order(list.get(position).getId(), list.get(position).getName(), list.get(position).getPrice(), "1", list.get(position).getDiscount(), "0");
                 Database database1 = new Database(getContext());
                 database1.addToCart(order);
             }

@@ -1,12 +1,14 @@
 package com.example.oumarket;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.SearchView;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -54,6 +56,10 @@ public class FoodList extends AppCompatActivity {
         toolbar.setTitle("Category");
         setSupportActionBar(toolbar);
 
+        ActionBar actionbar = getSupportActionBar();
+        actionbar.setDisplayHomeAsUpEnabled(true);
+        actionbar.setHomeAsUpIndicator(R.drawable.ic_arrow_back_24);
+
 //         firebase
         data_foods = Common.FIREBASE_DATABASE.getReference(Common.REF_FOODS);
 
@@ -61,7 +67,7 @@ public class FoodList extends AppCompatActivity {
 
 //        get intent here
         if (getIntent() != null) {
-            categoryId = getIntent().getStringExtra("CategoryId");
+            categoryId = getIntent().getStringExtra("categoryId");
         }
         if (!categoryId.isEmpty() && categoryId != "") {
             setupRecycler(categoryId);
@@ -119,7 +125,7 @@ public class FoodList extends AppCompatActivity {
     }
 
     private void setupRecycler(String categoryId) {
-        data_foods.orderByChild("MenuID").equalTo(categoryId).addListenerForSingleValueEvent(new ValueEventListener() {
+        data_foods.orderByChild("categoryId").equalTo(categoryId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 List<Food> list = new ArrayList<>();
@@ -144,9 +150,10 @@ public class FoodList extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_food_list, menu);
 
-        MenuItem item = menu.findItem(R.id.action_search);
+        MenuItem item_search = menu.findItem(R.id.action_search);
 
-        searchView = (SearchView) item.getActionView();
+        searchView = (SearchView) item_search.getActionView();
+        searchView.setQueryHint("Input");
 
         searchView.clearFocus();
 
@@ -177,6 +184,9 @@ public class FoodList extends AppCompatActivity {
         if (item.getItemId() == android.R.id.home) {
             finish();
             return true;
+        }
+        if (item.getItemId() == R.id.action_sort) {
+            Log.d("ZZZZZ", "action_sort");
         }
         return super.onOptionsItemSelected(item);
     }

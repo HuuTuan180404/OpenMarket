@@ -100,7 +100,7 @@ public class FoodDetail extends AppCompatActivity {
 
 //        button cart
         button_cart.setOnClickListener(v -> {
-            Order order = new Order(foodId, currentFood.getName(), currentFood.getPrice(), edittext_quantity.getText() + "", currentFood.getDiscount());
+            Order order = new Order(foodId, currentFood.getName(), currentFood.getPrice(), edittext_quantity.getText() + "", currentFood.getDiscount(),"0");
             Database database1 = new Database(FoodDetail.this);
             database1.addToCart(order);
         });

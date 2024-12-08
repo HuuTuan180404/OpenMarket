@@ -12,18 +12,18 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="?attr/actionBarSize"
         android:theme="@style/Theme.OuMarket.AppBarOverlay">
 
-        <androidx.appcompat.widget.Toolbar
+        <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar_FoodList"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/main_color"
-            android:theme="@style/ThemeOverlay.AppCompat.SearchView"
-            app:navigationIcon="@drawable/ic_arrow_back_24"
-            app:title="Title"
-            app:titleTextColor="@android:color/white" />
+            android:background="@color/trang"
+            android:backgroundTint="@color/xanh_bien"
+            android:theme="@style/Customer.Theme.SearchView"
+            app:menu="@menu/menu_food_list"
+            app:navigationIcon="@drawable/ic_arrow_back_24" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -45,7 +45,7 @@
         android:layout_marginLeft="5sp"
         android:layout_marginTop="10sp"
         android:layout_marginRight="5sp"
-        android:background="@color/background"
+        android:background="@drawable/border"
         android:orientation="horizontal"
         android:scrollbars="horizontal"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
@@ -58,15 +58,15 @@
         android:layout_margin="5sp"
         android:scrollbars="vertical" />
 
-<!--    <com.rey.material.widget.FloatingActionButton-->
-<!--        android:id="@+id/fab"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_gravity="bottom|end"-->
-<!--        android:layout_marginEnd="@dimen/fab_margin"-->
-<!--        android:layout_marginBottom="16dp"-->
-<!--        android:contentDescription=" "-->
-<!--        app:fab_iconSrc="@drawable/ic_cart" />-->
+    <!--    <com.rey.material.widget.FloatingActionButton-->
+    <!--        android:id="@+id/fab"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_gravity="bottom|end"-->
+    <!--        android:layout_marginEnd="@dimen/fab_margin"-->
+    <!--        android:layout_marginBottom="16dp"-->
+    <!--        android:contentDescription=" "-->
+    <!--        app:fab_iconSrc="@drawable/ic_cart" />-->
 
 
 </LinearLayout>

@@ -21,18 +21,15 @@
                 android:id="@+id/appbarlayout"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:layout_alignParentTop="true"
-                android:theme="@style/Theme.OuMarket.AppBarOverlay">
+                android:layout_alignParentTop="true">
 
-                <androidx.appcompat.widget.Toolbar
+                <com.google.android.material.appbar.MaterialToolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
-                    android:background="@color/trang"
-                    android:theme="@style/ThemeOverlay.AppCompat.SearchView"
+                    android:theme="@style/Customer.ToolBar"
                     app:navigationIcon="@drawable/im_back"
-                    app:title="My Orders"
-                    app:titleTextColor="@color/den" />
+                    app:title="My Orders" />
 
             </com.google.android.material.appbar.AppBarLayout>
 

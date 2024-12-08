@@ -22,11 +22,19 @@
         <item name="android:textColor">@color/den</item>
     </style>
 
-    <style name="ThemeOverlay.AppCompat.SearchView" parent="">
+    <style name="Customer.Theme.SearchView" parent="">
         <item name="titleCentered">true</item>
         <item name="fontFamily">@font/satoshi_variable</item>
         <item name="android:editTextColor">@color/trang</item>
         <item name="android:textColorHint">@color/trang</item>
+    </style>
+
+    <style name="Customer.ToolBar" parent="">
+        <item name="titleCentered">true</item>
+        <item name="fontFamily">@font/satoshi_variable</item>
+        <item name="titleTextColor">@color/den</item>
+        <item name="android:textColorHint">@color/den</item>
+        <item name="android:background">@color/trang</item>
     </style>
 
     <style name="toolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">

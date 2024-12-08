@@ -8,7 +8,7 @@ public class Request {
     private String name;
     private String address;
     private String total;
-    private List<Order> foods;
+    private List<Order> Orders;
     private String idCurrentUser = "";
 
     private String status; // -1: canceled  0: ordered  1:completed
@@ -21,8 +21,19 @@ public class Request {
         this.name = name;
         this.address = address;
         this.total = total;
-        this.foods = foods;
+        this.Orders = foods;
         status = "0";
+    }
+
+    public Request(String idRequest, String phone, String name, String address, String total, List<Order> foods, String idCurrentUser, String status) {
+        this.idRequest = idRequest;
+        this.phone = phone;
+        this.name = name;
+        this.address = address;
+        this.total = total;
+        this.Orders = foods;
+        this.idCurrentUser = idCurrentUser;
+        this.status = status;
     }
 
     @Override
@@ -32,13 +43,13 @@ public class Request {
                 ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
                 ", total='" + total + '\'' +
-                ", foods=" + foods +
+                ", foods=" + Orders +
                 ", id='" + idRequest + '\'' +
                 ", status='" + status + '\'' +
                 '}';
     }
 
-////////////////////////////////
+    ////////////////////////////////
 //    getter + setter
     public String getIdCurrentUser() {
         return idCurrentUser;
@@ -96,15 +107,15 @@ public class Request {
         this.total = total;
     }
 
-    public List<Order> getFoods() {
-        return foods;
+    public List<Order> getOrders() {
+        return Orders;
     }
 
-    public void setFoods(List<Order> foods) {
-        this.foods = foods;
+    public void setOrders(List<Order> orders) {
+        Orders = orders;
     }
 
-//    getter + setter
+    //    getter + setter
 ///////////////////////////////////////////
 
 }
