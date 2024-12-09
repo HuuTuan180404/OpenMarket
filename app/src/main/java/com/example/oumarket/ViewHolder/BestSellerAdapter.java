@@ -3,7 +3,6 @@ package com.example.oumarket.ViewHolder;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,13 +19,9 @@ import com.example.oumarket.Common.Common;
 import com.example.oumarket.Database.Database;
 import com.example.oumarket.FoodDetail;
 import com.example.oumarket.R;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
 import com.rejowan.cutetoast.CuteToast;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 class BestSellerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -55,43 +50,16 @@ public class BestSellerAdapter extends RecyclerView.Adapter<BestSellerViewHolder
 
     List<Food> list;
 
-    private void loadList() {
-        list = new ArrayList<>();
-        Common.FIREBASE_DATABASE.getReference(Common.REF_FOODS).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Food food;
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    food = dataSnapshot.getValue(Food.class);
-                    food.setId(dataSnapshot.getKey());
-                    list.add(food);
-                }
-
-                list.sort((a, b) -> a.sortForBestSeller(b));
-
-                for (int i = list.size() - 1; i >= Common.TOP_BEST_SELLER; i--) {
-                    list.remove(i);
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
-
-    public BestSellerAdapter(Context context) {
+    public BestSellerAdapter(Context context, List<Food> list) {
         this.context = context;
-        loadList();
+        this.list = list;
     }
 
     @NonNull
     @Override
     public BestSellerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        View view = layoutInflater.inflate(R.layout.test2, parent, false);
+        View view = layoutInflater.inflate(R.layout.item_best_seller, parent, false);
         return new BestSellerViewHolder(view);
     }
 
@@ -112,9 +80,6 @@ public class BestSellerAdapter extends RecyclerView.Adapter<BestSellerViewHolder
             Order order = new Order(list.get(position).getId(), list.get(position).getName(), list.get(position).getPrice(), "1", list.get(position).getDiscount(), "0");
             Database database1 = new Database(context);
             database1.addToCart(order);
-
-//            Log.d("ZZZZZZ", list.get(position).getId());
-
         });
     }
 

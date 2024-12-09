@@ -33,6 +33,8 @@ public class HomeFragment extends Fragment {
 
     View include_category1;
 
+    RecyclerView recyclerView_bestSeller, recycler_categories;
+
 
     public HomeFragment() {
     }
@@ -46,8 +48,14 @@ public class HomeFragment extends Fragment {
         data_categories = Common.FIREBASE_DATABASE.getReference(Common.REF_CATEGORIES);
         data_foods = Common.FIREBASE_DATABASE.getReference(Common.REF_FOODS);
 
+
 //        recycler categories
-        setupRecyclerCategories(view);
+        recycler_categories = view.findViewById(R.id.recycler_categories);
+        setupRecyclerCategories();
+
+//        recycler best seller
+        recyclerView_bestSeller = view.findViewById(R.id.recycler_best_saller);
+        setupRecyclerViewBestSeller();
 
 //        recycler category
         include_category1 = view.findViewById(R.id.include_category1);
@@ -58,10 +66,7 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
-    private void setupRecyclerCategories(View view) {
-
-        RecyclerView recycler_categories = view.findViewById(R.id.recycler_categories);
-
+    private void setupRecyclerCategories() {
         data_categories.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -80,11 +85,34 @@ public class HomeFragment extends Fragment {
 
             }
         });
+    }
 
-        RecyclerView recyclerView_bestSeller = view.findViewById(R.id.recycler_best_saller);
-        BestSellerAdapter bestSellerAdapter = new BestSellerAdapter(getContext());
-        SetUpRecyclerView.setupGridLayout(getContext(), recyclerView_bestSeller, bestSellerAdapter, 1, RecyclerView.HORIZONTAL);
+    private void setupRecyclerViewBestSeller() {
+        Common.FIREBASE_DATABASE.getReference(Common.REF_FOODS).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                List<Food> list = new ArrayList<>();
+                Food food;
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    food = dataSnapshot.getValue(Food.class);
+                    food.setId(dataSnapshot.getKey());
+                    list.add(food);
+                }
 
+                list.sort((a, b) -> a.sortForBestSeller(b));
+
+                for (int i = list.size() - 1; i >= Common.TOP_BEST_SELLER; i--) {
+                    list.remove(i);
+                }
+                BestSellerAdapter bestSellerAdapter = new BestSellerAdapter(getContext(), list);
+                SetUpRecyclerView.setupGridLayout(getContext(), recyclerView_bestSeller, bestSellerAdapter, 1, RecyclerView.HORIZONTAL);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void setupRecyclerOneCategory(View view, int n_category, int n_food) {

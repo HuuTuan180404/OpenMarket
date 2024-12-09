@@ -20,7 +20,8 @@
         android:layout_marginLeft="10sp"
         android:layout_marginTop="5sp"
         android:layout_marginRight="10sp"
-        android:background="@color/color_nav_bar_home_title"
+        android:background="@drawable/border"
+        android:backgroundTint="@color/color_nav_bar_home_title"
         android:visibility="gone" />
 
 </FrameLayout>

@@ -1,6 +1,8 @@
 package com.example.oumarket;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -8,6 +10,7 @@ import android.view.View;
 import android.view.Menu;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.oumarket.Common.Common;
 import com.example.oumarket.ui.home_page.HomeFragment;
@@ -18,6 +21,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.SearchView;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -98,6 +103,8 @@ public class Home extends AppCompatActivity {
         frameLayout_search = findViewById(R.id.fragment_search);
         vissibaleFragmentSearch();
 
+        a();
+
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_home_categories, new HomeFragment()).commit();
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_search, homeSearchFragment).commit();
@@ -109,6 +116,28 @@ public class Home extends AppCompatActivity {
         txt_full_name.setText(Common.CURRENTUSER.getName());
 
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 1) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "Notification permission granted!", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Notification permission denied!", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void a() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS)
+                    != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.POST_NOTIFICATIONS}, 1);
+            }
+        }
+    }
+
 
     private void vissibaleFragmentSearch() {
         frameLayout_home.setOnTouchListener(new View.OnTouchListener() {

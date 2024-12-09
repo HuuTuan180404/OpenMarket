@@ -36,24 +36,22 @@
 
                 <TextView
                     android:id="@+id/name_of_food"
+                    style="@style/Customer.TextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/satoshi_variable"
-                    android:text="name of food"
-                    android:textSize="20dp" />
+                    android:text="name of food" />
 
                 <TextView
                     android:id="@+id/price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:fontFamily="@font/satoshi_variable"
-                    android:text="price"
-                    android:textSize="20dp" />
+                    android:text="price" />
 
             </RelativeLayout>
 
         </LinearLayout>
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -72,9 +70,8 @@
                 android:id="@+id/count_star"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/satoshi_variable"
                 android:text="4"
-                android:textSize="20dp" />
+                android:theme="@style/Customer.TextView" />
 
             <ImageView
                 android:layout_width="wrap_content"

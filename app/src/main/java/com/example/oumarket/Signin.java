@@ -74,10 +74,6 @@ public class Signin extends AppCompatActivity {
         btn_signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-//                Intent intent = new Intent(Signin.this, MapsActivity.class);
-//                startActivity(intent);
-
                 if (TextUtils.isEmpty(edit_email.getText().toString())) {
                     Toast.makeText(Signin.this, "Hãy nhập email!", Toast.LENGTH_SHORT).show();
                     return;
@@ -96,22 +92,15 @@ public class Signin extends AppCompatActivity {
         });
 
         // textview Forgot password - mtv_ForgotPass
-        tv_forgotPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                Toast.makeText(Signin.this, "forgotPassword", Toast.LENGTH_SHORT).show();
-                BestSellerAdapter adapter = new BestSellerAdapter(Signin.this);
-//                loadList();
-            }
+        tv_forgotPassword.setOnClickListener(v -> {
+            Toast.makeText(Signin.this, "forgotPassword", Toast.LENGTH_SHORT).show();
         });
 
-        tv_signupNow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Signin.this, Signup.class);
-                startActivity(intent);
-                finish();
-            }
+        tv_signupNow.setOnClickListener(v -> {
+            Intent intent = new Intent(Signin.this, Signup.class);
+            startActivity(intent);
+            finish();
+
         });
 //
         Paper.init(this);
@@ -129,36 +118,6 @@ public class Signin extends AppCompatActivity {
                 login(user, password);
             }
         }
-
-    }
-
-    private void loadList() {
-        List<Food> list = new ArrayList<>();
-        Common.FIREBASE_DATABASE.getReference(Common.REF_FOODS).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Food food;
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    food = dataSnapshot.getValue(Food.class);
-                    list.add(food);
-                }
-
-//                list.sort((a, b) -> a.sortForBestSeller(b));
-
-                for (Food i : list) {
-                    if (i.getCountRating() != 0) {
-                        float a = i.getCountStars() / i.getCountRating();
-                        Log.d("ZZZZZ", a + "");
-                    } else Log.d("ZZZZZ", "0");
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
 
     }
 

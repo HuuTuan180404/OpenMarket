@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:fontFamily="@font/satoshi_variable"
-                android:text="Best saller"
+                android:text="Best seller"
                 android:textSize="25sp" />
 
             <androidx.recyclerview.widget.RecyclerView

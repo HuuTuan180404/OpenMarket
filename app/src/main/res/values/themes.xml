@@ -39,7 +39,7 @@
 
     <style name="Customer.TextView" parent="">
         <item name="fontFamily">@font/satoshi_variable</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">20dp</item>
     </style>
 
     <style name="toolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
