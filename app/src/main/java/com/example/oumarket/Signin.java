@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,6 +19,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import com.example.oumarket.Class.Food;
 import com.example.oumarket.Class.User;
 import com.example.oumarket.Common.Common;
+import com.example.oumarket.ViewHolder.BestSellerAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
@@ -30,6 +32,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import com.rejowan.cutetoast.CuteToast;
 import com.rey.material.widget.CheckBox;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import io.paperdb.Paper;
 
@@ -94,7 +99,9 @@ public class Signin extends AppCompatActivity {
         tv_forgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(Signin.this, "forgotPassword", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(Signin.this, "forgotPassword", Toast.LENGTH_SHORT).show();
+//                BestSellerAdapter adapter = new BestSellerAdapter(Signin.this);
+//                loadList();
             }
         });
 
@@ -122,6 +129,36 @@ public class Signin extends AppCompatActivity {
                 login(user, password);
             }
         }
+
+    }
+
+    private void loadList() {
+        List<Food> list = new ArrayList<>();
+        Common.FIREBASE_DATABASE.getReference(Common.REF_FOODS).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Food food;
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    food = dataSnapshot.getValue(Food.class);
+                    list.add(food);
+                }
+
+//                list.sort((a, b) -> a.sortForBestSeller(b));
+
+                for (Food i : list) {
+                    if (i.getCountRating() != 0) {
+                        float a = i.getCountStars() / i.getCountRating();
+                        Log.d("ZZZZZ", a + "");
+                    } else Log.d("ZZZZZ", "0");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
 
     }
 
