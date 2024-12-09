@@ -24,7 +24,6 @@ import java.util.List;
 class AnAddressViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
     TextView name, phone, address, ward_getPath;
-    ImageButton btn_delete;
     CardView isMap, isDefault, anAddress;
 
     public AnAddressViewHolder(@NonNull View itemView) {
@@ -36,9 +35,6 @@ class AnAddressViewHolder extends RecyclerView.ViewHolder implements View.OnClic
         this.address = itemView.findViewById(R.id.address);
         this.ward_getPath = itemView.findViewById(R.id.ward_getPath);
 
-        this.btn_delete = itemView.findViewById(R.id.btn_delete);
-
-        this.isMap = itemView.findViewById(R.id.isMap);
         this.isDefault = itemView.findViewById(R.id.isDefault);
 
         itemView.setOnClickListener(this);
@@ -82,14 +78,6 @@ class AnAddressViewHolder extends RecyclerView.ViewHolder implements View.OnClic
 
     public void setWard_getPath(TextView ward_getPath) {
         this.ward_getPath = ward_getPath;
-    }
-
-    public ImageButton getBtn_delete() {
-        return btn_delete;
-    }
-
-    public void setBtn_delete(ImageButton btn_delete) {
-        this.btn_delete = btn_delete;
     }
 
     public CardView getIsMap() {
@@ -137,30 +125,14 @@ public class AnAddressAdapter extends RecyclerView.Adapter<AnAddressViewHolder> 
         holder.name.setText(anAddress.getName());
         holder.phone.setText(anAddress.getPhone());
 
-        if (!anAddress.getIsMap()) {
-            holder.isMap.setVisibility(View.GONE);
-            holder.address.setVisibility(View.VISIBLE);
-            holder.ward_getPath.setVisibility(View.VISIBLE);
-            holder.address.setText(anAddress.getAddress());
-            holder.ward_getPath.setText(anAddress.getWard().getPath());
-        } else {
-            holder.isMap.setVisibility(View.VISIBLE);
-            holder.address.setVisibility(View.GONE);
-            holder.ward_getPath.setVisibility(View.GONE);
-        }
+        holder.address.setText(anAddress.getAddress());
+        holder.ward_getPath.setText(anAddress.getWard().getPath());
 
         if (anAddress.getIsDefault()) {
             holder.isDefault.setVisibility(View.VISIBLE);
         } else {
             holder.isDefault.setVisibility(View.GONE);
         }
-
-        holder.btn_delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context, "delete address", Toast.LENGTH_SHORT).show();
-            }
-        });
 
         holder.anAddress.setOnClickListener(new View.OnClickListener() {
             @Override

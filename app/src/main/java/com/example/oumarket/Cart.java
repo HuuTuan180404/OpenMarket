@@ -7,7 +7,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,9 +19,11 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.oumarket.Class.AnAddress;
 import com.example.oumarket.Class.Notification;
 import com.example.oumarket.Class.Order;
 import com.example.oumarket.Class.Request;
@@ -29,6 +33,7 @@ import com.example.oumarket.Database.Database;
 import com.example.oumarket.ViewHolder.CartAdapter;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DatabaseReference;
+import com.rejowan.cutetoast.CuteToast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,10 +47,14 @@ public class Cart extends AppCompatActivity {
 
     DatabaseReference data_requests;
 
-    TextView tv_basketTotal, tv_discount, tv_total;
+    RelativeLayout layout_selected_address;
+
+    TextView tv_basketTotal, tv_discount, tv_total, null_address, name, phone, address, ward_getPath;
     AppCompatButton btn_order;
 
     List<Order> cart = new ArrayList<>();
+
+    AnAddress diaChi = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +86,35 @@ public class Cart extends AppCompatActivity {
         });
 
         recyclerView = findViewById(R.id.list_cart);
+
+        null_address = findViewById(R.id.null_address);
+        layout_selected_address = findViewById(R.id.layout_selected_address);
+
+        name = findViewById(R.id.name);
+        phone = findViewById(R.id.phone);
+        address = findViewById(R.id.address);
+        ward_getPath = findViewById(R.id.ward_getPath);
+
+        if (Common.CURRENTUSER.getAddresses() == null || Common.CURRENTUSER.getAddresses().isEmpty()) {
+            null_address.setVisibility(View.VISIBLE);
+            layout_selected_address.setVisibility(View.GONE);
+        } else {
+            null_address.setVisibility(View.GONE);
+            layout_selected_address.setVisibility(View.VISIBLE);
+            List<AnAddress> list = Common.CURRENTUSER.getAddresses();
+            for (AnAddress i : list) {
+                if (i.getIsDefault()) {
+                    diaChi = i;
+                    break;
+                }
+            }
+
+            name.setText(diaChi.getName());
+            phone.setText(diaChi.getPhone());
+            address.setText(diaChi.getAddress());
+            ward_getPath.setText(diaChi.getWard().getPath());
+
+        }
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
@@ -142,34 +180,14 @@ public class Cart extends AppCompatActivity {
     }
 
     private void showAlertDialog() {
-        AlertDialog.Builder alert = new AlertDialog.Builder(Cart.this);
-        alert.setTitle("Confirm!!");
-        alert.setMessage("Enter your address: ");
 
-        final TextInputEditText edit_address = new TextInputEditText(Cart.this);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-        edit_address.setLayoutParams(params);
-        alert.setView(edit_address);
+        if (diaChi == null) {
 
-        alert.setIcon(R.drawable.ic_add_shopping_cart_24);
+            new Database(getBaseContext()).cleanCart();
+            CuteToast.ct(getBaseContext(), "Thank you", Toast.LENGTH_SHORT, CuteToast.SUCCESS, true).show();
+            finish();
 
-        alert.setPositiveButton("Yes", (dialog, which) -> {
-            Request request = new Request(Common.CURRENTUSER.getPhone(), Common.CURRENTUSER.getName(), edit_address.getText().toString(), tv_basketTotal.getText().toString(), cart);
-            String id = String.valueOf(System.currentTimeMillis());
-            request.setIdCurrentUser(Common.CURRENTUSER.getIdUser());
-            request.setIdRequest(id);
-            scheduleNotification(Common.DELAY_TIME, id);
-            data_requests.child(id).setValue(request);
-            try (Database database = new Database(getBaseContext())) {
-                database.cleanCart();
-                Toast.makeText(getBaseContext(), "Thank you", Toast.LENGTH_SHORT).show();
-                finish();
-            }
-        });
-
-        alert.setNegativeButton("No", (dialog, which) -> dialog.dismiss());
-
-        alert.show();
+        }
 
     }
 

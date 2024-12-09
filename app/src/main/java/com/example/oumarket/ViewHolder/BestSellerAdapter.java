@@ -57,6 +57,15 @@ public class BestSellerAdapter extends RecyclerView.Adapter<BestSellerViewHolder
                     food = dataSnapshot.getValue(Food.class);
                     list.add(food);
                 }
+
+                list.sort((a, b) -> a.sortForBestSeller(b));
+
+                for (Food d : list) {
+                    if (d.getCountRating() != 0) {
+                        float a = d.getCountStars() / d.getCountRating();
+                        Log.d("ZZZZZ", a + "");
+                    } else Log.d("ZZZZZ", "0");
+                }
             }
 
             @Override
@@ -64,20 +73,13 @@ public class BestSellerAdapter extends RecyclerView.Adapter<BestSellerViewHolder
 
             }
         });
-        list.sort((a, b) -> a.sortForBestSeller(b));
 
-        for (Food food : list) {
-            if (food.getCountRating() != 0) {
-                float a = food.getCountStars() / food.getCountRating();
-                Log.d("ZZZZZ", a + "");
-            } else Log.d("ZZZZZ", "0");
-        }
 
     }
 
     public BestSellerAdapter(Context context) {
         this.context = context;
-//        loadList();
+        loadList();
     }
 
     @NonNull

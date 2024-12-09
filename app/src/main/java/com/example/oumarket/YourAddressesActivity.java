@@ -41,7 +41,7 @@ public class YourAddressesActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         addressesIsNull = findViewById(R.id.addressesIsNull);
 
-        if (Common.CURRENTUSER.getAddresses() == null) {
+        if (Common.CURRENTUSER.getAddresses() == null || Common.CURRENTUSER.getAddresses().isEmpty()) {
             addressesIsNull.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.GONE);
         } else {

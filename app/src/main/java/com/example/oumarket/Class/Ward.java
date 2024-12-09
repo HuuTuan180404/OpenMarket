@@ -6,7 +6,11 @@ public class Ward {
     private String parent_code;
     private String path;
 
-    public Ward(String code, String name, String path, String parent_code) {
+    public Ward() {
+    }
+
+    //load from firebase
+    public Ward(String code, String name, String parent_code, String path) {
         this.code = code;
         this.name = name;
         this.parent_code = parent_code;

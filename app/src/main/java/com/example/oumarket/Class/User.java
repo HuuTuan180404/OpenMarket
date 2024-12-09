@@ -5,29 +5,22 @@ import java.util.List;
 
 public class User {
     private String idUser;
-    private String Name;
-    private String Phone;
+    private String name;
+    private String phone;
     private List<AnAddress> Addresses;
 
     public User() {
     }
 
+    public User(List<AnAddress> Addresses, String name, String phone) {
+        this.name = name;
+        this.phone = phone;
+        this.Addresses = Addresses;
+    }
+
     public User(String name, String phone) {
-        Name = name;
-        Phone = phone;
-    }
-
-    public User(String name, String phone, List<AnAddress> addresses) {
-        Name = name;
-        Phone = phone;
-        this.Addresses = addresses;
-    }
-
-    public User(String idUser, String name, String phone, List<AnAddress> addresses) {
-        this.idUser = idUser;
-        Name = name;
-        Phone = phone;
-        this.Addresses = addresses;
+        this.name = name;
+        this.phone = phone;
     }
 
     public void addAddress(AnAddress address) {
@@ -36,6 +29,8 @@ public class User {
         }
         this.Addresses.add(address);
     }
+
+
 
     //getter + setter/////////////////////////////////////////////////////////
 
@@ -48,19 +43,19 @@ public class User {
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public String getPhone() {
-        return Phone;
+        return phone;
     }
 
     public void setPhone(String phone) {
-        Phone = phone;
+        this.phone = phone;
     }
 
     public List<AnAddress> getAddresses() {

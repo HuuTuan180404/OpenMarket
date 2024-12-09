@@ -4,11 +4,13 @@
     android:id="@+id/anAddress"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5sp">
+    android:layout_margin="5sp"
+    app:cardCornerRadius="20sp">
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="20sp">
 
         <LinearLayout
             android:id="@+id/layout_1"
@@ -45,21 +47,6 @@
             android:layout_below="@+id/layout_1"
             android:orientation="vertical">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/isMap"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5sp"
-                android:background="@drawable/border">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/satoshi_variable"
-                    android:text="Địa chỉ được thiết lập theo Map" />
-
-            </androidx.cardview.widget.CardView>
-
             <TextView
                 android:id="@+id/address"
                 android:layout_width="wrap_content"
@@ -90,16 +77,6 @@
 
         </LinearLayout>
 
-        <ImageButton
-            android:id="@+id/btn_delete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:src="@drawable/ic_delete" />
-
-
     </RelativeLayout>
-
 
 </androidx.cardview.widget.CardView>

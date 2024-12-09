@@ -13,7 +13,9 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -55,12 +57,11 @@ public class AddNewAddressActivity extends AppCompatActivity implements OnMapRea
     private GoogleMap mMap;
     private final int FINE_PERMISSION_CODE = 7;
     Location currentLocation;
-    SearchView searchView;
     MaterialButtonToggleGroup toggle_group;
     AppCompatSpinner spinner_city, spinner_district, spinner_ward;
     TextInputEditText editText_name, editText_phone, editText_house_number;
     FusedLocationProviderClient fusedLocationProviderClient;
-    Button btn_home, btn_work, btn_other, btn_doneMap, btn_doneInput;
+    Button btn_home, btn_work, btn_other, btn_doneInput;
     ImageButton current_location;
     SwitchMaterial switchMaterial;
 
@@ -86,34 +87,6 @@ public class AddNewAddressActivity extends AppCompatActivity implements OnMapRea
         context = getBaseContext();
 
         database = new Database(getBaseContext());
-
-        searchView = findViewById(R.id.search_view);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(java.lang.String query) {
-                java.lang.String location = query;
-
-                List<Address> list = null;
-                if (location != null) {
-                    Geocoder geocoder = new Geocoder(AddNewAddressActivity.this);
-                    try {
-                        list = geocoder.getFromLocationName(location, 1);
-
-                    } catch (IOException e) {
-                        Toast.makeText(AddNewAddressActivity.this, "None", Toast.LENGTH_SHORT).show();
-                    }
-                }
-                Address address = list.get(0);
-                LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(java.lang.String newText) {
-                return false;
-            }
-        });
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
 
@@ -166,7 +139,7 @@ public class AddNewAddressActivity extends AppCompatActivity implements OnMapRea
                 }
 
                 if (spinner_ward.getSelectedItemPosition() == 0) {
-                    CuteToast.ct(context, "Hãy nhập thông tin liên hệ", CuteToast.LENGTH_SHORT, CuteToast.WARN, true).show();
+                    CuteToast.ct(context, "Hãy chọn địa chỉ", CuteToast.LENGTH_SHORT, CuteToast.WARN, true).show();
                     return;
                 }
 
@@ -175,32 +148,35 @@ public class AddNewAddressActivity extends AppCompatActivity implements OnMapRea
                     return;
                 }
 
-                AnAddress address = new AnAddress(editText_name.getText().toString(), editText_phone.getText().toString(), (Ward) spinner_ward.getSelectedItem(), editText_house_number.getText().toString(), addressType, switchMaterial.isChecked(), false);
+                AnAddress address = new AnAddress(editText_house_number.getText().toString(), "VN", switchMaterial.isChecked(), editText_name.getText().toString(), editText_phone.getText().toString(), addressType, (Ward) spinner_ward.getSelectedItem());
 
                 addNewAddress(address);
-
-
-            }
-        });
-
-        btn_doneMap = findViewById(R.id.btn_done_map);
-        btn_doneMap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (TextUtils.isEmpty(editText_name.getText().toString()) || TextUtils.isEmpty(editText_phone.getText().toString())) {
-                    CuteToast.ct(context, "Hãy nhập thông tin liên hệ", CuteToast.LENGTH_SHORT, CuteToast.WARN, true).show();
-                    return;
-                }
-
-                AnAddress address = new AnAddress(editText_name.getText().toString(), editText_phone.getText().toString(), centerLatLng.latitude, centerLatLng.longitude, addressType, switchMaterial.isChecked(), true);
-
-                addNewAddress(address);
-
             }
         });
 
         mapFragment.getMapAsync(AddNewAddressActivity.this);
 
+    }
+
+    private void moveCameraMap(String s) {
+        String location = s;
+
+        List<Address> list = null;
+        if (location != null) {
+            Geocoder geocoder = new Geocoder(AddNewAddressActivity.this);
+            try {
+                list = geocoder.getFromLocationName(location, 1);
+                if (list != null && !list.isEmpty()) {
+                    Address address = list.get(0);
+                    LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+                } else {
+                    CuteToast.ct(AddNewAddressActivity.this, "Không tìm thấy", Toast.LENGTH_SHORT, CuteToast.INFO, true).show();
+                }
+            } catch (IOException e) {
+                Toast.makeText(AddNewAddressActivity.this, "None", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     private void addNewAddress(AnAddress anAddress) {
@@ -229,12 +205,6 @@ public class AddNewAddressActivity extends AppCompatActivity implements OnMapRea
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
-//        // Tắt mọi tương tác
-//        mMap.getUiSettings().setAllGesturesEnabled(false); // Tắt toàn bộ cử chỉ
-//        mMap.getUiSettings().setZoomControlsEnabled(false); // Tắt các nút zoom
-//        mMap.getUiSettings().setCompassEnabled(false); // Tắt la bàn
-//        mMap.getUiSettings().setMyLocationButtonEnabled(false); // Tắt nút định vị
-
         mMap = googleMap;
         mMap.setOnCameraIdleListener(() -> {
             centerLatLng = mMap.getCameraPosition().target;
@@ -242,12 +212,10 @@ public class AddNewAddressActivity extends AppCompatActivity implements OnMapRea
             try {
 
                 Address address = geocoder.getFromLocation(centerLatLng.latitude, centerLatLng.longitude, 1).get(0);
-                java.lang.String locationInfo = address.getAddressLine(0);
-
-                Log.d("ZZZZZ", centerLatLng.latitude + " " + centerLatLng.longitude);
+                String locationInfo = address.getAddressLine(0);
 
             } catch (Exception e) {
-                Toast.makeText(this, "Địa chỉ không đúng", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "Địa chỉ không đúng", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -274,7 +242,7 @@ public class AddNewAddressActivity extends AppCompatActivity implements OnMapRea
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull java.lang.String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == FINE_PERMISSION_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -319,10 +287,10 @@ public class AddNewAddressActivity extends AppCompatActivity implements OnMapRea
                 } else {
                     City item = (City) parent.getSelectedItem();
                     adapterDistricts.setDistrictList(Common.districts(context, R.raw.district, item.getCode()));
+                    moveCameraMap(item.getName());
                 }
                 adapterDistricts.notifyDataSetChanged();
                 spinner_district.setSelection(0, false);
-
             }
 
             @Override
@@ -330,6 +298,7 @@ public class AddNewAddressActivity extends AppCompatActivity implements OnMapRea
 
             }
         });
+
         spinner_district.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -338,8 +307,11 @@ public class AddNewAddressActivity extends AppCompatActivity implements OnMapRea
                 } else {
                     District item = (District) parent.getSelectedItem();
                     adapterWards.setWardList(Common.wards(context, R.raw.ward, item.getCode()));
+                    City city = (City) spinner_city.getSelectedItem();
+                    moveCameraMap(item.getName() + ", " + city.getName());
                 }
                 adapterWards.notifyDataSetChanged();
+
                 spinner_ward.setSelection(0, false);
             }
 
@@ -350,7 +322,10 @@ public class AddNewAddressActivity extends AppCompatActivity implements OnMapRea
         spinner_ward.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+                if (position != 0) {
+                    Ward item = (Ward) parent.getSelectedItem();
+                    moveCameraMap(item.getPath());
+                }
             }
 
             @Override

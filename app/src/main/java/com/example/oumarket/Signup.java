@@ -127,7 +127,7 @@ public class Signup extends AppCompatActivity {
             public void onDataChange(DataSnapshot snapshot) {
                 String email = edit_email.getText().toString();
                 email = email.substring(0, email.indexOf("@"));
-                User user = new User(edit_name.getText().toString(), edit_phone.getText().toString(), new ArrayList<>());
+                User user = new User(new ArrayList<>(), edit_name.getText().toString(), edit_phone.getText().toString());
                 table_user.child(email).setValue(user);
             }
 

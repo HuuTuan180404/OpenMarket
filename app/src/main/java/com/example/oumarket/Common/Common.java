@@ -138,7 +138,7 @@ public class Common {
                 if (obj.getString("parent_code").equals(s)) {
                     name = obj.getString("name");
                     String path = obj.getString("path");
-                    list.add(new Ward(key, name, path, s));
+                    list.add(new Ward(key, name, s, path));
                 }
             }
         } catch (Exception e) {

@@ -37,6 +37,11 @@
         <item name="android:background">@color/trang</item>
     </style>
 
+    <style name="Customer.TextView" parent="">
+        <item name="fontFamily">@font/satoshi_variable</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
     <style name="toolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="collapseIcon">@drawable/im_menu</item>
         <item name="icon">@drawable/im_menu</item>

@@ -13,6 +13,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.oumarket.Class.Food;
 import com.example.oumarket.Class.Order;
 import com.example.oumarket.Class.Request;
 import com.example.oumarket.Class.SetUpRecyclerView;
@@ -87,12 +88,27 @@ public class RatingFoodActivity extends AppCompatActivity {
             return true;
         }
         if (item.getItemId() == R.id.action_send) {
+            CuteToast.ct(this, "Cảm ơn!", Toast.LENGTH_SHORT, CuteToast.HAPPY, true).show();
             List<Order> list = adapter.getList();
             for (Order order : list) {
                 order.setIsRate(true);
+                Common.FIREBASE_DATABASE.getReference(Common.REF_FOODS).child(order.getProductId()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        Food food = snapshot.getValue(Food.class);
+                        Common.FIREBASE_DATABASE.getReference(Common.REF_FOODS).child(order.getProductId()).child("countRating").setValue(food.getCountRating() + 1);
+                        Common.FIREBASE_DATABASE.getReference(Common.REF_FOODS).child(order.getProductId()).child("countStars").setValue(food.getCountStars() + order.getCountStars());
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
             }
+
             Common.FIREBASE_DATABASE.getReference(Common.REF_REQUESTS).child(idRequest).child("orders").setValue(list);
-            CuteToast.ct(this, "Cảm ơn!", Toast.LENGTH_SHORT, CuteToast.HAPPY, true).show();
+
             finish();
         }
 

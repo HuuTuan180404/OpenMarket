@@ -100,7 +100,7 @@ public class Signin extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 //                Toast.makeText(Signin.this, "forgotPassword", Toast.LENGTH_SHORT).show();
-//                BestSellerAdapter adapter = new BestSellerAdapter(Signin.this);
+                BestSellerAdapter adapter = new BestSellerAdapter(Signin.this);
 //                loadList();
             }
         });
@@ -180,9 +180,9 @@ public class Signin extends AppCompatActivity {
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 User user = snapshot.getValue(User.class);
                                 user.setIdUser(snapshot.getKey());
-                                Intent homeIntent = new Intent(Signin.this, Home.class);
                                 Common.CURRENTUSER = user;
                                 Paper.book().write(Common.ID_USER_KEY, Common.CURRENTUSER.getIdUser());
+                                Intent homeIntent = new Intent(Signin.this, Home.class);
                                 startActivity(homeIntent);
                                 mDialog.dismiss();
                                 finish();
