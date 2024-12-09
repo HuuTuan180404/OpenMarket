@@ -8,18 +8,16 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.Toolbar;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,7 +29,6 @@ import com.example.oumarket.Class.SetUpRecyclerView;
 import com.example.oumarket.Common.Common;
 import com.example.oumarket.Database.Database;
 import com.example.oumarket.ViewHolder.CartAdapter;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DatabaseReference;
 import com.rejowan.cutetoast.CuteToast;
 
@@ -56,6 +53,8 @@ public class Cart extends AppCompatActivity {
 
     AnAddress diaChi = null;
 
+    ImageView ic_next;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,15 +73,7 @@ public class Cart extends AppCompatActivity {
         tv_basketTotal = findViewById(R.id.basketTotal);
         btn_order = findViewById(R.id.btn_order);
         btn_order.setOnClickListener(v -> {
-            try (Database database = new Database(getBaseContext())) {
-                if (tv_basketTotal.getText().equals("---") && tv_discount.getText().equals("---")) {
-                    Toast.makeText(this, "is empty", Toast.LENGTH_SHORT).show();
-                } else {
-                    showAlertDialog();
-                }
-            } catch (Exception e) {
-                Log.d("ZZZZZ", e.toString());
-            }
+            clickBtn_order();
         });
 
         recyclerView = findViewById(R.id.list_cart);
@@ -97,9 +88,9 @@ public class Cart extends AppCompatActivity {
 
         if (Common.CURRENTUSER.getAddresses() == null || Common.CURRENTUSER.getAddresses().isEmpty()) {
             null_address.setVisibility(View.VISIBLE);
-            layout_selected_address.setVisibility(View.GONE);
+            layout_selected_address.setVisibility(View.INVISIBLE);
         } else {
-            null_address.setVisibility(View.GONE);
+            null_address.setVisibility(View.INVISIBLE);
             layout_selected_address.setVisibility(View.VISIBLE);
             List<AnAddress> list = Common.CURRENTUSER.getAddresses();
             for (AnAddress i : list) {
@@ -118,6 +109,11 @@ public class Cart extends AppCompatActivity {
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
+
+        ic_next = findViewById(R.id.ic_next);
+        ic_next.setOnClickListener(v -> {
+            Log.d("ZZZZZ", "hehe");
+        });
 
         loadListCart();
 
@@ -189,6 +185,36 @@ public class Cart extends AppCompatActivity {
 
         }
 
+    }
+
+    private void clickBtn_order() {
+        try (Database database = new Database(getBaseContext())) {
+            if (diaChi == null) {
+                CuteToast.ct(getBaseContext(), "Hãy chọn địa chỉ", Toast.LENGTH_SHORT, CuteToast.WARN, true).show();
+            } else {
+                List<Order> list = adapter.getList();
+                boolean notEmpty = false;
+                for (Order i : list) {
+                    if (i.getIsBuy().equals("1")) {
+                        notEmpty = true;
+                        break;
+                    }
+                }
+                if (!notEmpty) {
+                    CuteToast.ct(getBaseContext(), "Không có sản phẩm nào", Toast.LENGTH_SHORT, CuteToast.WARN, true).show();
+                } else {
+                    String id = String.valueOf(System.currentTimeMillis());
+                    Request request = new Request(id, Common.CURRENTUSER.getIdUser(), tv_basketTotal.getText().toString(), cart, diaChi, "0");
+                    scheduleNotification(Common.DELAY_TIME, id);
+                    data_requests.child(id).setValue(request);
+                    database.cleanCart();
+                    CuteToast.ct(getBaseContext(), "Thank you", Toast.LENGTH_SHORT, CuteToast.SUCCESS, true).show();
+                    finish();
+                }
+            }
+        } catch (Exception e) {
+            Log.d("ZZZZZ", e.toString());
+        }
     }
 
     private void loadListCart() {

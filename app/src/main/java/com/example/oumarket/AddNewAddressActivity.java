@@ -130,28 +130,27 @@ public class AddNewAddressActivity extends AppCompatActivity implements OnMapRea
         switchMaterial = findViewById(R.id.switch_dia_chi);
 
         btn_doneInput = findViewById(R.id.btn_done_input);
-        btn_doneInput.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (TextUtils.isEmpty(editText_name.getText().toString()) || TextUtils.isEmpty(editText_phone.getText().toString())) {
-                    CuteToast.ct(context, "Hãy nhập thông tin liên hệ", CuteToast.LENGTH_SHORT, CuteToast.WARN, true).show();
-                    return;
-                }
+        btn_doneInput.setOnClickListener(v -> {
 
-                if (spinner_ward.getSelectedItemPosition() == 0) {
-                    CuteToast.ct(context, "Hãy chọn địa chỉ", CuteToast.LENGTH_SHORT, CuteToast.WARN, true).show();
-                    return;
-                }
-
-                if (TextUtils.isEmpty(editText_house_number.getText().toString())) {
-                    CuteToast.ct(context, "Hãy Số nhà, Tên đường, Tòa nhà", CuteToast.LENGTH_SHORT, CuteToast.WARN, true).show();
-                    return;
-                }
-
-                AnAddress address = new AnAddress(editText_house_number.getText().toString(), "VN", switchMaterial.isChecked(), editText_name.getText().toString(), editText_phone.getText().toString(), addressType, (Ward) spinner_ward.getSelectedItem());
-
-                addNewAddress(address);
+            if (TextUtils.isEmpty(editText_name.getText().toString()) || TextUtils.isEmpty(editText_phone.getText().toString())) {
+                CuteToast.ct(context, "Hãy nhập thông tin liên hệ", CuteToast.LENGTH_SHORT, CuteToast.WARN, true).show();
+                return;
             }
+
+            if (spinner_ward.getSelectedItemPosition() == 0) {
+                CuteToast.ct(context, "Hãy chọn địa chỉ", CuteToast.LENGTH_SHORT, CuteToast.WARN, true).show();
+                return;
+            }
+
+            if (TextUtils.isEmpty(editText_house_number.getText().toString())) {
+                CuteToast.ct(context, "Hãy Số nhà, Tên đường, Tòa nhà", CuteToast.LENGTH_SHORT, CuteToast.WARN, true).show();
+                return;
+            }
+
+            AnAddress address = new AnAddress(editText_house_number.getText().toString(), "VN", switchMaterial.isChecked(), editText_name.getText().toString(), editText_phone.getText().toString(), addressType, (Ward) spinner_ward.getSelectedItem());
+
+            addNewAddress(address);
+
         });
 
         mapFragment.getMapAsync(AddNewAddressActivity.this);
@@ -182,7 +181,7 @@ public class AddNewAddressActivity extends AppCompatActivity implements OnMapRea
     private void addNewAddress(AnAddress anAddress) {
         List<AnAddress> list = Common.CURRENTUSER.getAddresses();
 
-        if (list == null) {
+        if (list == null || list.isEmpty()) {
             anAddress.setIsDefault(true);
             list = new ArrayList<>();
         } else {

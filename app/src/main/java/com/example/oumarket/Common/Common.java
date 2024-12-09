@@ -37,6 +37,8 @@ public class Common {
     public static final int n_Category = 1;
     public static final int n_Food = 5;
 
+    public static final int TOP_BEST_SELLER = 6;
+
     public static String CURRENCY = "$";
 
     public static final int NOTIFICATION_ID = 1;

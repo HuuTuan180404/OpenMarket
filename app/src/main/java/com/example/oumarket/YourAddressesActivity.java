@@ -20,6 +20,8 @@ import com.example.oumarket.Common.Common;
 import com.example.oumarket.Database.Database;
 import com.example.oumarket.ViewHolder.AnAddressAdapter;
 
+import java.util.ArrayList;
+
 public class YourAddressesActivity extends AppCompatActivity {
 
     Toolbar toolbar;
@@ -79,7 +81,7 @@ public class YourAddressesActivity extends AppCompatActivity {
                 adapter.notifyItemRemoved(position);
                 Common.CURRENTUSER.setAddresses(adapter.getList());
                 Common.FIREBASE_DATABASE.getReference(Common.REF_USERS).child(Common.CURRENTUSER.getIdUser()).child("Addresses").setValue(adapter.getList());
-                if (Common.CURRENTUSER.getAddresses().isEmpty()) {
+                if (Common.CURRENTUSER.getAddresses() == null || Common.CURRENTUSER.getAddresses().isEmpty()) {
                     addressesIsNull.setVisibility(View.VISIBLE);
                     recyclerView.setVisibility(View.GONE);
                 }
@@ -90,7 +92,6 @@ public class YourAddressesActivity extends AppCompatActivity {
             builder.show();
         }
     };
-
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

@@ -43,7 +43,6 @@ class CartViewHolder extends RecyclerView.ViewHolder implements View.OnClickList
     CheckBox isBuy;
     AppCompatButton btnIncrease, btnDecrease;
 
-    private ItemClickListener itemClickListener;
 
     public CartViewHolder(View itemView) {
         super(itemView);
@@ -54,7 +53,6 @@ class CartViewHolder extends RecyclerView.ViewHolder implements View.OnClickList
         btnDecrease = itemView.findViewById(R.id.button_Decrease);
         quantity_cart_item = itemView.findViewById(R.id.edittext_quantity);
         isBuy = itemView.findViewById(R.id.buy);
-        itemView.setOnClickListener(this);
 
     }
 
@@ -89,9 +87,6 @@ class CartViewHolder extends RecyclerView.ViewHolder implements View.OnClickList
         this.image_cart_item = image_cart_item;
     }
 
-    public void setItemClickListener(ItemClickListener itemClickListener) {
-        this.itemClickListener = itemClickListener;
-    }
 //    getter + setter
 ///////////////////////////////////////////////////////////
 

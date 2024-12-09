@@ -59,12 +59,12 @@ public class Food {
             if (ratingA != ratingB) {
                 float totalA = Float.parseFloat(this.getPrice()) * (100 - Float.parseFloat(this.getDiscount()));
                 float totalB = Float.parseFloat(other.getPrice()) * (100 - Float.parseFloat(other.getDiscount()));
-                return totalA > totalB ? 1 : -1;
+                return totalA > totalB ? -1 : 1;
             }
-            return ratingA > ratingB ? 1 : -1;
+            return ratingA > ratingB ? -1 : 1;
         } else if (this.getCountRating() == 0 && other.getCountRating() != 0) {
-            return -1;
-        } else return 1;
+            return 1;
+        } else return -1;
     }
 
     public String getId() {

@@ -15,6 +15,7 @@ import com.example.oumarket.Class.Food;
 import com.example.oumarket.Class.SetUpRecyclerView;
 import com.example.oumarket.Common.Common;
 import com.example.oumarket.R;
+import com.example.oumarket.ViewHolder.BestSellerAdapter;
 import com.example.oumarket.ViewHolder.CategoryAdapter;
 import com.example.oumarket.ViewHolder.FoodAdapter;
 import com.google.firebase.database.DataSnapshot;
@@ -79,6 +80,11 @@ public class HomeFragment extends Fragment {
 
             }
         });
+
+        RecyclerView recyclerView_bestSeller = view.findViewById(R.id.recycler_best_saller);
+        BestSellerAdapter bestSellerAdapter = new BestSellerAdapter(getContext());
+        SetUpRecyclerView.setupGridLayout(getContext(), recyclerView_bestSeller, bestSellerAdapter, 1, RecyclerView.HORIZONTAL);
+
     }
 
     private void setupRecyclerOneCategory(View view, int n_category, int n_food) {

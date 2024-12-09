@@ -23,6 +23,7 @@ import com.example.oumarket.Database.Database;
 import com.example.oumarket.FoodDetail;
 import com.example.oumarket.Interface.ItemClickListener;
 import com.example.oumarket.R;
+import com.rejowan.cutetoast.CuteToast;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -98,22 +99,16 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodViewHolder> {
         holder.food_name.setText(list.get(position).getName());
         holder.food_price.setText(list.get(position).getPrice());
         holder.food_rate.setText("Rate: 4 sao");
-        holder.add_to_cart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(), "Add_to_cart", Toast.LENGTH_SHORT).show();
-                Order order = new Order(list.get(position).getId(), list.get(position).getName(), list.get(position).getPrice(), "1", list.get(position).getDiscount(), "0");
-                Database database1 = new Database(getContext());
-                database1.addToCart(order);
-            }
+        holder.add_to_cart.setOnClickListener(v -> {
+            CuteToast.ct(context, "Đã thêm vào giỏ hàng", Toast.LENGTH_SHORT, CuteToast.SUCCESS, true).show();
+            Order order = new Order(list.get(position).getId(), list.get(position).getName(), list.get(position).getPrice(), "1", list.get(position).getDiscount(), "0");
+            Database database1 = new Database(context);
+            database1.addToCart(order);
         });
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent foodDetail = new Intent(context, FoodDetail.class);
-                foodDetail.putExtra("FoodId", list.get(position).getId());
-                context.startActivity(foodDetail);
-            }
+        holder.itemView.setOnClickListener(v -> {
+            Intent foodDetail = new Intent(context, FoodDetail.class);
+            foodDetail.putExtra("FoodId", list.get(position).getId());
+            context.startActivity(foodDetail);
         });
     }
 

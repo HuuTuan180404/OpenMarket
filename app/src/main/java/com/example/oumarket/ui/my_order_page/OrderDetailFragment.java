@@ -61,9 +61,9 @@ public class OrderDetailFragment extends BottomSheetDialogFragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     Request request = snapshot.getValue(Request.class);
-                    username.setText(request.getName());
-                    phone.setText(request.getPhone());
-                    address.setText(request.getAddress());
+                    username.setText(request.getAnAddress().getName());
+                    phone.setText(request.getAnAddress().getPhone());
+                    address.setText(request.getAnAddress().getAddress());
                     total.setText(request.getTotal());
 
                     status.setText(getStringStatus(request.getStatus()));
