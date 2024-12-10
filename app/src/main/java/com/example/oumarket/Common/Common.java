@@ -6,6 +6,7 @@ import com.example.oumarket.Class.City;
 import com.example.oumarket.Class.District;
 import com.example.oumarket.Class.User;
 import com.example.oumarket.Class.Ward;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONObject;
@@ -20,6 +21,7 @@ import java.util.List;
 public class Common {
 
     public static User CURRENTUSER;
+    public static FirebaseUser CURRENT_FIREBASE_USER;
 
     public static final FirebaseDatabase FIREBASE_DATABASE = FirebaseDatabase.getInstance();
     public static final String REF_CATEGORIES = "Category";
@@ -30,7 +32,6 @@ public class Common {
     public static final String REF_DISTRICT = "District";
     public static final String REF_WARD = "Ward";
 
-    public static final String ID_USER_KEY = "ID_USER";
     public static final String USERNAME_KEY = "USER_NAME";
     public static final String PASSWORD_KEY = "PASSWORD";
 
@@ -45,7 +46,6 @@ public class Common {
     public static final String CHANNEL_CART = "1";
 
     public static final int DELAY_TIME = 60000;
-
 
     public static List<City> cities(Context context, int resourceId) {
         List<City> list = new ArrayList<>();

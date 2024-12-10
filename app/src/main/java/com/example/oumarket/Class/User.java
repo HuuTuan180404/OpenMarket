@@ -7,15 +7,18 @@ public class User {
     private String idUser;
     private String name;
     private String phone;
+    private String email;
     private List<AnAddress> Addresses;
 
     public User() {
     }
 
-    public User(List<AnAddress> Addresses, String name, String phone) {
+    public User(String idUser, String name, String phone, String email, List<AnAddress> addresses) {
+        this.idUser = idUser;
         this.name = name;
         this.phone = phone;
-        this.Addresses = Addresses;
+        this.email = email;
+        Addresses = addresses;
     }
 
     public User(String name, String phone) {
@@ -31,8 +34,16 @@ public class User {
     }
 
 
-
     //getter + setter/////////////////////////////////////////////////////////
+
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public String getIdUser() {
         return idUser;

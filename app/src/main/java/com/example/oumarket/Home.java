@@ -24,7 +24,6 @@ import androidx.appcompat.widget.SearchView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
-import androidx.navigation.ui.AppBarConfiguration;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -91,6 +90,9 @@ public class Home extends AppCompatActivity {
                     Intent intent = new Intent(Home.this, Signin.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
+                } else if (id == R.id.nav_profile) {
+                    Intent intent = new Intent(Home.this, ProfileActivity.class);
+                    startActivity(intent);
                 }
                 drawer.closeDrawer(GravityCompat.START);
                 return true;
@@ -103,7 +105,7 @@ public class Home extends AppCompatActivity {
         frameLayout_search = findViewById(R.id.fragment_search);
         vissibaleFragmentSearch();
 
-        a();
+        requestNotification();
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_home_categories, new HomeFragment()).commit();
 
@@ -129,15 +131,13 @@ public class Home extends AppCompatActivity {
         }
     }
 
-    private void a() {
+    private void requestNotification() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS)
-                    != PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.POST_NOTIFICATIONS}, 1);
             }
         }
     }
-
 
     private void vissibaleFragmentSearch() {
         frameLayout_home.setOnTouchListener(new View.OnTouchListener() {

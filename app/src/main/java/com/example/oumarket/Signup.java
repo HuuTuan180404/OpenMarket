@@ -33,16 +33,11 @@ public class Signup extends AppCompatActivity {
     AppCompatButton btn_signup;
     TextView tv_loginnow;
 
-    FirebaseAuth firebaseAuth;
-    DatabaseReference table_user;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.page_sign_up);
-
-        table_user = Common.FIREBASE_DATABASE.getReference(Common.REF_USERS);
 
         edit_name = findViewById(R.id.edit_name_user);
         edit_email = findViewById(R.id.edit_email_signup);
@@ -52,8 +47,6 @@ public class Signup extends AppCompatActivity {
         tv_loginnow = findViewById(R.id.tv_loginNow);
 
         edit_phone = findViewById(R.id.edit_phone);
-
-        firebaseAuth = FirebaseAuth.getInstance();
 
 //         button Signup - mbtn_Signup
         btn_signup.setOnClickListener(new View.OnClickListener() {
@@ -100,15 +93,15 @@ public class Signup extends AppCompatActivity {
 
     private void createAccount(String email, String password) {
         // [START create_user_with_email]
-        firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    firebaseAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    FirebaseAuth.getInstance().getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
-                                createInfo();
+                                createInfo(FirebaseAuth.getInstance().getCurrentUser().getUid());
                             } else {
                                 Toast.makeText(getApplicationContext(), "Failed!", Toast.LENGTH_SHORT).show();
                             }
@@ -121,14 +114,12 @@ public class Signup extends AppCompatActivity {
         });
     }
 
-    private void createInfo() {
-        table_user.addValueEventListener(new ValueEventListener() {
+    private void createInfo(String userUid) {
+        Common.FIREBASE_DATABASE.getReference(Common.REF_USERS).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                String email = edit_email.getText().toString();
-                email = email.substring(0, email.indexOf("@"));
-                User user = new User(new ArrayList<>(), edit_name.getText().toString(), edit_phone.getText().toString());
-                table_user.child(email).setValue(user);
+                User user = new User(userUid, edit_name.getText().toString().trim(), edit_phone.getText().toString().trim(), edit_email.getText().toString().trim(), new ArrayList<>());
+                Common.FIREBASE_DATABASE.getReference(Common.REF_USERS).child(userUid).setValue(user);
             }
 
             @Override

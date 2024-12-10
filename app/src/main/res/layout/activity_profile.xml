@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ProfileActivity">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_gravity="top"
+        android:theme="@style/Customer.ToolBar"
+        app:navigationIcon="@drawable/im_back"
+        app:title="Hồ sơ" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="5sp"
+        android:layout_marginTop="20sp"
+        android:layout_marginBottom="40sp"
+        android:background="@drawable/border"
+        android:gravity="center_vertical"
+        android:padding="10sp">
+
+        <TextView
+            style="@style/Customer.TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_toLeftOf="@+id/name"
+            android:text="Tên" />
+
+        <TextView
+            android:id="@+id/name"
+            style="@style/Customer.TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/ic_next"
+            android:text="Nguyen Huu Tuan" />
+
+        <ImageView
+            android:id="@+id/ic_next"
+            android:layout_width="wrap_content"
+            android:layout_height="0sp"
+            android:layout_alignTop="@+id/name"
+            android:layout_alignBottom="@+id/name"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_next" />
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="5sp"
+        android:layout_marginBottom="40sp"
+        android:background="@drawable/border"
+        android:orientation="vertical"
+        android:padding="10sp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10sp"
+            android:gravity="center_vertical">
+
+            <TextView
+                style="@style/Customer.TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_toLeftOf="@+id/phone"
+                android:text="Số điện thoại" />
+
+            <TextView
+                android:id="@+id/phone"
+                style="@style/Customer.TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/ic_next_phone"
+                android:text="*******275" />
+
+            <ImageView
+                android:id="@+id/ic_next_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="0sp"
+                android:layout_alignTop="@+id/phone"
+                android:layout_alignBottom="@+id/phone"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_next" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <TextView
+                style="@style/Customer.TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_toLeftOf="@+id/email"
+                android:text="Email" />
+
+            <TextView
+                android:id="@+id/email"
+                style="@style/Customer.TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/ic_next_email"
+                android:text="ng*****04@gmail.com" />
+
+            <ImageView
+                android:id="@+id/ic_next_email"
+                android:layout_width="wrap_content"
+                android:layout_height="0sp"
+                android:layout_alignTop="@+id/email"
+                android:layout_alignBottom="@+id/email"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_next" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="5sp"
+        android:layout_marginBottom="40sp"
+        android:background="@drawable/border"
+        android:gravity="center_vertical"
+        android:padding="10sp">
+
+        <TextView
+            style="@style/Customer.TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_toLeftOf="@+id/email"
+            android:text="Mật khẩu" />
+
+        <TextView
+            android:id="@+id/password"
+            style="@style/Customer.TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/ic_next_password"
+            android:text="Đổi mật khẩu"
+            android:textColor="@color/Do" />
+
+        <ImageView
+            android:id="@+id/ic_next_password"
+            android:layout_width="wrap_content"
+            android:layout_height="0sp"
+            android:layout_alignTop="@+id/password"
+            android:layout_alignBottom="@+id/password"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_next" />
+
+    </RelativeLayout>
+
+</LinearLayout>
