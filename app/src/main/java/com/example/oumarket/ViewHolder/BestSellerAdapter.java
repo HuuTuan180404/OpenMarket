@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.oumarket.Class.Food;
 import com.example.oumarket.Class.Order;
-import com.example.oumarket.Common.Common;
 import com.example.oumarket.Database.Database;
 import com.example.oumarket.FoodDetail;
 import com.example.oumarket.R;

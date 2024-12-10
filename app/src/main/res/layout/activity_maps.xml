@@ -52,12 +52,11 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    style="@style/Customer.TextView"
                     android:layout_width="0sp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:fontFamily="@font/satoshi_variable"
-                    android:text="Liên hệ"
-                    android:textSize="20sp" />
+                    android:text="Liên hệ" />
 
                 <LinearLayout
                     android:layout_width="0sp"
@@ -120,12 +119,11 @@
                 android:layout_marginTop="5sp">
 
                 <TextView
+                    style="@style/Customer.TextView"
                     android:layout_width="0sp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:fontFamily="@font/satoshi_variable"
-                    android:text="Địa chỉ"
-                    android:textSize="20sp" />
+                    android:text="Địa chỉ" />
 
                 <LinearLayout
                     android:layout_width="0sp"
@@ -210,12 +208,11 @@
                 android:gravity="center">
 
                 <TextView
+                    style="@style/Customer.TextView"
                     android:layout_width="0sp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:fontFamily="@font/satoshi_variable"
-                    android:text="Loại địa chỉ"
-                    android:textSize="20sp" />
+                    android:text="Loại địa chỉ" />
 
                 <com.google.android.material.button.MaterialButtonToggleGroup
                     android:id="@+id/toggle_group"
@@ -266,11 +263,10 @@
                 android:gravity="center_vertical">
 
                 <TextView
+                    style="@style/Customer.TextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/satoshi_variable"
-                    android:text="Địa chỉ mặc định"
-                    android:textSize="20sp" />
+                    android:text="Địa chỉ mặc định" />
 
                 <com.google.android.material.switchmaterial.SwitchMaterial
                     android:id="@+id/switch_dia_chi"

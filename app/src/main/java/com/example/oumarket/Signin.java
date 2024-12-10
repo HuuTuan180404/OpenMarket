@@ -5,8 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,10 +14,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
-import com.example.oumarket.Class.Food;
 import com.example.oumarket.Class.User;
 import com.example.oumarket.Common.Common;
-import com.example.oumarket.ViewHolder.BestSellerAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
@@ -32,9 +28,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import com.rejowan.cutetoast.CuteToast;
 import com.rey.material.widget.CheckBox;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import io.paperdb.Paper;
 
@@ -66,41 +59,38 @@ public class Signin extends AppCompatActivity {
         edit_email = findViewById(R.id.edit_email);
         edit_password = findViewById(R.id.edit_password);
         tv_forgotPassword = findViewById(R.id.tv_ForgotPass);
-        btn_signin = findViewById(R.id.btn_Login);
+        btn_signin = findViewById(R.id.btn_xac_nhan);
         tv_signupNow = findViewById(R.id.tv_SignupNow);
         checkBox = findViewById(R.id.checkbox_remember);
 
 //      butotn login
-        btn_signin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (TextUtils.isEmpty(edit_email.getText().toString())) {
-                    Toast.makeText(Signin.this, "Hãy nhập email!", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (TextUtils.isEmpty(edit_password.getText().toString())) {
-                    Toast.makeText(Signin.this, "Hãy nhập password!", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                mDialog.show();
-
-                login(edit_email.getText().toString(), edit_password.getText().toString());
-
+        btn_signin.setOnClickListener(v -> {
+            if (TextUtils.isEmpty(edit_email.getText().toString())) {
+                Toast.makeText(Signin.this, "Hãy nhập email!", Toast.LENGTH_SHORT).show();
+                return;
             }
+
+            if (TextUtils.isEmpty(edit_password.getText().toString())) {
+                Toast.makeText(Signin.this, "Hãy nhập password!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            mDialog.show();
+
+            login(edit_email.getText().toString(), edit_password.getText().toString());
+
         });
 
         // textview Forgot password - mtv_ForgotPass
         tv_forgotPassword.setOnClickListener(v -> {
-            Toast.makeText(Signin.this, "forgotPassword", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(Signin.this, ForgotPasswordActivity.class);
+            startActivity(intent);
         });
 
         tv_signupNow.setOnClickListener(v -> {
             Intent intent = new Intent(Signin.this, Signup.class);
             startActivity(intent);
             finish();
-
         });
 //
         Paper.init(this);

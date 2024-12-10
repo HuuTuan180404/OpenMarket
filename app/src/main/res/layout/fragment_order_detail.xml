@@ -37,10 +37,10 @@
                         android:layout_height="wrap_content">
 
                         <TextView
+                            style="@style/Customer.TextView"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@color/trang"
-                            android:fontFamily="@font/satoshi_variable"
                             android:gravity="center"
                             android:text="Thông tin giao hàng" />
 
@@ -62,10 +62,10 @@
 
                             <TextView
                                 android:id="@+id/username"
+                                style="@style/Customer.TextView"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:fontFamily="@font/satoshi_variable"
                                 android:gravity="center"
                                 android:text="username" />
 
@@ -80,9 +80,9 @@
 
                             <TextView
                                 android:id="@+id/phone"
+                                style="@style/Customer.TextView"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/satoshi_variable"
                                 android:gravity="center"
                                 android:text="phone" />
 
@@ -101,9 +101,9 @@
 
                         <TextView
                             android:id="@+id/address"
+                            style="@style/Customer.TextView"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/satoshi_variable"
                             android:gravity="center"
                             android:text="address" />
 
@@ -132,10 +132,10 @@
 
                     <TextView
                         android:id="@+id/titleSanPham"
+                        style="@style/Customer.TextView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/trang"
-                        android:fontFamily="@font/satoshi_variable"
                         android:gravity="center"
                         android:text="Sản phẩm" />
 
@@ -150,6 +150,7 @@
 
                     <TextView
                         android:id="@+id/line"
+                        style="@style/Customer.TextView"
                         android:layout_width="match_parent"
                         android:layout_height="1sp"
                         android:layout_above="@+id/layout_total"
@@ -166,16 +167,16 @@
                         android:gravity="right">
 
                         <TextView
+                            style="@style/Customer.TextView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/satoshi_variable"
                             android:text="Total: $  " />
 
                         <TextView
                             android:id="@+id/total"
+                            style="@style/Customer.TextView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/satoshi_variable"
                             android:text="12" />
 
                     </LinearLayout>
@@ -331,7 +332,8 @@
                 android:background="@drawable/rounded_20sp"
                 android:backgroundTint="@color/xanh_bien"
                 android:fontFamily="@font/satoshi_variable"
-                android:text="DONE" />
+                android:text="DONE"
+                android:textColor="@color/trang" />
 
         </RelativeLayout>
 

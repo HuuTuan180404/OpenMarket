@@ -29,11 +29,10 @@ import java.util.Random;
 
 public class HomeFragment extends Fragment {
 
-    DatabaseReference data_categories, data_foods;
 
     View include_category1;
 
-    RecyclerView recyclerView_bestSeller, recycler_categories;
+    RecyclerView recyclerView_bestSeller, recyclerView_categories, recyclerView_all_food;
 
 
     public HomeFragment() {
@@ -44,30 +43,23 @@ public class HomeFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-//        firebase
-        data_categories = Common.FIREBASE_DATABASE.getReference(Common.REF_CATEGORIES);
-        data_foods = Common.FIREBASE_DATABASE.getReference(Common.REF_FOODS);
-
-
 //        recycler categories
-        recycler_categories = view.findViewById(R.id.recycler_categories);
+        recyclerView_categories = view.findViewById(R.id.recycler_categories);
         setupRecyclerCategories();
 
 //        recycler best seller
         recyclerView_bestSeller = view.findViewById(R.id.recycler_best_saller);
         setupRecyclerViewBestSeller();
 
-//        recycler category
-        include_category1 = view.findViewById(R.id.include_category1);
-
-//        recycler category
-//        setupRecyclerOneCategory(view, Common.n_Category, Common.n_Food);
+//        recycler all food
+        recyclerView_all_food = view.findViewById(R.id.recyclerView_all_food);
+        setupRecyclerViewAllFood();
 
         return view;
     }
 
     private void setupRecyclerCategories() {
-        data_categories.addValueEventListener(new ValueEventListener() {
+        Common.FIREBASE_DATABASE.getReference(Common.REF_CATEGORIES).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 List<Category> list = new ArrayList<>();
@@ -77,7 +69,7 @@ public class HomeFragment extends Fragment {
                     list.add(category1);
                 }
                 CategoryAdapter adapter = new CategoryAdapter(list, getContext());
-                SetUpRecyclerView.setupGridLayout(getContext(), recycler_categories, adapter, 2, androidx.recyclerview.widget.RecyclerView.HORIZONTAL);
+                SetUpRecyclerView.setupGridLayout(getContext(), recyclerView_categories, adapter, 2, androidx.recyclerview.widget.RecyclerView.HORIZONTAL);
             }
 
             @Override
@@ -115,69 +107,28 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    private void setupRecyclerOneCategory(View view, int n_category, int n_food) {
-        data_categories.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                List<Category> list = new ArrayList<>();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    if (!dataSnapshot.getKey().equals("9999")) {
-                        Category category1 = dataSnapshot.getValue(Category.class);
-                        category1.setId(dataSnapshot.getKey());
-                        list.add(category1);
-                    }
-                }
-
-//                random
-                Random random = new Random();
-                int n = n_category % list.size();
-                while (list.size() != n) {
-                    list.remove(random.nextInt(list.size()));
-                }
-
-
-                for (int i = 0; i < n_category; i++) {
-                    loadN_Food(view, list.get(i), n_food);
-                }
-
-//                adapter = new CategoryAdapter(list, getContext());
-//                SetUpRecyclerView.setupGridLayout(getContext(), recycler_categories, adapter, 2, androidx.recyclerview.widget.RecyclerView.HORIZONTAL);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-    }
-
-    private void loadN_Food(View view, Category category, int n_food) {
-//        init recycler
-
-        RecyclerView recyclerView = include_category1.findViewById(R.id.recycler_category);
-
-//        get data
-        data_foods.orderByChild("MenuID").equalTo(category.getId()).addListenerForSingleValueEvent(new ValueEventListener() {
+    private void setupRecyclerViewAllFood() {
+        Common.FIREBASE_DATABASE.getReference(Common.REF_FOODS).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 List<Food> list = new ArrayList<>();
+                Food food;
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    Food food = dataSnapshot.getValue(Food.class);
+                    food = dataSnapshot.getValue(Food.class);
                     food.setId(dataSnapshot.getKey());
                     list.add(food);
                 }
 
-//                random
-                Random random = new Random();
-                int n = n_food % list.size();
-                while (list.size() != n) {
-                    list.remove(random.nextInt(list.size()));
+                list.sort((a, b) -> a.sortForBestSeller(b));
+
+                List<Food> listAdapter = new ArrayList<>();
+
+                for (int i = Common.TOP_BEST_SELLER; i < list.size(); i++) {
+                    listAdapter.add(list.get(i));
                 }
 
-                FoodAdapter adapter = new FoodAdapter(list, getContext());
-                SetUpRecyclerView.setupGridLayout(getContext(), recyclerView, adapter, 1, RecyclerView.HORIZONTAL);
-
+                FoodAdapter foodAdapter = new FoodAdapter(listAdapter, getContext());
+                SetUpRecyclerView.setupGridLayout(getContext(), recyclerView_all_food, foodAdapter, 2, RecyclerView.VERTICAL);
             }
 
             @Override
@@ -186,6 +137,5 @@ public class HomeFragment extends Fragment {
             }
         });
     }
-
 
 }

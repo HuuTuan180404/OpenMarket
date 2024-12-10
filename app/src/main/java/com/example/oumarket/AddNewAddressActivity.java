@@ -226,15 +226,12 @@ public class AddNewAddressActivity extends AppCompatActivity implements OnMapRea
             return;
         }
         Task<Location> task = fusedLocationProviderClient.getLastLocation();
-        task.addOnSuccessListener(new OnSuccessListener<Location>() {
-            @Override
-            public void onSuccess(Location location) {
-                if (location != null) {
-                    currentLocation = location;
-                    LatLng myLocation = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+        task.addOnSuccessListener(location -> {
+            if (location != null) {
+                currentLocation = location;
+                LatLng myLocation = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
 //                    mMap.addMarker(new MarkerOptions().position(myLocation).title("Your location"));
-                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 15));
-                }
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 15));
             }
         });
 

@@ -10,11 +10,12 @@
     <FrameLayout
         android:id="@+id/dasd"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20sp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="150sp"
+            android:layout_height="120sp"
             android:layout_gravity="top"
             android:layout_marginLeft="10sp"
             android:layout_marginRight="10sp"
@@ -25,11 +26,11 @@
 
             <TextView
                 android:id="@+id/item_cart_name"
+                style="@style/Customer.TextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="160sp"
-                android:text="name of food"
-                android:textSize="25sp" />
+                android:text="name of food" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -39,19 +40,18 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    style="@style/Customer.TextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="5sp"
-                    android:fontFamily="@font/futuramedium"
-                    android:text="$"
-                    android:textSize="25sp" />
+                    android:text="$" />
 
                 <TextView
                     android:id="@+id/itemcart_price"
+                    style="@style/Customer.TextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="price"
-                    android:textSize="25sp" />
+                    android:text="price" />
             </LinearLayout>
 
         </LinearLayout>
@@ -66,8 +66,8 @@
 
             <ImageView
                 android:id="@+id/itemcart_image"
-                android:layout_width="150sp"
-                android:layout_height="200sp"
+                android:layout_width="120sp"
+                android:layout_height="160sp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/image_default_load_category_faile" />
 
@@ -94,13 +94,12 @@
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/edittext_quantity"
+            style="@style/Customer.TextView"
             android:layout_width="50sp"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/futuramedium"
             android:gravity="center"
             android:inputType="number"
-            android:text="1"
-            android:textSize="20sp" />
+            android:text="1" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button_Increase"
@@ -119,7 +118,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="20sp" />
+        android:layout_marginRight="40sp" />
 
     <TextView
         android:layout_width="match_parent"
