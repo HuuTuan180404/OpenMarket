@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="260dp"
-    android:layout_height="295dp"
+    android:layout_height="300dp"
     android:layout_margin="8dp"
     app:cardCornerRadius="20dp"
     app:cardElevation="3dp">
@@ -39,14 +39,20 @@
                     style="@style/Customer.TextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_toLeftOf="@+id/price"
                     android:text="name of food" />
 
                 <TextView
                     android:id="@+id/price"
+                    style="@style/Customer.TextView"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0sp"
+                    android:layout_alignTop="@+id/name_of_food"
+                    android:layout_alignBottom="@+id/name_of_food"
                     android:layout_alignParentRight="true"
-                    android:text="price" />
+                    android:gravity="center"
+                    android:text="$ 1234" />
 
             </RelativeLayout>
 
@@ -75,7 +81,9 @@
 
             <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="0sp"
+                android:layout_alignTop="@+id/count_star"
+                android:layout_alignBottom="@+id/count_star"
                 android:layout_marginLeft="10sp"
                 android:layout_toRightOf="@+id/count_star"
                 android:src="@drawable/ic_star" />

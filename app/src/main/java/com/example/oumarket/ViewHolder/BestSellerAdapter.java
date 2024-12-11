@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.oumarket.Class.Food;
 import com.example.oumarket.Class.Order;
+import com.example.oumarket.Common.Common;
 import com.example.oumarket.Database.Database;
 import com.example.oumarket.FoodDetail;
 import com.example.oumarket.R;
@@ -65,18 +66,27 @@ public class BestSellerAdapter extends RecyclerView.Adapter<BestSellerViewHolder
     @Override
     public void onBindViewHolder(@NonNull BestSellerViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
-        Picasso.get().load(list.get(position).getURL()).into(holder.pic);
-        holder.name_of_food.setText(list.get(position).getName());
-        holder.price.setText(list.get(position).getPrice());
+        Food food = list.get(position);
+
+        Picasso.get().load(food.getURL()).into(holder.pic);
+        holder.name_of_food.setText(food.getName());
+        holder.price.setText(Common.CURRENCY + food.getPrice());
         holder.pic.setOnClickListener(v -> {
             Intent foodDetail = new Intent(context, FoodDetail.class);
-            foodDetail.putExtra("FoodId", list.get(position).getId());
+            foodDetail.putExtra("FoodId", food.getId());
             context.startActivity(foodDetail);
         });
 
+        if (food.getCountRating() != 0) {
+            float a = food.getCountStars() / food.getCountRating();
+            holder.count_star.setText(a + "");
+        } else {
+            holder.count_star.setText("---");
+        }
+
         holder.textView_plus.setOnClickListener(v -> {
             CuteToast.ct(context, "Đã thêm vào giỏ hàng", Toast.LENGTH_SHORT, CuteToast.SUCCESS, true).show();
-            Order order = new Order(list.get(position).getId(), list.get(position).getName(), list.get(position).getPrice(), "1", list.get(position).getDiscount(), "0");
+            Order order = new Order(food.getId(), food.getName(), food.getPrice(), "1", food.getDiscount(), "0");
             Database database1 = new Database(context);
             database1.addToCart(order);
         });

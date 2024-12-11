@@ -21,22 +21,15 @@ import java.util.List;
 public class Common {
 
     public static User CURRENTUSER;
-    public static FirebaseUser CURRENT_FIREBASE_USER;
 
     public static final FirebaseDatabase FIREBASE_DATABASE = FirebaseDatabase.getInstance();
     public static final String REF_CATEGORIES = "Category";
     public static final String REF_FOODS = "Foods";
     public static final String REF_USERS = "User";
     public static final String REF_REQUESTS = "Requests";
-    public static final String REF_CITY = "City";
-    public static final String REF_DISTRICT = "District";
-    public static final String REF_WARD = "Ward";
 
     public static final String USERNAME_KEY = "USER_NAME";
     public static final String PASSWORD_KEY = "PASSWORD";
-
-    public static final int n_Category = 1;
-    public static final int n_Food = 5;
 
     public static final int TOP_BEST_SELLER = 6;
 

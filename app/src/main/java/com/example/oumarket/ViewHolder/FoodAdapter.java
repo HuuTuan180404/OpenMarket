@@ -95,21 +95,30 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull FoodViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        Picasso.get().load(list.get(position).getURL()).into(holder.food_image);
-        holder.food_name.setText(list.get(position).getName());
-        holder.food_price.setText(list.get(position).getPrice());
-        holder.food_rate.setText("Rate: 4 sao");
+        Food food = list.get(position);
+        Picasso.get().load(food.getURL()).into(holder.food_image);
+        holder.food_name.setText(food.getName());
+        holder.food_price.setText(food.getPrice());
+
+        if (food.getCountRating() != 0) {
+            float a = food.getCountStars() / food.getCountRating();
+            holder.food_rate.setText(a + "");
+        } else {
+            holder.food_rate.setText("---");
+        }
+
         holder.add_to_cart.setOnClickListener(v -> {
             CuteToast.ct(context, "Đã thêm vào giỏ hàng", Toast.LENGTH_SHORT, CuteToast.SUCCESS, true).show();
-            Order order = new Order(list.get(position).getId(), list.get(position).getName(), list.get(position).getPrice(), "1", list.get(position).getDiscount(), "0");
+            Order order = new Order(food.getId(), food.getName(), food.getPrice(), "1", food.getDiscount(), "0");
             Database database1 = new Database(context);
             database1.addToCart(order);
         });
         holder.itemView.setOnClickListener(v -> {
             Intent foodDetail = new Intent(context, FoodDetail.class);
-            foodDetail.putExtra("FoodId", list.get(position).getId());
+            foodDetail.putExtra("FoodId", food.getId());
             context.startActivity(foodDetail);
         });
+
     }
 
     @Override
