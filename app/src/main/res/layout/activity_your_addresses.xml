@@ -9,22 +9,19 @@
     android:orientation="vertical"
     tools:context=".YourAddressesActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbarlayout"
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/background_main" />
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:layout_alignParentTop="true"
-        android:theme="@style/Theme.OuMarket.AppBarOverlay">
-
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:theme="@style/Customer.ToolBar"
-            app:navigationIcon="@drawable/im_back"
-            app:title="Địa chỉ" />
-
-    </com.google.android.material.appbar.AppBarLayout>
+        android:theme="@style/Customer.ToolBar"
+        app:navigationIcon="@drawable/im_back"
+        app:title="Địa chỉ" />
 
     <TextView
         android:id="@+id/addressesIsNull"
@@ -32,7 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/btn_add_address"
-        android:layout_below="@+id/appbarlayout"
+        android:layout_below="@+id/toolbar"
         android:layout_marginVertical="10sp"
         android:gravity="center"
         android:text="Bạn chưa thiết lập địa chỉ nào" />
@@ -42,7 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/btn_add_address"
-        android:layout_below="@+id/appbarlayout"
+        android:layout_below="@+id/toolbar"
         android:layout_marginVertical="10sp"
         android:scrollbars="vertical">
 

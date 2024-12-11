@@ -24,19 +24,23 @@
 
         <activity
             android:name=".ProfileActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".Home" />
 
         <activity
             android:name=".ForgotPasswordActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".Signin" />
 
         <activity
             android:name=".RatingFoodActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".MyOrder" />
 
         <activity
             android:name=".YourAddressesActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".Home" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -45,7 +49,8 @@
         <activity
             android:name=".AddNewAddressActivity"
             android:exported="false"
-            android:label="@string/title_activity_maps" />
+            android:label="@string/title_activity_maps"
+            android:parentActivityName=".YourAddressesActivity" />
 
         <activity
             android:name=".Signin"
@@ -56,28 +61,33 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".Signup"
             android:exported="false"
             android:parentActivityName=".Signin" />
+
         <activity
             android:name=".Home"
             android:exported="false"
             android:label="@string/title_activity_home"
-            android:parentActivityName=".Signin"
             android:theme="@style/Theme.OuMarket.NoActionBar" />
+
         <activity
             android:name=".MyOrder"
             android:exported="false"
             android:parentActivityName=".Home" />
+
         <activity
             android:name=".Cart"
             android:exported="false"
             android:parentActivityName=".Home" />
+
         <activity
             android:name=".FoodDetail"
             android:exported="false"
             android:parentActivityName=".FoodList" />
+
         <activity
             android:name=".FoodList"
             android:exported="false"

@@ -131,7 +131,7 @@ public class Signup extends AppCompatActivity {
         AlertDialog.Builder alert = new AlertDialog.Builder(Signup.this);
         alert.setTitle("Successfully!");
         alert.setMessage("Please check your email and click the URL to activate your account");
-        alert.setIcon(R.drawable.ic_account_circle_24);
+        alert.setIcon(R.drawable.ic_info_24);
 
         alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override

@@ -34,7 +34,6 @@
         <item name="fontFamily">@font/satoshi_variable</item>
         <item name="titleTextColor">@color/den</item>
         <item name="android:textColorHint">@color/den</item>
-        <item name="android:background">@color/trang</item>
     </style>
 
     <style name="Customer.TextView" parent="">

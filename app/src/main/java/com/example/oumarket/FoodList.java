@@ -56,9 +56,9 @@ public class FoodList extends AppCompatActivity {
         toolbar.setTitle("Category");
         setSupportActionBar(toolbar);
 
-        ActionBar actionbar = getSupportActionBar();
-        actionbar.setDisplayHomeAsUpEnabled(true);
-        actionbar.setHomeAsUpIndicator(R.drawable.ic_arrow_back_24);
+//        ActionBar actionbar = getSupportActionBar();
+//        actionbar.setDisplayHomeAsUpEnabled(true);
+//        actionbar.setHomeAsUpIndicator(R.drawable.ic_arrow_back_24);
 
 //         firebase
         data_foods = Common.FIREBASE_DATABASE.getReference(Common.REF_FOODS);

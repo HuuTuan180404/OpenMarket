@@ -6,13 +6,15 @@ import android.app.TaskStackBuilder;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 
 import com.example.oumarket.Common.Common;
 import com.example.oumarket.MyOrder;
 import com.example.oumarket.R;
+import com.example.oumarket.Signin;
+
+import io.paperdb.Paper;
 
 public class Notification extends BroadcastReceiver {
 
@@ -21,9 +23,15 @@ public class Notification extends BroadcastReceiver {
 
         Intent intent1 = new Intent(context, MyOrder.class);
 
-        String idRequest = intent.getStringExtra("idRequest");
+        Paper.init(context);
+        String user = Paper.book().read(Common.USERNAME_KEY);
+        String password = Paper.book().read(Common.PASSWORD_KEY);
 
-        Log.d("ZZZZZ",idRequest);
+        if (user == null || password == null) {
+            intent1 = new Intent(context, Signin.class);
+        }
+
+        String idRequest = intent.getStringExtra("idRequest");
 
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
         stackBuilder.addNextIntentWithParentStack(intent1);
