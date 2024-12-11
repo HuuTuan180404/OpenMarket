@@ -83,13 +83,10 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailViewHold
         holder.quantity.setText(list.get(position).getQuantity());
         holder.discount.setText(list.get(position).getDiscount());
 
-        holder.image.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent foodDetail = new Intent(context, FoodDetail.class);
-                foodDetail.putExtra("FoodId", list.get(position).getProductId());
-                context.startActivity(foodDetail);
-            }
+        holder.image.setOnClickListener(v -> {
+            Intent foodDetail = new Intent(context, FoodDetail.class);
+            foodDetail.putExtra("FoodId", list.get(position).getProductId());
+            context.startActivity(foodDetail);
         });
 
         String keyFood = list.get(position).getProductId();

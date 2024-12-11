@@ -9,7 +9,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.widget.Toolbar;
 
-import com.example.oumarket.Adapter.ViewPageMyOrderAdapter;
+import com.example.oumarket.Adapter.ViewPagerMyOrderAdapter;
 import com.google.android.material.tabs.TabLayout;
 
 public class MyOrder extends AppCompatActivity {
@@ -31,7 +31,7 @@ public class MyOrder extends AppCompatActivity {
         tabLayout = findViewById(R.id.tabLayout);
         viewPager2 = findViewById(R.id.viewPager);
 
-        ViewPageMyOrderAdapter viewPageMyOrderAdapter = new ViewPageMyOrderAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        ViewPagerMyOrderAdapter viewPageMyOrderAdapter = new ViewPagerMyOrderAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         viewPager2.setAdapter(viewPageMyOrderAdapter);
 
         tabLayout.setupWithViewPager(viewPager2);

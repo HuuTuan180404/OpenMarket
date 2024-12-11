@@ -50,6 +50,8 @@ public class Home extends AppCompatActivity {
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        requestNotification();
+
 //        content home
         setSupportActionBar(binding.appBarHome.toolbar);
 
@@ -105,7 +107,6 @@ public class Home extends AppCompatActivity {
         frameLayout_search = findViewById(R.id.fragment_search);
         vissibaleFragmentSearch();
 
-        requestNotification();
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_home_categories, new HomeFragment()).commit();
 

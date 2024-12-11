@@ -34,7 +34,6 @@ public class HomeFragment extends Fragment {
 
     RecyclerView recyclerView_bestSeller, recyclerView_categories, recyclerView_all_food;
 
-
     public HomeFragment() {
     }
 

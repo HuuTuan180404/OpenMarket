@@ -9,9 +9,9 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import com.example.oumarket.ui.my_order_page.HistoryFragment;
 import com.example.oumarket.ui.my_order_page.OngoingFragment;
 
-public class ViewPageMyOrderAdapter extends FragmentStatePagerAdapter {
+public class ViewPagerMyOrderAdapter extends FragmentStatePagerAdapter {
 
-    public ViewPageMyOrderAdapter(@NonNull FragmentManager fm, int behavior) {
+    public ViewPagerMyOrderAdapter(@NonNull FragmentManager fm, int behavior) {
         super(fm, behavior);
     }
 

@@ -33,9 +33,17 @@ public class User {
         this.Addresses.add(address);
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "idUser='" + idUser + '\'' +
+                ", name='" + name + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 
     //getter + setter/////////////////////////////////////////////////////////
-
 
     public String getEmail() {
         return email;

@@ -33,8 +33,6 @@ public class HistoryFragment extends Fragment {
 
     RecyclerView recyclerView;
 
-    DatabaseReference data_requests;
-
     MyOrderAdapter adapter;
 
     final String status = "0";
@@ -47,8 +45,6 @@ public class HistoryFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_history, container, false);
-
-        data_requests = Common.FIREBASE_DATABASE.getReference(Common.REF_REQUESTS);
 
         recyclerView = view.findViewById(R.id.recyclerView);
 
@@ -67,7 +63,7 @@ public class HistoryFragment extends Fragment {
 
         String idCurrentUser = Common.CURRENTUSER.getIdUser();
 
-        data_requests.orderByChild("idCurrentUser").equalTo(idCurrentUser).addValueEventListener(new ValueEventListener() {
+        Common.FIREBASE_DATABASE.getReference(Common.REF_REQUESTS).orderByChild("idCurrentUser").equalTo(idCurrentUser).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 List<Request> data = new ArrayList<>();

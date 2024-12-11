@@ -29,6 +29,7 @@ import com.example.oumarket.Interface.ItemClickListener;
 import com.example.oumarket.R;
 import com.example.oumarket.RatingFoodActivity;
 import com.example.oumarket.ui.my_order_page.OrderDetailFragment;
+import com.example.oumarket.ui.profile_view_page.EditNameUserFragment;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -218,12 +219,9 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderViewHolder> {
         });
 
         holder.itemView.setOnClickListener(v -> {
-
             OrderDetailFragment fragment = new OrderDetailFragment(list.get(position).getIdRequest());
-
             AppCompatActivity activity = (AppCompatActivity) context;
             fragment.show(activity.getSupportFragmentManager(), "OrderDetailFragment");
-
         });
 
     }

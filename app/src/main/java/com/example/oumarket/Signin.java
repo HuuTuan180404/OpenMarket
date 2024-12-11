@@ -105,51 +105,49 @@ public class Signin extends AppCompatActivity {
     }
 
     private void login(String email, String password) {
-        FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password).addOnCompleteListener(Signin.this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    if (FirebaseAuth.getInstance().getCurrentUser().isEmailVerified()) {
-                        if (checkBox.isChecked()) {
-                            Paper.book().write(Common.USERNAME_KEY, edit_email.getText().toString().trim());
-                            Paper.book().write(Common.PASSWORD_KEY, edit_password.getText().toString().trim());
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password).addOnCompleteListener(Signin.this, task -> {
+            if (task.isSuccessful()) {
+                if (FirebaseAuth.getInstance().getCurrentUser().isEmailVerified()) {
+
+                    if (checkBox.isChecked()) {
+                        Paper.book().write(Common.USERNAME_KEY, edit_email.getText().toString().trim());
+                        Paper.book().write(Common.PASSWORD_KEY, edit_password.getText().toString().trim());
+                    }
+
+                    String userUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+                    Common.FIREBASE_DATABASE.getReference(Common.REF_USERS).child(userUid).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            User user = snapshot.getValue(User.class);
+                            Common.CURRENTUSER = user;
+
+                            Intent homeIntent = new Intent(Signin.this, Home.class);
+                            startActivity(homeIntent);
+
+                            mDialog.dismiss();
+                            finish();
                         }
 
-                        String userUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-                        Common.FIREBASE_DATABASE.getReference(Common.REF_USERS).child(userUid).addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                User user = snapshot.getValue(User.class);
-                                Common.CURRENTUSER = user;
-
-                                Intent homeIntent = new Intent(Signin.this, Home.class);
-                                startActivity(homeIntent);
-
-                                mDialog.dismiss();
-                                finish();
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-                            }
-                        });
-                    } else {
-                        mDialog.dismiss();
-                        AlertDialog.Builder alert = new AlertDialog.Builder(Signin.this);
-                        alert.setTitle("Warming!");
-                        alert.setMessage("Please check your email and click the URL to activate your account");
-                        alert.setIcon(R.drawable.ic_info_24);
-
-                        alert.setPositiveButton("Yes", (dialog, which) -> {
-                        });
-
-                        alert.show();
-                    }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                        }
+                    });
                 } else {
                     mDialog.dismiss();
-                    CuteToast.ct(Signin.this, "Tài khoản không đúng!", CuteToast.LENGTH_SHORT, CuteToast.WARN, true).show();
+                    AlertDialog.Builder alert = new AlertDialog.Builder(Signin.this);
+                    alert.setTitle("Warming!");
+                    alert.setMessage("Please check your email and click the URL to activate your account");
+                    alert.setIcon(R.drawable.ic_info_24);
+
+                    alert.setPositiveButton("Yes", (dialog, which) -> {
+                    });
+
+                    alert.show();
                 }
+            } else {
+                mDialog.dismiss();
+                CuteToast.ct(Signin.this, "Tài khoản không đúng!", CuteToast.LENGTH_SHORT, CuteToast.WARN, true).show();
             }
         });
     }
