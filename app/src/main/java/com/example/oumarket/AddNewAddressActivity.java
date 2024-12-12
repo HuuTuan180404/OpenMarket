@@ -422,42 +422,4 @@ public class AddNewAddressActivity extends AppCompatActivity implements OnMapRea
 
     }
 
-//    private void updateCitySpinner(String city) {
-//        for (City i : adapterCity.getCityList()) {
-//            if (i.getName().contains(city)) {
-//                spinner_city.setSelection(adapterCity.getPosition(i));
-//                adapterDistricts.setDistrictList(Common.districts(context, R.raw.district, i.getCode()));
-//                adapterDistricts.notifyDataSetChanged();
-//                // Sau khi cập nhật xong, cập nhật Spinner Quận/Huyện
-//                new android.os.Handler().postDelayed(() -> updateDistrictSpinner(addressText.get(1)), 200);
-//                break;
-//            }
-//        }
-//        if (loadingDialog.isShowing()) loadingDialog.dismiss();
-//    }
-//
-//    private void updateDistrictSpinner(String district) {
-//        for (District j : adapterDistricts.getDistrictList()) {
-//            if (j.getName().contains(district)) {
-//                spinner_district.setSelection(adapterDistricts.getPosition(j));
-//                adapterWards.setWardList(Common.wards(context, R.raw.ward, j.getCode()));
-//                adapterWards.notifyDataSetChanged();
-//                // Sau khi cập nhật xong, cập nhật Spinner Xã/Phường
-//                new android.os.Handler().postDelayed(() -> updateWardSpinner(addressText.get(0)), 200);
-//                break;
-//            }
-//        }
-//        if (loadingDialog.isShowing()) loadingDialog.dismiss();
-//    }
-//
-//    private void updateWardSpinner(String ward) {
-//        for (Ward k : adapterWards.getWardList()) {
-//            if (k.getName().contains(ward)) {
-//                spinner_ward.setSelection(adapterWards.getPosition(k));
-//                break;
-//            }
-//        }
-//        if (loadingDialog.isShowing()) loadingDialog.dismiss();
-//    }
-
 }
