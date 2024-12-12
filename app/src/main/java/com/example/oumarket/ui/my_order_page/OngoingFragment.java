@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.example.oumarket.Class.Request;
 import com.example.oumarket.Class.SetUpRecyclerView;
@@ -37,6 +38,8 @@ public class OngoingFragment extends Fragment {
 
     MyOrderAdapter adapter;
 
+    TextView null_orders;
+
     final String status = "0";
 
     FrameLayout frameLayout;
@@ -57,6 +60,8 @@ public class OngoingFragment extends Fragment {
 
         adapter = new MyOrderAdapter(new ArrayList<>(), getContext());
         SetUpRecyclerView.setupLinearLayout(getContext(), recyclerView, adapter);
+
+        null_orders = view.findViewById(R.id.null_orders);
 
         loadRequests();
 
@@ -86,6 +91,10 @@ public class OngoingFragment extends Fragment {
 
                 adapter.setList(data);
                 adapter.notifyDataSetChanged();
+
+                if (adapter.getList().isEmpty()) null_orders.setVisibility(View.VISIBLE);
+                else null_orders.setVisibility(View.GONE);
+
             }
 
             @Override

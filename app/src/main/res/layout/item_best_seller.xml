@@ -12,51 +12,44 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/pic"
+        <RelativeLayout
+            android:id="@+id/layout_pic"
             android:layout_width="match_parent"
             android:layout_height="206dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginHorizontal="20sp"
-            android:scaleType="centerCrop" />
+            android:layout_marginHorizontal="20sp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/pic"
-            android:layout_alignParentBottom="true"
-            android:orientation="vertical"
-            android:paddingHorizontal="20sp">
-
-            <RelativeLayout
+            <ImageView
+                android:id="@+id/pic"
                 android:layout_width="match_parent"
+                android:layout_height="206dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/image_default_load_category_faile" />
+
+            <TextView
+                android:id="@+id/price"
+                style="@style/Customer.TextView"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical">
+                android:layout_alignParentLeft="true"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/border"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="$ 1234" />
 
-                <TextView
-                    android:id="@+id/name_of_food"
-                    style="@style/Customer.TextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_toLeftOf="@+id/price"
-                    android:text="name of food" />
+        </RelativeLayout>
 
-                <TextView
-                    android:id="@+id/price"
-                    style="@style/Customer.TextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0sp"
-                    android:layout_alignTop="@+id/name_of_food"
-                    android:layout_alignBottom="@+id/name_of_food"
-                    android:layout_alignParentRight="true"
-                    android:gravity="center"
-                    android:text="$ 1234" />
+        <TextView
+            android:id="@+id/name_of_food"
+            style="@style/Customer.TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layout_pic"
+            android:layout_alignParentLeft="true"
+            android:paddingHorizontal="20sp"
+            android:text="name of food" />
 
-            </RelativeLayout>
-
-        </LinearLayout>
 
     </RelativeLayout>
 

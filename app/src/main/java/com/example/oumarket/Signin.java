@@ -38,7 +38,7 @@ public class Signin extends AppCompatActivity {
     private TextInputEditText edit_email, edit_password;
     CheckBox checkBox;
 
-    ProgressDialog mDialog;
+    LoadingDialog loadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,9 +48,7 @@ public class Signin extends AppCompatActivity {
 
         Paper.init(this);
 
-        mDialog = new ProgressDialog(Signin.this);
-        mDialog.setTitle("Signin");
-        mDialog.setMessage("Waiting...");
+        loadingDialog = new LoadingDialog(this, "Vui lòng đợi...");
 
         edit_email = findViewById(R.id.edit_email);
         edit_password = findViewById(R.id.edit_password);
@@ -65,7 +63,8 @@ public class Signin extends AppCompatActivity {
         if (user != null && password != null) {
             checkBox.setChecked(true);
             if (!user.isEmpty() && !password.isEmpty()) {
-                mDialog.show();
+//                mDialog.show();
+                loadingDialog.show();
                 login(user, password);
             }
         }
@@ -82,7 +81,9 @@ public class Signin extends AppCompatActivity {
                 return;
             }
 
-            mDialog.show();
+            loadingDialog.show();
+
+//            mDialog.show();
 
             login(edit_email.getText().toString(), edit_password.getText().toString());
 
@@ -125,7 +126,8 @@ public class Signin extends AppCompatActivity {
                             Intent homeIntent = new Intent(Signin.this, Home.class);
                             startActivity(homeIntent);
 
-                            mDialog.dismiss();
+//                            mDialog.dismiss();
+                            loadingDialog.dismiss();
                             finish();
                         }
 
@@ -134,7 +136,8 @@ public class Signin extends AppCompatActivity {
                         }
                     });
                 } else {
-                    mDialog.dismiss();
+//                    mDialog.dismiss();
+                    loadingDialog.dismiss();
                     AlertDialog.Builder alert = new AlertDialog.Builder(Signin.this);
                     alert.setTitle("Warming!");
                     alert.setMessage("Please check your email and click the URL to activate your account");
@@ -146,7 +149,7 @@ public class Signin extends AppCompatActivity {
                     alert.show();
                 }
             } else {
-                mDialog.dismiss();
+                loadingDialog.dismiss();
                 CuteToast.ct(Signin.this, "Tài khoản không đúng!", CuteToast.LENGTH_SHORT, CuteToast.WARN, true).show();
             }
         });

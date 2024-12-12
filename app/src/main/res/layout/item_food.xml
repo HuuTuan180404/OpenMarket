@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_food"
     android:layout_width="match_parent"
-    android:layout_height="330sp"
+    android:layout_height="320sp"
     android:layout_marginHorizontal="5sp"
     android:layout_marginBottom="20sp"
     android:fitsSystemWindows="true"
@@ -99,7 +99,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:backgroundTint="@color/xanh_bien"
-                    android:drawableStart="@drawable/add_to_cart"
+                    android:drawableStart="@drawable/ic_add_to_cart"
                     android:fontFamily="@font/satoshi_variable"
                     android:text=" Thêm vào giỏ hàng"
                     android:textColor="@color/trang" />
@@ -110,20 +110,37 @@
 
     </FrameLayout>
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="150sp"
-        android:layout_height="200sp"
+    <ImageView
+        android:id="@+id/food_image"
+        android:layout_width="150dp"
+        android:layout_height="200dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10sp"
-        app:cardCornerRadius="20sp">
+        android:layout_marginTop="10dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/image_default_load_category_faile" />
+
+    <RelativeLayout
+        android:id="@+id/layout_discount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/discount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/satoshi_variable"
+            android:text="20%" />
 
         <ImageView
-            android:id="@+id/food_image"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/image_default_load_category_faile" />
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_below="@+id/discount"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/ic_sale" />
 
-    </androidx.cardview.widget.CardView>
+    </RelativeLayout>
 
-</androidx.cardview.widget.CardView>
+</FrameLayout>

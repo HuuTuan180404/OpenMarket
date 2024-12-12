@@ -1,129 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_food"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="5sp"
+    android:layout_height="330sp"
+    android:layout_marginHorizontal="5sp"
+    android:layout_marginBottom="20sp"
     android:fitsSystemWindows="true"
-    android:padding="5sp">
+    app:cardCornerRadius="20dp"
+    app:cardElevation="0sp">
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="280sp"
+        android:layout_gravity="bottom"
+        android:background="@drawable/border"
+        android:backgroundTint="@color/background">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10sp">
+            android:layout_gravity="bottom"
+            android:orientation="vertical">
 
-            <FrameLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25sp"
-                android:background="@drawable/border">
+                android:layout_height="70sp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="5sp">
+
+                <TextView
+                    android:id="@+id/food_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="name"
+                    android:theme="@style/Customer.TextView" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="10sp">
+                    android:layout_height="wrap_content">
 
-                    <FrameLayout
-                        android:layout_width="match_parent"
+                    <LinearLayout
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="30sp"
-                        android:padding="5sp">
+                        android:layout_alignParentLeft="true">
 
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/recycler_categories"
-                            android:layout_width="match_parent"
+                        <TextView
+                            style="@style/Customer.TextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="$ " />
+
+                        <TextView
+                            android:id="@+id/food_price"
+                            style="@style/Customer.TextView"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:scrollbars="horizontal" />
+                            android:gravity="center"
+                            android:text="price" />
 
-                    </FrameLayout>
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/food_rate"
+                        style="@style/Customer.TextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_toLeftOf="@+id/star"
+                        android:text="đánh giá" />
+
+                    <ImageView
+                        android:id="@+id/star"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0sp"
+                        android:layout_alignTop="@+id/food_rate"
+                        android:layout_alignBottom="@+id/food_rate"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/ic_star" />
+
 
                 </RelativeLayout>
 
-            </FrameLayout>
+            </LinearLayout>
 
-            <FrameLayout
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50sp"
-                android:layout_marginHorizontal="80sp"
-                android:background="@drawable/border_title_at_home"
-                android:backgroundTint="@color/color_nav_bar_home_title">
+                android:layout_height="35sp"
+                android:background="@drawable/rounded_bottom_20sp"
+                android:backgroundTint="@color/xanh_bien"
+                android:gravity="center">
 
-                <TextView
-                    style="@style/Customer.TextView"
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/add_to_card"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="All categories" />
+                    android:layout_height="match_parent"
+                    android:backgroundTint="@color/xanh_bien"
+                    android:drawableStart="@drawable/ic_add_to_cart"
+                    android:fontFamily="@font/satoshi_variable"
+                    android:text=" Thêm vào giỏ hàng"
+                    android:textColor="@color/trang" />
 
-            </FrameLayout>
+            </LinearLayout>
 
-        </RelativeLayout>
+        </LinearLayout>
 
-        <RelativeLayout
+    </FrameLayout>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="150sp"
+        android:layout_height="200sp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10sp"
+        app:cardCornerRadius="20sp">
+
+        <ImageView
+            android:id="@+id/food_image"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10sp">
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/image_default_load_category_faile" />
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25sp"
-                android:background="@drawable/border">
+    </androidx.cardview.widget.CardView>
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="10sp">
-
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="30sp"
-                        android:padding="5sp">
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/recycler_best_saller"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:scrollbars="horizontal" />
-
-                    </FrameLayout>
-
-                </RelativeLayout>
-
-            </FrameLayout>
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="50sp"
-                android:layout_marginHorizontal="80sp"
-                android:background="@drawable/border_title_at_home"
-                android:backgroundTint="@color/color_nav_bar_home_title">
-
-                <TextView
-                    style="@style/Customer.TextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="Best seller" />
-
-            </FrameLayout>
-
-        </RelativeLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView_all_food"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20sp" />
-
-    </LinearLayout>
-
-</androidx.core.widget.NestedScrollView>
+</FrameLayout>

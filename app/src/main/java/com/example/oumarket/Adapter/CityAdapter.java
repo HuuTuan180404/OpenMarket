@@ -53,4 +53,21 @@ public class CityAdapter extends ArrayAdapter<City> {
         return convertView;
     }
 
+    @NonNull
+    @Override
+    public Context getContext() {
+        return context;
+    }
+
+    public void setContext(Context context) {
+        this.context = context;
+    }
+
+    public List<City> getCityList() {
+        return cityList;
+    }
+
+    public void setCityList(List<City> cityList) {
+        this.cityList = cityList;
+    }
 }

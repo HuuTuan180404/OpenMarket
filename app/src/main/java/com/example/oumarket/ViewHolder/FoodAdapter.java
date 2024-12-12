@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,9 +31,10 @@ import java.util.List;
 
 class FoodViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    public TextView food_name, food_price, food_rate;
+    public TextView food_name, food_price, food_rate, discount;
     public ImageView food_image;
     private ItemClickListener itemClickListener;
+    RelativeLayout layout_discount;
 
     AppCompatButton add_to_cart;
 
@@ -48,6 +49,10 @@ class FoodViewHolder extends RecyclerView.ViewHolder implements View.OnClickList
         food_name = itemView.findViewById(R.id.food_name);
         food_price = itemView.findViewById(R.id.food_price);
         food_rate = itemView.findViewById(R.id.food_rate);
+
+        discount = itemView.findViewById(R.id.discount);
+        layout_discount = itemView.findViewById(R.id.layout_discount);
+
         itemView.setOnClickListener(this);
     }
 
@@ -97,8 +102,15 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodViewHolder> {
     public void onBindViewHolder(@NonNull FoodViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Food food = list.get(position);
         Picasso.get().load(food.getURL()).into(holder.food_image);
+
         holder.food_name.setText(food.getName());
         holder.food_price.setText(food.getPrice());
+
+        holder.discount.setText(food.getDiscount() + "%");
+
+        if (food.getDiscount().equals("0")) {
+            holder.layout_discount.setVisibility(View.GONE);
+        }
 
         if (food.getCountRating() != 0) {
             float a = food.getCountStars() / food.getCountRating();

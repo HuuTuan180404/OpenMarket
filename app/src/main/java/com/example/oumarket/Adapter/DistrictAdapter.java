@@ -73,4 +73,6 @@ public class DistrictAdapter extends ArrayAdapter<District> {
         this.districtList.addAll(districtList);
 
     }
+
+
 }

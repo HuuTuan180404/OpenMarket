@@ -54,7 +54,7 @@
         android:backgroundTint="@color/background"
         android:contentDescription="Add to Cart Button"
         android:elevation="6sp"
-        android:src="@drawable/ic_add_shopping_cart_24"
+        android:src="@drawable/ic_add_to_cart"
         app:layout_anchor="@id/app_bar_layout"
         app:layout_anchorGravity="bottom|right|end"
         app:pressedTranslationZ="10sp"

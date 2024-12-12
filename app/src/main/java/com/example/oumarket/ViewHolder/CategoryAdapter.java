@@ -55,22 +55,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
     public CategoryAdapter() {
     }
 
-    public List<Category> getList() {
-        return list;
-    }
-
-    public void setList(List<Category> list) {
-        this.list = list;
-    }
-
-    public Context getContext() {
-        return context;
-    }
-
-    public void setContext(Context context) {
-        this.context = context;
-    }
-
     public CategoryAdapter(List<Category> list, Context context) {
         this.list = list;
         this.context = context;
@@ -97,6 +81,23 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
             }
         });
     }
+
+    public List<Category> getList() {
+        return list;
+    }
+
+    public void setList(List<Category> list) {
+        this.list = list;
+    }
+
+    public Context getContext() {
+        return context;
+    }
+
+    public void setContext(Context context) {
+        this.context = context;
+    }
+
 
     @Override
     public int getItemCount() {

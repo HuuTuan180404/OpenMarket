@@ -1,6 +1,6 @@
 {
   "01": {
-    "name": "Hà Nội"
+    "name": "Tp.Hà Nội"
   },
   "02": {
     "name": "Hà Giang"
@@ -57,7 +57,7 @@
     "name": "Hải Dương"
   },
   "31": {
-    "name": "Hải Phòng"
+    "name": "Tp.Hải Phòng"
   },
   "33": {
     "name": "Hưng Yên"
@@ -93,7 +93,7 @@
     "name": "Thừa Thiên Huế"
   },
   "48": {
-    "name": "Đà Nẵng"
+    "name": "Tp.Đà Nẵng"
   },
   "49": {
     "name": "Quảng Nam"
@@ -147,7 +147,7 @@
     "name": "Bà Rịa - Vũng Tàu"
   },
   "79": {
-    "name": "Hồ Chí Minh"
+    "name": "Tp.Hồ Chí Minh"
   },
   "80": {
     "name": "Long An"
@@ -174,7 +174,7 @@
     "name": "Kiên Giang"
   },
   "92": {
-    "name": "Cần Thơ"
+    "name": "Tp.Cần Thơ"
   },
   "93": {
     "name": "Hậu Giang"

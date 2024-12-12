@@ -3,7 +3,6 @@ package com.example.oumarket;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatSpinner;
-import androidx.appcompat.widget.SearchView;
 import androidx.core.app.ActivityCompat;
 
 import android.content.Context;
@@ -13,14 +12,13 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.oumarket.Adapter.WardAdapter;
@@ -40,7 +38,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.switchmaterial.SwitchMaterial;
@@ -56,7 +54,6 @@ public class AddNewAddressActivity extends AppCompatActivity implements OnMapRea
 
     private GoogleMap mMap;
     private final int FINE_PERMISSION_CODE = 7;
-    Location currentLocation;
     MaterialButtonToggleGroup toggle_group;
     AppCompatSpinner spinner_city, spinner_district, spinner_ward;
     TextInputEditText editText_name, editText_phone, editText_house_number;
@@ -64,6 +61,10 @@ public class AddNewAddressActivity extends AppCompatActivity implements OnMapRea
     Button btn_home, btn_work, btn_other, btn_doneInput;
     ImageButton current_location;
     SwitchMaterial switchMaterial;
+
+    LinearLayout layout_btn_current_location;
+
+    Location currentLocation;
 
     List<City> cities;
     List<District> districts;
@@ -77,12 +78,17 @@ public class AddNewAddressActivity extends AppCompatActivity implements OnMapRea
 
     Database database;
     Context context;
-    LatLng centerLatLng;
+
+    LoadingDialog loadingDialog;
+
+    List<String> addressText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
         context = getBaseContext();
 
@@ -90,12 +96,12 @@ public class AddNewAddressActivity extends AppCompatActivity implements OnMapRea
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
 
+        loadingDialog = new LoadingDialog(this, "Đang lấy vị trí...");
+
         current_location = findViewById(R.id.current_location);
-        current_location.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getLastLocation();
-            }
+        current_location.setOnClickListener(v -> {
+            loadingDialog.show();
+            getCurrentLocation();
         });
 
         editText_name = findViewById(R.id.name);
@@ -106,6 +112,22 @@ public class AddNewAddressActivity extends AppCompatActivity implements OnMapRea
         spinner_ward = findViewById(R.id.spinner_ward);
 
         initSpinner();
+
+        layout_btn_current_location = findViewById(R.id.layout_btn_current_location);
+        layout_btn_current_location.setOnClickListener(v -> {
+            loadingDialog.show();
+
+            getCurrentLocation();
+
+            new android.os.Handler().postDelayed(() -> {
+                LatLng myLocation = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 15));
+                LatLng currentLatLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+                mMap.addMarker(new MarkerOptions().position(currentLatLng));
+                getAddressFromLocation();
+            }, 300);
+
+        });
 
         editText_house_number = findViewById(R.id.house_number);
 
@@ -203,24 +225,10 @@ public class AddNewAddressActivity extends AppCompatActivity implements OnMapRea
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-
         mMap = googleMap;
-        mMap.setOnCameraIdleListener(() -> {
-            centerLatLng = mMap.getCameraPosition().target;
-            Geocoder geocoder = new Geocoder(AddNewAddressActivity.this, Locale.getDefault());
-            try {
-
-                Address address = geocoder.getFromLocation(centerLatLng.latitude, centerLatLng.longitude, 1).get(0);
-                String locationInfo = address.getAddressLine(0);
-
-            } catch (Exception e) {
-//                Toast.makeText(this, "Địa chỉ không đúng", Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
-    private void getLastLocation() {
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+    private void getCurrentLocation() {
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new java.lang.String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, FINE_PERMISSION_CODE);
             return;
@@ -229,11 +237,36 @@ public class AddNewAddressActivity extends AppCompatActivity implements OnMapRea
         task.addOnSuccessListener(location -> {
             if (location != null) {
                 currentLocation = location;
-                LatLng myLocation = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-//                    mMap.addMarker(new MarkerOptions().position(myLocation).title("Your location"));
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 15));
+                loadingDialog.dismiss();
             }
         });
+
+    }
+
+    private void getAddressFromLocation() {
+
+        loadingDialog.show();
+
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+        try {
+            // Lấy danh sách địa chỉ từ tọa độ
+            List<Address> addresses = geocoder.getFromLocation(currentLocation.getLatitude(), currentLocation.getLongitude(), 1);
+            if (addresses != null && !addresses.isEmpty()) {
+                Address address = addresses.get(0);
+
+                String[] ss = address.getAddressLine(0).split(",");
+                addressText = new ArrayList<>();
+                for (int i = ss.length - 4; i < ss.length; i++) {
+                    addressText.add(ss[i].trim());
+                }
+
+                updateSpinnerCity(addressText.get(0), addressText.get(1), addressText.get(2));
+            } else {
+                Log.e("GeocoderError", "No address found for the location");
+            }
+        } catch (IOException e) {
+            Log.e("GeocoderError", "Failed to get address: " + e.getMessage());
+        }
 
     }
 
@@ -242,7 +275,7 @@ public class AddNewAddressActivity extends AppCompatActivity implements OnMapRea
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == FINE_PERMISSION_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                getLastLocation();
+                getCurrentLocation();
             } else {
                 Toast.makeText(this, "Please allow the permission", Toast.LENGTH_SHORT).show();
             }
@@ -275,6 +308,23 @@ public class AddNewAddressActivity extends AppCompatActivity implements OnMapRea
     }
 
     private void initSpinner() {
+
+        cities = Common.cities(getBaseContext(), R.raw.city);
+        cities.add(0, new City("-1", "Chọn Tỉnh/Thành phố"));
+        adapterCity = new CityAdapter(getBaseContext(), R.layout.item_spinner, cities);
+        adapterCity.setDropDownViewResource(R.layout.item_spinner);
+        spinner_city.setAdapter(adapterCity);
+
+        districts = new ArrayList<>();
+        districts.add(0, new District("-1", "Chọn Quận/Huyện", "-1"));
+        adapterDistricts = new DistrictAdapter(getBaseContext(), R.layout.item_spinner, districts);
+        spinner_district.setAdapter(adapterDistricts);
+
+        wards = new ArrayList<>();
+        wards.add(0, new Ward("-1", "Chọn Xã/Phường", "-1", "-1"));
+        adapterWards = new WardAdapter(getBaseContext(), R.layout.item_spinner, wards);
+        spinner_ward.setAdapter(adapterWards);
+
         spinner_city.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -286,7 +336,7 @@ public class AddNewAddressActivity extends AppCompatActivity implements OnMapRea
                     moveCameraMap(item.getName());
                 }
                 adapterDistricts.notifyDataSetChanged();
-                spinner_district.setSelection(0, false);
+                spinner_district.setSelection(0, true);
             }
 
             @Override
@@ -294,7 +344,6 @@ public class AddNewAddressActivity extends AppCompatActivity implements OnMapRea
 
             }
         });
-
         spinner_district.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -308,7 +357,7 @@ public class AddNewAddressActivity extends AppCompatActivity implements OnMapRea
                 }
                 adapterWards.notifyDataSetChanged();
 
-                spinner_ward.setSelection(0, false);
+                spinner_ward.setSelection(0, true);
             }
 
             @Override
@@ -329,22 +378,86 @@ public class AddNewAddressActivity extends AppCompatActivity implements OnMapRea
             }
         });
 
-        cities = Common.cities(getBaseContext(), R.raw.city);
-        cities.add(0, new City("-1", "Chọn Tỉnh/Thành phố"));
-        adapterCity = new CityAdapter(getBaseContext(), R.layout.item_spinner, cities);
-        adapterCity.setDropDownViewResource(R.layout.item_spinner);
-        spinner_city.setAdapter(adapterCity);
+    }
 
-        districts = new ArrayList<>();
-        districts.add(0, new District("-1", "Chọn Quận/Huyện", "-1"));
-        adapterDistricts = new DistrictAdapter(getBaseContext(), R.layout.item_spinner, districts);
-        spinner_district.setAdapter(adapterDistricts);
+    private void updateSpinnerCity(String ward, String district, String city) {
 
-        wards = new ArrayList<>();
-        wards.add(0, new Ward("-1", "Chọn Xã/Phường", "-1", "-1"));
-        adapterWards = new WardAdapter(getBaseContext(), R.layout.item_spinner, wards);
-        spinner_ward.setAdapter(adapterWards);
+        for (City i : adapterCity.getCityList()) {
+
+            if (i.getName().contains(city)) {
+
+                spinner_city.setSelection(adapterCity.getPosition(i));
+
+                adapterDistricts.setDistrictList(Common.districts(context, R.raw.district, i.getCode()));
+                adapterDistricts.notifyDataSetChanged();
+
+                new android.os.Handler().postDelayed(() -> {
+                    for (District j : adapterDistricts.getDistrictList()) {
+                        if (j.getName().contains(district)) {
+
+                            spinner_district.setSelection(adapterDistricts.getPosition(j));
+
+                            adapterWards.setWardList(Common.wards(context, R.raw.ward, j.getCode()));
+                            adapterWards.notifyDataSetChanged();
+
+                            new android.os.Handler().postDelayed(() -> {
+                                for (Ward k : adapterWards.getWardList()) {
+                                    if (k.getName().contains(ward)) {
+                                        spinner_ward.setSelection(adapterWards.getPosition(k));
+                                        break;
+                                    }
+                                }
+
+                                loadingDialog.dismiss();
+                            }, 300);
+
+                            break;
+                        }
+                    }
+                }, 300);
+
+                break;
+            }
+        }
 
     }
+
+//    private void updateCitySpinner(String city) {
+//        for (City i : adapterCity.getCityList()) {
+//            if (i.getName().contains(city)) {
+//                spinner_city.setSelection(adapterCity.getPosition(i));
+//                adapterDistricts.setDistrictList(Common.districts(context, R.raw.district, i.getCode()));
+//                adapterDistricts.notifyDataSetChanged();
+//                // Sau khi cập nhật xong, cập nhật Spinner Quận/Huyện
+//                new android.os.Handler().postDelayed(() -> updateDistrictSpinner(addressText.get(1)), 200);
+//                break;
+//            }
+//        }
+//        if (loadingDialog.isShowing()) loadingDialog.dismiss();
+//    }
+//
+//    private void updateDistrictSpinner(String district) {
+//        for (District j : adapterDistricts.getDistrictList()) {
+//            if (j.getName().contains(district)) {
+//                spinner_district.setSelection(adapterDistricts.getPosition(j));
+//                adapterWards.setWardList(Common.wards(context, R.raw.ward, j.getCode()));
+//                adapterWards.notifyDataSetChanged();
+//                // Sau khi cập nhật xong, cập nhật Spinner Xã/Phường
+//                new android.os.Handler().postDelayed(() -> updateWardSpinner(addressText.get(0)), 200);
+//                break;
+//            }
+//        }
+//        if (loadingDialog.isShowing()) loadingDialog.dismiss();
+//    }
+//
+//    private void updateWardSpinner(String ward) {
+//        for (Ward k : adapterWards.getWardList()) {
+//            if (k.getName().contains(ward)) {
+//                spinner_ward.setSelection(adapterWards.getPosition(k));
+//                break;
+//            }
+//        }
+//        if (loadingDialog.isShowing()) loadingDialog.dismiss();
+//    }
 
 }

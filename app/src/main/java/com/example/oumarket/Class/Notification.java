@@ -42,7 +42,7 @@ public class Notification extends BroadcastReceiver {
                 .setContentTitle(context.getResources().getString(R.string.titleChannel1))
                 .setContentText(context.getResources().getString(R.string.contentChannel1))
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(context.getResources().getString(R.string.contentChannel1)))
-                .setSmallIcon(R.drawable.baseline_edit_notifications_24)
+                .setSmallIcon(R.drawable.ic_notification)
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true);
 

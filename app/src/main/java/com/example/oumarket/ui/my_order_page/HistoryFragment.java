@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.example.oumarket.Class.Request;
 import com.example.oumarket.Class.SetUpRecyclerView;
@@ -38,6 +39,8 @@ public class HistoryFragment extends Fragment {
     final String status = "0";
     FrameLayout frameLayout;
 
+    TextView null_orders;
+
     public HistoryFragment() {
     }
 
@@ -47,6 +50,8 @@ public class HistoryFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_history, container, false);
 
         recyclerView = view.findViewById(R.id.recyclerView);
+
+        null_orders = view.findViewById(R.id.null_orders);
 
         frameLayout = view.findViewById(R.id.orderDetail);
 
@@ -81,6 +86,9 @@ public class HistoryFragment extends Fragment {
 
                 adapter.setList(data);
                 adapter.notifyDataSetChanged();
+
+                if (adapter.getList().isEmpty()) null_orders.setVisibility(View.VISIBLE);
+                else null_orders.setVisibility(View.GONE);
             }
 
             @Override

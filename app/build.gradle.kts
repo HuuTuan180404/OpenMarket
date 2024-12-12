@@ -37,6 +37,7 @@ android {
 }
 
 dependencies {
+
     implementation(libs.ratingBar)
     implementation(libs.play.services.location)
     implementation(libs.cuteToast)

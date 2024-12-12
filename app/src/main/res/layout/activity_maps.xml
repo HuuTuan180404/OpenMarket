@@ -36,13 +36,14 @@
 
             <ImageButton
                 android:id="@+id/current_location"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
                 android:layout_centerInParent="true"
                 android:contentDescription="Đến vị trí của bạn"
-                android:src="@drawable/current_location" />
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_current_location" />
 
 
         </RelativeLayout>
@@ -143,6 +144,29 @@
                         android:orientation="vertical">
 
                         <LinearLayout
+                            android:id="@+id/layout_btn_current_location"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:background="@drawable/border"
+                            android:paddingHorizontal="5dp">
+
+                            <ImageView
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_centerInParent="true"
+                                android:src="@drawable/ic_current_location" />
+
+                            <TextView
+                                style="@style/Customer.TextView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:text="Chọn vị trí hiện tại" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/border">
@@ -196,7 +220,8 @@
                             app:boxCornerRadiusBottomStart="20sp"
                             app:boxCornerRadiusTopEnd="20sp"
                             app:boxCornerRadiusTopStart="20sp"
-                            app:boxStrokeWidth="0sp">
+                            app:boxStrokeWidth="0sp"
+                            app:boxStrokeWidthFocused="0dp">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/house_number"
