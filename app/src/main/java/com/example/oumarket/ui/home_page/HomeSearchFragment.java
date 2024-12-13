@@ -106,9 +106,10 @@ public class HomeSearchFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 List<Food> list = new ArrayList<>();
+                Food food;
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    Food food = dataSnapshot.getValue(Food.class);
-                    if (food.getName().toLowerCase().contains(keySearch)) {
+                    food = dataSnapshot.getValue(Food.class);
+                    if (food.getName().toLowerCase().trim().contains(keySearch)) {
                         food.setId(dataSnapshot.getKey());
                         list.add(food);
                     }

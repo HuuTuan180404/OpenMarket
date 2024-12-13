@@ -56,10 +56,6 @@ public class FoodList extends AppCompatActivity {
         toolbar.setTitle("Category");
         setSupportActionBar(toolbar);
 
-//        ActionBar actionbar = getSupportActionBar();
-//        actionbar.setDisplayHomeAsUpEnabled(true);
-//        actionbar.setHomeAsUpIndicator(R.drawable.ic_arrow_back_24);
-
 //         firebase
         data_foods = Common.FIREBASE_DATABASE.getReference(Common.REF_FOODS);
 
@@ -92,14 +88,15 @@ public class FoodList extends AppCompatActivity {
     }
 
     private void filter(String text) {
-        data_foods.orderByChild("MenuID").equalTo(categoryId).addListenerForSingleValueEvent(new ValueEventListener() {
+        data_foods.orderByChild("categoryId").equalTo(categoryId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 List<Food> list = new ArrayList<>();
+                Food food;
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    Food food = dataSnapshot.getValue(Food.class);
-                    if (food.getName().toLowerCase().contains(text)) {
+                    food = dataSnapshot.getValue(Food.class);
+                    if (food.getName().toLowerCase().trim().contains(text)) {
                         food.setId(dataSnapshot.getKey());
                         list.add(food);
                     }
@@ -154,19 +151,18 @@ public class FoodList extends AppCompatActivity {
 
         searchView = (SearchView) item_search.getActionView();
         searchView.setQueryHint("Input");
-
         searchView.clearFocus();
 
         searchView.setOnQueryTextListener(new androidx.appcompat.widget.SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                filter(query.toLowerCase());
-                return false;
+                filter(query.toLowerCase().trim());
+                return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                filter(newText.toLowerCase());
+                filter(newText.toLowerCase().trim());
                 return true;
             }
         });
