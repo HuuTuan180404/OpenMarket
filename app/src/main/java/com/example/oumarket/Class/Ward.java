@@ -1,6 +1,11 @@
 package com.example.oumarket.Class;
 
-public class Ward {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
+public class Ward implements Parcelable {
     private String code;
     private String name;
     private String parent_code;
@@ -15,6 +20,38 @@ public class Ward {
         this.name = name;
         this.parent_code = parent_code;
         this.path = path;
+    }
+
+    protected Ward(Parcel in) {
+        code = in.readString();
+        name = in.readString();
+        parent_code = in.readString();
+        path = in.readString();
+    }
+
+    public static final Creator<Ward> CREATOR = new Creator<Ward>() {
+        @Override
+        public Ward createFromParcel(Parcel in) {
+            return new Ward(in);
+        }
+
+        @Override
+        public Ward[] newArray(int size) {
+            return new Ward[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeString(code);
+        dest.writeString(parent_code);
+        dest.writeString(path);
     }
 
     @Override

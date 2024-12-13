@@ -6,7 +6,6 @@ import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.core.app.ActivityCompat;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -23,6 +22,7 @@ import android.widget.Toast;
 
 import com.example.oumarket.Adapter.WardAdapter;
 import com.example.oumarket.Class.City;
+import com.example.oumarket.Class.Customer_LoadingDialog;
 import com.example.oumarket.Class.District;
 import com.example.oumarket.Class.Ward;
 import com.example.oumarket.Class.AnAddress;
@@ -79,7 +79,7 @@ public class AddNewAddressActivity extends AppCompatActivity implements OnMapRea
     Database database;
     Context context;
 
-    LoadingDialog loadingDialog;
+    Customer_LoadingDialog loadingDialog;
 
     List<String> addressText;
 
@@ -96,7 +96,7 @@ public class AddNewAddressActivity extends AppCompatActivity implements OnMapRea
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
 
-        loadingDialog = new LoadingDialog(this, "Đang lấy vị trí...");
+        loadingDialog = new Customer_LoadingDialog(this, "Đang lấy vị trí...");
 
         current_location = findViewById(R.id.current_location);
         current_location.setOnClickListener(v -> {
@@ -216,10 +216,7 @@ public class AddNewAddressActivity extends AppCompatActivity implements OnMapRea
 
         list.add(anAddress);
         Common.CURRENTUSER.setAddresses(list);
-
         Common.FIREBASE_DATABASE.getReference(Common.REF_USERS).child(Common.CURRENTUSER.getIdUser()).child("Addresses").setValue(list);
-        Intent intent = new Intent(AddNewAddressActivity.this, YourAddressesActivity.class);
-        startActivity(intent);
         finish();
     }
 
@@ -414,11 +411,13 @@ public class AddNewAddressActivity extends AppCompatActivity implements OnMapRea
                             break;
                         }
                     }
+                    if (loadingDialog.isShowing()) loadingDialog.dismiss();
                 }, 300);
 
                 break;
             }
         }
+        if (loadingDialog.isShowing()) loadingDialog.dismiss();
 
     }
 

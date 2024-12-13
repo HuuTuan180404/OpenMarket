@@ -1,7 +1,5 @@
 package com.example.oumarket;
 
-import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -14,16 +12,13 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
+import com.example.oumarket.Class.Customer_LoadingDialog;
 import com.example.oumarket.Class.User;
 import com.example.oumarket.Common.Common;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
 import com.rejowan.cutetoast.CuteToast;
@@ -38,7 +33,7 @@ public class Signin extends AppCompatActivity {
     private TextInputEditText edit_email, edit_password;
     CheckBox checkBox;
 
-    LoadingDialog loadingDialog;
+    Customer_LoadingDialog loadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +43,7 @@ public class Signin extends AppCompatActivity {
 
         Paper.init(this);
 
-        loadingDialog = new LoadingDialog(this, "Vui lòng đợi...");
+        loadingDialog = new Customer_LoadingDialog(this, "Vui lòng đợi...");
 
         edit_email = findViewById(R.id.edit_email);
         edit_password = findViewById(R.id.edit_password);

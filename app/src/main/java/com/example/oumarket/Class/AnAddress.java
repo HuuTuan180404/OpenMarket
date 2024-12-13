@@ -1,8 +1,13 @@
 package com.example.oumarket.Class;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
 import com.example.oumarket.Common.AddressType;
 
-public class AnAddress {
+public class AnAddress implements Parcelable {
 
     private String address;
     private String country;
@@ -26,9 +31,50 @@ public class AnAddress {
     public AnAddress() {
     }
 
+    public static final Creator<AnAddress> CREATOR = new Creator<AnAddress>() {
+        @Override
+        public AnAddress createFromParcel(Parcel in) {
+            return new AnAddress(in);
+        }
+
+        @Override
+        public AnAddress[] newArray(int size) {
+            return new AnAddress[size];
+        }
+    };
+
     @Override
     public String toString() {
         return String.format("%s, %s", address, ward.getPath());
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    protected AnAddress(Parcel in) {
+        address = in.readString();
+        country = in.readString();
+        isDefault = in.readByte() != 0; // true nếu != 0
+        name = in.readString();
+        phone = in.readString();
+        // Đọc giá trị AddressType từ String
+        typeAddress = AddressType.valueOf(in.readString());
+        // Nếu dùng Ward, đảm bảo Ward cũng implement Parcelable
+        ward = in.readParcelable(Ward.class.getClassLoader());
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeString(address);
+        dest.writeString(country);
+        dest.writeByte((byte) (isDefault ? 1 : 0));
+        dest.writeString(name);
+        dest.writeString(phone);
+        // Lưu giá trị AddressType dưới dạng String
+        dest.writeString(typeAddress.name());
+        dest.writeParcelable(ward, flags);
     }
 
 //getter+setter//////////////////////////////////////////////////////////////

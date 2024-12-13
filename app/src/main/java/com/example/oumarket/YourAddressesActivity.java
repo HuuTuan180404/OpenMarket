@@ -2,7 +2,6 @@ package com.example.oumarket;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -15,12 +14,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.oumarket.Class.AnAddress;
 import com.example.oumarket.Class.SetUpRecyclerView;
 import com.example.oumarket.Common.Common;
-import com.example.oumarket.Database.Database;
 import com.example.oumarket.ViewHolder.AnAddressAdapter;
-
-import java.util.ArrayList;
 
 public class YourAddressesActivity extends AppCompatActivity {
 
@@ -59,7 +56,6 @@ public class YourAddressesActivity extends AppCompatActivity {
         button.setOnClickListener((v) -> {
             Intent intent = new Intent(YourAddressesActivity.this, AddNewAddressActivity.class);
             startActivity(intent);
-            finish();
         });
 
     }
@@ -72,24 +68,33 @@ public class YourAddressesActivity extends AppCompatActivity {
 
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+
             android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(YourAddressesActivity.this);
+
             builder.setTitle("Delete a requests?");
             builder.setMessage("Are you sure?");
+
             builder.setPositiveButton("Yes", (dialog, which) -> {
                 int position = viewHolder.getAdapterPosition();
+
+                AnAddress address = adapter.getList().get(position);
+
                 adapter.removeOrder(position);
+
+                if (address.getIsDefault() && !adapter.getList().isEmpty())
+                    adapter.getList().get(0).setIsDefault(true);
+
                 adapter.notifyItemRemoved(position);
                 Common.CURRENTUSER.setAddresses(adapter.getList());
                 Common.FIREBASE_DATABASE.getReference(Common.REF_USERS).child(Common.CURRENTUSER.getIdUser()).child("Addresses").setValue(adapter.getList());
-                if (Common.CURRENTUSER.getAddresses() == null || Common.CURRENTUSER.getAddresses().isEmpty()) {
-                    addressesIsNull.setVisibility(View.VISIBLE);
-                    recyclerView.setVisibility(View.GONE);
-                }
+
+                recreate();
             });
 
             builder.setNegativeButton("No", (dialog, which) -> adapter.notifyItemChanged(viewHolder.getAdapterPosition()));
 
             builder.show();
+
         }
     };
 
@@ -100,5 +105,12 @@ public class YourAddressesActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        adapter.setList(Common.CURRENTUSER.getAddresses());
+        adapter.notifyDataSetChanged();
     }
 }

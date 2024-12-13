@@ -24,6 +24,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -90,7 +91,7 @@ public class HomeFragment extends Fragment {
                     list.add(food);
                 }
 
-                list.sort((a, b) -> a.sortForBestSeller(b));
+                list.sort((a, b) -> -a.sortForBestSeller(b));
 
                 for (int i = list.size() - 1; i >= Common.TOP_BEST_SELLER; i--) {
                     list.remove(i);

@@ -14,6 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
@@ -38,6 +40,8 @@ import java.util.List;
 public class Cart extends AppCompatActivity {
     RecyclerView recyclerView;
 
+    private ActivityResultLauncher<Intent> launcher;
+
     CartAdapter adapter;
 
     Toolbar toolbar;
@@ -60,6 +64,20 @@ public class Cart extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.page_cart);
+
+        launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK) {
+                        Intent data = result.getData();
+                        if (data != null) {
+                            AnAddress itemData = (AnAddress) data.getParcelableExtra("selectedItem");
+                            if (itemData != null) {
+                                diaChi = itemData;
+                                updateLayoutDiaChi();
+                            }
+                        }
+                    }
+                });
 
         toolbar = findViewById(R.id.toolbar_Cart);
         setSupportActionBar(toolbar);
@@ -100,10 +118,7 @@ public class Cart extends AppCompatActivity {
                 }
             }
 
-            name.setText(diaChi.getName());
-            phone.setText(diaChi.getPhone());
-            address.setText(diaChi.getAddress());
-            ward_getPath.setText(diaChi.getWard().getPath());
+            updateLayoutDiaChi();
 
         }
 
@@ -112,7 +127,8 @@ public class Cart extends AppCompatActivity {
 
         ic_next = findViewById(R.id.ic_next);
         ic_next.setOnClickListener(v -> {
-            Log.d("ZZZZZ", "hehe");
+            Intent intent = new Intent(Cart.this, SelectAddressActivity.class);
+            launcher.launch(intent);
         });
 
         loadListCart();
@@ -185,6 +201,13 @@ public class Cart extends AppCompatActivity {
 
         }
 
+    }
+
+    private void updateLayoutDiaChi() {
+        name.setText(diaChi.getName());
+        phone.setText(diaChi.getPhone());
+        address.setText(diaChi.getAddress());
+        ward_getPath.setText(diaChi.getWard().getPath());
     }
 
     private void clickBtn_order() {

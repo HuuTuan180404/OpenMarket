@@ -1,5 +1,7 @@
 package com.example.oumarket.Class;
 
+import android.util.Log;
+
 public class Food {
     private String id;
     private String categoryId;
@@ -54,17 +56,21 @@ public class Food {
 
     public int sortForBestSeller(Food other) {
         if (this.getCountRating() != 0 && other.getCountRating() != 0) {
-            float ratingA = this.getCountStars() / this.countRating;
-            float ratingB = other.getCountStars() / other.countRating;
+            double ratingA = (double) this.getCountStars() / this.countRating;
+            double ratingB = (double) other.getCountStars() / other.countRating;
             if (ratingA != ratingB) {
-                float totalA = Float.parseFloat(this.getPrice()) * (100 - Float.parseFloat(this.getDiscount()));
-                float totalB = Float.parseFloat(other.getPrice()) * (100 - Float.parseFloat(other.getDiscount()));
-                return totalA > totalB ? -1 : 1;
+                double priceA = Double.parseDouble(this.price) * (100 - Double.parseDouble(this.getDiscount()));
+                double priceB = Double.parseDouble(other.price) * (100 - Double.parseDouble(other.getDiscount()));
+                return priceA > priceB ? 1 : -1;
             }
-            return ratingA > ratingB ? -1 : 1;
-        } else if (this.getCountRating() == 0 && other.getCountRating() != 0) {
-            return 1;
-        } else return -1;
+            return ratingA > ratingB ? 1 : -1;
+        } else if (this.getCountRating() == 0 && other.getCountRating() == 0) {
+            double priceA = Double.parseDouble(this.price) * (100 - Double.parseDouble(this.getDiscount()));
+            double priceB = Double.parseDouble(other.price) * (100 - Double.parseDouble(other.getDiscount()));
+
+            return priceA > priceB ? 1 : -1;
+        }
+        return this.getCountRating() > 0 ? 1 : -1;
     }
 
     public String getId() {
@@ -149,10 +155,6 @@ public class Food {
 
     @Override
     public String toString() {
-        return "Food{" +
-                "id='" + id + '\'' +
-                ", Name='" + name + '\'' +
-                ", CategoryId='" + categoryId + '\'' +
-                '}';
+        return "Food{" + "id='" + id + '\'' + ", Name='" + name + '\'' + ", CategoryId='" + categoryId + '\'' + '}';
     }
 }

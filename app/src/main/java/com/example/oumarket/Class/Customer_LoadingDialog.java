@@ -1,4 +1,4 @@
-package com.example.oumarket;
+package com.example.oumarket.Class;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -8,14 +8,15 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
 
-public class LoadingDialog extends Dialog {
+import com.example.oumarket.R;
+
+public class Customer_LoadingDialog extends Dialog {
 
     private String message;
     TextView tvMessage;
 
-    public LoadingDialog(@NonNull Context context, String message) {
+    public Customer_LoadingDialog(@NonNull Context context, String message) {
         super(context);
         this.message = message;
     }

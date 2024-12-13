@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".SelectAddressActivity">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/background_main" />
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:theme="@style/Customer.ToolBar"
+        app:navigationIcon="@drawable/im_back"
+        app:title="Địa chỉ" />
+
+    <TextView
+        android:id="@+id/addressesIsNull"
+        style="@style/Customer.TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btn_add_address"
+        android:layout_below="@+id/toolbar"
+        android:layout_marginVertical="10sp"
+        android:gravity="center"
+        android:text="Bạn chưa thiết lập địa chỉ nào" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btn_add_address"
+        android:layout_below="@+id/toolbar"
+        android:layout_marginVertical="10sp"
+        android:scrollbars="vertical">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_add_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10sp"
+        android:background="@drawable/border"
+        android:backgroundTint="@color/xanh_bien"
+        android:drawableLeft="@drawable/ic_add_address"
+        android:fontFamily="@font/satoshi_variable"
+        android:text="Thêm địa chỉ mới"
+        android:textColor="@color/trang" />
+
+</RelativeLayout>
