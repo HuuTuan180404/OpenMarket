@@ -6,9 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.SearchView;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -47,7 +45,7 @@ public class FoodList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.page_food_list);
+        setContentView(R.layout.activity_food_list);
 
         tv_noData = findViewById(R.id.tv_noData);
 

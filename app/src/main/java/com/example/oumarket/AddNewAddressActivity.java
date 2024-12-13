@@ -383,7 +383,7 @@ public class AddNewAddressActivity extends AppCompatActivity implements OnMapRea
 
             if (i.getName().contains(city)) {
 
-                spinner_city.setSelection(adapterCity.getPosition(i));
+                spinner_city.setSelection(adapterCity.getPosition(i), false);
 
                 adapterDistricts.setDistrictList(Common.districts(context, R.raw.district, i.getCode()));
                 adapterDistricts.notifyDataSetChanged();
@@ -392,7 +392,7 @@ public class AddNewAddressActivity extends AppCompatActivity implements OnMapRea
                     for (District j : adapterDistricts.getDistrictList()) {
                         if (j.getName().contains(district)) {
 
-                            spinner_district.setSelection(adapterDistricts.getPosition(j));
+                            spinner_district.setSelection(adapterDistricts.getPosition(j), false);
 
                             adapterWards.setWardList(Common.wards(context, R.raw.ward, j.getCode()));
                             adapterWards.notifyDataSetChanged();
@@ -400,7 +400,7 @@ public class AddNewAddressActivity extends AppCompatActivity implements OnMapRea
                             new android.os.Handler().postDelayed(() -> {
                                 for (Ward k : adapterWards.getWardList()) {
                                     if (k.getName().contains(ward)) {
-                                        spinner_ward.setSelection(adapterWards.getPosition(k));
+                                        spinner_ward.setSelection(adapterWards.getPosition(k), false);
                                         break;
                                     }
                                 }

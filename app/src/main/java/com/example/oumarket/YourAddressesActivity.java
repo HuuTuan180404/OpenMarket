@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.oumarket.Class.AnAddress;
+import com.example.oumarket.Class.Customer_LoadingDialog;
 import com.example.oumarket.Class.SetUpRecyclerView;
 import com.example.oumarket.Common.Common;
 import com.example.oumarket.ViewHolder.AnAddressAdapter;
@@ -110,7 +111,11 @@ public class YourAddressesActivity extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
-        adapter.setList(Common.CURRENTUSER.getAddresses());
-        adapter.notifyDataSetChanged();
+        Customer_LoadingDialog loadingDialog = new Customer_LoadingDialog(this, "Loading...");
+        loadingDialog.show();
+        recreate();
+        new android.os.Handler().postDelayed(() -> {
+            loadingDialog.dismiss();
+        }, 200);
     }
 }

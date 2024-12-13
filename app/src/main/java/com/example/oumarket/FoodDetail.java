@@ -45,7 +45,7 @@ public class FoodDetail extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.page_food_detail);
+        setContentView(R.layout.activity_food_detail);
 
 //         innit firebase
         data_foods = Common.FIREBASE_DATABASE.getReference(Common.REF_FOODS);

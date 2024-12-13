@@ -63,7 +63,7 @@ public class Cart extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.page_cart);
+        setContentView(R.layout.activity_cart);
 
         launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                 result -> {
@@ -189,18 +189,6 @@ public class Cart extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    private void showAlertDialog() {
-
-        if (diaChi == null) {
-
-            new Database(getBaseContext()).cleanCart();
-            CuteToast.ct(getBaseContext(), "Thank you", Toast.LENGTH_SHORT, CuteToast.SUCCESS, true).show();
-            finish();
-
-        }
-
     }
 
     private void updateLayoutDiaChi() {
