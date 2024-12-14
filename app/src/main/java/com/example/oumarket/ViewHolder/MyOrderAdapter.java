@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -29,13 +28,11 @@ import com.example.oumarket.Interface.ItemClickListener;
 import com.example.oumarket.R;
 import com.example.oumarket.RatingFoodActivity;
 import com.example.oumarket.ui.my_order_page.OrderDetailFragment;
-import com.example.oumarket.ui.profile_view_page.EditNameUserFragment;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.rejowan.cutetoast.CuteToast;
 
-import java.util.ArrayList;
 import java.util.List;
 
 class MyOrderViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

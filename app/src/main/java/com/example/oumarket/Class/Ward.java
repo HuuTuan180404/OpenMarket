@@ -5,6 +5,8 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
+import java.util.Objects;
+
 public class Ward implements Parcelable {
     private String code;
     private String name;
@@ -40,6 +42,19 @@ public class Ward implements Parcelable {
             return new Ward[size];
         }
     };
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Ward ward = (Ward) o;
+        return Objects.equals(code, ward.code) && Objects.equals(name, ward.name) && Objects.equals(parent_code, ward.parent_code) && Objects.equals(path, ward.path);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(code, name, parent_code, path);
+    }
 
     @Override
     public int describeContents() {

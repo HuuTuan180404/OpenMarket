@@ -1,6 +1,7 @@
 package com.example.oumarket.ViewHolder;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,8 +14,10 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.oumarket.AddNewAddressActivity;
 import com.example.oumarket.Class.AnAddress;
 import com.example.oumarket.Class.Ward;
+import com.example.oumarket.Common.AddressType;
 import com.example.oumarket.Interface.ItemClickListener;
 import com.example.oumarket.R;
 
@@ -23,7 +26,7 @@ import java.util.List;
 
 class AnAddressViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    TextView name, phone, address, ward_getPath;
+    TextView name, phone, address, ward_getPath, typeAddress;
     CardView isMap, isDefault, anAddress;
 
     public AnAddressViewHolder(@NonNull View itemView) {
@@ -34,6 +37,7 @@ class AnAddressViewHolder extends RecyclerView.ViewHolder implements View.OnClic
         this.phone = itemView.findViewById(R.id.phone);
         this.address = itemView.findViewById(R.id.address);
         this.ward_getPath = itemView.findViewById(R.id.ward_getPath);
+        this.typeAddress = itemView.findViewById(R.id.typeAddress);
 
         this.isDefault = itemView.findViewById(R.id.isDefault);
 
@@ -128,16 +132,21 @@ public class AnAddressAdapter extends RecyclerView.Adapter<AnAddressViewHolder> 
         holder.address.setText(anAddress.getAddress());
         holder.ward_getPath.setText(anAddress.getWard().getPath());
 
-        if (anAddress.getIsDefault()) {
-            holder.isDefault.setVisibility(View.VISIBLE);
-        } else {
-            holder.isDefault.setVisibility(View.GONE);
-        }
+        if (anAddress.getIsDefault()) holder.isDefault.setVisibility(View.VISIBLE);
+        else holder.isDefault.setVisibility(View.GONE);
+
+        if (anAddress.getTypeAddress() == AddressType.HOME)
+            holder.typeAddress.setText("HOME");
+        else if (anAddress.getTypeAddress() == AddressType.WORK)
+            holder.typeAddress.setText("WORK");
+        else holder.typeAddress.setText("OTHER");
 
         holder.anAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("ZZZZZ", "click");
+                Intent intent = new Intent(context, AddNewAddressActivity.class);
+                intent.putExtra("editAnAddress", position);
+                context.startActivity(intent);
             }
         });
 

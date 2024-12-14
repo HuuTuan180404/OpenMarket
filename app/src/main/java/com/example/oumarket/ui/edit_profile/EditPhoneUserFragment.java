@@ -1,10 +1,9 @@
-package com.example.oumarket.ui.profile_view_page;
+package com.example.oumarket.ui.edit_profile;
 
 import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 
 import android.text.Editable;
 import android.text.TextWatcher;

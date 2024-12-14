@@ -1,11 +1,10 @@
-package com.example.oumarket.ui.profile_view_page;
+package com.example.oumarket.ui.edit_profile;
 
 import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -20,7 +19,6 @@ import com.example.oumarket.Interface.BottomSheetDialogSave;
 import com.example.oumarket.R;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 
 public class EditNameUserFragment extends BottomSheetDialogFragment implements BottomSheetDialogSave {
 
@@ -30,11 +28,6 @@ public class EditNameUserFragment extends BottomSheetDialogFragment implements B
     BottomSheetDialogSave bottomSheetDialogSave;
 
     public EditNameUserFragment() {
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
     }
 
     @Override

@@ -83,7 +83,7 @@ public class SelectAddressAdapter extends RecyclerView.Adapter<SelectAddressView
             @Override
             public void onClick(View v) {
                 Intent resultIntent = new Intent();
-                resultIntent.putExtra("selectedItem", anAddress);
+                resultIntent.putExtra("selectedItem", position);
                 ((Activity) context).setResult(RESULT_OK, resultIntent);
                 ((Activity) context).finish();
             }

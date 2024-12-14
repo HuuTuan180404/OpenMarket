@@ -9,6 +9,14 @@
     android:fitsSystemWindows="true"
     tools:context=".Cart">
 
+    <TextView
+        android:id="@+id/no_data"
+        style="@style/Customer.TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="Không có sản phẩm nào" />
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

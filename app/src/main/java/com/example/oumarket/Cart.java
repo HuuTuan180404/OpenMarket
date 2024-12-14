@@ -50,7 +50,7 @@ public class Cart extends AppCompatActivity {
 
     RelativeLayout layout_selected_address;
 
-    TextView tv_basketTotal, tv_discount, tv_total, null_address, name, phone, address, ward_getPath;
+    TextView tv_basketTotal, tv_discount, tv_total, null_address, name, phone, address, ward_getPath, no_data;
     AppCompatButton btn_order;
 
     List<Order> cart = new ArrayList<>();
@@ -58,6 +58,7 @@ public class Cart extends AppCompatActivity {
     AnAddress diaChi = null;
 
     ImageView ic_next;
+    Database database1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,14 +66,16 @@ public class Cart extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_cart);
 
+        database1 = new Database(Cart.this);
+
         launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                 result -> {
                     if (result.getResultCode() == RESULT_OK) {
                         Intent data = result.getData();
                         if (data != null) {
-                            AnAddress itemData = (AnAddress) data.getParcelableExtra("selectedItem");
-                            if (itemData != null) {
-                                diaChi = itemData;
+                            int index = data.getIntExtra("selectedItem", -1);
+                            if (index != -1) {
+                                diaChi = Common.CURRENTUSER.getAddresses().get(index);
                                 updateLayoutDiaChi();
                             }
                         }
@@ -86,6 +89,7 @@ public class Cart extends AppCompatActivity {
         data_requests = Common.FIREBASE_DATABASE.getReference(Common.REF_REQUESTS);
 
 //        init
+        no_data = findViewById(R.id.no_data);
         tv_discount = findViewById(R.id.discount);
         tv_total = findViewById(R.id.total);
         tv_basketTotal = findViewById(R.id.basketTotal);
@@ -110,13 +114,8 @@ public class Cart extends AppCompatActivity {
         } else {
             null_address.setVisibility(View.INVISIBLE);
             layout_selected_address.setVisibility(View.VISIBLE);
-            List<AnAddress> list = Common.CURRENTUSER.getAddresses();
-            for (AnAddress i : list) {
-                if (i.getIsDefault()) {
-                    diaChi = i;
-                    break;
-                }
-            }
+
+            diaChi = Common.CURRENTUSER.getAddresses().get(0);
 
             updateLayoutDiaChi();
 
@@ -149,14 +148,17 @@ public class Cart extends AppCompatActivity {
             builder.setMessage("Are you sure?");
             builder.setPositiveButton("Yes", (dialog, which) -> {
                 int position = viewHolder.getAdapterPosition();
-                try (Database database1 = new Database(Cart.this)) {
-                    database1.removeItems(adapter.getList().get(position));
-                    adapter.removeOrder(position);
-                    adapter.notifyItemRemoved(position);
-                    updateBill();
-                } catch (Exception e) {
-                    Log.d("ZZZZZ", e.toString());
+                database1.removeItems(adapter.getList().get(position));
+                adapter.removeOrder(position);
+                adapter.notifyItemRemoved(position);
+                updateBill();
+
+                if (adapter.getList() == null || adapter.getList().isEmpty()) {
+                    no_data.setVisibility(View.VISIBLE);
+                } else {
+                    no_data.setVisibility(View.GONE);
                 }
+
             });
 
             builder.setNegativeButton("No", (dialog, which) -> adapter.notifyItemChanged(viewHolder.getAdapterPosition()));
@@ -229,11 +231,15 @@ public class Cart extends AppCompatActivity {
     }
 
     private void loadListCart() {
-        try (Database database = new Database(Cart.this)) {
-            cart = database.getCarts();
-            adapter = new CartAdapter(cart, Cart.this);
-            SetUpRecyclerView.setupLinearLayout(Cart.this, recyclerView, adapter);
-            updateBill();
+        cart = database1.getCarts();
+        adapter = new CartAdapter(cart, Cart.this);
+        SetUpRecyclerView.setupLinearLayout(Cart.this, recyclerView, adapter);
+        updateBill();
+
+        if (adapter.getList() == null || adapter.getList().isEmpty()) {
+            no_data.setVisibility(View.VISIBLE);
+        } else {
+            no_data.setVisibility(View.GONE);
         }
     }
 
