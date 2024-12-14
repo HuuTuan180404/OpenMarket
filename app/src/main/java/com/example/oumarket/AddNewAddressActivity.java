@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -53,7 +54,6 @@ import java.util.Locale;
 public class AddNewAddressActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    private final int FINE_PERMISSION_CODE = 7;
     MaterialButtonToggleGroup toggle_group;
     AppCompatSpinner spinner_city, spinner_district, spinner_ward;
     TextInputEditText editText_name, editText_phone, editText_house_number;
@@ -83,96 +83,26 @@ public class AddNewAddressActivity extends AppCompatActivity implements OnMapRea
 
     int getIndexAnAddress;
 
+    private static final int PERMISSION_REQUEST_CODE = 100;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        initView();
 
-        context = getBaseContext();
+        requestPermissions();
 
-        database = new Database(getBaseContext());
-
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-
-        current_location = findViewById(R.id.current_location);
-        current_location.setOnClickListener(v -> {
-            getCurrentLocation();
-        });
-
-        editText_name = findViewById(R.id.name);
-        editText_phone = findViewById(R.id.phone);
-
-        spinner_city = findViewById(R.id.spinner_city);
-        spinner_district = findViewById(R.id.spinner_district);
-        spinner_ward = findViewById(R.id.spinner_ward);
+        initMap();
 
         initSpinner();
 
-        layout_btn_current_location = findViewById(R.id.layout_btn_current_location);
-        layout_btn_current_location.setOnClickListener(v -> {
+        handleIntent();
 
-            getCurrentLocation();
+    }
 
-            new android.os.Handler().postDelayed(() -> {
-                LatLng myLocation = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 15));
-                LatLng currentLatLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-                mMap.addMarker(new MarkerOptions().position(currentLatLng));
-                getAddressFromLocation();
-            }, 300);
-
-        });
-
-        editText_house_number = findViewById(R.id.house_number);
-
-        btn_home = findViewById(R.id.btn_home);
-        btn_work = findViewById(R.id.btn_work);
-        btn_other = findViewById(R.id.btn_other);
-
-        toggle_group = findViewById(R.id.toggle_group);
-        toggle_group.check(R.id.btn_home);
-        toggle_group.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
-            if (isChecked) {
-                if (checkedId == R.id.btn_home) {
-                    selectedTypeAddress(AddressType.HOME);
-                } else if (checkedId == R.id.btn_work) {
-                    selectedTypeAddress(AddressType.WORK);
-                } else {
-                    selectedTypeAddress(AddressType.OTHER);
-                }
-            }
-        });
-
-        switchMaterial = findViewById(R.id.switch_dia_chi);
-
-        btn_doneInput = findViewById(R.id.btn_done_input);
-        btn_doneInput.setOnClickListener(v -> {
-
-            if (TextUtils.isEmpty(editText_name.getText().toString()) || TextUtils.isEmpty(editText_phone.getText().toString())) {
-                CuteToast.ct(context, "Hãy nhập thông tin liên hệ", CuteToast.LENGTH_SHORT, CuteToast.WARN, true).show();
-                return;
-            }
-
-            if (spinner_ward.getSelectedItemPosition() == 0) {
-                CuteToast.ct(context, "Hãy chọn địa chỉ", CuteToast.LENGTH_SHORT, CuteToast.WARN, true).show();
-                return;
-            }
-
-            if (TextUtils.isEmpty(editText_house_number.getText().toString())) {
-                CuteToast.ct(context, "Hãy Số nhà, Tên đường, Tòa nhà", CuteToast.LENGTH_SHORT, CuteToast.WARN, true).show();
-                return;
-            }
-
-            AnAddress address = new AnAddress(editText_house_number.getText().toString(), switchMaterial.isChecked(), editText_name.getText().toString(), editText_phone.getText().toString(), addressType, (Ward) spinner_ward.getSelectedItem());
-
-            addNewAddress(address);
-
-        });
-
-        mapFragment.getMapAsync(AddNewAddressActivity.this);
-
+    private void handleIntent() {
         if (getIntent().hasExtra("editAnAddress")) {
 
             btn_doneInput.setOnClickListener(v -> {
@@ -224,20 +154,7 @@ public class AddNewAddressActivity extends AppCompatActivity implements OnMapRea
 
             btn_doneInput.setOnClickListener(v -> {
 
-                if (TextUtils.isEmpty(editText_name.getText().toString()) || TextUtils.isEmpty(editText_phone.getText().toString())) {
-                    CuteToast.ct(context, "Hãy nhập thông tin liên hệ", CuteToast.LENGTH_SHORT, CuteToast.WARN, true).show();
-                    return;
-                }
-
-                if (spinner_ward.getSelectedItemPosition() == 0) {
-                    CuteToast.ct(context, "Hãy chọn địa chỉ", CuteToast.LENGTH_SHORT, CuteToast.WARN, true).show();
-                    return;
-                }
-
-                if (TextUtils.isEmpty(editText_house_number.getText().toString())) {
-                    CuteToast.ct(context, "Hãy Số nhà, Tên đường, Tòa nhà", CuteToast.LENGTH_SHORT, CuteToast.WARN, true).show();
-                    return;
-                }
+                validateAndSaveAddress();
 
                 AnAddress address = new AnAddress(editText_house_number.getText().toString(), switchMaterial.isChecked(), editText_name.getText().toString(), editText_phone.getText().toString(), addressType, (Ward) spinner_ward.getSelectedItem());
 
@@ -245,8 +162,93 @@ public class AddNewAddressActivity extends AppCompatActivity implements OnMapRea
 
             });
 
+        } else {
+            btn_doneInput.setOnClickListener(v -> {
+                validateAndSaveAddress();
+
+                AnAddress address = new AnAddress(editText_house_number.getText().toString(), switchMaterial.isChecked(), editText_name.getText().toString(), editText_phone.getText().toString(), addressType, (Ward) spinner_ward.getSelectedItem());
+
+                addNewAddress(address);
+
+            });
         }
 
+    }
+
+    private void validateAndSaveAddress() {
+        if (TextUtils.isEmpty(editText_name.getText().toString()) || TextUtils.isEmpty(editText_phone.getText().toString())) {
+            CuteToast.ct(context, "Hãy nhập thông tin liên hệ", CuteToast.LENGTH_SHORT, CuteToast.WARN, true).show();
+            return;
+        }
+
+        if (spinner_ward.getSelectedItemPosition() == 0) {
+            CuteToast.ct(context, "Hãy chọn địa chỉ", CuteToast.LENGTH_SHORT, CuteToast.WARN, true).show();
+            return;
+        }
+
+        if (TextUtils.isEmpty(editText_house_number.getText().toString())) {
+            CuteToast.ct(context, "Hãy Số nhà, Tên đường, Tòa nhà", CuteToast.LENGTH_SHORT, CuteToast.WARN, true).show();
+        }
+    }
+
+    private void initMap() {
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        if (mapFragment != null) {
+            mapFragment.getMapAsync(this);
+        }
+    }
+
+    private void initView() {
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+
+        context = getBaseContext();
+
+        database = new Database(getBaseContext());
+
+        current_location = findViewById(R.id.current_location);
+        current_location.setOnClickListener(v -> {
+            getCurrentLocation();
+        });
+
+        editText_name = findViewById(R.id.name);
+        editText_phone = findViewById(R.id.phone);
+        editText_house_number = findViewById(R.id.house_number);
+
+        spinner_city = findViewById(R.id.spinner_city);
+        spinner_district = findViewById(R.id.spinner_district);
+        spinner_ward = findViewById(R.id.spinner_ward);
+
+        layout_btn_current_location = findViewById(R.id.layout_btn_current_location);
+        layout_btn_current_location.setOnClickListener(v -> {
+
+            getCurrentLocation();
+
+            new android.os.Handler().postDelayed(() -> {
+                getAddressFromLocation();
+            }, 500);
+
+        });
+
+        btn_home = findViewById(R.id.btn_home);
+        btn_work = findViewById(R.id.btn_work);
+        btn_other = findViewById(R.id.btn_other);
+
+        toggle_group = findViewById(R.id.toggle_group);
+        toggle_group.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
+            if (isChecked) {
+                if (checkedId == R.id.btn_home) {
+                    selectedTypeAddress(AddressType.HOME);
+                } else if (checkedId == R.id.btn_work) {
+                    selectedTypeAddress(AddressType.WORK);
+                } else {
+                    selectedTypeAddress(AddressType.OTHER);
+                }
+            }
+        });
+
+        switchMaterial = findViewById(R.id.switch_dia_chi);
+
+        btn_doneInput = findViewById(R.id.btn_done_input);
     }
 
     private void moveCameraMap(String s) {
@@ -312,13 +314,16 @@ public class AddNewAddressActivity extends AppCompatActivity implements OnMapRea
         Customer_LoadingDialog loadingDialog1 = new Customer_LoadingDialog(this, "Đang lấy vị trí...");
         loadingDialog1.show();
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new java.lang.String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, FINE_PERMISSION_CODE);
+            requestPermissions();
             return;
         }
         Task<Location> task = fusedLocationProviderClient.getLastLocation();
         task.addOnSuccessListener(location -> {
             if (location != null) {
                 currentLocation = location;
+                LatLng myLocation = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 15));
+                mMap.addMarker(new MarkerOptions().position(myLocation));
                 loadingDialog1.dismiss();
             }
         });
@@ -328,6 +333,7 @@ public class AddNewAddressActivity extends AppCompatActivity implements OnMapRea
 
     private void getAddressFromLocation() {
         Customer_LoadingDialog loadingDialog = new Customer_LoadingDialog(this, "Đang lấy vị trí...");
+        loadingDialog.show();
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
         try {
             List<Address> addresses = geocoder.getFromLocation(currentLocation.getLatitude(), currentLocation.getLongitude(), 1);
@@ -353,12 +359,37 @@ public class AddNewAddressActivity extends AppCompatActivity implements OnMapRea
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == FINE_PERMISSION_CODE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                getCurrentLocation();
-            } else {
-                Toast.makeText(this, "Please allow the permission", Toast.LENGTH_SHORT).show();
+        if (requestCode == PERMISSION_REQUEST_CODE) {
+            boolean isDenied = false;
+            for (int i = 0; i < permissions.length; i++) {
+                if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
+                    CuteToast.ct(this, permissions[i] + " granted!", Toast.LENGTH_SHORT, CuteToast.HAPPY, true).show();
+                } else {
+                    isDenied = true;
+                    break;
+                }
             }
+            if (isDenied) {
+                requestPermissions();
+            }
+        }
+    }
+
+    private void requestPermissions() {
+        List<String> permissionsToRequest = new ArrayList<>();
+
+        // Kiểm tra quyền truy cập vị trí
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            permissionsToRequest.add(android.Manifest.permission.ACCESS_FINE_LOCATION);
+        }
+
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            permissionsToRequest.add(android.Manifest.permission.ACCESS_COARSE_LOCATION);
+        }
+
+        // Nếu còn quyền chưa được cấp, yêu cầu tất cả trong một lần
+        if (!permissionsToRequest.isEmpty()) {
+            ActivityCompat.requestPermissions(this, permissionsToRequest.toArray(new String[0]), PERMISSION_REQUEST_CODE);
         }
     }
 
@@ -464,7 +495,6 @@ public class AddNewAddressActivity extends AppCompatActivity implements OnMapRea
         Customer_LoadingDialog loadingDialog1 = new Customer_LoadingDialog(this, "Đang lấy vị trí...");
         loadingDialog1.show();
         for (City i : adapterCity.getCityList()) {
-
             if (i.getName().contains(city)) {
 
                 spinner_city.setSelection(adapterCity.getPosition(i));

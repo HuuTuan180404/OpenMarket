@@ -38,7 +38,6 @@ public class EditNameUserFragment extends BottomSheetDialogFragment implements B
         input = view.findViewById(R.id.input);
 
         input.setText(Common.CURRENTUSER.getName());
-
         input.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

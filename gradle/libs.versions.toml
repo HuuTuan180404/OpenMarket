@@ -43,6 +43,7 @@ googleAndroidLibrariesMapsplatformSecretsGradlePlugin = "2.0.1"
 playServicesMaps = "19.0.0"
 playServicesLocation = "21.3.0"
 ratingBar = "1.4.0"
+cloudinaryandroid = "3.0.2"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -85,6 +86,7 @@ cuteToast = { group = "com.github.ahmmedrejowan.CuteToast", name = "CuteToast", 
 play-services-maps = { group = "com.google.android.gms", name = "play-services-maps", version.ref = "playServicesMaps" }
 play-services-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "playServicesLocation" }
 ratingBar = { group = "me.zhanghai.android.materialratingbar", name = "library", version.ref = "ratingBar" }
+cloudinary-android = { group = "com.cloudinary", name = "cloudinary-android", version.ref = "cloudinaryandroid" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

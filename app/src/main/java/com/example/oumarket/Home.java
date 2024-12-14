@@ -4,17 +4,20 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Menu;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.oumarket.Common.Common;
 import com.example.oumarket.ui.home_page.HomeFragment;
 import com.example.oumarket.ui.home_page.HomeSearchFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
@@ -28,6 +31,11 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.oumarket.databinding.ActivityHomeBinding;
+import com.rejowan.cutetoast.CuteToast;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import io.paperdb.Paper;
 
@@ -37,9 +45,13 @@ public class Home extends AppCompatActivity {
 
     TextView txt_full_name;
 
+    ImageView avatarUser;
+
     FrameLayout frameLayout_home, frameLayout_search;
     SearchView searchView;
     HomeSearchFragment homeSearchFragment;
+
+    private static final int PERMISSION_REQUEST_CODE = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +62,7 @@ public class Home extends AppCompatActivity {
 
         Paper.init(this);
 
-        requestNotification();
+        requestPermissions();
 
 //        content home
         setSupportActionBar(binding.appBarHome.toolbar);
@@ -111,9 +123,13 @@ public class Home extends AppCompatActivity {
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_search, homeSearchFragment).commit();
 
-//        init name for user
         View heardView = navigationView.getHeaderView(0);
         txt_full_name = heardView.findViewById(R.id.txt_full_name);
+
+        avatarUser = heardView.findViewById(R.id.imageView);
+
+        if (Common.CURRENTUSER.getUrl() != "")
+            Picasso.get().load(Common.CURRENTUSER.getUrl()).into(avatarUser);
 
         txt_full_name.setText(Common.CURRENTUSER.getName());
 
@@ -123,20 +139,39 @@ public class Home extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == 1) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, "Notification permission granted!", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(this, "Notification permission denied!", Toast.LENGTH_SHORT).show();
+
+        if (requestCode == PERMISSION_REQUEST_CODE) {
+            for (int i = 0; i < permissions.length; i++) {
+                if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
+                    CuteToast.ct(this, permissions[i] + " granted!", Toast.LENGTH_SHORT, CuteToast.HAPPY, true).show();
+                } else {
+                    CuteToast.ct(this, permissions[i] + " denied!", Toast.LENGTH_SHORT, CuteToast.SAD, true).show();
+                }
             }
         }
+
     }
 
-    private void requestNotification() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.POST_NOTIFICATIONS}, 1);
-            }
+    private void requestPermissions() {
+        List<String> permissionsToRequest = new ArrayList<>();
+
+        // Kiểm tra quyền đọc bộ nhớ
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED) {
+            permissionsToRequest.add(android.Manifest.permission.READ_MEDIA_IMAGES);
+        }
+
+        // Kiểm tra quyền truy cập vị trí
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            permissionsToRequest.add(android.Manifest.permission.ACCESS_FINE_LOCATION);
+        }
+
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            permissionsToRequest.add(android.Manifest.permission.ACCESS_COARSE_LOCATION);
+        }
+
+        // Nếu còn quyền chưa được cấp, yêu cầu tất cả trong một lần
+        if (!permissionsToRequest.isEmpty()) {
+            ActivityCompat.requestPermissions(this, permissionsToRequest.toArray(new String[0]), PERMISSION_REQUEST_CODE);
         }
     }
 

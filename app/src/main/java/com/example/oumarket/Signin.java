@@ -95,8 +95,6 @@ public class Signin extends AppCompatActivity {
             startActivity(intent);
             finish();
         });
-//
-
 
     }
 
@@ -106,8 +104,8 @@ public class Signin extends AppCompatActivity {
                 if (FirebaseAuth.getInstance().getCurrentUser().isEmailVerified()) {
 
                     if (checkBox.isChecked()) {
-                        Paper.book().write(Common.USERNAME_KEY, edit_email.getText().toString().trim());
-                        Paper.book().write(Common.PASSWORD_KEY, edit_password.getText().toString().trim());
+                        Paper.book().write(Common.USERNAME_KEY, email);
+                        Paper.book().write(Common.PASSWORD_KEY, password);
                     }
 
                     String userUid = FirebaseAuth.getInstance().getCurrentUser().getUid();

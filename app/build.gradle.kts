@@ -37,7 +37,7 @@ android {
 }
 
 dependencies {
-
+    implementation(libs.cloudinary.android)
     implementation(libs.ratingBar)
     implementation(libs.play.services.location)
     implementation(libs.cuteToast)

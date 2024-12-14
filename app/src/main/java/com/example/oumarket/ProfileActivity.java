@@ -1,6 +1,7 @@
 package com.example.oumarket;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -13,15 +14,19 @@ import com.example.oumarket.Class.User;
 import com.example.oumarket.Common.Common;
 import com.example.oumarket.Interface.BottomSheetDialogSave;
 import com.example.oumarket.ui.edit_profile.ChangePasswordFragment;
+import com.example.oumarket.ui.edit_profile.EditAvatarFragment;
 import com.example.oumarket.ui.edit_profile.EditNameUserFragment;
 import com.example.oumarket.ui.edit_profile.EditPhoneUserFragment;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.squareup.picasso.Picasso;
 
 public class ProfileActivity extends AppCompatActivity implements BottomSheetDialogSave {
 
     MaterialToolbar toolbar;
 
     TextView name, phone, email;
+
+    ImageView pic;
 
     ImageView ic_next_name, ic_next_phone, ic_next_password;
 
@@ -34,9 +39,20 @@ public class ProfileActivity extends AppCompatActivity implements BottomSheetDia
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        pic = findViewById(R.id.pic);
         name = findViewById(R.id.name);
         phone = findViewById(R.id.phone);
         email = findViewById(R.id.email);
+
+
+        if (Common.CURRENTUSER.getUrl() != "") {
+            Picasso.get().load(Common.CURRENTUSER.getUrl()).into(pic);
+        }
+
+        pic.setOnClickListener(v -> {
+            EditAvatarFragment fragment = new EditAvatarFragment();
+            fragment.show(getSupportFragmentManager(), "EditAvatarFragment");
+        });
 
         name.setText(Common.CURRENTUSER.getName());
         String sPhone = Common.CURRENTUSER.getPhone();
@@ -84,5 +100,7 @@ public class ProfileActivity extends AppCompatActivity implements BottomSheetDia
         String sPhone = Common.CURRENTUSER.getPhone();
         sPhone = "*******" + sPhone.substring(sPhone.length() - 3);
         phone.setText(sPhone);
+        if (Common.CURRENTUSER.getUrl() != "")
+            Picasso.get().load(Common.CURRENTUSER.getUrl()).into(pic);
     }
 }

@@ -8,22 +8,19 @@ public class User {
     private String name;
     private String phone;
     private String email;
+    private String url;
     private List<AnAddress> Addresses;
 
     public User() {
     }
 
-    public User(String idUser, String name, String phone, String email, List<AnAddress> addresses) {
+    public User(String idUser, String name, String phone, String email, String url, List<AnAddress> addresses) {
         this.idUser = idUser;
         this.name = name;
         this.phone = phone;
         this.email = email;
+        this.url = url;
         Addresses = addresses;
-    }
-
-    public User(String name, String phone) {
-        this.name = name;
-        this.phone = phone;
     }
 
     public void addAddress(AnAddress address) {
@@ -33,17 +30,15 @@ public class User {
         this.Addresses.add(address);
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "idUser='" + idUser + '\'' +
-                ", name='" + name + '\'' +
-                ", phone='" + phone + '\'' +
-                ", email='" + email + '\'' +
-                '}';
+    //getter + setter/////////////////////////////////////////////////////////
+
+    public String getUrl() {
+        return url;
     }
 
-    //getter + setter/////////////////////////////////////////////////////////
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
     public String getEmail() {
         return email;

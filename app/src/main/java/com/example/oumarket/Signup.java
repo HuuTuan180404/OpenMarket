@@ -117,7 +117,7 @@ public class Signup extends AppCompatActivity {
         Common.FIREBASE_DATABASE.getReference(Common.REF_USERS).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                User user = new User(userUid, edit_name.getText().toString().trim(), edit_phone.getText().toString().trim(), edit_email.getText().toString().trim(), new ArrayList<>());
+                User user = new User(userUid, edit_name.getText().toString().trim(), edit_phone.getText().toString().trim(), edit_email.getText().toString().trim(), "", new ArrayList<>());
                 Common.FIREBASE_DATABASE.getReference(Common.REF_USERS).child(userUid).setValue(user);
             }
 
