@@ -128,7 +128,7 @@ public class Home extends AppCompatActivity {
 
         avatarUser = heardView.findViewById(R.id.imageView);
 
-        if (Common.CURRENTUSER.getUrl() != "")
+        if (!Common.CURRENTUSER.getUrl().equals(" "))
             Picasso.get().load(Common.CURRENTUSER.getUrl()).into(avatarUser);
 
         txt_full_name.setText(Common.CURRENTUSER.getName());

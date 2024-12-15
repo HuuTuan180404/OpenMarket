@@ -102,12 +102,12 @@ public class Signup extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 createInfo(FirebaseAuth.getInstance().getCurrentUser().getUid());
                             } else {
-                                Toast.makeText(getApplicationContext(), "Failed!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "1 Failed!", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
                 } else {
-                    Toast.makeText(getApplicationContext(), "Failed!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "2 Failed!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -117,7 +117,7 @@ public class Signup extends AppCompatActivity {
         Common.FIREBASE_DATABASE.getReference(Common.REF_USERS).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                User user = new User(userUid, edit_name.getText().toString().trim(), edit_phone.getText().toString().trim(), edit_email.getText().toString().trim(), "", new ArrayList<>());
+                User user = new User(userUid, edit_name.getText().toString().trim(), edit_phone.getText().toString().trim(), edit_email.getText().toString().trim(), " ", new ArrayList<>());
                 Common.FIREBASE_DATABASE.getReference(Common.REF_USERS).child(userUid).setValue(user);
             }
 

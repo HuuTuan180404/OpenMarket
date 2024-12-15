@@ -116,7 +116,6 @@ public class Signin extends AppCompatActivity {
                             Intent homeIntent = new Intent(Signin.this, Home.class);
                             startActivity(homeIntent);
 
-//                            mDialog.dismiss();
                             loadingDialog.dismiss();
                             finish();
                         }
