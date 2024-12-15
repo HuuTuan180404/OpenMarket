@@ -44,10 +44,8 @@ public class ProfileActivity extends AppCompatActivity implements BottomSheetDia
         phone = findViewById(R.id.phone);
         email = findViewById(R.id.email);
 
-
-        if (Common.CURRENTUSER.getUrl() != "") {
+        if (!Common.CURRENTUSER.getUrl().equals(" "))
             Picasso.get().load(Common.CURRENTUSER.getUrl()).into(pic);
-        }
 
         pic.setOnClickListener(v -> {
             EditAvatarFragment fragment = new EditAvatarFragment();
@@ -100,7 +98,9 @@ public class ProfileActivity extends AppCompatActivity implements BottomSheetDia
         String sPhone = Common.CURRENTUSER.getPhone();
         sPhone = "*******" + sPhone.substring(sPhone.length() - 3);
         phone.setText(sPhone);
-        if (Common.CURRENTUSER.getUrl() != "")
+
+        if (!Common.CURRENTUSER.getUrl().equals(" "))
             Picasso.get().load(Common.CURRENTUSER.getUrl()).into(pic);
+
     }
 }
