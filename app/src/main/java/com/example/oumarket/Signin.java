@@ -58,7 +58,6 @@ public class Signin extends AppCompatActivity {
         if (user != null && password != null) {
             checkBox.setChecked(true);
             if (!user.isEmpty() && !password.isEmpty()) {
-//                mDialog.show();
                 loadingDialog.show();
                 login(user, password);
             }
@@ -77,8 +76,6 @@ public class Signin extends AppCompatActivity {
             }
 
             loadingDialog.show();
-
-//            mDialog.show();
 
             login(edit_email.getText().toString(), edit_password.getText().toString());
 

@@ -17,6 +17,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.oumarket.Class.AnAddress;
+import com.example.oumarket.Common.AddressType;
 import com.example.oumarket.R;
 
 import java.util.ArrayList;
@@ -24,8 +25,8 @@ import java.util.List;
 
 class SelectAddressViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    TextView name, phone, address, ward_getPath;
-    CardView isMap, isDefault, anAddress;
+    TextView name, phone, address, ward_getPath, typeAddress;
+    CardView isDefault, anAddress;
 
     public SelectAddressViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -33,6 +34,7 @@ class SelectAddressViewHolder extends RecyclerView.ViewHolder implements View.On
         this.name = itemView.findViewById(R.id.name);
         this.phone = itemView.findViewById(R.id.phone);
         this.address = itemView.findViewById(R.id.address);
+        this.typeAddress = itemView.findViewById(R.id.typeAddress);
         this.ward_getPath = itemView.findViewById(R.id.ward_getPath);
 
         this.isDefault = itemView.findViewById(R.id.isDefault);
@@ -61,7 +63,6 @@ public class SelectAddressAdapter extends RecyclerView.Adapter<SelectAddressView
     public SelectAddressViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.item_address_detail, parent, false);
-
         return new SelectAddressViewHolder(view);
 
     }
@@ -74,6 +75,13 @@ public class SelectAddressAdapter extends RecyclerView.Adapter<SelectAddressView
         holder.phone.setText(anAddress.getPhone());
 
         holder.address.setText(anAddress.getAddress());
+
+        if (anAddress.getTypeAddress() == AddressType.HOME)
+            holder.typeAddress.setText("HOME");
+        else if (anAddress.getTypeAddress() == AddressType.WORK)
+            holder.typeAddress.setText("WORK");
+        else holder.typeAddress.setText("OTHER");
+
         holder.ward_getPath.setText(anAddress.getWard().getPath());
 
         if (anAddress.getIsDefault()) holder.isDefault.setVisibility(View.VISIBLE);
