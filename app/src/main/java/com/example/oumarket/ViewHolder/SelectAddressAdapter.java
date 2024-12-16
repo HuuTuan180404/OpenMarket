@@ -2,6 +2,7 @@ package com.example.oumarket.ViewHolder;
 
 import static android.app.Activity.RESULT_OK;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -68,7 +69,7 @@ public class SelectAddressAdapter extends RecyclerView.Adapter<SelectAddressView
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SelectAddressViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull SelectAddressViewHolder holder, @SuppressLint("RecyclerView") int position) {
         AnAddress anAddress = list.get(position);
 
         holder.name.setText(anAddress.getName());

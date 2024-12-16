@@ -23,11 +23,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.OuMarket"
         tools:targetApi="31">
+        <activity
+            android:name=".ui.edit_profile.EditAddressActivity"
+            android:exported="false" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDwyPW5cfV3osMQ1sTA5KZp8xIUPm3GuuE" />
-
         <meta-data
             android:name="CLOUDINARY_URL"
             android:value="cloudinary://564718357889346:TfxQE6I3edoX7yeQrglD0avshDQ@dv2zyrxsv" />
@@ -56,7 +58,6 @@
             android:exported="false"
             android:parentActivityName=".Home"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".AddNewAddressActivity"
             android:exported="false"

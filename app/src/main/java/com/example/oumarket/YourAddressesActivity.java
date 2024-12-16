@@ -115,11 +115,6 @@ public class YourAddressesActivity extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
-        Customer_LoadingDialog loadingDialog = new Customer_LoadingDialog(this, "Loading...");
-        loadingDialog.show();
         recreate();
-        new android.os.Handler().postDelayed(() -> {
-            loadingDialog.dismiss();
-        }, 200);
     }
 }

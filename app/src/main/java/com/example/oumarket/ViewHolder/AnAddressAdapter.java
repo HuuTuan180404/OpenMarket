@@ -1,14 +1,12 @@
 package com.example.oumarket.ViewHolder;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -16,9 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.oumarket.AddNewAddressActivity;
 import com.example.oumarket.Class.AnAddress;
-import com.example.oumarket.Class.Ward;
 import com.example.oumarket.Common.AddressType;
-import com.example.oumarket.Interface.ItemClickListener;
 import com.example.oumarket.R;
 
 import java.util.ArrayList;
@@ -122,7 +118,7 @@ public class AnAddressAdapter extends RecyclerView.Adapter<AnAddressViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AnAddressViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull AnAddressViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
         AnAddress anAddress = list.get(position);
 
