@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_food"
     android:layout_width="match_parent"
-    android:layout_height="320sp"
-    android:layout_marginHorizontal="5sp"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="2sp"
     android:layout_marginBottom="20sp"
     android:fitsSystemWindows="true"
     app:cardCornerRadius="20dp"
@@ -15,109 +15,106 @@
         android:layout_height="280sp"
         android:layout_gravity="bottom"
         android:background="@drawable/border"
-        android:backgroundTint="@color/background">
+        android:backgroundTint="@color/background"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/food_image"
+            android:layout_width="150dp"
+            android:layout_height="200dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/image_default_load_category_faile" />
+
+        <TextView android:gravity="center"
+            android:id="@+id/food_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/food_image"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="3dp"
+            android:maxLines="2"
+            android:text="name"
+            android:theme="@style/Customer.TextView" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:orientation="vertical">
+            android:layout_below="@+id/food_name"
+            android:layout_alignParentRight="true">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="70sp"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="5sp">
+            <TextView
+                android:id="@+id/food_rate"
+                style="@style/Customer.TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="đánh giá" />
 
-                <TextView
-                    android:id="@+id/food_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    android:text="name"
-                    android:theme="@style/Customer.TextView" />
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true">
-
-                        <TextView
-                            style="@style/Customer.TextView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:text="$ " />
-
-                        <TextView
-                            android:id="@+id/food_price"
-                            style="@style/Customer.TextView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="price" />
-
-                    </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/food_rate"
-                        style="@style/Customer.TextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_toLeftOf="@+id/star"
-                        android:text="đánh giá" />
-
-                    <ImageView
-                        android:id="@+id/star"
-                        android:layout_width="wrap_content"
-                        android:layout_height="0sp"
-                        android:layout_alignTop="@+id/food_rate"
-                        android:layout_alignBottom="@+id/food_rate"
-                        android:layout_alignParentRight="true"
-                        android:src="@drawable/ic_star" />
-
-
-                </RelativeLayout>
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="35sp"
-                android:background="@drawable/rounded_bottom_20sp"
-                android:backgroundTint="@color/xanh_bien"
-                android:gravity="center">
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/add_to_card"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:backgroundTint="@color/xanh_bien"
-                    android:drawableStart="@drawable/ic_add_to_cart"
-                    android:fontFamily="@font/satoshi_variable"
-                    android:text=" Thêm vào giỏ hàng"
-                    android:textColor="@color/trang" />
-
-            </LinearLayout>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_star" />
 
         </LinearLayout>
 
-    </FrameLayout>
 
-    <ImageView
-        android:id="@+id/food_image"
-        android:layout_width="150dp"
-        android:layout_height="200dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/image_default_load_category_faile" />
+        <LinearLayout
+            android:id="@+id/layout_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/food_name">
+
+            <TextView
+                style="@style/Customer.TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/CURRENCY" />
+
+            <TextView
+                android:id="@+id/food_price"
+                style="@style/Customer.TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="price" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/add_to_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layout_price"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/rounded_bottom_20sp"
+            android:backgroundTint="@color/xanh_bien"
+            android:gravity="center_horizontal"
+            android:padding="5dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_add_to_cart" />
+
+            <TextView
+                style="@style/Customer.TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="Thêm vào giỏ hàng"
+                android:textColor="@color/trang" />
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
 
     <RelativeLayout
         android:id="@+id/layout_discount"
@@ -142,5 +139,6 @@
             android:src="@drawable/ic_sale" />
 
     </RelativeLayout>
+
 
 </FrameLayout>

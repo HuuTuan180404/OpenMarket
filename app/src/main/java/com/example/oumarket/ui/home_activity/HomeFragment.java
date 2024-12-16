@@ -1,4 +1,4 @@
-package com.example.oumarket.ui.home_page;
+package com.example.oumarket.ui.home_activity;
 
 import android.os.Bundle;
 
@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,18 +21,15 @@ import com.example.oumarket.ViewHolder.CategoryAdapter;
 import com.example.oumarket.ViewHolder.FoodAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 public class HomeFragment extends Fragment {
-
-
-    View include_category1;
 
     RecyclerView recyclerView_bestSeller, recyclerView_categories, recyclerView_all_food;
 

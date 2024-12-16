@@ -6,7 +6,6 @@ public class Food {
     private String id;
     private String categoryId;
     private String name;
-    private String image;
     private String description;
     private String discount;
     private String price;
@@ -19,20 +18,18 @@ public class Food {
     public Food() {
     }
 
-    public Food(String description, String discount, String image, String categoryId, String name, String price, String URL) {
+    public Food(String description, String discount, String categoryId, String name, String price, String URL) {
         this.description = description;
         this.discount = discount;
-        this.image = image;
         this.categoryId = categoryId;
         this.name = name;
         this.price = price;
         this.url = URL;
     }
 
-    public Food(String description, String discount, String image, String categoryId, String name, String price, String URL, int countRating, int countStars) {
+    public Food(String description, String discount, String categoryId, String name, String price, String URL, int countRating, int countStars) {
         this.description = description;
         this.discount = discount;
-        this.image = image;
         this.categoryId = categoryId;
         this.name = name;
         this.price = price;
@@ -41,11 +38,10 @@ public class Food {
         this.countRating = countRating;
     }
 
-    public Food(String categoryId, int countRating, int countStars, String description, String discount, String id, String image, String name, String price, String URL) {
+    public Food(String categoryId, int countRating, int countStars, String description, String discount, String id, String name, String price, String URL) {
         this.id = id;
         this.description = description;
         this.discount = discount;
-        this.image = image;
         this.categoryId = categoryId;
         this.name = name;
         this.price = price;
@@ -58,9 +54,10 @@ public class Food {
         if (this.getCountRating() != 0 && other.getCountRating() != 0) {
             double ratingA = (double) this.getCountStars() / this.countRating;
             double ratingB = (double) other.getCountStars() / other.countRating;
-            if (ratingA != ratingB) {
+            if (ratingA == ratingB) {
                 double priceA = Double.parseDouble(this.price) * (100 - Double.parseDouble(this.getDiscount()));
                 double priceB = Double.parseDouble(other.price) * (100 - Double.parseDouble(other.getDiscount()));
+
                 return priceA > priceB ? 1 : -1;
             }
             return ratingA > ratingB ? 1 : -1;
@@ -105,14 +102,6 @@ public class Food {
         this.discount = discount;
     }
 
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
     public String getCategoryId() {
         return categoryId;
     }
@@ -155,6 +144,13 @@ public class Food {
 
     @Override
     public String toString() {
-        return "Food{" + "id='" + id + '\'' + ", Name='" + name + '\'' + ", CategoryId='" + categoryId + '\'' + '}';
+        return "Food{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", discount='" + discount + '\'' +
+                ", price='" + price + '\'' +
+                ", countRating=" + countRating +
+                ", countStars=" + countStars +
+                '}';
     }
 }

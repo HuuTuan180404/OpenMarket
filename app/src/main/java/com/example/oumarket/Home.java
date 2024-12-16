@@ -2,9 +2,7 @@ package com.example.oumarket;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -15,9 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.oumarket.Common.Common;
-import com.example.oumarket.ui.home_page.HomeFragment;
-import com.example.oumarket.ui.home_page.HomeSearchFragment;
-import com.google.android.gms.maps.OnMapReadyCallback;
+import com.example.oumarket.ui.home_activity.HomeFragment;
+import com.example.oumarket.ui.home_activity.HomeSearchFragment;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;

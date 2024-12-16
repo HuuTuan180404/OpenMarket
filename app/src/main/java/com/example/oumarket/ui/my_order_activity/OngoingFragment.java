@@ -1,4 +1,4 @@
-package com.example.oumarket.ui.my_order_page;
+package com.example.oumarket.ui.my_order_activity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -26,37 +26,41 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import io.paperdb.Paper;
 
-public class HistoryFragment extends Fragment {
+public class OngoingFragment extends Fragment {
 
     RecyclerView recyclerView;
 
-    MyOrderAdapter adapter;
+    DatabaseReference data_requests;
 
-    final String status = "0";
-    FrameLayout frameLayout;
+    MyOrderAdapter adapter;
 
     TextView null_orders;
 
-    public HistoryFragment() {
+    final String status = "0";
+
+    FrameLayout frameLayout;
+
+    public OngoingFragment() {
     }
 
     @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_history, container, false);
-
-        recyclerView = view.findViewById(R.id.recyclerView);
-
-        null_orders = view.findViewById(R.id.null_orders);
+        View view = inflater.inflate(R.layout.fragment_ongoing, container, false);
 
         frameLayout = view.findViewById(R.id.orderDetail);
 
+        data_requests = Common.FIREBASE_DATABASE.getReference(Common.REF_REQUESTS);
+
+        recyclerView = view.findViewById(R.id.recyclerView);
+
         adapter = new MyOrderAdapter(new ArrayList<>(), getContext());
         SetUpRecyclerView.setupLinearLayout(getContext(), recyclerView, adapter);
+
+        null_orders = view.findViewById(R.id.null_orders);
 
         loadRequests();
 
@@ -68,7 +72,7 @@ public class HistoryFragment extends Fragment {
 
         String idCurrentUser = Common.CURRENTUSER.getIdUser();
 
-        Common.FIREBASE_DATABASE.getReference(Common.REF_REQUESTS).orderByChild("idCurrentUser").equalTo(idCurrentUser).addValueEventListener(new ValueEventListener() {
+        data_requests.orderByChild("idCurrentUser").equalTo(idCurrentUser).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 List<Request> data = new ArrayList<>();
@@ -76,7 +80,7 @@ public class HistoryFragment extends Fragment {
 
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     request = dataSnapshot.getValue(Request.class);
-                    if (!request.getStatus().equals(status)) {
+                    if (request.getStatus().equals(status)) {
                         request.setIdRequest(dataSnapshot.getKey());
                         data.add(request);
                     }
@@ -89,6 +93,7 @@ public class HistoryFragment extends Fragment {
 
                 if (adapter.getList().isEmpty()) null_orders.setVisibility(View.VISIBLE);
                 else null_orders.setVisibility(View.GONE);
+
             }
 
             @Override

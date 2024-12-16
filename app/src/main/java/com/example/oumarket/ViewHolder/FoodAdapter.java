@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,7 +37,7 @@ class FoodViewHolder extends RecyclerView.ViewHolder implements View.OnClickList
     private ItemClickListener itemClickListener;
     RelativeLayout layout_discount;
 
-    AppCompatButton add_to_cart;
+    LinearLayout add_to_cart;
 
     public void setItemClickListener(ItemClickListener itemClickListener) {
         this.itemClickListener = itemClickListener;

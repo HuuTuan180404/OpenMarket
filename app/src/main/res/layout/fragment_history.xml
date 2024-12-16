@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.my_order_page.HistoryFragment">
+    tools:context=".ui.my_order_activity.HistoryFragment">
 
     <TextView
         android:id="@+id/null_orders"
@@ -13,12 +13,6 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:text="Chưa có đơn hàng nào" />
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/background_main" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"

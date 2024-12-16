@@ -23,6 +23,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.rejowan.cutetoast.CuteToast;
 import com.squareup.picasso.Picasso;
 
 public class FoodDetail extends AppCompatActivity {
@@ -100,8 +101,9 @@ public class FoodDetail extends AppCompatActivity {
 
 //        button cart
         button_cart.setOnClickListener(v -> {
-            Order order = new Order(foodId, currentFood.getName(), currentFood.getPrice(), edittext_quantity.getText() + "", currentFood.getDiscount(),"0");
+            Order order = new Order(foodId, currentFood.getName(), currentFood.getPrice(), edittext_quantity.getText() + "", currentFood.getDiscount(), "0");
             Database database1 = new Database(FoodDetail.this);
+            CuteToast.ct(this, "Đã thêm vào giỏ hàng", Toast.LENGTH_SHORT, CuteToast.SUCCESS, true).show();
             database1.addToCart(order);
         });
 

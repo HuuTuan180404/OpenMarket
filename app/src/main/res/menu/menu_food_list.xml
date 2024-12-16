@@ -14,7 +14,7 @@
         android:id="@+id/action_sort"
         android:icon="@drawable/ic_sort"
         android:orderInCategory="200"
-        android:title=""
+        android:title="More"
         app:showAsAction="always" />
 
 </menu>

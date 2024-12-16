@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:layout_margin="5sp"
     android:padding="5sp"
-    tools:context=".ui.home_page.HomeFragment">
+    tools:context=".ui.home_activity.HomeFragment">
 
     <LinearLayout
         android:layout_width="match_parent"

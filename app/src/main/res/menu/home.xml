@@ -6,27 +6,16 @@
     <item
         android:id="@+id/action_search"
         android:icon="@drawable/ic_search"
-        android:orderInCategory="100"
+
         android:title="Search"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="always" />
 
     <item
-        android:id="@+id/action_default"
+        android:id="@+id/action_about_me"
+        android:icon="@drawable/ic_info"
         android:orderInCategory="200"
-        android:title="Default"
-        app:showAsAction="never" />
-
-    <item
-        android:id="@+id/action_round_rect"
-        android:orderInCategory="300"
-        android:title="Rounded Rectangle"
-        app:showAsAction="never" />
-
-    <item
-        android:id="@+id/action_round_right"
-        android:orderInCategory="400"
-        android:title="Rounded Right Corner"
-        app:showAsAction="never" />
+        android:title="About me"
+        app:showAsAction="always" />
 
 </menu>

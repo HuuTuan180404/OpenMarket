@@ -1,20 +1,16 @@
-package com.example.oumarket.ui.my_order_page;
+package com.example.oumarket.ui.my_order_activity;
 
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.oumarket.Class.Food;
-import com.example.oumarket.Class.Order;
 import com.example.oumarket.Class.Request;
 import com.example.oumarket.Class.SetUpRecyclerView;
 import com.example.oumarket.Common.Common;

@@ -130,7 +130,7 @@ public class Signin extends AppCompatActivity {
                     AlertDialog.Builder alert = new AlertDialog.Builder(Signin.this);
                     alert.setTitle("Warming!");
                     alert.setMessage("Please check your email and click the URL to activate your account");
-                    alert.setIcon(R.drawable.ic_info_24);
+                    alert.setIcon(R.drawable.ic_info);
 
                     alert.setPositiveButton("Yes", (dialog, which) -> {
                     });
