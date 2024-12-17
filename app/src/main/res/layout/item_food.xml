@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_food"
     android:layout_width="match_parent"
@@ -13,13 +13,23 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="280sp"
+        android:layout_alignBottom="@+id/layout_main"
         android:layout_gravity="bottom"
         android:background="@drawable/border"
-        android:backgroundTint="@color/background"/>
+        android:backgroundTint="@color/background">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/background_main" />
+
+    </FrameLayout>
 
     <RelativeLayout
+        android:id="@+id/layout_main"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/food_image"
@@ -30,13 +40,14 @@
             android:scaleType="centerCrop"
             android:src="@drawable/image_default_load_category_faile" />
 
-        <TextView android:gravity="center"
+        <TextView
             android:id="@+id/food_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/food_image"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="3dp"
+            android:gravity="center"
             android:maxLines="2"
             android:text="name"
             android:theme="@style/Customer.TextView" />
@@ -115,7 +126,6 @@
 
     </RelativeLayout>
 
-
     <RelativeLayout
         android:id="@+id/layout_discount"
         android:layout_width="wrap_content"
@@ -140,5 +150,4 @@
 
     </RelativeLayout>
 
-
-</FrameLayout>
+</RelativeLayout>

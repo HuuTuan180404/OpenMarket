@@ -67,9 +67,21 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodViewHolder> {
     private List<Food> list = new ArrayList<>();
     private Context context;
 
-    public FoodAdapter(List<Food> list, Context context) {
+    private int item_layout;
+
+    public FoodAdapter(List<Food> list, Context context, int item_layout) {
         this.list = list;
         this.context = context;
+        this.item_layout = item_layout;
+    }
+
+    public int getItem_layout() {
+        return item_layout;
+    }
+
+    public void setItem_layout(int item_layout) {
+        this.item_layout = item_layout;
+        notifyDataSetChanged();
     }
 
     public FoodAdapter() {
@@ -81,6 +93,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodViewHolder> {
 
     public void setList(List<Food> list) {
         this.list = list;
+        notifyDataSetChanged();
     }
 
     public Context getContext() {
@@ -95,7 +108,10 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodViewHolder> {
     @Override
     public FoodViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        View itemView = layoutInflater.inflate(R.layout.item_food, parent, false);
+        View itemView;
+        if (item_layout == R.layout.item_food)
+            itemView = layoutInflater.inflate(R.layout.item_food, parent, false);
+        else itemView = layoutInflater.inflate(R.layout.test, parent, false);
         return new FoodViewHolder(itemView);
     }
 

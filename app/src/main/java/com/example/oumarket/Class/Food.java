@@ -1,7 +1,5 @@
 package com.example.oumarket.Class;
 
-import android.util.Log;
-
 public class Food {
     private String id;
     private String categoryId;
@@ -68,6 +66,22 @@ public class Food {
             return priceA > priceB ? 1 : -1;
         }
         return this.getCountRating() > 0 ? 1 : -1;
+    }
+
+    public int sortByPrice(Food other) {
+        double priceA = Double.parseDouble(this.price) * (100 - Double.parseDouble(this.getDiscount()));
+        double priceB = Double.parseDouble(other.price) * (100 - Double.parseDouble(other.getDiscount()));
+
+        return priceA > priceB ? 1 : -1;
+
+    }
+
+    public int sortByName(Food other) {
+        return this.getName().compareToIgnoreCase(other.getName());
+    }
+
+    public int sortByRating(Food other) {
+        return this.sortForBestSeller(other);
     }
 
     public String getId() {

@@ -23,11 +23,14 @@ import android.widget.TextView;
 import com.cloudinary.android.MediaManager;
 import com.cloudinary.android.callback.ErrorInfo;
 import com.cloudinary.android.callback.UploadCallback;
+import com.example.oumarket.Class.Customer_LoadingDialog;
 import com.example.oumarket.Class.User;
 import com.example.oumarket.Common.Common;
 import com.example.oumarket.Interface.BottomSheetDialogSave;
 import com.example.oumarket.R;
+import com.example.oumarket.Signin;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.rejowan.cutetoast.CuteToast;
 import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
@@ -54,9 +57,15 @@ public class EditAvatarFragment extends BottomSheetDialogFragment implements Bot
 
         btn_luu = view.findViewById(R.id.btn_luu);
         btn_luu.setOnClickListener(v -> {
+
+
             if (uri == null) {
                 return;
             }
+
+            Customer_LoadingDialog dialog = new Customer_LoadingDialog(getContext(), "Loading...");
+            dialog.show();
+
             MediaManager.get().upload(uri).callback(new UploadCallback() {
                 @Override
                 public void onStart(String requestId) {
@@ -71,21 +80,31 @@ public class EditAvatarFragment extends BottomSheetDialogFragment implements Bot
                     Common.CURRENTUSER.setUrl((String) resultData.get("url"));
                     Common.FIREBASE_DATABASE.getReference(Common.REF_USERS).child(Common.CURRENTUSER.getIdUser()).child("url").setValue(Common.CURRENTUSER.getUrl());
                     bottomSheetDialogSave.onSave(Common.CURRENTUSER);
+                    dialog.dismiss();
+                    CuteToast.ct(getContext(), "Thành công!", CuteToast.LENGTH_SHORT, CuteToast.SUCCESS, true).show();
                     dismiss();
                 }
 
                 @Override
                 public void onError(String requestId, ErrorInfo error) {
+                    dialog.dismiss();
+                    CuteToast.ct(getContext(), "Lỗi!", CuteToast.LENGTH_SHORT, CuteToast.SUCCESS, true).show();
                 }
 
                 @Override
                 public void onReschedule(String requestId, ErrorInfo error) {
+                    dialog.dismiss();
+                    CuteToast.ct(getContext(), "Lỗi!", CuteToast.LENGTH_SHORT, CuteToast.SUCCESS, true).show();
                 }
             }).dispatch();
 
         });
 
         pic = view.findViewById(R.id.pic);
+        if (!Common.CURRENTUSER.getUrl().equals(" ")) {
+            Picasso.get().load(Common.CURRENTUSER.getUrl()).into(pic);
+        }
+
         pic.setOnClickListener(v -> {
             requestPermissions();
         });
@@ -146,6 +165,11 @@ public class EditAvatarFragment extends BottomSheetDialogFragment implements Bot
 
     @Override
     public void onSave(User user) {
+
+    }
+
+    @Override
+    public void inFoodListActivity(String key) {
 
     }
 }

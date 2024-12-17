@@ -102,4 +102,9 @@ public class EditNameUserFragment extends BottomSheetDialogFragment implements B
     public void onSave(User user) {
 
     }
+
+    @Override
+    public void inFoodListActivity(String key) {
+
+    }
 }

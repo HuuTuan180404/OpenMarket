@@ -125,7 +125,7 @@ public class HomeFragment extends Fragment {
                     listAdapter.add(list.get(i));
                 }
 
-                FoodAdapter foodAdapter = new FoodAdapter(listAdapter, getContext());
+                FoodAdapter foodAdapter = new FoodAdapter(listAdapter, getContext(), R.layout.item_food);
                 SetUpRecyclerView.setupGridLayout(getContext(), recyclerView_all_food, foodAdapter, 2, RecyclerView.VERTICAL);
             }
 

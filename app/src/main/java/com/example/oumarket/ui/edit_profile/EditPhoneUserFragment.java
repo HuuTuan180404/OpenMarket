@@ -93,6 +93,11 @@ public class EditPhoneUserFragment extends BottomSheetDialogFragment implements 
     }
 
     @Override
+    public void inFoodListActivity(String key) {
+
+    }
+
+    @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         bottomSheetDialogSave = (BottomSheetDialogSave) context;

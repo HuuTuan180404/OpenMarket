@@ -103,4 +103,9 @@ public class ProfileActivity extends AppCompatActivity implements BottomSheetDia
             Picasso.get().load(Common.CURRENTUSER.getUrl()).into(pic);
 
     }
+
+    @Override
+    public void inFoodListActivity(String key) {
+
+    }
 }

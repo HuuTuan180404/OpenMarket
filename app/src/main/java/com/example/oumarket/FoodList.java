@@ -1,7 +1,6 @@
 package com.example.oumarket;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,17 +16,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.oumarket.Class.Category;
 import com.example.oumarket.Class.Food;
 import com.example.oumarket.Class.SetUpRecyclerView;
+import com.example.oumarket.Class.User;
 import com.example.oumarket.Common.Common;
+import com.example.oumarket.Interface.BottomSheetDialogSave;
 import com.example.oumarket.ViewHolder.FoodAdapter;
+import com.example.oumarket.ui.food_list_activity.ActionSetting;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
-public class FoodList extends AppCompatActivity {
+public class FoodList extends AppCompatActivity implements BottomSheetDialogSave {
 
     DatabaseReference data_foods;
 
@@ -106,7 +109,6 @@ public class FoodList extends AppCompatActivity {
                 } else {
                     tv_noData.setVisibility(View.GONE);
                     adapter.setList(list);
-                    adapter.notifyDataSetChanged();
                     recyclerView.setVisibility(View.VISIBLE);
                 }
 
@@ -130,7 +132,7 @@ public class FoodList extends AppCompatActivity {
                     list.add(food);
                 }
 
-                adapter = new FoodAdapter(list, FoodList.this);
+                adapter = new FoodAdapter(list, FoodList.this, R.layout.item_food);
                 SetUpRecyclerView.setupGridLayout(FoodList.this, recyclerView, adapter, 2, RecyclerView.VERTICAL);
             }
 
@@ -179,9 +181,49 @@ public class FoodList extends AppCompatActivity {
             finish();
             return true;
         }
-        if (item.getItemId() == R.id.action_sort) {
-            Log.d("ZZZZZ", "action_sort");
+        if (item.getItemId() == R.id.action_setting) {
+            ActionSetting fragment = new ActionSetting();
+            fragment.show(getSupportFragmentManager(), "Action_Setting");
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void onSave(User user) {
+
+    }
+
+    @Override
+    public void inFoodListActivity(String key) {
+        switch (key) {
+            case "price_desc":
+                sortByComparator((a, b) -> -a.sortByPrice(b));
+                break;
+            case "price_asc":
+                sortByComparator((a, b) -> a.sortByPrice(b));
+                break;
+            case "name":
+                sortByComparator((a, b) -> -a.sortByName(b));
+                break;
+            case "rating":
+                sortByComparator((a, b) -> -a.sortByRating(b));
+                break;
+            case "list_view":
+                adapter.setItem_layout(R.layout.test);
+                SetUpRecyclerView.setupLinearLayout(this, recyclerView, adapter);
+                break;
+            case "grid_view":
+                adapter.setItem_layout(R.layout.item_food);
+                SetUpRecyclerView.setupGridLayout(this, recyclerView, adapter, 2, RecyclerView.VERTICAL);
+                break;
+        }
+    }
+
+    private void sortByComparator(Comparator<Food> comparator) {
+        List<Food> list = adapter.getList();
+        list.sort(comparator);
+        adapter.setList(list);
+    }
+
 }

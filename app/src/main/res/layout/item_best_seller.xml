@@ -22,6 +22,7 @@
                 android:id="@+id/pic"
                 android:layout_width="match_parent"
                 android:layout_height="206dp"
+                android:background="@drawable/border"
                 android:scaleType="centerCrop"
                 android:src="@drawable/image_default_load_category_faile" />
 
@@ -31,8 +32,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="5dp"
                 android:background="@drawable/border"
                 android:gravity="center"
                 android:padding="5dp"
@@ -47,15 +46,10 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/layout_pic"
             android:layout_alignParentLeft="true"
+            android:gravity="center"
+            android:maxLines="1"
             android:paddingHorizontal="20sp"
             android:text="name of food" />
-
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -97,4 +91,5 @@
             android:textStyle="bold" />
 
     </RelativeLayout>
+
 </androidx.cardview.widget.CardView>
