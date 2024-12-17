@@ -1,7 +1,5 @@
 package com.example.oumarket.ViewHolder;
 
-import static androidx.core.content.ContextCompat.startActivity;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -15,7 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.oumarket.Class.Food;
@@ -109,9 +106,9 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodViewHolder> {
     public FoodViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         View itemView;
-        if (item_layout == R.layout.item_food)
-            itemView = layoutInflater.inflate(R.layout.item_food, parent, false);
-        else itemView = layoutInflater.inflate(R.layout.test, parent, false);
+        if (item_layout == R.layout.item_food_grid_view)
+            itemView = layoutInflater.inflate(R.layout.item_food_grid_view, parent, false);
+        else itemView = layoutInflater.inflate(R.layout.item_food_list_view, parent, false);
         return new FoodViewHolder(itemView);
     }
 

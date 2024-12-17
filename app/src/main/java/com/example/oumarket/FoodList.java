@@ -132,7 +132,7 @@ public class FoodList extends AppCompatActivity implements BottomSheetDialogSave
                     list.add(food);
                 }
 
-                adapter = new FoodAdapter(list, FoodList.this, R.layout.item_food);
+                adapter = new FoodAdapter(list, FoodList.this, R.layout.item_food_grid_view);
                 SetUpRecyclerView.setupGridLayout(FoodList.this, recyclerView, adapter, 2, RecyclerView.VERTICAL);
             }
 
@@ -210,11 +210,11 @@ public class FoodList extends AppCompatActivity implements BottomSheetDialogSave
                 sortByComparator((a, b) -> -a.sortByRating(b));
                 break;
             case "list_view":
-                adapter.setItem_layout(R.layout.test);
+                adapter.setItem_layout(R.layout.item_food_list_view);
                 SetUpRecyclerView.setupLinearLayout(this, recyclerView, adapter);
                 break;
             case "grid_view":
-                adapter.setItem_layout(R.layout.item_food);
+                adapter.setItem_layout(R.layout.item_food_grid_view);
                 SetUpRecyclerView.setupGridLayout(this, recyclerView, adapter, 2, RecyclerView.VERTICAL);
                 break;
         }

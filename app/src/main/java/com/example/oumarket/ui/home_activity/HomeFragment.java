@@ -6,7 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,9 +22,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -125,7 +121,7 @@ public class HomeFragment extends Fragment {
                     listAdapter.add(list.get(i));
                 }
 
-                FoodAdapter foodAdapter = new FoodAdapter(listAdapter, getContext(), R.layout.item_food);
+                FoodAdapter foodAdapter = new FoodAdapter(listAdapter, getContext(), R.layout.item_food_grid_view);
                 SetUpRecyclerView.setupGridLayout(getContext(), recyclerView_all_food, foodAdapter, 2, RecyclerView.VERTICAL);
             }
 
