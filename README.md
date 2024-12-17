@@ -1,14 +1,6 @@
-Link to get URL of Image: https://github.com/HuuTuan180404/Image_OU-sMarket
+Android project is type of app order food. This name of app is "OuM"
 
+You can download file APK to install the application experience on your Android phone.
+    This is link file APK to install: https://drive.google.com/file/d/1FVoS7BeZvqiSYsf0lhx3Ca9UplIcG_N6/view?usp=sharing
 
-How to Install this app
-
-- First, download google-services.json file: https://drive.google.com/file/d/1kha5LPrCNtlEmBnMf03eo3PYjVWbYxdX/view?usp=sharing
-
-- Second, move your downloaded google-services.json file
-into your module (app-level) root directory, like that: 
-![image](https://github.com/user-attachments/assets/d68fd821-67ec-44f5-9ac8-16cac019bc4e)
-
-
-
-
+## **During the experiencing, if my project has errors, please give feedback on the errors you receive so that I can complete my project. Thanks you, very..very much**
