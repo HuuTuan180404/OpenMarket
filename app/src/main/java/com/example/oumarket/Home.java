@@ -166,10 +166,16 @@ public class Home extends AppCompatActivity {
             permissionsToRequest.add(android.Manifest.permission.ACCESS_COARSE_LOCATION);
         }
 
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            permissionsToRequest.add(android.Manifest.permission.POST_NOTIFICATIONS);
+        }
+
         // Nếu còn quyền chưa được cấp, yêu cầu tất cả trong một lần
         if (!permissionsToRequest.isEmpty()) {
             ActivityCompat.requestPermissions(this, permissionsToRequest.toArray(new String[0]), PERMISSION_REQUEST_CODE);
         }
+
+
     }
 
     private void vissibaleFragmentSearch() {

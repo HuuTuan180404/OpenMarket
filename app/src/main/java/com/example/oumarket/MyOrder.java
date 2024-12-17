@@ -11,6 +11,7 @@ import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.oumarket.Adapter.ViewPagerMyOrderAdapter;
+import com.example.oumarket.Class.Customer_LoadingDialog;
 import com.example.oumarket.Class.User;
 import com.example.oumarket.Common.Common;
 import com.google.android.material.tabs.TabLayout;
@@ -46,10 +47,14 @@ public class MyOrder extends AppCompatActivity {
 
         if (Common.CURRENTUSER == null) {
 
+            Customer_LoadingDialog dialog = new Customer_LoadingDialog(this, "Loading...");
+            dialog.show();
+
             String user = Paper.book().read(Common.USERNAME_KEY);
             String password = Paper.book().read(Common.PASSWORD_KEY);
 
             FirebaseAuth.getInstance().signInWithEmailAndPassword(user, password).addOnCompleteListener(MyOrder.this, task -> {
+
                 if (task.isSuccessful()) {
                     String userUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
                     Common.FIREBASE_DATABASE.getReference(Common.REF_USERS).child(userUid).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -61,12 +66,15 @@ public class MyOrder extends AppCompatActivity {
                             viewPager2.setAdapter(viewPageMyOrderAdapter);
 
                             tabLayout.setupWithViewPager(viewPager2);
+                            dialog.dismiss();
                         }
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
                         }
                     });
+                } else {
+                    dialog.dismiss();
                 }
             });
 

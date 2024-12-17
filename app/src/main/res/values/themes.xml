@@ -12,6 +12,11 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="Customer.Logo" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@drawable/logo</item>
+    </style>
+
+
     <style name="Theme.OuMarket.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.OuMarket.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
