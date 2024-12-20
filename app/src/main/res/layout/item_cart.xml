@@ -20,17 +20,35 @@
             android:layout_marginLeft="10sp"
             android:layout_marginRight="10sp"
             android:background="@drawable/border"
-            android:backgroundTint="@color/xanh_chuoi"
+            android:backgroundTint="#E8ECD7"
             android:gravity="center_vertical"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/item_cart_name"
-                style="@style/Customer.TextView"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="160sp"
-                android:text="name of food" />
+                android:layout_marginStart="130sp">
+
+                <TextView
+                    android:id="@+id/item_cart_name"
+                    style="@style/Customer.TextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/buy"
+                    android:gravity="center"
+                    android:maxLines="2"
+                    android:text="name of food" />
+
+                <com.rey.material.widget.CheckBox
+                    android:id="@+id/buy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="right" />
+
+            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -111,14 +129,6 @@
             android:textStyle="bold" />
 
     </LinearLayout>
-
-    <com.rey.material.widget.CheckBox
-        android:id="@+id/buy"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="40sp" />
 
     <TextView
         android:layout_width="match_parent"

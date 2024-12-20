@@ -36,7 +36,7 @@ public class FoodList extends AppCompatActivity implements BottomSheetDialogSave
 
     RecyclerView recyclerView;
 
-    String categoryId = "";
+    String categoryId;
 
     SearchView searchView;
     Toolbar toolbar;
@@ -53,8 +53,6 @@ public class FoodList extends AppCompatActivity implements BottomSheetDialogSave
         tv_noData = findViewById(R.id.tv_noData);
 
         toolbar = findViewById(R.id.toolbar_FoodList);
-
-        toolbar.setTitle("Category");
         setSupportActionBar(toolbar);
 
 //         firebase
@@ -66,7 +64,7 @@ public class FoodList extends AppCompatActivity implements BottomSheetDialogSave
         if (getIntent() != null) {
             categoryId = getIntent().getStringExtra("categoryId");
         }
-        if (!categoryId.isEmpty() && categoryId != "") {
+        if (!categoryId.isEmpty() && categoryId != null) {
             setupRecycler(categoryId);
         }
 
@@ -132,8 +130,8 @@ public class FoodList extends AppCompatActivity implements BottomSheetDialogSave
                     list.add(food);
                 }
 
-                adapter = new FoodAdapter(list, FoodList.this, R.layout.item_food_grid_view);
-                SetUpRecyclerView.setupGridLayout(FoodList.this, recyclerView, adapter, 2, RecyclerView.VERTICAL);
+                adapter = new FoodAdapter(list, FoodList.this, R.layout.item_food_list_view);
+                SetUpRecyclerView.setupLinearLayout(FoodList.this, recyclerView, adapter);
             }
 
             @Override

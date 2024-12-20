@@ -31,20 +31,67 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/food_image"
-            android:layout_width="150dp"
-            android:layout_height="200dp"
+
+        <RelativeLayout
+            android:id="@+id/layout_pic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/image_default_load_category_faile" />
+            android:layout_marginTop="10dp">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="150dp"
+                android:layout_height="200dp"
+                app:cardCornerRadius="20dp">
+
+                <ImageView
+                    android:id="@+id/food_image"
+                    android:layout_width="150dp"
+                    android:layout_height="200dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/image_default_load_category_faile" />
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="20dp">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:id="@+id/discount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:fontFamily="@font/satoshi_variable"
+                        android:text="20%" />
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_below="@+id/discount"
+                        android:layout_centerHorizontal="true"
+                        android:src="@drawable/ic_sale" />
+
+                </RelativeLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+        </RelativeLayout>
+
 
         <TextView
             android:id="@+id/food_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/food_image"
+            android:layout_below="@+id/layout_pic"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="3dp"
             android:gravity="center"
@@ -126,28 +173,5 @@
 
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/layout_discount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/border"
-        android:padding="5dp">
-
-        <TextView
-            android:id="@+id/discount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:fontFamily="@font/satoshi_variable"
-            android:text="20%" />
-
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_below="@+id/discount"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/ic_sale" />
-
-    </RelativeLayout>
 
 </RelativeLayout>

@@ -38,7 +38,6 @@ public class FoodDetail extends AppCompatActivity {
 
     String foodId = "";
 
-    DatabaseReference data_foods;
 
     Food currentFood;
 
@@ -49,7 +48,6 @@ public class FoodDetail extends AppCompatActivity {
         setContentView(R.layout.activity_food_detail);
 
 //         innit firebase
-        data_foods = Common.FIREBASE_DATABASE.getReference(Common.REF_FOODS);
 
 //         init view
         button_cart = findViewById(R.id.button_cart);
@@ -116,14 +114,12 @@ public class FoodDetail extends AppCompatActivity {
     }
 
     private void getDetailFood(String foodId) {
-        data_foods.child(foodId).addValueEventListener(new ValueEventListener() {
+        Common.FIREBASE_DATABASE.getReference(Common.REF_FOODS).child(foodId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 currentFood = snapshot.getValue(Food.class);
 
-                String pathURL = currentFood.getURL() != null ? currentFood.getURL() : "";
-                Picasso picasso = new Picasso.Builder(FoodDetail.this).build();
-                picasso.load(pathURL).into(food_image_detail);
+                Picasso.get().load(currentFood.getURL()).into(food_image_detail);
 
                 food_name_detail.setTitle(currentFood.getName());
 

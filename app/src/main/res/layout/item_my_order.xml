@@ -44,15 +44,46 @@
             android:layout_weight="2"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/order_id"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0sp"
+                android:layout_height="0dp"
                 android:layout_marginLeft="10sp"
                 android:layout_weight="1"
-                android:fontFamily="@font/satoshi_variable"
-                android:gravity="center_vertical"
-                android:text="# id" />
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/order_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/satoshi_variable"
+                    android:gravity="center_vertical"
+                    android:text="1734416580248" />
+
+                <TextView
+                    android:layout_width="10sp"
+                    android:layout_height="10sp"
+                    android:layout_marginHorizontal="10dp"
+                    android:background="@drawable/rounded_20sp"
+                    android:backgroundTint="@color/gray" />
+
+                <TextView
+                    android:id="@+id/countItems"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10sp"
+                    android:fontFamily="@font/satoshi_variable"
+                    android:text="3" />
+
+                <TextView
+                    android:id="@+id/item_items"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10sp"
+                    android:fontFamily="@font/satoshi_variable"
+                    android:text="ITEMS" />
+
+            </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -65,7 +96,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/satoshi_variable"
-                    android:text="$" />
+                    android:text="@string/CURRENCY" />
 
                 <TextView
                     android:id="@+id/total"
@@ -89,29 +120,6 @@
                     android:fontFamily="@font/satoshi_variable"
                     android:text="TIME" />
 
-
-                <TextView
-                    android:layout_width="10sp"
-                    android:layout_height="10sp"
-                    android:layout_marginRight="10sp"
-                    android:background="@drawable/rounded_20sp"
-                    android:backgroundTint="@color/gray" />
-
-                <TextView
-                    android:id="@+id/countItems"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="10sp"
-                    android:fontFamily="@font/satoshi_variable"
-                    android:text="3" />
-
-                <TextView
-                    android:id="@+id/item_items"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="10sp"
-                    android:fontFamily="@font/satoshi_variable"
-                    android:text="ITEMS" />
 
             </LinearLayout>
 

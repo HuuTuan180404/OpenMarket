@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="30dp"
+    android:layout_marginHorizontal="10dp"
     android:layout_marginTop="10dp"
     android:background="@drawable/border">
 
@@ -18,7 +18,7 @@
         android:layout_width="120dp"
         android:layout_height="160dp"
         android:layout_marginVertical="20dp"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="10dp"
         app:cardCornerRadius="20dp">
 
         <ImageView
@@ -45,51 +45,85 @@
             android:layout_height="wrap_content"
             android:layout_marginVertical="5dp"
             android:gravity="center"
-            android:maxLines="2"
+            android:maxLines="1"
             android:text="name"
             android:theme="@style/Customer.TextView" />
 
-        <LinearLayout
-            android:id="@+id/layout_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="5dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-            <TextView
-                style="@style/Customer.TextView"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="@string/CURRENCY" />
-
-            <TextView
-                android:id="@+id/food_price"
-                style="@style/Customer.TextView"
+            <LinearLayout
+                android:id="@+id/layout_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="price" />
+                android:layout_marginVertical="5dp">
 
-        </LinearLayout>
+                <TextView
+                    style="@style/Customer.TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/CURRENCY" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="5dp">
+                <TextView
+                    android:id="@+id/food_price"
+                    style="@style/Customer.TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="price" />
 
-            <TextView
-                android:id="@+id/food_rate"
-                style="@style/Customer.TextView"
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="đánh giá" />
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/layout_price"
+                android:layout_marginVertical="5dp">
 
-            <ImageView
+                <TextView
+                    android:id="@+id/food_rate"
+                    style="@style/Customer.TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="đánh giá" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_star" />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/layout_discount"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_star" />
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
 
-        </LinearLayout>
+                android:background="@drawable/border"
+                android:padding="5dp">
+
+                <TextView
+                    android:id="@+id/discount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:fontFamily="@font/satoshi_variable"
+                    android:text="20%" />
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_below="@+id/discount"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/ic_sale" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
 
     </LinearLayout>
 
@@ -111,31 +145,5 @@
             android:textStyle="bold" />
 
     </LinearLayout>
-
-
-    <RelativeLayout
-        android:id="@+id/layout_discount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:background="@drawable/border"
-        android:padding="5dp">
-
-        <TextView
-            android:id="@+id/discount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:fontFamily="@font/satoshi_variable"
-            android:text="20%" />
-
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_below="@+id/discount"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/ic_sale" />
-
-    </RelativeLayout>
 
 </RelativeLayout>

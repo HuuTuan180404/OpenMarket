@@ -1,6 +1,7 @@
 package com.example.oumarket.Class;
 
 public class Food {
+
     private String id;
     private String categoryId;
     private String name;
@@ -11,7 +12,6 @@ public class Food {
 
     private int countRating;
     private int countStars;
-
 
     public Food() {
     }
@@ -25,7 +25,7 @@ public class Food {
         this.url = URL;
     }
 
-    public Food(String description, String discount, String categoryId, String name, String price, String URL, int countRating, int countStars) {
+    public Food(String description, String discount,  String categoryId, String name, String price, String URL, int countRating, int countStars) {
         this.description = description;
         this.discount = discount;
         this.categoryId = categoryId;
@@ -96,8 +96,8 @@ public class Food {
         return url;
     }
 
-    public void setURL(String URL) {
-        this.url = URL;
+    public void setURL(String url) {
+        this.url = url;
     }
 
     public String getDescription() {
@@ -156,15 +156,4 @@ public class Food {
         this.countRating = countRating;
     }
 
-    @Override
-    public String toString() {
-        return "Food{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", discount='" + discount + '\'' +
-                ", price='" + price + '\'' +
-                ", countRating=" + countRating +
-                ", countStars=" + countStars +
-                '}';
-    }
 }

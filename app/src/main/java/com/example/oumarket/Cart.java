@@ -1,5 +1,6 @@
 package com.example.oumarket;
 
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -243,10 +244,11 @@ public class Cart extends AppCompatActivity {
         }
     }
 
+    @SuppressLint("DefaultLocale")
     public void updateBill() {
         try (Database database = new Database(getBaseContext())) {
             List<Order> orders = database.getCarts();
-            int basketTotal = 0; // Tổng giá trị
+            double basketTotal = 0; // Tổng giá trị
             double discount = 0; // Giảm giá
             if (!orders.isEmpty()) {
                 for (Order order : orders) {
@@ -263,17 +265,21 @@ public class Cart extends AppCompatActivity {
                     }
                 }
 
+                String s;
                 if (basketTotal >= 0) {
-                    tv_basketTotal.setText(String.valueOf(basketTotal));
+                    s = String.format("%.1f", basketTotal);
+                    tv_basketTotal.setText(s);
                 } else tv_basketTotal.setText("---");
 
                 if (discount >= 0) {
-                    tv_discount.setText(String.valueOf(discount));
+                    s = String.format("%.1f", discount);
+                    tv_discount.setText(s);
                 } else tv_discount.setText("---");
 
                 double total = basketTotal - discount;
                 if (total >= 0) {
-                    tv_total.setText(String.valueOf(total));
+                    s = String.format("%.1f", total);
+                    tv_total.setText(s);
                 } else tv_total.setText("---");
             } else {
                 tv_basketTotal.setText("---");

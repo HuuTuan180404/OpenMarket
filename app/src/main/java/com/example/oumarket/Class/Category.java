@@ -1,11 +1,12 @@
 package com.example.oumarket.Class;
 
+import com.example.oumarket.Common.Common;
+
 public class Category {
 
     private String Name;
     private String URL;
     private String id = "";
-
 
     public Category() {
     }
@@ -13,6 +14,15 @@ public class Category {
     public Category(String name, String uRL) {
         Name = name;
         URL = uRL;
+    }
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "Name='" + Name + '\'' +
+                ", URL='" + URL + '\'' +
+                ", id='" + id + '\'' +
+                '}';
     }
 
     public String getId() {
@@ -38,5 +48,5 @@ public class Category {
     public void setName(String name) {
         Name = name;
     }
-    
+
 }

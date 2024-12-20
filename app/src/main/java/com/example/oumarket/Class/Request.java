@@ -22,6 +22,11 @@ public class Request {
         this.status = status;
     }
 
+    public String getTime() {
+
+        return "";
+    }
+
     ////////////////////////////////
 //    getter + setter
     public String getIdCurrentUser() {

@@ -23,7 +23,7 @@ public class Common {
     public static User CURRENTUSER;
 
     public static final FirebaseDatabase FIREBASE_DATABASE = FirebaseDatabase.getInstance();
-    public static final String REF_CATEGORIES = "Category";
+    public static final String REF_CATEGORIES = "Categories";
     public static final String REF_FOODS = "Foods";
     public static final String REF_USERS = "User";
     public static final String REF_REQUESTS = "Requests";
@@ -33,7 +33,7 @@ public class Common {
 
     public static final int TOP_BEST_SELLER = 6;
 
-    public static String CURRENCY = "$";
+    public static String CURRENCY = "đ";
 
     public static final int NOTIFICATION_ID = 1;
     public static final String CHANNEL_CART = "1";
