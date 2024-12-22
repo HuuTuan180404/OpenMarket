@@ -98,7 +98,6 @@ public class HomeFragment extends Fragment {
                         list.remove(i);
                     }
                 }
-
                 BestSellerAdapter bestSellerAdapter = new BestSellerAdapter(getContext(), list);
                 SetUpRecyclerView.setupGridLayout(getContext(), recyclerView_bestSeller, bestSellerAdapter, 1, RecyclerView.HORIZONTAL);
             }

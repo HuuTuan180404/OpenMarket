@@ -117,6 +117,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodViewHolder> {
     public void onBindViewHolder(@NonNull FoodViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Food food = list.get(position);
         Picasso.get().load(food.getUrl()).into(holder.food_image);
+
         holder.food_name.setText(food.getName());
         holder.food_price.setText(food.getPrice());
         holder.discount.setText(food.getDiscount() + "%");

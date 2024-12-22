@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.oumarket.Class.AboutMeActivity;
 import com.example.oumarket.Common.Common;
 import com.example.oumarket.ui.home_activity.HomeFragment;
 import com.example.oumarket.ui.home_activity.HomeSearchFragment;
@@ -239,6 +240,15 @@ public class Home extends AppCompatActivity {
             frameLayout_search.setVisibility(View.GONE);
             searchView.onActionViewCollapsed();
             return true;
+        });
+
+        MenuItem item_about_me = menu.findItem(R.id.action_about_me);
+        item_about_me.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(@NonNull MenuItem item) {
+                startActivity(new Intent(Home.this, AboutMeActivity.class));
+                return false;
+            }
         });
 
         return true;
