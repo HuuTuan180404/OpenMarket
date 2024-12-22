@@ -25,7 +25,7 @@ public class Food {
         this.url = URL;
     }
 
-    public Food(String description, String discount,  String categoryId, String name, String price, String URL, int countRating, int countStars) {
+    public Food(String description, String discount, String categoryId, String name, String price, String URL, int countRating, int countStars) {
         this.description = description;
         this.discount = discount;
         this.categoryId = categoryId;
@@ -53,15 +53,15 @@ public class Food {
             double ratingA = (double) this.getCountStars() / this.countRating;
             double ratingB = (double) other.getCountStars() / other.countRating;
             if (ratingA == ratingB) {
-                double priceA = Double.parseDouble(this.price) * (100 - Double.parseDouble(this.getDiscount()));
-                double priceB = Double.parseDouble(other.price) * (100 - Double.parseDouble(other.getDiscount()));
+                double priceA = Double.parseDouble(this.getDiscount());
+                double priceB = Double.parseDouble(other.getDiscount());
 
                 return priceA > priceB ? 1 : -1;
             }
             return ratingA > ratingB ? 1 : -1;
         } else if (this.getCountRating() == 0 && other.getCountRating() == 0) {
-            double priceA = Double.parseDouble(this.price) * (100 - Double.parseDouble(this.getDiscount()));
-            double priceB = Double.parseDouble(other.price) * (100 - Double.parseDouble(other.getDiscount()));
+            double priceA = Double.parseDouble(this.getDiscount());
+            double priceB = Double.parseDouble(other.getDiscount());
 
             return priceA > priceB ? 1 : -1;
         }
@@ -84,36 +84,23 @@ public class Food {
         return this.sortForBestSeller(other);
     }
 
+    public String getPriceAfterDiscount() {
+        double i = Double.parseDouble(this.getPrice()) * (100 - Double.parseDouble(this.getDiscount())) / 100;
+        return String.format("%.0f", i);
+    }
+
+    public String getRating() {
+        if (this.countRating == 0) return "---";
+        double i = (double) this.getCountStars() / this.countRating;
+        return String.format("%.1f", i);
+    }
+
     public String getId() {
         return id;
     }
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getURL() {
-        return url;
-    }
-
-    public void setURL(String url) {
-        this.url = url;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(String discount) {
-        this.discount = discount;
     }
 
     public String getCategoryId() {
@@ -132,6 +119,22 @@ public class Food {
         this.name = name;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(String discount) {
+        this.discount = discount;
+    }
+
     public String getPrice() {
         return price;
     }
@@ -140,12 +143,12 @@ public class Food {
         this.price = price;
     }
 
-    public int getCountStars() {
-        return countStars;
+    public String getUrl() {
+        return url;
     }
 
-    public void setCountStars(int countStars) {
-        this.countStars = countStars;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public int getCountRating() {
@@ -156,4 +159,11 @@ public class Food {
         this.countRating = countRating;
     }
 
+    public int getCountStars() {
+        return countStars;
+    }
+
+    public void setCountStars(int countStars) {
+        this.countStars = countStars;
+    }
 }

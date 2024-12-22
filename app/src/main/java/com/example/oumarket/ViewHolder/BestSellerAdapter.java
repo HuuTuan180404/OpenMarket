@@ -33,7 +33,7 @@ class BestSellerViewHolder extends RecyclerView.ViewHolder implements View.OnCli
         super(itemView);
         pic = itemView.findViewById(R.id.pic);
         name_of_food = itemView.findViewById(R.id.name_of_food);
-        price = itemView.findViewById(R.id.price);
+        price = itemView.findViewById(R.id.price_before_discount);
         count_star = itemView.findViewById(R.id.count_star);
         textView_plus = itemView.findViewById(R.id.textView_plus);
     }
@@ -68,7 +68,7 @@ public class BestSellerAdapter extends RecyclerView.Adapter<BestSellerViewHolder
 
         Food food = list.get(position);
 
-        Picasso.get().load(food.getURL()).into(holder.pic);
+        Picasso.get().load(food.getUrl()).into(holder.pic);
         holder.name_of_food.setText(food.getName());
         holder.price.setText(Common.CURRENCY + food.getPrice());
         holder.pic.setOnClickListener(v -> {

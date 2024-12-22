@@ -175,7 +175,6 @@ public class Home extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, permissionsToRequest.toArray(new String[0]), PERMISSION_REQUEST_CODE);
         }
 
-
     }
 
     private void vissibaleFragmentSearch() {
@@ -247,6 +246,10 @@ public class Home extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId()==R.id.action_about_me){
+            Toast.makeText(this, "icon dau !", Toast.LENGTH_SHORT).show();
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 

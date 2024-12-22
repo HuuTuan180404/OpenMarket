@@ -3,6 +3,7 @@ package com.example.oumarket.ViewHolder;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -115,24 +116,18 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull FoodViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Food food = list.get(position);
-        Picasso.get().load(food.getURL()).into(holder.food_image);
-
+        Picasso.get().load(food.getUrl()).into(holder.food_image);
         holder.food_name.setText(food.getName());
         holder.food_price.setText(food.getPrice());
-
         holder.discount.setText(food.getDiscount() + "%");
-
         if (food.getDiscount().equals("0")) {
             holder.layout_discount.setVisibility(View.GONE);
         }
-
         if (food.getCountRating() != 0) {
-            float a = food.getCountStars() / food.getCountRating();
-            holder.food_rate.setText(a + "");
+            holder.food_rate.setText(food.getRating());
         } else {
             holder.food_rate.setText("---");
         }
-
         holder.add_to_cart.setOnClickListener(v -> {
             CuteToast.ct(context, "Đã thêm vào giỏ hàng", Toast.LENGTH_SHORT, CuteToast.SUCCESS, true).show();
             Order order = new Order(food.getId(), food.getName(), food.getPrice(), "1", food.getDiscount(), "0");
@@ -144,7 +139,6 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodViewHolder> {
             foodDetail.putExtra("FoodId", food.getId());
             context.startActivity(foodDetail);
         });
-
     }
 
     @Override

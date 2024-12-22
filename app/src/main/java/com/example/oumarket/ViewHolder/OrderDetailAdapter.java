@@ -37,7 +37,7 @@ class OrderDetailViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         super(itemView);
         image = itemView.findViewById(R.id.image);
         name = itemView.findViewById(R.id.name);
-        price = itemView.findViewById(R.id.price);
+        price = itemView.findViewById(R.id.price_before_discount);
         quantity = itemView.findViewById(R.id.quantity);
         discount = itemView.findViewById(R.id.discount);
         itemView.setOnClickListener(this);
@@ -95,7 +95,7 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailViewHold
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     Food food = snapshot.getValue(Food.class);
-                    Picasso.get().load(food.getURL()).into(holder.image);
+                    Picasso.get().load(food.getUrl()).into(holder.image);
                 }
             }
 

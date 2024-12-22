@@ -37,6 +37,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginBottom="10dp"
             android:fontFamily="@font/satoshi_variable"
+            android:gravity="center"
             android:maxLines="2"
             android:text="NULL" />
 

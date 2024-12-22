@@ -1,7 +1,5 @@
 package com.example.oumarket.Class;
 
-import com.example.oumarket.Common.Common;
-
 public class Category {
 
     private String Name;

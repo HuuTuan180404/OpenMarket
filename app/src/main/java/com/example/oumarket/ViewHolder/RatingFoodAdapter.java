@@ -68,7 +68,7 @@ public class RatingFoodAdapter extends RecyclerView.Adapter<RatingFoodViewHolder
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Food food = snapshot.getValue(Food.class);
-                Picasso.get().load(food.getURL()).into(holder.image_food);
+                Picasso.get().load(food.getUrl()).into(holder.image_food);
             }
 
             @Override

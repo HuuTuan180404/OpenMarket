@@ -59,6 +59,7 @@
                 app:cardCornerRadius="20dp">
 
                 <RelativeLayout
+                    android:id="@+id/layout_discount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/border"
@@ -93,7 +94,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/layout_pic"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="3dp"
+            android:layout_marginTop="5dp"
             android:gravity="center"
             android:maxLines="2"
             android:text="name"
@@ -103,7 +104,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/food_name"
-            android:layout_alignParentRight="true">
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="5dp">
 
             <TextView
                 android:id="@+id/food_rate"
@@ -124,7 +126,8 @@
             android:id="@+id/layout_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/food_name">
+            android:layout_below="@+id/food_name"
+            android:layout_marginTop="5dp">
 
             <TextView
                 style="@style/Customer.TextView"

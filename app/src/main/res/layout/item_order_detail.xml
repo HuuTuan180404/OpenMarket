@@ -58,7 +58,7 @@
                 android:text="@string/CURRENCY" />
 
             <TextView
-                android:id="@+id/price"
+                android:id="@+id/price_before_discount"
                 style="@style/Customer.TextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

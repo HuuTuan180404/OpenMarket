@@ -3,9 +3,11 @@ package com.example.oumarket;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,23 +23,21 @@ import com.example.oumarket.Database.Database;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.rejowan.cutetoast.CuteToast;
 import com.squareup.picasso.Picasso;
 
 public class FoodDetail extends AppCompatActivity {
 
-    TextView food_price_detail, food_description_detail;
+    TextView price_after_discount, food_description_detail, rating, price_before_discount;
     Toolbar food_name_detail;
     ImageView food_image_detail;
     Button btn_increase, btn_decrease;
     EditText edittext_quantity;
-
+    RelativeLayout layout_before_discount;
     FloatingActionButton button_cart;
 
     String foodId = "";
-
 
     Food currentFood;
 
@@ -47,14 +47,15 @@ public class FoodDetail extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_food_detail);
 
-//         innit firebase
-
 //         init view
         button_cart = findViewById(R.id.button_cart);
         food_description_detail = findViewById(R.id.food_description_detail);
         food_name_detail = findViewById(R.id.toolbar_food_name);
-        food_price_detail = findViewById(R.id.food_price_detail);
+        price_after_discount = findViewById(R.id.price_after_discount);
         food_image_detail = findViewById(R.id.food_image_detail);
+        rating = findViewById(R.id.rating);
+        price_before_discount = findViewById(R.id.price_before_discount);
+        layout_before_discount = findViewById(R.id.layout_before_discount);
 
 //         init number picker
         btn_increase = findViewById(R.id.button_Increase);
@@ -119,11 +120,17 @@ public class FoodDetail extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 currentFood = snapshot.getValue(Food.class);
 
-                Picasso.get().load(currentFood.getURL()).into(food_image_detail);
+                Picasso.get().load(currentFood.getUrl()).into(food_image_detail);
 
                 food_name_detail.setTitle(currentFood.getName());
 
-                food_price_detail.setText(currentFood.getPrice());
+                rating.setText(currentFood.getRating());
+
+                price_before_discount.setText(currentFood.getPrice());
+                price_after_discount.setText(currentFood.getPriceAfterDiscount());
+                if (currentFood.getDiscount().equals("0")) {
+                    layout_before_discount.setVisibility(View.GONE);
+                } else layout_before_discount.setVisibility(View.VISIBLE);
 
                 food_description_detail.setText(currentFood.getDescription());
 

@@ -27,6 +27,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -129,7 +130,7 @@ public class FoodList extends AppCompatActivity implements BottomSheetDialogSave
                     food.setId(dataSnapshot.getKey());
                     list.add(food);
                 }
-
+                Collections.shuffle(list);
                 adapter = new FoodAdapter(list, FoodList.this, R.layout.item_food_list_view);
                 SetUpRecyclerView.setupLinearLayout(FoodList.this, recyclerView, adapter);
             }
