@@ -119,7 +119,7 @@ public class FoodDetail extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 currentFood = snapshot.getValue(Food.class);
 
-                Picasso.get().load(currentFood.getURL()).into(food_image_detail);
+                Picasso.get().load(currentFood.getUrl()).into(food_image_detail);
 
                 food_name_detail.setTitle(currentFood.getName());
 

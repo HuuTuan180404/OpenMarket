@@ -101,8 +101,8 @@ public class HomeFragment extends Fragment {
 
 
 
-//                BestSellerAdapter bestSellerAdapter = new BestSellerAdapter(getContext(), list);
-//                SetUpRecyclerView.setupGridLayout(getContext(), recyclerView_bestSeller, bestSellerAdapter, 1, RecyclerView.HORIZONTAL);
+                BestSellerAdapter bestSellerAdapter = new BestSellerAdapter(getContext(), list);
+                SetUpRecyclerView.setupGridLayout(getContext(), recyclerView_bestSeller, bestSellerAdapter, 1, RecyclerView.HORIZONTAL);
             }
 
             @Override

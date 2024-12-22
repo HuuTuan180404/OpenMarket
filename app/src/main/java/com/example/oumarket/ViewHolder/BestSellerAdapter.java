@@ -68,7 +68,7 @@ public class BestSellerAdapter extends RecyclerView.Adapter<BestSellerViewHolder
 
         Food food = list.get(position);
 
-        Picasso.get().load(food.getURL()).into(holder.pic);
+        Picasso.get().load(food.getUrl()).into(holder.pic);
         holder.name_of_food.setText(food.getName());
         holder.price.setText(Common.CURRENCY + food.getPrice());
         holder.pic.setOnClickListener(v -> {

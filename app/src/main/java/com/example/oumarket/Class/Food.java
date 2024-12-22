@@ -92,12 +92,20 @@ public class Food {
         this.id = id;
     }
 
-    public String getURL() {
-        return url;
+    public String getCategoryId() {
+        return categoryId;
     }
 
-    public void setURL(String url) {
-        this.url = url;
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
@@ -116,22 +124,6 @@ public class Food {
         this.discount = discount;
     }
 
-    public String getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(String categoryId) {
-        this.categoryId = categoryId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getPrice() {
         return price;
     }
@@ -140,12 +132,12 @@ public class Food {
         this.price = price;
     }
 
-    public int getCountStars() {
-        return countStars;
+    public String getUrl() {
+        return url;
     }
 
-    public void setCountStars(int countStars) {
-        this.countStars = countStars;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public int getCountRating() {
@@ -156,4 +148,11 @@ public class Food {
         this.countRating = countRating;
     }
 
+    public int getCountStars() {
+        return countStars;
+    }
+
+    public void setCountStars(int countStars) {
+        this.countStars = countStars;
+    }
 }
