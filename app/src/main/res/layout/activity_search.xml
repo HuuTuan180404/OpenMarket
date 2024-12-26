@@ -5,8 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     android:background="@color/white"
+    android:fitsSystemWindows="true"
     tools:context=".Activity.SearchActivity">
 
     <ImageView
@@ -20,13 +20,24 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:menu="@menu/menu_search_activity"
-            app:title="Tìm món ngon ở đây"
-            app:navigationIcon="@drawable/im_back" />
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            app:cardCornerRadius="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:menu="@menu/menu_search_activity"
+                app:navigationIcon="@drawable/im_back"
+                app:title="Tìm món ngon ở đây" />
+        </androidx.cardview.widget.CardView>
 
         <TextView
             android:id="@+id/tv_noData"
@@ -34,8 +45,8 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:gravity="center"
-            android:textSize="20sp"
             android:text="Không tìm thấy kết quả phù hợp"
+            android:textSize="20sp"
             android:visibility="gone" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -44,9 +55,5 @@
             android:layout_height="wrap_content"
             android:layout_margin="5sp"
             android:scrollbars="vertical" />
-
-
     </LinearLayout>
-
-
 </FrameLayout>

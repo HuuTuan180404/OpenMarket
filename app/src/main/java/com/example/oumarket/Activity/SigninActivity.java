@@ -59,6 +59,8 @@ public class SigninActivity extends AppCompatActivity {
         if (user != null && password != null) {
             checkBox.setChecked(true);
             if (!user.isEmpty() && !password.isEmpty()) {
+                edit_email.setText(user);
+                edit_password.setText(password);
                 loadingDialog.show();
                 login(user, password);
             }

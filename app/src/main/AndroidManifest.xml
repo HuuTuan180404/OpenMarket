@@ -24,7 +24,13 @@
         android:theme="@style/Theme.OuMarket"
         tools:targetApi="31">
         <activity
-            android:name=".AboutMeActivity"
+            android:name=".Activity.SearchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.Tesst"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.AboutMeActivity"
             android:exported="false" />
 
         <meta-data
@@ -35,78 +41,74 @@
             android:value="cloudinary://564718357889346:TfxQE6I3edoX7yeQrglD0avshDQ@dv2zyrxsv" />
 
         <activity
-            android:name=".SelectAddressActivity"
+            android:name=".Activity.SelectAddressActivity"
             android:exported="false"
             android:theme="@style/Theme.OuMarket" />
         <activity
-            android:name=".ProfileActivity"
+            android:name=".Activity.ProfileActivity"
             android:exported="false"
-            android:parentActivityName=".Home"
+            android:parentActivityName=".Activity.HomeActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ForgotPasswordActivity"
+            android:name=".Activity.ForgotPasswordActivity"
             android:exported="false"
-            android:parentActivityName=".Signin"
+            android:parentActivityName=".Activity.SigninActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".RatingFoodActivity"
+            android:name=".Activity.RatingFoodActivity"
             android:exported="false"
-            android:parentActivityName=".MyOrder"
+            android:parentActivityName=".Activity.MyOrderActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".YourAddressesActivity"
+            android:name=".Activity.YourAddressesActivity"
             android:exported="false"
-            android:parentActivityName=".Home"
+            android:parentActivityName=".Activity.HomeActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".AddNewAddressActivity"
+            android:name=".Activity.AddNewAddressActivity"
             android:exported="false"
             android:label="@string/title_activity_maps"
-            android:parentActivityName=".YourAddressesActivity"
+            android:parentActivityName=".Activity.YourAddressesActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Signin"
-            android:exported="false"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity
-            android:name=".Signup"
-            android:exported="false"
-            android:parentActivityName=".Signin"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name=".Home"
+            android:name=".Activity.SigninActivity"
             android:exported="true"
-            android:screenOrientation="portrait"
-
-            android:theme="@style/Theme.OuMarket.NoActionBar" >
-
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
-            android:name=".MyOrder"
+            android:name=".Activity.SignupActivity"
             android:exported="false"
-            android:parentActivityName=".Home"
+            android:parentActivityName=".Activity.SigninActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Cart"
+            android:name=".Activity.HomeActivity"
             android:exported="false"
-            android:parentActivityName=".Home"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.OuMarket.NoActionBar" />
+        <activity
+            android:name=".Activity.MyOrderActivity"
+            android:exported="false"
+            android:parentActivityName=".Activity.HomeActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".FoodDetail"
+            android:name=".Activity.CartActivity"
             android:exported="false"
-            android:parentActivityName=".FoodList"
+            android:parentActivityName=".Activity.HomeActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".FoodList"
+            android:name=".Activity.FoodDetailActivity"
             android:exported="false"
-            android:parentActivityName=".Home"
+            android:parentActivityName=".Activity.FoodListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.FoodListActivity"
+            android:exported="false"
+            android:parentActivityName=".Activity.HomeActivity"
             android:screenOrientation="portrait" />
 
         <receiver android:name=".Class.Notification" />
