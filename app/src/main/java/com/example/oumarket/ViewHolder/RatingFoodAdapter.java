@@ -80,7 +80,7 @@ public class RatingFoodAdapter extends RecyclerView.Adapter<RatingFoodViewHolder
         holder.ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                int int_rating = (int) rating;
+                int int_rating = (int) Math.ceil(rating);
 
                 String s;
                 int color;
@@ -114,6 +114,7 @@ public class RatingFoodAdapter extends RecyclerView.Adapter<RatingFoodViewHolder
                 holder.ratingBar.setRating(int_rating);
             }
         });
+
         holder.image_food.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

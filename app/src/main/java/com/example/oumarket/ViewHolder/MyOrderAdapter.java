@@ -92,6 +92,7 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderViewHolder> {
 
     public void setList(List<Request> list) {
         this.list = list;
+        notifyDataSetChanged();
     }
 
     public Context getContext() {
@@ -113,24 +114,10 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderViewHolder> {
     @SuppressLint("ResourceAsColor")
     @Override
     public void onBindViewHolder(@NonNull MyOrderViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        if (list.get(position).getStatus().equals("0")) { //ongoing
-            holder.status.setVisibility(View.GONE);
-            holder.status.setText(R.string.status_0);
-            holder.buttonLayoutHistory.setVisibility(View.GONE);
-        } else { // history
-            holder.buttonLayoutOngoing.setVisibility(View.GONE);
-            holder.status.setText(R.string.status_1);
-            holder.status.setTextColor(ContextCompat.getColor(context, R.color.xanh_chuoi));
-            if (list.get(position).getStatus().equals("-1")) {
-                holder.rate.setVisibility(View.INVISIBLE);
-                holder.status.setText(R.string.status__1);
-                holder.status.setTextColor(ContextCompat.getColor(context, R.color.Do));
-            }
-        }
 
         holder.idRequest.setText(list.get(position).getIdRequest());
         holder.total.setText(list.get(position).getTotal());
-        holder.time.setText("TIME");
+        holder.time.setText(list.get(position).getTime());
 
         int countItems = (list.get(position).getOrders()).size();
         holder.countItems.setText(String.valueOf(countItems));
@@ -192,6 +179,7 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderViewHolder> {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 Common.FIREBASE_DATABASE.getReference(Common.REF_REQUESTS).child(list.get(position).getIdRequest()).child("status").setValue("-1");
+                                list.get(position).setStatus("-1");
                             }
                         });
 
@@ -202,8 +190,6 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderViewHolder> {
                         });
 
                         builder.show();
-
-
                     }
                 }
 
@@ -220,6 +206,21 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderViewHolder> {
             AppCompatActivity activity = (AppCompatActivity) context;
             fragment.show(activity.getSupportFragmentManager(), "OrderDetailFragment");
         });
+
+        if (list.get(position).getStatus().equals("0")) { //ongoing
+            holder.status.setVisibility(View.GONE);
+            holder.status.setText(R.string.status_0);
+            holder.buttonLayoutHistory.setVisibility(View.GONE);
+        } else {
+            holder.buttonLayoutOngoing.setVisibility(View.GONE);
+            holder.status.setText(R.string.status_1);
+            holder.status.setTextColor(ContextCompat.getColor(context, R.color.xanh_chuoi));
+            if (list.get(position).getStatus().equals("-1")) {
+                holder.rate.setVisibility(View.INVISIBLE);
+                holder.status.setText(R.string.status__1);
+                holder.status.setTextColor(ContextCompat.getColor(context, R.color.Do));
+            }
+        }
 
     }
 

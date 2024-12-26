@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -83,7 +84,6 @@ public class HistoryFragment extends Fragment {
                 Collections.reverse(data);
 
                 adapter.setList(data);
-                adapter.notifyDataSetChanged();
 
                 if (adapter.getList().isEmpty()) null_orders.setVisibility(View.VISIBLE);
                 else null_orders.setVisibility(View.GONE);

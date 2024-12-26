@@ -149,7 +149,7 @@ public class Cart extends AppCompatActivity {
             builder.setMessage("Are you sure?");
             builder.setPositiveButton("Yes", (dialog, which) -> {
                 int position = viewHolder.getAdapterPosition();
-                database1.removeItems(adapter.getList().get(position));
+//                database1.removeItems(adapter.getList().get(position));
                 adapter.removeOrder(position);
                 adapter.notifyItemRemoved(position);
                 updateBill();
@@ -178,9 +178,8 @@ public class Cart extends AppCompatActivity {
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
         if (alarmManager != null) {
-            long triggerTime = System.currentTimeMillis() + delayTime; // Thời gian kích hoạt
+            long triggerTime = System.currentTimeMillis() + delayTime;
             alarmManager.set(AlarmManager.RTC_WAKEUP, triggerTime, pendingIntent);
-
         }
 
     }
@@ -214,15 +213,34 @@ public class Cart extends AppCompatActivity {
                         break;
                     }
                 }
+
                 if (!notEmpty) {
                     CuteToast.ct(getBaseContext(), "Không có sản phẩm nào", Toast.LENGTH_SHORT, CuteToast.WARN, true).show();
                 } else {
+
+                    List<Order> listOrder = new ArrayList<>();
+                    for (Order i : adapter.getList()) {
+                        if (i.getIsBuy().equals("1")) {
+                            listOrder.add(i);
+                        }
+                    }
                     String id = String.valueOf(System.currentTimeMillis());
-                    Request request = new Request(id, Common.CURRENTUSER.getIdUser(), tv_basketTotal.getText().toString(), cart, diaChi, "0");
+                    Request request = new Request(id, Common.CURRENTUSER.getIdUser(), tv_basketTotal.getText().toString(), listOrder, diaChi, "0");
                     scheduleNotification(Common.DELAY_TIME, id);
                     data_requests.child(id).setValue(request);
-                    database.cleanCart();
+
                     CuteToast.ct(getBaseContext(), "Thank you", Toast.LENGTH_SHORT, CuteToast.SUCCESS, true).show();
+
+                    database.cleanCart();
+
+                    listOrder = new ArrayList<>();
+                    for (Order i : adapter.getList()) {
+                        if (i.getIsBuy().equals("0")) {
+                            listOrder.add(i);
+                        }
+                    }
+                    database.add_list_to_cart(listOrder);
+
                     finish();
                 }
             }

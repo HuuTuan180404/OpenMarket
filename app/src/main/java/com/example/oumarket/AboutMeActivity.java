@@ -1,17 +1,11 @@
-package com.example.oumarket.Class;
+package com.example.oumarket;
 
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
-import com.example.oumarket.R;
 
 public class AboutMeActivity extends AppCompatActivity {
     Toolbar toolbar;
@@ -24,7 +18,6 @@ public class AboutMeActivity extends AppCompatActivity {
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
     }
 

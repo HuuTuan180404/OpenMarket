@@ -6,10 +6,10 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ScrollView;
 
 import com.example.oumarket.Class.Category;
 import com.example.oumarket.Class.Food;
@@ -30,6 +30,7 @@ import java.util.List;
 public class HomeFragment extends Fragment {
 
     RecyclerView recyclerView_bestSeller, recyclerView_categories, recyclerView_all_food;
+
 
     public HomeFragment() {
     }
@@ -83,7 +84,6 @@ public class HomeFragment extends Fragment {
         Common.FIREBASE_DATABASE.getReference(Common.REF_FOODS).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
                 List<Food> list = new ArrayList<>();
                 Food food;
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
@@ -91,14 +91,15 @@ public class HomeFragment extends Fragment {
                     food.setId(dataSnapshot.getKey());
                     list.add(food);
                 }
-
+                List<Food> listAdapter = new ArrayList<>();
                 if (!list.isEmpty()) {
-                    list.sort((a, b) -> -a.sortForBestSeller(b));
-                    for (int i = list.size() - 1; i >= Common.TOP_BEST_SELLER; i--) {
-                        list.remove(i);
+                    list.sort(Food::sortByTopFood);
+                    for (int i = list.size() - 1 - Common.TOP_BEST_SELLER; i < list.size(); i++) {
+                        listAdapter.add(list.get(i));
                     }
                 }
-                BestSellerAdapter bestSellerAdapter = new BestSellerAdapter(getContext(), list);
+                Collections.reverse(listAdapter);
+                BestSellerAdapter bestSellerAdapter = new BestSellerAdapter(getContext(), listAdapter);
                 SetUpRecyclerView.setupGridLayout(getContext(), recyclerView_bestSeller, bestSellerAdapter, 1, RecyclerView.HORIZONTAL);
             }
 
@@ -120,21 +121,16 @@ public class HomeFragment extends Fragment {
                     food.setId(dataSnapshot.getKey());
                     list.add(food);
                 }
-
                 List<Food> listAdapter = new ArrayList<>();
-
                 if (!list.isEmpty()) {
-                    list.sort((a, b) -> a.sortForBestSeller(b));
-                    for (int i = Common.TOP_BEST_SELLER; i < list.size(); i++) {
+                    list.sort(Food::sortByTopFood);
+                    for (int i = 0; i < list.size() - Common.TOP_BEST_SELLER; i++) {
                         listAdapter.add(list.get(i));
                     }
                 }
-
                 Collections.shuffle(listAdapter);
-
                 FoodAdapter foodAdapter = new FoodAdapter(listAdapter, getContext(), R.layout.item_food_grid_view);
                 SetUpRecyclerView.setupGridLayout(getContext(), recyclerView_all_food, foodAdapter, 2, androidx.recyclerview.widget.RecyclerView.VERTICAL);
-
             }
 
             @Override

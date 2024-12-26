@@ -1,15 +1,12 @@
 package com.example.oumarket;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -77,7 +74,7 @@ public class RatingFoodActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_rating_activity, menu);
+        getMenuInflater().inflate(R.menu.menu_toolbar_rating_activity, menu);
         return super.onCreateOptionsMenu(menu);
     }
 

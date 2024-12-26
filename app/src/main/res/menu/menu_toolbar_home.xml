@@ -16,4 +16,10 @@
         android:title="About me"
         app:showAsAction="always" />
 
+    <item
+        android:id="@+id/action_log_out"
+        android:icon="@drawable/ic_exit_to_app_24"
+        android:title="Đăng xuất"
+        app:showAsAction="always" />
+
 </menu>

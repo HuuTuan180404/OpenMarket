@@ -144,7 +144,7 @@ public class FoodList extends AppCompatActivity implements BottomSheetDialogSave
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_food_list, menu);
+        getMenuInflater().inflate(R.menu.menu_toolbar_food_list, menu);
 
         MenuItem item_search = menu.findItem(R.id.action_search);
 

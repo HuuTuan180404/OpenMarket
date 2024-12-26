@@ -57,8 +57,6 @@ public class EditAvatarFragment extends BottomSheetDialogFragment implements Bot
 
         btn_luu = view.findViewById(R.id.btn_luu);
         btn_luu.setOnClickListener(v -> {
-
-
             if (uri == null) {
                 return;
             }
@@ -113,11 +111,16 @@ public class EditAvatarFragment extends BottomSheetDialogFragment implements Bot
     }
 
     private void initConfig() {
-        Map config = new HashMap();
-        config.put("cloud_name", "dv2zyrxsv");
-        config.put("api_key", "564718357889346");
-        config.put("api_secret", "TfxQE6I3edoX7yeQrglD0avshDQ");
-        MediaManager.init(getContext(), config);
+        try {
+            MediaManager.get(); // Kiểm tra nếu đã được khởi tạo
+        } catch (IllegalStateException e) {
+            // Chưa được khởi tạo, tiến hành khởi tạo
+            Map<String, Object> config = new HashMap<>();
+            config.put("cloud_name", "dv2zyrxsv");
+            config.put("api_key", "564718357889346");
+            config.put("api_secret", "TfxQE6I3edoX7yeQrglD0avshDQ");
+            MediaManager.init(getContext(), config);
+        }
     }
 
 
@@ -130,12 +133,10 @@ public class EditAvatarFragment extends BottomSheetDialogFragment implements Bot
     }
 
     private void selectPic() {
-
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intent, PIC_REQ);
-
     }
 
     @Override
@@ -144,6 +145,8 @@ public class EditAvatarFragment extends BottomSheetDialogFragment implements Bot
         if (requestCode == PIC_REQ && resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
             uri = data.getData();
             Picasso.get().load(uri).into(pic);
+        }else {
+            CuteToast.ct(getContext(), "Không có ảnh nào được chọn!", CuteToast.LENGTH_SHORT, CuteToast.INFO, true).show();
         }
     }
 
@@ -160,6 +163,7 @@ public class EditAvatarFragment extends BottomSheetDialogFragment implements Bot
     @Override
     public void onDetach() {
         super.onDetach();
+        uri=null;
         bottomSheetDialogSave = null;
     }
 

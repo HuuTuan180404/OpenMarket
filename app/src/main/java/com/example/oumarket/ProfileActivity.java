@@ -30,6 +30,8 @@ public class ProfileActivity extends AppCompatActivity implements BottomSheetDia
 
     ImageView ic_next_name, ic_next_phone, ic_next_password;
 
+    long lastClick = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,8 +50,8 @@ public class ProfileActivity extends AppCompatActivity implements BottomSheetDia
             Picasso.get().load(Common.CURRENTUSER.getUrl()).into(pic);
 
         pic.setOnClickListener(v -> {
-            EditAvatarFragment fragment = new EditAvatarFragment();
-            fragment.show(getSupportFragmentManager(), "EditAvatarFragment");
+            EditAvatarFragment fragmentAvatar = new EditAvatarFragment();
+            fragmentAvatar.show(getSupportFragmentManager(), "EditAvatarFragment");
         });
 
         name.setText(Common.CURRENTUSER.getName());
@@ -63,22 +65,22 @@ public class ProfileActivity extends AppCompatActivity implements BottomSheetDia
 
         email.setText(sEmail);
 
+        EditNameUserFragment fragmentName = new EditNameUserFragment();
         ic_next_name = findViewById(R.id.ic_next_name);
         ic_next_name.setOnClickListener(v -> {
-            EditNameUserFragment fragment = new EditNameUserFragment();
-            fragment.show(getSupportFragmentManager(), "EditNameUserFragment");
+            fragmentName.show(getSupportFragmentManager(), "EditNameUserFragment");
         });
 
+        EditPhoneUserFragment fragmentPhone = new EditPhoneUserFragment();
         ic_next_phone = findViewById(R.id.ic_next_phone);
         ic_next_phone.setOnClickListener(v -> {
-            EditPhoneUserFragment fragment = new EditPhoneUserFragment();
-            fragment.show(getSupportFragmentManager(), "EditPhoneUserFragment");
+            fragmentPhone.show(getSupportFragmentManager(), "EditPhoneUserFragment");
         });
 
+        ChangePasswordFragment fragmentPassword = new ChangePasswordFragment();
         ic_next_password = findViewById(R.id.ic_next_password);
         ic_next_password.setOnClickListener(v -> {
-            ChangePasswordFragment fragment = new ChangePasswordFragment();
-            fragment.show(getSupportFragmentManager(), "ChangePasswordFragment");
+            fragmentPassword.show(getSupportFragmentManager(), "ChangePasswordFragment");
         });
 
     }
@@ -101,7 +103,6 @@ public class ProfileActivity extends AppCompatActivity implements BottomSheetDia
 
         if (!Common.CURRENTUSER.getUrl().equals(" "))
             Picasso.get().load(Common.CURRENTUSER.getUrl()).into(pic);
-
     }
 
     @Override

@@ -78,8 +78,7 @@ public class BestSellerAdapter extends RecyclerView.Adapter<BestSellerViewHolder
         });
 
         if (food.getCountRating() != 0) {
-            float a = food.getCountStars() / food.getCountRating();
-            holder.count_star.setText(a + "");
+            holder.count_star.setText(food.getRating() + "");
         } else {
             holder.count_star.setText("---");
         }

@@ -39,5 +39,7 @@
     <color name="ratingVeryGood">#008000</color>     <!-- Xanh lá cây: Rất hài lòng -->
     <color name="ratingDefault">#CCCCCC</color>
 
+    <color name="selected_color">#ff7622</color>
+    <color name="unselected_color">#181e22</color>
 
 </resources>

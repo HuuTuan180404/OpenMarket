@@ -1,5 +1,7 @@
 package com.example.oumarket.Class;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class Request {
@@ -23,8 +25,18 @@ public class Request {
     }
 
     public String getTime() {
+        long timestamp = Long.parseLong(this.idRequest);
 
-        return "";
+        // Định dạng mong muốn: HH:mm:ss d/M/Y
+        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss d/M/y");
+
+        // Chuyển timestamp sang Date
+        Date date = new Date(timestamp);
+
+        // Chuyển sang chuỗi với định dạng mong muốn
+        String formattedDate = formatter.format(date);
+        
+        return formattedDate;
     }
 
     ////////////////////////////////

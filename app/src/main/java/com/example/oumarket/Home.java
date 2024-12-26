@@ -8,29 +8,29 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.Menu;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.oumarket.Class.AboutMeActivity;
+import com.example.oumarket.Class.User;
 import com.example.oumarket.Common.Common;
 import com.example.oumarket.ui.home_activity.HomeFragment;
 import com.example.oumarket.ui.home_activity.HomeSearchFragment;
-import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 
+
+import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.widget.NestedScrollView;
+import androidx.fragment.app.Fragment;
 
-import com.example.oumarket.databinding.ActivityHomeBinding;
-import com.rejowan.cutetoast.CuteToast;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,11 +39,11 @@ import io.paperdb.Paper;
 
 public class Home extends AppCompatActivity {
 
-    private ActivityHomeBinding binding;
+    Toolbar toolbar;
 
-    TextView txt_full_name;
+    FloatingActionButton fab, btn_scrollView;
 
-    ImageView avatarUser;
+    BottomNavigationView bottom_navigation_view;
 
     FrameLayout frameLayout_home, frameLayout_search;
     SearchView searchView;
@@ -54,100 +54,100 @@ public class Home extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        binding = ActivityHomeBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_home);
 
         Paper.init(this);
-
         requestPermissions();
 
-//        content home
-        setSupportActionBar(binding.appBarHome.toolbar);
+        if (Common.CURRENTUSER == null) {
+            String user = Paper.book().read(Common.USERNAME_KEY);
+            String password = Paper.book().read(Common.PASSWORD_KEY);
 
-        binding.appBarHome.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Home.this, Cart.class);
+            if (user != null && password != null) {
+                if (!user.isEmpty() && !password.isEmpty()) {
+                    login(user, password);
+                }
+            } else {
+                Intent intent = new Intent(Home.this, Signin.class);
+                startActivity(intent);
+                finish();
+            }
+        }
+        initView();
+    }
+
+    private void initView() {
+
+        btn_scrollView = findViewById(R.id.btn_scrollView);
+
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        fab = findViewById(R.id.fab);
+        fab.setOnClickListener(v -> {
+            Intent intent = new Intent(Home.this, Cart.class);
+            startActivity(intent);
+        });
+        bottom_navigation_view = findViewById(R.id.bottom_navigation_view);
+        bottom_navigation_view.setOnNavigationItemSelectedListener(menuItem -> {
+            int id = menuItem.getItemId();
+            if (id == R.id.nav_addresses) {
+                Intent intent = new Intent(Home.this, YourAddressesActivity.class);
+                startActivity(intent);
+            } else if (id == R.id.nav_orders) {
+                Intent intent = new Intent(Home.this, MyOrder.class);
+                startActivity(intent);
+            } else if (id == R.id.nav_profile) {
+                Intent intent = new Intent(Home.this, ProfileActivity.class);
                 startActivity(intent);
             }
-        });
 
-        DrawerLayout drawer = binding.drawerLayout;
-
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, binding.appBarHome.toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        ActionBar actionbar = getSupportActionBar();
-        actionbar.setDisplayHomeAsUpEnabled(true);
-        actionbar.setHomeAsUpIndicator(R.drawable.im_menu);
-
-        NavigationView navigationView = binding.navView;
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int id = item.getItemId();
-                if (id == R.id.nav_addresses) {
-                    Intent intent = new Intent(Home.this, YourAddressesActivity.class);
-                    startActivity(intent);
-                } else if (id == R.id.nav_cart) {
-                    Intent intent = new Intent(Home.this, Cart.class);
-                    startActivity(intent);
-                } else if (id == R.id.nav_orders) {
-                    Intent intent = new Intent(Home.this, MyOrder.class);
-                    startActivity(intent);
-                } else if (id == R.id.nav_log_out) {
-                    Paper.book().destroy();
-                    Intent intent = new Intent(Home.this, Signin.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
-                } else if (id == R.id.nav_profile) {
-                    Intent intent = new Intent(Home.this, ProfileActivity.class);
-                    startActivity(intent);
-                }
-                drawer.closeDrawer(GravityCompat.START);
-                return true;
-            }
+            return true;
         });
 
         homeSearchFragment = new HomeSearchFragment();
-
         frameLayout_home = findViewById(R.id.fragment_home_categories);
         frameLayout_search = findViewById(R.id.fragment_search);
         vissibaleFragmentSearch();
-
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_home_categories, new HomeFragment()).commit();
-
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_search, homeSearchFragment).commit();
 
-        View heardView = navigationView.getHeaderView(0);
-        txt_full_name = heardView.findViewById(R.id.txt_full_name);
-
-        avatarUser = heardView.findViewById(R.id.imageView);
-
-        if (!Common.CURRENTUSER.getUrl().equals(" "))
-            Picasso.get().load(Common.CURRENTUSER.getUrl()).into(avatarUser);
-
-        txt_full_name.setText(Common.CURRENTUSER.getName());
-
+        btn_scrollView.setOnClickListener(v -> {
+            scrollToTopOfCurrentFragment();
+        });
     }
 
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        if (requestCode == PERMISSION_REQUEST_CODE) {
-            for (int i = 0; i < permissions.length; i++) {
-                if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
-                    CuteToast.ct(this, permissions[i] + " granted!", Toast.LENGTH_SHORT, CuteToast.HAPPY, true).show();
-                } else {
-                    CuteToast.ct(this, permissions[i] + " denied!", Toast.LENGTH_SHORT, CuteToast.SAD, true).show();
-                }
+    private void scrollToTopOfCurrentFragment() {
+        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_home_categories);
+        if (currentFragment instanceof HomeFragment) {
+            NestedScrollView scrollView = currentFragment.getView().findViewById(R.id.nested_scroll_view);
+            if (scrollView != null) {
+                scrollView.smoothScrollTo(0, 0);
             }
         }
+    }
 
+    private void login(String email, String password) {
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password).addOnCompleteListener(Home.this, task -> {
+            if (task.isSuccessful()) {
+                String userUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                Common.FIREBASE_DATABASE.getReference(Common.REF_USERS).child(userUid).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        User user = snapshot.getValue(User.class);
+                        Common.CURRENTUSER = user;
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
+                });
+            } else {
+                Intent intent = new Intent(Home.this, Signin.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     private void requestPermissions() {
@@ -206,7 +206,7 @@ public class Home extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.home, menu);
+        getMenuInflater().inflate(R.menu.menu_toolbar_home, menu);
         MenuItem item = menu.findItem(R.id.action_search);
         searchView = (SearchView) item.getActionView();
         searchView.clearFocus();
@@ -251,20 +251,30 @@ public class Home extends AppCompatActivity {
             }
         });
 
-        return true;
-    }
+        MenuItem log_out = menu.findItem(R.id.action_log_out);
+        log_out.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(@NonNull MenuItem item) {
+                Paper.book().destroy();
+                Intent intent = new Intent(Home.this, Signin.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                return true;
+            }
+        });
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId()==R.id.action_about_me){
-            Toast.makeText(this, "icon dau !", Toast.LENGTH_SHORT).show();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+        return true;
     }
 
     @Override
     public boolean onSupportNavigateUp() {
         return true;
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        bottom_navigation_view.setSelectedItemId(R.id.nav_home);
+    }
 }
+

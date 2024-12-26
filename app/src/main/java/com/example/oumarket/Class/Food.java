@@ -1,5 +1,7 @@
 package com.example.oumarket.Class;
 
+import android.util.Log;
+
 public class Food {
 
     private String id;
@@ -48,32 +50,26 @@ public class Food {
         this.countRating = countRating;
     }
 
-    public int sortForBestSeller(Food other) {
-        if (this.getCountRating() != 0 && other.getCountRating() != 0) {
-            double ratingA = (double) this.getCountStars() / this.countRating;
-            double ratingB = (double) other.getCountStars() / other.countRating;
-            if (ratingA == ratingB) {
-                double priceA = Double.parseDouble(this.getDiscount());
-                double priceB = Double.parseDouble(other.getDiscount());
-
-                return priceA > priceB ? 1 : -1;
-            }
-            return ratingA > ratingB ? 1 : -1;
-        } else if (this.getCountRating() == 0 && other.getCountRating() == 0) {
-            double priceA = Double.parseDouble(this.getDiscount());
-            double priceB = Double.parseDouble(other.getDiscount());
-
-            return priceA > priceB ? 1 : -1;
+    public int sortByTopFood(Food other) {
+        int rating = this.sortByRating(other);
+        if (rating == 0) {
+            int discount = this.sortByDiscount(other);
+            if (discount == 0) return this.sortByName(other);
+            return discount;
         }
-        return this.getCountRating() > 0 ? 1 : -1;
+        return rating;
+    }
+
+    public int sortByDiscount(Food other) {
+        double a = Double.parseDouble(this.getDiscount());
+        double b = Double.parseDouble(other.getDiscount());
+        return Double.compare(a, b);
     }
 
     public int sortByPrice(Food other) {
-        double priceA = Double.parseDouble(this.price) * (100 - Double.parseDouble(this.getDiscount()));
-        double priceB = Double.parseDouble(other.price) * (100 - Double.parseDouble(other.getDiscount()));
-
-        return priceA > priceB ? 1 : -1;
-
+        double a = Double.parseDouble(this.price) * (100 - Double.parseDouble(this.getDiscount()));
+        double b = Double.parseDouble(other.price) * (100 - Double.parseDouble(other.getDiscount()));
+        return Double.compare(a, b);
     }
 
     public int sortByName(Food other) {
@@ -81,7 +77,13 @@ public class Food {
     }
 
     public int sortByRating(Food other) {
-        return this.sortForBestSeller(other);
+        if (this.countRating + other.getCountRating() == 0) return 0;
+        if (this.countRating != 0 && other.getCountRating() != 0) {
+            double a = (double) this.getCountStars() / this.countRating;
+            double b = (double) other.getCountStars() / other.countRating;
+            return Double.compare(a, b);
+        }
+        return this.countRating > 0 ? 1 : -1;
     }
 
     public String getPriceAfterDiscount() {
@@ -93,6 +95,11 @@ public class Food {
         if (this.countRating == 0) return "---";
         double i = (double) this.getCountStars() / this.countRating;
         return String.format("%.1f", i);
+    }
+
+    @Override
+    public String toString() {
+        return "Food{" + "id='" + id + '\'' + ", name='" + name + '\'' + ", countRating=" + countRating + ", countStars=" + countStars + '}';
     }
 
     public String getId() {

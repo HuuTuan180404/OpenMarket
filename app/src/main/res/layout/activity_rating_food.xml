@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:theme="@style/Customer.ToolBar"
-            app:menu="@menu/menu_rating_activity"
+            app:menu="@menu/menu_toolbar_rating_activity"
             app:navigationIcon="@drawable/im_back"
             app:title="Đánh giá sản phẩm" />
 
