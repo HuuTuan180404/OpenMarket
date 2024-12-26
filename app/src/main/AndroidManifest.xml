@@ -24,10 +24,7 @@
         android:theme="@style/Theme.OuMarket"
         tools:targetApi="31">
         <activity
-            android:name=".Activity.SearchActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Activity.AboutMeActivity"
+            android:name=".AboutMeActivity"
             android:exported="false" />
 
         <meta-data
@@ -38,74 +35,78 @@
             android:value="cloudinary://564718357889346:TfxQE6I3edoX7yeQrglD0avshDQ@dv2zyrxsv" />
 
         <activity
-            android:name=".Activity.SelectAddressActivity"
+            android:name=".SelectAddressActivity"
             android:exported="false"
             android:theme="@style/Theme.OuMarket" />
         <activity
-            android:name=".Activity.ProfileActivity"
+            android:name=".ProfileActivity"
             android:exported="false"
-            android:parentActivityName=".Activity.HomeActivity"
+            android:parentActivityName=".Home"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Activity.ForgotPasswordActivity"
+            android:name=".ForgotPasswordActivity"
             android:exported="false"
-            android:parentActivityName=".Activity.SigninActivity"
+            android:parentActivityName=".Signin"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Activity.RatingFoodActivity"
+            android:name=".RatingFoodActivity"
             android:exported="false"
-            android:parentActivityName=".Activity.MyOrderActivity"
+            android:parentActivityName=".MyOrder"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Activity.YourAddressesActivity"
+            android:name=".YourAddressesActivity"
             android:exported="false"
-            android:parentActivityName=".Activity.HomeActivity"
+            android:parentActivityName=".Home"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Activity.AddNewAddressActivity"
+            android:name=".AddNewAddressActivity"
             android:exported="false"
             android:label="@string/title_activity_maps"
-            android:parentActivityName=".Activity.YourAddressesActivity"
+            android:parentActivityName=".YourAddressesActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Activity.SigninActivity"
+            android:name=".Signin"
             android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".Activity.SignupActivity"
-            android:exported="false"
-            android:parentActivityName=".Activity.SigninActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".Activity.HomeActivity"
-            android:exported="true"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.OuMarket.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".Activity.MyOrderActivity"
+            android:name=".Signup"
             android:exported="false"
-            android:parentActivityName=".Activity.HomeActivity"
+            android:parentActivityName=".Signin"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".Home"
+            android:exported="true"
+            android:screenOrientation="portrait"
+
+            android:theme="@style/Theme.OuMarket.NoActionBar" >
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+        <activity
+            android:name=".MyOrder"
+            android:exported="false"
+            android:parentActivityName=".Home"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Activity.CartActivity"
+            android:name=".Cart"
             android:exported="false"
-            android:parentActivityName=".Activity.HomeActivity"
+            android:parentActivityName=".Home"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Activity.FoodDetailActivity"
+            android:name=".FoodDetail"
             android:exported="false"
-            android:parentActivityName=".Activity.FoodListActivity"
+            android:parentActivityName=".FoodList"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Activity.FoodListActivity"
+            android:name=".FoodList"
             android:exported="false"
-            android:parentActivityName=".Activity.HomeActivity"
+            android:parentActivityName=".Home"
             android:screenOrientation="portrait" />
 
         <receiver android:name=".Class.Notification" />
