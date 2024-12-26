@@ -38,7 +38,7 @@ public class Common {
     public static final int NOTIFICATION_ID = 1;
     public static final String CHANNEL_CART = "1";
 
-    public static final int DELAY_TIME = 10000;
+    public static final int DELAY_TIME = 30000;
 
     public static List<City> cities(Context context, int resourceId) {
         List<City> list = new ArrayList<>();
