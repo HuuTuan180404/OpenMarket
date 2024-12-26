@@ -1,8 +1,9 @@
-package com.example.oumarket;
+package com.example.oumarket.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,12 +14,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.oumarket.Class.User;
 import com.example.oumarket.Common.Common;
 import com.example.oumarket.Interface.BottomSheetDialogSave;
+import com.example.oumarket.R;
 import com.example.oumarket.ui.edit_profile.ChangePasswordFragment;
 import com.example.oumarket.ui.edit_profile.EditAvatarFragment;
 import com.example.oumarket.ui.edit_profile.EditNameUserFragment;
 import com.example.oumarket.ui.edit_profile.EditPhoneUserFragment;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.squareup.picasso.Picasso;
+
+import io.paperdb.Paper;
 
 public class ProfileActivity extends AppCompatActivity implements BottomSheetDialogSave {
 
@@ -29,6 +33,7 @@ public class ProfileActivity extends AppCompatActivity implements BottomSheetDia
     ImageView pic;
 
     ImageView ic_next_name, ic_next_phone, ic_next_password;
+    private TextView buttonLogout;
 
     long lastClick = 0;
 
@@ -83,6 +88,17 @@ public class ProfileActivity extends AppCompatActivity implements BottomSheetDia
             fragmentPassword.show(getSupportFragmentManager(), "ChangePasswordFragment");
         });
 
+        buttonLogout = findViewById(R.id.button_logout);
+        buttonLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Paper.book().destroy();
+                Intent intent = new Intent(ProfileActivity.this, SigninActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     @Override

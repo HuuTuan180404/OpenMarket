@@ -1,4 +1,4 @@
-package com.example.oumarket;
+package com.example.oumarket.Activity;
 
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
@@ -31,6 +31,7 @@ import com.example.oumarket.Class.Request;
 import com.example.oumarket.Class.SetUpRecyclerView;
 import com.example.oumarket.Common.Common;
 import com.example.oumarket.Database.Database;
+import com.example.oumarket.R;
 import com.example.oumarket.ViewHolder.CartAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.rejowan.cutetoast.CuteToast;
@@ -38,7 +39,7 @@ import com.rejowan.cutetoast.CuteToast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Cart extends AppCompatActivity {
+public class CartActivity extends AppCompatActivity {
     RecyclerView recyclerView;
 
     private ActivityResultLauncher<Intent> launcher;
@@ -64,10 +65,9 @@ public class Cart extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_cart);
 
-        database1 = new Database(Cart.this);
+        database1 = new Database(CartActivity.this);
 
         launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                 result -> {
@@ -127,7 +127,7 @@ public class Cart extends AppCompatActivity {
 
         ic_next = findViewById(R.id.ic_next);
         ic_next.setOnClickListener(v -> {
-            Intent intent = new Intent(Cart.this, SelectAddressActivity.class);
+            Intent intent = new Intent(CartActivity.this, SelectAddressActivity.class);
             launcher.launch(intent);
         });
 
@@ -144,7 +144,7 @@ public class Cart extends AppCompatActivity {
 
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-            android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(Cart.this);
+            android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(CartActivity.this);
             builder.setTitle("Delete a requests?");
             builder.setMessage("Are you sure?");
             builder.setPositiveButton("Yes", (dialog, which) -> {
@@ -169,11 +169,11 @@ public class Cart extends AppCompatActivity {
     };
 
     private void scheduleNotification(int delayTime, String idRequest) {
-        Intent notificationIntent = new Intent(Cart.this, Notification.class);
+        Intent notificationIntent = new Intent(CartActivity.this, Notification.class);
 
         notificationIntent.putExtra("idRequest", idRequest);
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(Cart.this, Common.NOTIFICATION_ID, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(CartActivity.this, Common.NOTIFICATION_ID, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
@@ -251,8 +251,8 @@ public class Cart extends AppCompatActivity {
 
     private void loadListCart() {
         cart = database1.getCarts();
-        adapter = new CartAdapter(cart, Cart.this);
-        SetUpRecyclerView.setupLinearLayout(Cart.this, recyclerView, adapter);
+        adapter = new CartAdapter(cart, CartActivity.this);
+        SetUpRecyclerView.setupLinearLayout(CartActivity.this, recyclerView, adapter);
         updateBill();
 
         if (adapter.getList() == null || adapter.getList().isEmpty()) {

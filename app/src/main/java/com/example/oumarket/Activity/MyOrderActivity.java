@@ -1,4 +1,4 @@
-package com.example.oumarket;
+package com.example.oumarket.Activity;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -14,6 +14,7 @@ import com.example.oumarket.Adapter.ViewPagerMyOrderAdapter;
 import com.example.oumarket.Class.Customer_LoadingDialog;
 import com.example.oumarket.Class.User;
 import com.example.oumarket.Common.Common;
+import com.example.oumarket.R;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -22,7 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import io.paperdb.Paper;
 
-public class MyOrder extends AppCompatActivity {
+public class MyOrderActivity extends AppCompatActivity {
 
     TabLayout tabLayout;
     ViewPager viewPager2;
@@ -53,7 +54,7 @@ public class MyOrder extends AppCompatActivity {
             String user = Paper.book().read(Common.USERNAME_KEY);
             String password = Paper.book().read(Common.PASSWORD_KEY);
 
-            FirebaseAuth.getInstance().signInWithEmailAndPassword(user, password).addOnCompleteListener(MyOrder.this, task -> {
+            FirebaseAuth.getInstance().signInWithEmailAndPassword(user, password).addOnCompleteListener(MyOrderActivity.this, task -> {
 
                 if (task.isSuccessful()) {
                     String userUid = FirebaseAuth.getInstance().getCurrentUser().getUid();

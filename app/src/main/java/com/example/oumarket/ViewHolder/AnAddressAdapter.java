@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.oumarket.AddNewAddressActivity;
+import com.example.oumarket.Activity.AddNewAddressActivity;
 import com.example.oumarket.Class.AnAddress;
 import com.example.oumarket.Common.AddressType;
 import com.example.oumarket.R;

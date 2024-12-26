@@ -1,4 +1,4 @@
-package com.example.oumarket;
+package com.example.oumarket.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,6 +32,7 @@ import com.example.oumarket.Common.AddressType;
 import com.example.oumarket.Database.Database;
 import com.example.oumarket.Adapter.CityAdapter;
 import com.example.oumarket.Adapter.DistrictAdapter;
+import com.example.oumarket.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;

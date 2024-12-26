@@ -26,7 +26,7 @@ import com.example.oumarket.Common.Common;
 import com.example.oumarket.Database.Database;
 import com.example.oumarket.Interface.ItemClickListener;
 import com.example.oumarket.R;
-import com.example.oumarket.RatingFoodActivity;
+import com.example.oumarket.Activity.RatingFoodActivity;
 import com.example.oumarket.ui.my_order_activity.OrderDetailFragment;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

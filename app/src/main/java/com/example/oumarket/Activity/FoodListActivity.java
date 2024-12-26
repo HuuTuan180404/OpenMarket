@@ -1,4 +1,4 @@
-package com.example.oumarket;
+package com.example.oumarket.Activity;
 
 import android.os.Bundle;
 import android.view.Menu;
@@ -19,6 +19,7 @@ import com.example.oumarket.Class.SetUpRecyclerView;
 import com.example.oumarket.Class.User;
 import com.example.oumarket.Common.Common;
 import com.example.oumarket.Interface.BottomSheetDialogSave;
+import com.example.oumarket.R;
 import com.example.oumarket.ViewHolder.FoodAdapter;
 import com.example.oumarket.ui.food_list_activity.ActionSetting;
 import com.google.firebase.database.DataSnapshot;
@@ -31,7 +32,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class FoodList extends AppCompatActivity implements BottomSheetDialogSave {
+public class FoodListActivity extends AppCompatActivity implements BottomSheetDialogSave {
 
     DatabaseReference data_foods;
 
@@ -131,8 +132,8 @@ public class FoodList extends AppCompatActivity implements BottomSheetDialogSave
                     list.add(food);
                 }
                 Collections.shuffle(list);
-                adapter = new FoodAdapter(list, FoodList.this, R.layout.item_food_list_view);
-                SetUpRecyclerView.setupLinearLayout(FoodList.this, recyclerView, adapter);
+                adapter = new FoodAdapter(list, FoodListActivity.this, R.layout.item_food_list_view);
+                SetUpRecyclerView.setupLinearLayout(FoodListActivity.this, recyclerView, adapter);
             }
 
             @Override

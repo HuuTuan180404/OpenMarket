@@ -1,4 +1,4 @@
-package com.example.oumarket;
+package com.example.oumarket.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +15,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import com.example.oumarket.Class.Customer_LoadingDialog;
 import com.example.oumarket.Class.User;
 import com.example.oumarket.Common.Common;
+import com.example.oumarket.R;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -26,7 +27,7 @@ import com.rey.material.widget.CheckBox;
 
 import io.paperdb.Paper;
 
-public class Signin extends AppCompatActivity {
+public class SigninActivity extends AppCompatActivity {
 
     private AppCompatButton btn_signin;
     private TextView tv_forgotPassword, tv_signupNow;
@@ -66,12 +67,12 @@ public class Signin extends AppCompatActivity {
 //      butotn login
         btn_signin.setOnClickListener(v -> {
             if (TextUtils.isEmpty(edit_email.getText().toString())) {
-                Toast.makeText(Signin.this, "Hãy nhập email!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SigninActivity.this, "Hãy nhập email!", Toast.LENGTH_SHORT).show();
                 return;
             }
 
             if (TextUtils.isEmpty(edit_password.getText().toString())) {
-                Toast.makeText(Signin.this, "Hãy nhập password!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SigninActivity.this, "Hãy nhập password!", Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -83,12 +84,12 @@ public class Signin extends AppCompatActivity {
 
         // textview Forgot password - mtv_ForgotPass
         tv_forgotPassword.setOnClickListener(v -> {
-            Intent intent = new Intent(Signin.this, ForgotPasswordActivity.class);
+            Intent intent = new Intent(SigninActivity.this, ForgotPasswordActivity.class);
             startActivity(intent);
         });
 
         tv_signupNow.setOnClickListener(v -> {
-            Intent intent = new Intent(Signin.this, Signup.class);
+            Intent intent = new Intent(SigninActivity.this, SignupActivity.class);
             startActivity(intent);
             finish();
         });
@@ -96,7 +97,7 @@ public class Signin extends AppCompatActivity {
     }
 
     private void login(String email, String password) {
-        FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password).addOnCompleteListener(Signin.this, task -> {
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password).addOnCompleteListener(SigninActivity.this, task -> {
             if (task.isSuccessful()) {
                 if (FirebaseAuth.getInstance().getCurrentUser().isEmailVerified()) {
 
@@ -113,7 +114,7 @@ public class Signin extends AppCompatActivity {
                             User user = snapshot.getValue(User.class);
                             Common.CURRENTUSER = user;
 
-                            Intent homeIntent = new Intent(Signin.this, Home.class);
+                            Intent homeIntent = new Intent(SigninActivity.this, HomeActivity.class);
                             startActivity(homeIntent);
 
                             loadingDialog.dismiss();
@@ -127,7 +128,7 @@ public class Signin extends AppCompatActivity {
                 } else {
 //                    mDialog.dismiss();
                     loadingDialog.dismiss();
-                    AlertDialog.Builder alert = new AlertDialog.Builder(Signin.this);
+                    AlertDialog.Builder alert = new AlertDialog.Builder(SigninActivity.this);
                     alert.setTitle("Warming!");
                     alert.setMessage("Please check your email and click the URL to activate your account");
                     alert.setIcon(R.drawable.ic_info);
@@ -139,7 +140,7 @@ public class Signin extends AppCompatActivity {
                 }
             } else {
                 loadingDialog.dismiss();
-                CuteToast.ct(Signin.this, "Tài khoản không đúng!", CuteToast.LENGTH_SHORT, CuteToast.WARN, true).show();
+                CuteToast.ct(SigninActivity.this, "Tài khoản không đúng!", CuteToast.LENGTH_SHORT, CuteToast.WARN, true).show();
             }
         });
     }

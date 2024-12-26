@@ -1,4 +1,4 @@
-package com.example.oumarket;
+package com.example.oumarket.Activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,6 +16,7 @@ import androidx.appcompat.widget.AppCompatButton;
 
 import com.example.oumarket.Class.User;
 import com.example.oumarket.Common.Common;
+import com.example.oumarket.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
@@ -27,7 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class Signup extends AppCompatActivity {
+public class SignupActivity extends AppCompatActivity {
     TextInputEditText edit_name, edit_email, edit_password, edit_confPass, edit_phone;
     AppCompatButton btn_signup;
     TextView tv_loginnow;
@@ -56,22 +57,22 @@ public class Signup extends AppCompatActivity {
                 String password = edit_password.getText().toString();
                 String confPass = edit_confPass.getText().toString();
                 if (TextUtils.isEmpty(name)) {
-                    Toast.makeText(Signup.this, "Hãy nhập tên!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignupActivity.this, "Hãy nhập tên!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(Signup.this, "Hãy nhập email!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignupActivity.this, "Hãy nhập email!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(Signup.this, "Hãy nhập mật khẩu!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignupActivity.this, "Hãy nhập mật khẩu!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (TextUtils.isEmpty(confPass)) {
-                    Toast.makeText(Signup.this, "Nhập lại mật khẩu!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignupActivity.this, "Nhập lại mật khẩu!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -83,7 +84,7 @@ public class Signup extends AppCompatActivity {
         tv_loginnow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Signup.this, Signin.class);
+                Intent intent = new Intent(SignupActivity.this, SigninActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -127,7 +128,7 @@ public class Signup extends AppCompatActivity {
             }
         });
 
-        AlertDialog.Builder alert = new AlertDialog.Builder(Signup.this);
+        AlertDialog.Builder alert = new AlertDialog.Builder(SignupActivity.this);
         alert.setTitle("Successfully!");
         alert.setMessage("Please check your email and click the URL to activate your account");
         alert.setIcon(R.drawable.ic_info);
@@ -135,7 +136,7 @@ public class Signup extends AppCompatActivity {
         alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Intent intent = new Intent(Signup.this, Signin.class);
+                Intent intent = new Intent(SignupActivity.this, SigninActivity.class);
                 startActivity(intent);
                 finish();
             }

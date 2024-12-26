@@ -4,7 +4,6 @@ package com.example.oumarket.ViewHolder;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
-import android.graphics.PorterDuff;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.oumarket.Class.Food;
 import com.example.oumarket.Class.Order;
 import com.example.oumarket.Common.Common;
-import com.example.oumarket.FoodDetail;
+import com.example.oumarket.Activity.FoodDetailActivity;
 import com.example.oumarket.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,7 +25,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
-import java.util.zip.Inflater;
 
 class RatingFoodViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -118,7 +116,7 @@ public class RatingFoodAdapter extends RecyclerView.Adapter<RatingFoodViewHolder
         holder.image_food.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, FoodDetail.class);
+                Intent intent = new Intent(context, FoodDetailActivity.class);
                 intent.putExtra("FoodId", order.getProductId());
                 context.startActivity(intent);
             }

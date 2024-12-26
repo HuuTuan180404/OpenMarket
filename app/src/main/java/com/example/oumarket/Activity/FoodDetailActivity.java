@@ -1,4 +1,4 @@
-package com.example.oumarket;
+package com.example.oumarket.Activity;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -20,6 +20,7 @@ import com.example.oumarket.Class.Food;
 import com.example.oumarket.Class.Order;
 import com.example.oumarket.Common.Common;
 import com.example.oumarket.Database.Database;
+import com.example.oumarket.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,7 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.rejowan.cutetoast.CuteToast;
 import com.squareup.picasso.Picasso;
 
-public class FoodDetail extends AppCompatActivity {
+public class FoodDetailActivity extends AppCompatActivity {
 
     TextView price_after_discount, food_description_detail, rating, price_before_discount;
     Toolbar food_name_detail;
@@ -65,7 +66,7 @@ public class FoodDetail extends AppCompatActivity {
         btn_decrease.setOnClickListener((v) -> {
             int quantity = Integer.parseInt(edittext_quantity.getText().toString());
             if (quantity == 1) {
-                Toast.makeText(FoodDetail.this, "Lỗi số lượng", Toast.LENGTH_SHORT).show();
+                Toast.makeText(FoodDetailActivity.this, "Lỗi số lượng", Toast.LENGTH_SHORT).show();
             } else {
                 quantity -= 1;
                 edittext_quantity.setText(quantity + "");
@@ -101,7 +102,7 @@ public class FoodDetail extends AppCompatActivity {
 //        button cart
         button_cart.setOnClickListener(v -> {
             Order order = new Order(foodId, currentFood.getName(), currentFood.getPrice(), edittext_quantity.getText() + "", currentFood.getDiscount(), "0");
-            Database database1 = new Database(FoodDetail.this);
+            Database database1 = new Database(FoodDetailActivity.this);
             CuteToast.ct(this, "Đã thêm vào giỏ hàng", Toast.LENGTH_SHORT, CuteToast.SUCCESS, true).show();
             database1.addToCart(order);
         });

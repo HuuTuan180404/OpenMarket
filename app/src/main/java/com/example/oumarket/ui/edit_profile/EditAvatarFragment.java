@@ -11,9 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +26,6 @@ import com.example.oumarket.Class.User;
 import com.example.oumarket.Common.Common;
 import com.example.oumarket.Interface.BottomSheetDialogSave;
 import com.example.oumarket.R;
-import com.example.oumarket.Signin;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.rejowan.cutetoast.CuteToast;
 import com.squareup.picasso.Picasso;

@@ -11,9 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 
 import com.example.oumarket.Common.Common;
-import com.example.oumarket.MyOrder;
+import com.example.oumarket.Activity.MyOrderActivity;
 import com.example.oumarket.R;
-import com.example.oumarket.Signin;
+import com.example.oumarket.Activity.SigninActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -25,14 +25,14 @@ public class Notification extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        Intent intent1 = new Intent(context, MyOrder.class);
+        Intent intent1 = new Intent(context, MyOrderActivity.class);
 
         Paper.init(context);
         String user = Paper.book().read(Common.USERNAME_KEY);
         String password = Paper.book().read(Common.PASSWORD_KEY);
 
         if (user == null || password == null) {
-            intent1 = new Intent(context, Signin.class);
+            intent1 = new Intent(context, SigninActivity.class);
         }
 
         String idRequest = intent.getStringExtra("idRequest");

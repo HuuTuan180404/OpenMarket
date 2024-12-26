@@ -3,7 +3,6 @@ package com.example.oumarket.ViewHolder;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.oumarket.Class.Category;
-import com.example.oumarket.Common.Common;
-import com.example.oumarket.FoodDetail;
-import com.example.oumarket.FoodList;
+import com.example.oumarket.Activity.FoodListActivity;
 import com.example.oumarket.Interface.ItemClickListener;
 import com.example.oumarket.R;
 import com.squareup.picasso.Picasso;
@@ -76,7 +73,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent foodDetail = new Intent(context, FoodList.class);
+                Intent foodDetail = new Intent(context, FoodListActivity.class);
                 foodDetail.putExtra("categoryId", list.get(position).getId());
                 context.startActivity(foodDetail);
             }

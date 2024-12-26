@@ -17,7 +17,7 @@ import com.example.oumarket.Class.Food;
 import com.example.oumarket.Class.Order;
 import com.example.oumarket.Common.Common;
 import com.example.oumarket.Database.Database;
-import com.example.oumarket.FoodDetail;
+import com.example.oumarket.Activity.FoodDetailActivity;
 import com.example.oumarket.R;
 import com.rejowan.cutetoast.CuteToast;
 import com.squareup.picasso.Picasso;
@@ -72,7 +72,7 @@ public class BestSellerAdapter extends RecyclerView.Adapter<BestSellerViewHolder
         holder.name_of_food.setText(food.getName());
         holder.price.setText(Common.CURRENCY + food.getPrice());
         holder.pic.setOnClickListener(v -> {
-            Intent foodDetail = new Intent(context, FoodDetail.class);
+            Intent foodDetail = new Intent(context, FoodDetailActivity.class);
             foodDetail.putExtra("FoodId", food.getId());
             context.startActivity(foodDetail);
         });

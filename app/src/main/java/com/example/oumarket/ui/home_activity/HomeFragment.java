@@ -1,5 +1,6 @@
 package com.example.oumarket.ui.home_activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,8 +10,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ScrollView;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.example.oumarket.Activity.CartActivity;
+import com.example.oumarket.Activity.SearchActivity;
 import com.example.oumarket.Class.Category;
 import com.example.oumarket.Class.Food;
 import com.example.oumarket.Class.SetUpRecyclerView;
@@ -19,6 +23,7 @@ import com.example.oumarket.R;
 import com.example.oumarket.ViewHolder.BestSellerAdapter;
 import com.example.oumarket.ViewHolder.CategoryAdapter;
 import com.example.oumarket.ViewHolder.FoodAdapter;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -30,7 +35,8 @@ import java.util.List;
 public class HomeFragment extends Fragment {
 
     RecyclerView recyclerView_bestSeller, recyclerView_categories, recyclerView_all_food;
-
+    private MaterialToolbar toolbar;
+    private ImageView imageView_cart;
 
     public HomeFragment() {
     }
@@ -39,6 +45,24 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        imageView_cart = view.findViewById(R.id.imageView_cart);
+        toolbar = view.findViewById(R.id.toolbar);
+        //move to searchActivity
+        toolbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(requireActivity(), SearchActivity.class));
+            }
+        });
+
+        //move to cartActivity
+        imageView_cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(requireActivity(), CartActivity.class));
+            }
+        });
 
 //        recycler categories
         recyclerView_categories = view.findViewById(R.id.recycler_categories);

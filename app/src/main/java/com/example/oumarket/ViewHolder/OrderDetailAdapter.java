@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.oumarket.Class.Food;
 import com.example.oumarket.Class.Order;
 import com.example.oumarket.Common.Common;
-import com.example.oumarket.FoodDetail;
+import com.example.oumarket.Activity.FoodDetailActivity;
 import com.example.oumarket.Interface.ItemClickListener;
 import com.example.oumarket.R;
 import com.google.firebase.database.DataSnapshot;
@@ -84,7 +84,7 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailViewHold
         holder.discount.setText(list.get(position).getDiscount());
 
         holder.image.setOnClickListener(v -> {
-            Intent foodDetail = new Intent(context, FoodDetail.class);
+            Intent foodDetail = new Intent(context, FoodDetailActivity.class);
             foodDetail.putExtra("FoodId", list.get(position).getProductId());
             context.startActivity(foodDetail);
         });

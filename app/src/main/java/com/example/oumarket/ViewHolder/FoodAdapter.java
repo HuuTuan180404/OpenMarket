@@ -3,7 +3,6 @@ package com.example.oumarket.ViewHolder;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.oumarket.Class.Food;
 import com.example.oumarket.Class.Order;
 import com.example.oumarket.Database.Database;
-import com.example.oumarket.FoodDetail;
+import com.example.oumarket.Activity.FoodDetailActivity;
 import com.example.oumarket.Interface.ItemClickListener;
 import com.example.oumarket.R;
 import com.rejowan.cutetoast.CuteToast;
@@ -136,7 +135,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodViewHolder> {
             database1.addToCart(order);
         });
         holder.itemView.setOnClickListener(v -> {
-            Intent foodDetail = new Intent(context, FoodDetail.class);
+            Intent foodDetail = new Intent(context, FoodDetailActivity.class);
             foodDetail.putExtra("FoodId", food.getId());
             context.startActivity(foodDetail);
         });
