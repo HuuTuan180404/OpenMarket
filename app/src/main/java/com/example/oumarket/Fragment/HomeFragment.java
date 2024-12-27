@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,7 +35,7 @@ import java.util.List;
 public class HomeFragment extends Fragment {
 
     RecyclerView recyclerView_bestSeller, recyclerView_categories, recyclerView_all_food;
-    private MaterialToolbar toolbar;
+    ConstraintLayout buttonSearch;
     private ImageView imageView_cart;
 
     public HomeFragment() {
@@ -46,9 +47,9 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         imageView_cart = view.findViewById(R.id.imageView_cart);
-        toolbar = view.findViewById(R.id.toolbar);
+        buttonSearch = view.findViewById(R.id.button_search);
         //move to searchActivity
-        toolbar.setOnClickListener(new View.OnClickListener() {
+        buttonSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(requireActivity(), SearchActivity.class));
@@ -68,7 +69,7 @@ public class HomeFragment extends Fragment {
         setupRecyclerCategories();
 
 //        recycler best seller
-        recyclerView_bestSeller = view.findViewById(R.id.recycler_best_saller);
+        recyclerView_bestSeller = view.findViewById(R.id.recycler_best_seller);
         setupRecyclerViewBestSeller();
 
 //        recycler all food
@@ -116,7 +117,7 @@ public class HomeFragment extends Fragment {
                 }
                 List<Food> listAdapter = new ArrayList<>();
                 if (!list.isEmpty()) {
-                    list.sort(Food::sortByTopFood);
+                    list.sort(Food::sortByDiscount);
                     for (int i = list.size() - 1 - Common.TOP_BEST_SELLER; i < list.size(); i++) {
                         listAdapter.add(list.get(i));
                     }
@@ -145,15 +146,14 @@ public class HomeFragment extends Fragment {
                     list.add(food);
                 }
                 List<Food> listAdapter = new ArrayList<>();
-                if (!list.isEmpty()) {
-                    list.sort(Food::sortByTopFood);
-                    for (int i = 0; i < list.size() - Common.TOP_BEST_SELLER; i++) {
-                        listAdapter.add(list.get(i));
+                for (int i = list.size() - 1; i >= 0; i--) {
+                    if (!list.get(i).getDiscount().equals("0")) {
+                        list.remove(i);
                     }
                 }
                 Collections.shuffle(listAdapter);
-                FoodAdapter foodAdapter = new FoodAdapter(listAdapter, getContext(), R.layout.item_food_grid_view);
-                SetUpRecyclerView.setupGridLayout(getContext(), recyclerView_all_food, foodAdapter, 2, androidx.recyclerview.widget.RecyclerView.VERTICAL);
+                FoodAdapter foodAdapter = new FoodAdapter(list, getContext(), R.layout.item_food_list_view);
+                SetUpRecyclerView.setupLinearLayout(getContext(), recyclerView_all_food, foodAdapter);
             }
 
             @Override

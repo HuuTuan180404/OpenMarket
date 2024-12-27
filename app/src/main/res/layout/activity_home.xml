@@ -8,52 +8,6 @@
     tools:context=".Activity.HomeActivity">
 
 
-<!--    <com.google.android.material.appbar.MaterialToolbar-->
-<!--        android:id="@+id/toolbar"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="?attr/actionBarSize"-->
-<!--        android:background="@drawable/border"-->
-<!--        android:theme="@style/Customer.ToolBar"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:menu="@menu/menu_toolbar_home"-->
-<!--        app:title="@string/app_name"-->
-<!--        app:titleCentered="false"-->
-<!--        app:titleMarginStart="40dp" />-->
-
-
-<!--    <FrameLayout-->
-<!--        android:id="@+id/frameLayout"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:orientation="vertical"-->
-<!--        app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation_view">-->
-
-<!--        <ImageView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:scaleType="centerCrop"-->
-<!--            android:src="@drawable/background_home" />-->
-
-<!--        <FrameLayout-->
-<!--            android:id="@+id/fragment_home_categories"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent" />-->
-
-<!--        <FrameLayout-->
-<!--            android:id="@+id/fragment_search"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginLeft="10sp"-->
-<!--            android:layout_marginTop="5sp"-->
-<!--            android:layout_marginRight="10sp"-->
-<!--            android:background="@drawable/border"-->
-<!--            android:backgroundTint="@color/color_nav_bar_home_title"-->
-<!--            android:visibility="gone" />-->
-
-<!--    </FrameLayout>-->
     <FrameLayout
         android:id="@+id/fragment_home"
         android:layout_width="match_parent"
@@ -62,29 +16,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-
-<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--        android:id="@+id/btn_scrollView"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_margin="10dp"-->
-<!--        android:backgroundTint="@color/xanh_bien"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/fab"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:srcCompat="@drawable/ic_to_top" />-->
-
-<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--        android:id="@+id/fab"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:backgroundTint="@color/xanh_bien"-->
-<!--        android:layout_marginBottom="30dp"-->
-<!--        android:layout_marginEnd="10dp"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation_view"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:srcCompat="@drawable/ic_cart" />-->
-
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation_view"

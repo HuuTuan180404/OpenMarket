@@ -4,5 +4,5 @@
     <solid android:color="@color/trang" />
     <stroke
         android:width="2dp"
-        android:color="@color/cam" />
+        android:color="@color/xanh_bien" />
 </shape>

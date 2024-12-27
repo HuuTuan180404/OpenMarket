@@ -8,7 +8,8 @@
     <color name="platinum">#E8E8E8</color>
     <color name="color_btn_dang_ky">#347928</color>
     <color name="background">#C4E1F6</color>
-    <color name="yellow">#FFFF00</color>
+    <color name="yellow">#FFD700</color>
+
 
     <color name="color_background_Mode_Login_Signup">#6b8587</color>
 
@@ -35,9 +36,9 @@
 
     <color name="ratingVeryBad">#FF0000</color>       <!-- Đỏ: Rất không hài lòng -->
     <color name="ratingBad">#FFA500</color>          <!-- Cam: Không hài lòng -->
-    <color name="ratingNeutral">#FFFF00</color>      <!-- Vàng: Bình thường -->
-    <color name="ratingGood">#90EE90</color>         <!-- Xanh nhạt: Hài lòng -->
-    <color name="ratingVeryGood">#008000</color>     <!-- Xanh lá cây: Rất hài lòng -->
+    <color name="ratingNeutral">#90EE90</color>      <!-- Vàng: Bình thường -->
+    <color name="ratingGood">#008000</color>         <!-- Xanh nhạt: Hài lòng -->
+    <color name="ratingVeryGood">#FFFF00</color>     <!-- Xanh lá cây: Rất hài lòng -->
     <color name="ratingDefault">#CCCCCC</color>
 
     <color name="selected_color">#0D5eF9</color>

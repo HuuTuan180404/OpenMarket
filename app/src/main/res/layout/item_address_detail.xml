@@ -10,6 +10,7 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         android:padding="20sp">
 
         <LinearLayout
@@ -49,7 +50,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/satoshi_variable"
+                android:layout_weight="1"
                 android:text="HOME" />
+
+            <TextView
+                android:id="@+id/update_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sửa"
+                android:textColor="@color/xanh_bien"
+                android:fontFamily="@font/satoshi_bold"/>
 
         </LinearLayout>
 

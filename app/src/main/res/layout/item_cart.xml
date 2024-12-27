@@ -1,140 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/itemtest_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="5sp">
+    android:layout_margin="10dp"
+    app:cardCornerRadius="15dp">
 
-    <FrameLayout
-        android:id="@+id/dasd"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="5dp">
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="120sp"
-            android:layout_gravity="top"
-            android:layout_marginLeft="10sp"
-            android:layout_marginRight="10sp"
-            android:background="@drawable/border"
-            android:backgroundTint="#E8ECD7"
-            android:gravity="center_vertical"
-            android:orientation="vertical">
+        <com.rey.material.widget.CheckBox
+            android:id="@+id/buy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="right"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/itemcart_image"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <ImageView
+            android:id="@+id/itemcart_image"
+            android:layout_width="100dp"
+            android:layout_height="125dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@color/white"/>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/itemcart_image"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/item_cart_name"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="130sp">
+                android:fontFamily="@font/satoshi_bold"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:text="title"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_margin="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/item_cart_name"
-                    style="@style/Customer.TextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_toLeftOf="@+id/buy"
-                    android:gravity="center"
-                    android:text="name of food" />
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="@string/CURRENCY"
+                android:textColor="@color/xanh_bien"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
-                <com.rey.material.widget.CheckBox
-                    android:id="@+id/buy"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_gravity="right" />
+            <TextView
+                android:id="@+id/itemcart_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textColor="@color/xanh_bien"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:layout_marginStart="2dp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView9"
+                app:layout_constraintStart_toEndOf="@+id/textView9"
+                app:layout_constraintTop_toTopOf="@+id/textView9" />
 
-            </RelativeLayout>
+
+
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="160sp"
-                android:layout_marginTop="20sp"
-                android:orientation="horizontal">
+                android:layout_marginEnd="5dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="@+id/itemcart_price"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/itemcart_price">
 
-                <TextView
-                    style="@style/Customer.TextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="5sp"
-                    android:text="@string/CURRENCY" />
 
-                <TextView
-                    android:id="@+id/itemcart_price"
-                    style="@style/Customer.TextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="price" />
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/button_Decrease"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:text="-"
+                    android:background="@drawable/border"
+                    android:gravity="center"
+                    android:textColor="@color/xanh_bien"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/edittext_quantity"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_marginStart="8dp"
+                    android:gravity="center"
+                    android:text="1"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:background="@null"/>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/button_Increase"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/border"
+                    android:gravity="center"
+                    android:text="+"
+                    android:textColor="@color/xanh_bien"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
-        </LinearLayout>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15sp"
-            android:layout_marginTop="5sp"
-            android:layout_marginBottom="10sp"
-            app:cardCornerRadius="20sp">
-
-            <ImageView
-                android:id="@+id/itemcart_image"
-                android:layout_width="120sp"
-                android:layout_height="160sp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/image_default_load_category_faile" />
-
-        </androidx.cardview.widget.CardView>
-
-
-    </FrameLayout>
-
-    <!--    button increase - decrease-->
-    <LinearLayout
-        android:id="@+id/layout_quantity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/dasd"
-        android:layout_alignBottom="@+id/dasd"
-        android:orientation="horizontal">
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button_Decrease"
-            android:layout_width="40sp"
-            android:layout_height="wrap_content"
-            android:text="-"
-            android:textColor="@color/black" />
-
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/edittext_quantity"
-            style="@style/Customer.TextView"
-            android:layout_width="50sp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:inputType="number"
-            android:text="1" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button_Increase"
-            android:layout_width="40sp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="+"
-            android:textColor="@color/black"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="2sp"
-        android:layout_below="@+id/layout_quantity"
-        android:layout_marginHorizontal="20sp"
-        android:layout_marginBottom="10sp"
-        android:background="@color/den" />
-
-</RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

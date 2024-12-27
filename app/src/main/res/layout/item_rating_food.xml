@@ -8,11 +8,11 @@
 
     <ImageView
         android:id="@+id/image_food"
-        android:layout_width="128sp"
-        android:layout_height="128sp"
+        android:layout_width="100dp"
+        android:layout_height="128dp"
         android:layout_weight="1"
         android:scaleType="centerCrop"
-        android:src="@drawable/image_default_load_category_faile" />
+        android:src="@color/white" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -26,26 +26,27 @@
             android:id="@+id/name_of_food"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:fontFamily="@font/satoshi_bold"
             android:layout_marginLeft="10sp"
             android:layout_marginBottom="20sp"
-            android:fontFamily="@font/satoshi_variable"
             android:text="name of food" />
 
         <TextView
             android:id="@+id/ratingText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:fontFamily="@font/satoshi_bold"
             android:layout_marginLeft="10sp"
-            android:fontFamily="@font/satoshi_variable"
             android:text="Chất lượng sản phẩm:\nTuyệt vời" />
 
-        <me.zhanghai.android.materialratingbar.MaterialRatingBar
+        <RatingBar
             android:id="@+id/ratingBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
             android:layout_marginLeft="10sp"
             android:numStars="5"
-            android:progressBackgroundTint="@color/ratingDefault"
             android:progressTint="@color/ratingVeryGood"
             android:rating="5"
             android:stepSize="1" />

@@ -20,18 +20,39 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_margin="5dp"
             app:cardCornerRadius="20dp">
 
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/toolbar"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/button_search"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:theme="@style/Customer.ToolBar"
-                app:menu="@menu/menu_search_activity"
-                android:background="@color/platinum"
-                app:title="Tìm món ngon" />
+                android:background="@color/browser_actions_bg_grey">
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tìm món ngon"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_search"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/black" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>
     </FrameLayout>
@@ -44,124 +65,78 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/background_main"
         app:layout_constraintTop_toBottomOf="@+id/frameLayout">
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/browser_actions_bg_grey"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
-
-
-            <FrameLayout
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="50sp"
-                android:background="@drawable/border_title_at_home"
-                android:backgroundTint="@color/color_nav_bar_home_title">
-
-                <TextView
-                    style="@style/Customer.TextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="All categories" />
-
-            </FrameLayout>
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <RelativeLayout
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                app:cardCornerRadius="20dp">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_categories"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="10sp">
+                    android:layout_height="268dp"
+                    android:background="@color/white"/>
+            </androidx.cardview.widget.CardView>
 
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="25sp"
-                        android:layout_marginBottom="5dp"
-                        android:paddingHorizontal="5dp">
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/recycler_categories"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:scrollbars="horizontal" />
-
-                    </FrameLayout>
-
-                </RelativeLayout>
-
-            </FrameLayout>
-
-
-            <FrameLayout
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="50sp"
-                android:background="@drawable/border_title_at_home"
-                android:backgroundTint="@color/color_nav_bar_home_title">
-
-                <TextView
-                    style="@style/Customer.TextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="Top food" />
-
-            </FrameLayout>
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <RelativeLayout
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                app:cardCornerRadius="20dp">
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="10sp">
-
-                    <FrameLayout
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:background="@color/white">
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="25dp"
-                        android:paddingHorizontal="5dp">
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="10dp"
+                        android:background="@color/white"
+                        android:orientation="horizontal">
 
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/recycler_best_saller"
-                            android:layout_width="match_parent"
+                        <TextView
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:scrollbars="horizontal" />
+                            android:layout_weight="1"
+                            android:text="TOP SALE"
+                            android:fontFamily="@font/satoshi_bold"
+                            android:textColor="@color/xanh_bien"
+                            android:textSize="22dp"
+                            android:textStyle="bold" />
 
-                    </FrameLayout>
+                        <TextView
+                            android:id="@+id/button_flashSale"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/satoshi_bold"
+                            android:text="Xem tất cả "
+                            android:textSize="18dp" />
+                    </LinearLayout>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_best_seller"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:layout_margin="10dp"
+                        />
+                </LinearLayout>
 
-                </RelativeLayout>
-
-            </FrameLayout>
-
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="50sp"
-                android:background="@drawable/border_title_at_home"
-                android:backgroundTint="@color/color_nav_bar_home_title">
-
-                <TextView
-                    style="@style/Customer.TextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="Love Food" />
-
-            </FrameLayout>
+            </androidx.cardview.widget.CardView>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView_all_food"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>
+
 
     </androidx.core.widget.NestedScrollView>
 

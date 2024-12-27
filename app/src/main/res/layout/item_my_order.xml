@@ -27,14 +27,16 @@
             android:layout_width="0sp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            app:cardCornerRadius="20sp">
+            app:cardCornerRadius="20sp"
+            android:backgroundTint="@color/white">
 
             <ImageView
                 android:id="@+id/itemcart_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="125dp"
+                android:layout_height="100dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/image_default_load_category_faile" />
+                app:tint="@color/xanh_bien"
+                android:src="@drawable/food" />
 
         </androidx.cardview.widget.CardView>
 
@@ -140,10 +142,10 @@
             android:layout_marginLeft="5sp"
             android:layout_marginRight="5sp"
             android:layout_weight="1"
-            android:background="@drawable/rounded_20sp_trang_cam"
+            android:background="@drawable/rounded_20sp_trang_xanh"
             android:fontFamily="@font/satoshi_variable"
             android:text="Rate"
-            android:textColor="@color/cam" />
+            android:textColor="@color/xanh_bien" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/reOrder"
@@ -153,7 +155,7 @@
             android:layout_marginRight="5sp"
             android:layout_weight="1"
             android:background="@drawable/rounded_20sp"
-            android:backgroundTint="@color/cam"
+            android:backgroundTint="@color/xanh_bien"
             android:fontFamily="@font/satoshi_variable"
             android:text="Re-Order"
             android:textColor="@color/trang" />
@@ -182,10 +184,10 @@
             android:layout_marginLeft="5sp"
             android:layout_marginRight="5sp"
             android:layout_weight="1"
-            android:background="@drawable/rounded_20sp_trang_cam"
+            android:background="@drawable/rounded_20sp_trang_xanh"
             android:fontFamily="@font/satoshi_variable"
             android:text="Cancel"
-            android:textColor="@color/cam" />
+            android:textColor="@color/xanh_bien" />
 
     </LinearLayout>
 

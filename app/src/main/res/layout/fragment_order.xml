@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".Activity.MyOrderActivity">
+    android:background="@color/white"
+    tools:context=".Fragment.OrderFragment">
 
     <ImageView
         android:layout_width="match_parent"
@@ -28,7 +29,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:theme="@style/Customer.ToolBar"
-                app:navigationIcon="@drawable/im_back"
                 app:title="My Orders" />
 
             <com.google.android.material.tabs.TabLayout
@@ -37,8 +37,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10sp"
                 android:background="@drawable/border"
-                app:tabIndicatorColor="@color/cam"
-                app:tabSelectedTextColor="@color/cam"
+                app:tabIndicatorColor="@color/xanh_bien"
+                app:tabSelectedTextColor="@color/xanh_bien"
                 app:tabTextAppearance="@style/font_tab_myOrder" />
 
             <androidx.viewpager.widget.ViewPager

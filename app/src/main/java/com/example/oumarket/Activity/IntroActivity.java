@@ -29,7 +29,6 @@ import org.checkerframework.checker.units.qual.A;
 import io.paperdb.Paper;
 
 public class IntroActivity extends AppCompatActivity {
-    private final long SPLASH_TIME_OUT = 6000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +36,7 @@ public class IntroActivity extends AppCompatActivity {
         setContentView(R.layout.activity_intro);
 
         Paper.init(this);
-        if (Common.CURRENTUSER == null) {
+
             String user = Paper.book().read(Common.USERNAME_KEY);
             String password = Paper.book().read(Common.PASSWORD_KEY);
 
@@ -49,7 +48,7 @@ public class IntroActivity extends AppCompatActivity {
                 Intent intent = new Intent(IntroActivity.this, SignInActivity.class);
                 startActivity(intent);
             }
-        }
+
     }
 
     void login(String email, String password) {
@@ -61,14 +60,8 @@ public class IntroActivity extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         User user = snapshot.getValue(User.class);
                         Common.CURRENTUSER = user;
-                        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                startActivity(new Intent(IntroActivity.this, HomeActivity.class));
-                                finish();
-                            }
-                        }, SPLASH_TIME_OUT);
-
+                        startActivity(new Intent(IntroActivity.this, HomeActivity.class));
+                        finish();
                     }
 
                     @Override

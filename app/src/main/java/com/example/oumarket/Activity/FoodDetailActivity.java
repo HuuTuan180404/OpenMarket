@@ -65,9 +65,7 @@ public class FoodDetailActivity extends AppCompatActivity {
 
         btn_decrease.setOnClickListener((v) -> {
             int quantity = Integer.parseInt(edittext_quantity.getText().toString());
-            if (quantity == 1) {
-                Toast.makeText(FoodDetailActivity.this, "Lỗi số lượng", Toast.LENGTH_SHORT).show();
-            } else {
+            if (quantity > 1) {
                 quantity -= 1;
                 edittext_quantity.setText(quantity + "");
             }

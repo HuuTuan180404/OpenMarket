@@ -6,13 +6,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:background="@color/white"
     tools:context=".Activity.FoodListActivity">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/background_home" />
+        android:src="@drawable/background_main" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -31,6 +32,7 @@
                 android:layout_height="?attr/actionBarSize"
                 android:theme="@style/Customer.ToolBar"
                 app:menu="@menu/menu_toolbar_food_list"
+                android:background="@color/browser_actions_bg_grey"
                 app:navigationIcon="@drawable/im_back" />
 
         </androidx.cardview.widget.CardView>

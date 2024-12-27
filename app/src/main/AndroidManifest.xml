@@ -26,11 +26,7 @@
         <activity
             android:name=".Activity.IntroActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".Activity.ChangePasswordActivity"
@@ -70,7 +66,6 @@
         <activity
             android:name=".Activity.RatingFoodActivity"
             android:exported="false"
-            android:parentActivityName=".Activity.MyOrderActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.YourAddressesActivity"
@@ -85,8 +80,14 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.SignInActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:exported="true"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".Activity.SignUpActivity"
             android:exported="false"
@@ -100,24 +101,16 @@
 
         </activity>
         <activity
-            android:name=".Activity.MyOrderActivity"
-            android:exported="false"
-            android:parentActivityName=".Activity.HomeActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".Activity.CartActivity"
             android:exported="false"
-            android:parentActivityName=".Activity.HomeActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.FoodDetailActivity"
             android:exported="false"
-            android:parentActivityName=".Activity.FoodListActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.FoodListActivity"
             android:exported="false"
-            android:parentActivityName=".Activity.HomeActivity"
             android:screenOrientation="portrait" />
 
         <receiver android:name=".Helper.Notification" />

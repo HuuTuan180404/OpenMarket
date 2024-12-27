@@ -213,13 +213,14 @@
                             android:id="@+id/rating"
                             style="@style/Customer.TextView"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:text="4.2" />
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/ic_star" />
+                            android:src="@drawable/star_ic"
+                            app:tint="@color/yellow"/>
 
                     </LinearLayout>
 

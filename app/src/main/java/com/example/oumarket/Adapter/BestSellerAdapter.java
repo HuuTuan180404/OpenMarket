@@ -28,6 +28,7 @@ class BestSellerViewHolder extends RecyclerView.ViewHolder implements View.OnCli
 
     ImageView pic;
     TextView name_of_food, price, count_star, textView_plus;
+    TextView discount;
 
     public BestSellerViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -36,6 +37,8 @@ class BestSellerViewHolder extends RecyclerView.ViewHolder implements View.OnCli
         price = itemView.findViewById(R.id.price_before_discount);
         count_star = itemView.findViewById(R.id.count_star);
         textView_plus = itemView.findViewById(R.id.textView_plus);
+        discount = itemView.findViewById(R.id.discount);
+
     }
 
     @Override
@@ -67,7 +70,7 @@ public class BestSellerAdapter extends RecyclerView.Adapter<BestSellerViewHolder
     public void onBindViewHolder(@NonNull BestSellerViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
         Food food = list.get(position);
-
+        holder.discount.setText(food.getDiscount()+"%\nOFF");
         Picasso.get().load(food.getUrl()).into(holder.pic);
         holder.name_of_food.setText(food.getName());
         holder.price.setText(food.getPrice());
@@ -80,7 +83,7 @@ public class BestSellerAdapter extends RecyclerView.Adapter<BestSellerViewHolder
         if (food.getCountRating() != 0) {
             holder.count_star.setText(food.getRating() + "");
         } else {
-            holder.count_star.setText("chưa có");
+            holder.count_star.setText("---");
         }
 
         holder.textView_plus.setOnClickListener(v -> {

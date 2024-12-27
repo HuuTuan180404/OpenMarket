@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 
 import com.example.oumarket.Common.Common;
-import com.example.oumarket.Activity.MyOrderActivity;
+import com.example.oumarket.Fragment.OrderFragment;
 import com.example.oumarket.R;
 import com.example.oumarket.Activity.SignInActivity;
 import com.google.firebase.database.DataSnapshot;
@@ -25,7 +25,7 @@ public class Notification extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        Intent intent1 = new Intent(context, MyOrderActivity.class);
+        Intent intent1 = new Intent(context, OrderFragment.class);
 
         Paper.init(context);
         String user = Paper.book().read(Common.USERNAME_KEY);

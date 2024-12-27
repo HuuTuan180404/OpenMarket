@@ -32,9 +32,7 @@ class FoodViewHolder extends RecyclerView.ViewHolder implements View.OnClickList
     public TextView food_name, food_price, food_rate, discount;
     public ImageView food_image;
     private ItemClickListener itemClickListener;
-    RelativeLayout layout_discount;
-
-    LinearLayout add_to_cart;
+    TextView add_to_cart;
 
     public void setItemClickListener(ItemClickListener itemClickListener) {
         this.itemClickListener = itemClickListener;
@@ -49,7 +47,6 @@ class FoodViewHolder extends RecyclerView.ViewHolder implements View.OnClickList
         food_rate = itemView.findViewById(R.id.food_rate);
 
         discount = itemView.findViewById(R.id.discount);
-        layout_discount = itemView.findViewById(R.id.layout_discount);
 
         itemView.setOnClickListener(this);
     }
@@ -72,8 +69,12 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodViewHolder> {
         this.item_layout = item_layout;
     }
 
-    public int getItem_layout() {
-        return item_layout;
+    public void setList(List<Food> list) {
+        this.list = list;
+    }
+
+    public List<Food> getList() {
+        return list;
     }
 
     public void setItem_layout(int item_layout) {
@@ -81,25 +82,6 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodViewHolder> {
         notifyDataSetChanged();
     }
 
-    public FoodAdapter() {
-    }
-
-    public List<Food> getList() {
-        return list;
-    }
-
-    public void setList(List<Food> list) {
-        this.list = list;
-        notifyDataSetChanged();
-    }
-
-    public Context getContext() {
-        return context;
-    }
-
-    public void setContext(Context context) {
-        this.context = context;
-    }
 
     @NonNull
     @Override
@@ -121,7 +103,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodViewHolder> {
         holder.food_price.setText(food.getPrice());
         holder.discount.setText(food.getDiscount() + "%");
         if (food.getDiscount().equals("0")) {
-            holder.layout_discount.setVisibility(View.GONE);
+            holder.discount.setVisibility(View.GONE);
         }
         if (food.getCountRating() != 0) {
             holder.food_rate.setText(food.getRating());
