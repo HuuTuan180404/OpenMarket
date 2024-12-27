@@ -27,9 +27,6 @@
             android:name=".Activity.SearchActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.Tesst"
-            android:exported="false" />
-        <activity
             android:name=".Activity.AboutMeActivity"
             android:exported="false" />
 
@@ -72,13 +69,9 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.SigninActivity"
-            android:exported="true"
+            android:exported="false"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".Activity.SignupActivity"
@@ -87,9 +80,16 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.HomeActivity"
-            android:exported="false"
+            android:exported="true"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.OuMarket.NoActionBar" />
+            android:theme="@style/Theme.OuMarket.NoActionBar">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".Activity.MyOrderActivity"
             android:exported="false"

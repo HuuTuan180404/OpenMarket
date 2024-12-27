@@ -80,7 +80,7 @@ public class BestSellerAdapter extends RecyclerView.Adapter<BestSellerViewHolder
         if (food.getCountRating() != 0) {
             holder.count_star.setText(food.getRating() + "");
         } else {
-            holder.count_star.setText("---");
+            holder.count_star.setText("chưa có");
         }
 
         holder.textView_plus.setOnClickListener(v -> {

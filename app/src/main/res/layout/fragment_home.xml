@@ -8,26 +8,33 @@
     android:background="@color/white"
     tools:context=".ui.home_activity.HomeFragment">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        app:cardCornerRadius="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:theme="@style/Customer.ToolBar"
-            app:title="Tìm món ngon"
-            app:menu="@menu/menu_search_activity" />
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            app:cardCornerRadius="20dp">
 
-    </androidx.cardview.widget.CardView>
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:theme="@style/Customer.ToolBar"
+                app:menu="@menu/menu_search_activity"
+                android:background="@color/platinum"
+                app:title="Tìm món ngon" />
 
+        </androidx.cardview.widget.CardView>
+    </FrameLayout>
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView2"
@@ -37,7 +44,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView">
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout">
 
         <LinearLayout
             android:layout_width="match_parent"
