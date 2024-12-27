@@ -15,13 +15,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.oumarket.Class.Category;
 import com.example.oumarket.Class.Food;
-import com.example.oumarket.Class.SetUpRecyclerView;
+import com.example.oumarket.Helper.SetUpRecyclerView;
 import com.example.oumarket.Class.User;
 import com.example.oumarket.Common.Common;
 import com.example.oumarket.Interface.BottomSheetDialogSave;
 import com.example.oumarket.R;
-import com.example.oumarket.ViewHolder.FoodAdapter;
-import com.example.oumarket.ui.food_list_activity.ActionSetting;
+import com.example.oumarket.Adapter.FoodAdapter;
+import com.example.oumarket.Helper.ActionSetting;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

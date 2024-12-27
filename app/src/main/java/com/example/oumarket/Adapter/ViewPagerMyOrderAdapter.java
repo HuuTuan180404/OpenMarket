@@ -6,8 +6,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import com.example.oumarket.ui.my_order_activity.HistoryFragment;
-import com.example.oumarket.ui.my_order_activity.OngoingFragment;
+import com.example.oumarket.Fragment.HistoryFragment;
+import com.example.oumarket.Fragment.OngoingFragment;
 
 public class ViewPagerMyOrderAdapter extends FragmentStatePagerAdapter {
 

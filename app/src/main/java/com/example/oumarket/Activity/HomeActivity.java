@@ -8,8 +8,9 @@ import android.widget.FrameLayout;
 
 import com.example.oumarket.Class.User;
 import com.example.oumarket.Common.Common;
+import com.example.oumarket.Fragment.ProfileFragment;
 import com.example.oumarket.R;
-import com.example.oumarket.ui.home_activity.HomeFragment;
+import com.example.oumarket.Fragment.HomeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationBarView;
@@ -59,7 +60,7 @@ public class HomeActivity extends AppCompatActivity {
                     login(user, password);
                 }
             } else {
-                Intent intent = new Intent(HomeActivity.this, SigninActivity.class);
+                Intent intent = new Intent(HomeActivity.this, SignInActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -94,8 +95,8 @@ public class HomeActivity extends AppCompatActivity {
                     Intent intent = new Intent(HomeActivity.this, MyOrderActivity.class);
                     startActivity(intent);
                 } else if (item.getItemId() == R.id.nav_profile) {
-                    Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
-                    startActivity(intent);
+                    replaceFragment(new ProfileFragment());
+                    return true;
                 }
 //                if(item.getItemId() == R.id.nav_order){
 //                    replaceFragment(new OrderFragment());
@@ -168,7 +169,7 @@ public class HomeActivity extends AppCompatActivity {
                     }
                 });
             } else {
-                Intent intent = new Intent(HomeActivity.this, SigninActivity.class);
+                Intent intent = new Intent(HomeActivity.this, SignInActivity.class);
                 startActivity(intent);
                 finish();
             }

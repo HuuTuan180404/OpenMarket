@@ -15,10 +15,10 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.oumarket.Class.AnAddress;
-import com.example.oumarket.Class.SetUpRecyclerView;
+import com.example.oumarket.Helper.SetUpRecyclerView;
 import com.example.oumarket.Common.Common;
 import com.example.oumarket.R;
-import com.example.oumarket.ViewHolder.AnAddressAdapter;
+import com.example.oumarket.Adapter.AnAddressAdapter;
 
 public class YourAddressesActivity extends AppCompatActivity {
 

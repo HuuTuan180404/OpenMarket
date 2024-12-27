@@ -15,10 +15,10 @@ import com.example.oumarket.Class.User;
 import com.example.oumarket.Common.Common;
 import com.example.oumarket.Interface.BottomSheetDialogSave;
 import com.example.oumarket.R;
-import com.example.oumarket.ui.edit_profile.ChangePasswordFragment;
-import com.example.oumarket.ui.edit_profile.EditAvatarFragment;
-import com.example.oumarket.ui.edit_profile.EditNameUserFragment;
-import com.example.oumarket.ui.edit_profile.EditPhoneUserFragment;
+import com.example.oumarket.Fragment.ChangePasswordFragment;
+import com.example.oumarket.Fragment.EditAvatarFragment;
+import com.example.oumarket.Fragment.EditNameUserFragment;
+import com.example.oumarket.Fragment.EditPhoneUserFragment;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.squareup.picasso.Picasso;
 
@@ -93,7 +93,7 @@ public class ProfileActivity extends AppCompatActivity implements BottomSheetDia
             @Override
             public void onClick(View v) {
                 Paper.book().destroy();
-                Intent intent = new Intent(ProfileActivity.this, SigninActivity.class);
+                Intent intent = new Intent(ProfileActivity.this, SignInActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 finish();

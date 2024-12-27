@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingBottom="5sp"
-    tools:context=".ui.my_order_activity.OrderDetailFragment">
+    tools:context=".Fragment.OrderDetailFragment">
 
     <FrameLayout
         android:id="@+id/orderDetail"

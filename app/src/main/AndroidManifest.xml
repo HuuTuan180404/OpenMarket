@@ -12,7 +12,7 @@
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
 
     <application
-        android:name=".Class.ChannelNotificition"
+        android:name=".Helper.MyApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -24,18 +24,27 @@
         android:theme="@style/Theme.OuMarket"
         tools:targetApi="31">
         <activity
-            android:name=".Activity.SearchActivity"
+            android:name=".Activity.ChangePasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.AboutMeActivity"
+            android:name=".Activity.EditPhoneUserActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.EditNameUserActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.EditAvatarActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.SearchActivity"
             android:exported="false" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDwyPW5cfV3osMQ1sTA5KZp8xIUPm3GuuE" />
-        <meta-data
-            android:name="CLOUDINARY_URL"
-            android:value="cloudinary://564718357889346:TfxQE6I3edoX7yeQrglD0avshDQ@dv2zyrxsv" />
+<!--        <meta-data-->
+<!--            android:name="CLOUDINARY_URL"-->
+<!--            android:value="cloudinary://564718357889346:TfxQE6I3edoX7yeQrglD0avshDQ@dv2zyrxsv" />-->
 
         <activity
             android:name=".Activity.SelectAddressActivity"
@@ -49,7 +58,7 @@
         <activity
             android:name=".Activity.ForgotPasswordActivity"
             android:exported="false"
-            android:parentActivityName=".Activity.SigninActivity"
+            android:parentActivityName=".Activity.SignInActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.RatingFoodActivity"
@@ -68,22 +77,19 @@
             android:parentActivityName=".Activity.YourAddressesActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Activity.SigninActivity"
+            android:name=".Activity.SignInActivity"
             android:exported="false"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
-            android:name=".Activity.SignupActivity"
+            android:name=".Activity.SignUpActivity"
             android:exported="false"
-            android:parentActivityName=".Activity.SigninActivity"
+            android:parentActivityName=".Activity.SignInActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.HomeActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.OuMarket.NoActionBar">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -111,7 +117,7 @@
             android:parentActivityName=".Activity.HomeActivity"
             android:screenOrientation="portrait" />
 
-        <receiver android:name=".Class.Notification" />
+        <receiver android:name=".Helper.Notification" />
     </application>
 
 </manifest>

@@ -11,7 +11,7 @@ import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.oumarket.Adapter.ViewPagerMyOrderAdapter;
-import com.example.oumarket.Class.Customer_LoadingDialog;
+import com.example.oumarket.Helper.Customer_LoadingDialog;
 import com.example.oumarket.Class.User;
 import com.example.oumarket.Common.Common;
 import com.example.oumarket.R;

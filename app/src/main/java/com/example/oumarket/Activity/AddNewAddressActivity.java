@@ -23,7 +23,7 @@ import android.widget.Toast;
 
 import com.example.oumarket.Adapter.WardAdapter;
 import com.example.oumarket.Class.City;
-import com.example.oumarket.Class.Customer_LoadingDialog;
+import com.example.oumarket.Helper.Customer_LoadingDialog;
 import com.example.oumarket.Class.District;
 import com.example.oumarket.Class.Ward;
 import com.example.oumarket.Class.AnAddress;

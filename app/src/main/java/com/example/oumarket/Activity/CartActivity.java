@@ -14,7 +14,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
@@ -25,14 +24,14 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.oumarket.Class.AnAddress;
-import com.example.oumarket.Class.Notification;
+import com.example.oumarket.Helper.Notification;
 import com.example.oumarket.Class.Order;
 import com.example.oumarket.Class.Request;
-import com.example.oumarket.Class.SetUpRecyclerView;
+import com.example.oumarket.Helper.SetUpRecyclerView;
 import com.example.oumarket.Common.Common;
 import com.example.oumarket.Database.Database;
 import com.example.oumarket.R;
-import com.example.oumarket.ViewHolder.CartAdapter;
+import com.example.oumarket.Adapter.CartAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.rejowan.cutetoast.CuteToast;
 

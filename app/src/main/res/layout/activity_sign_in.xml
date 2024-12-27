@@ -8,7 +8,7 @@
     android:background="@color/trang"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".Activity.SigninActivity">
+    tools:context=".Activity.SignInActivity">
 
     <ImageView
         android:layout_width="match_parent"

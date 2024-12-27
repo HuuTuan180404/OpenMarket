@@ -13,10 +13,10 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.oumarket.Class.SetUpRecyclerView;
+import com.example.oumarket.Helper.SetUpRecyclerView;
 import com.example.oumarket.Common.Common;
 import com.example.oumarket.R;
-import com.example.oumarket.ViewHolder.SelectAddressAdapter;
+import com.example.oumarket.Adapter.SelectAddressAdapter;
 
 public class SelectAddressActivity extends AppCompatActivity {
 
