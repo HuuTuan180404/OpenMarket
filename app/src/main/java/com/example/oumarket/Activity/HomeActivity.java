@@ -48,23 +48,10 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        Paper.init(this);
+
         requestPermissions();
 
-        if (Common.CURRENTUSER == null) {
-            String user = Paper.book().read(Common.USERNAME_KEY);
-            String password = Paper.book().read(Common.PASSWORD_KEY);
 
-            if (user != null && password != null) {
-                if (!user.isEmpty() && !password.isEmpty()) {
-                    login(user, password);
-                }
-            } else {
-                Intent intent = new Intent(HomeActivity.this, SignInActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        }
 
         replaceFragment(new HomeFragment());
         initView();
@@ -88,9 +75,6 @@ public class HomeActivity extends AppCompatActivity {
                 if (item.getItemId() == R.id.nav_home) {
                     replaceFragment(new HomeFragment());
                     return true;
-                } else if (item.getItemId() == R.id.nav_addresses) {
-                    Intent intent = new Intent(HomeActivity.this, YourAddressesActivity.class);
-                    startActivity(intent);
                 } else if (item.getItemId() == R.id.nav_orders) {
                     Intent intent = new Intent(HomeActivity.this, MyOrderActivity.class);
                     startActivity(intent);
@@ -153,28 +137,7 @@ public class HomeActivity extends AppCompatActivity {
                 .commit();
     }
 
-    private void login(String email, String password) {
-        FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password).addOnCompleteListener(HomeActivity.this, task -> {
-            if (task.isSuccessful()) {
-                String userUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                Common.FIREBASE_DATABASE.getReference(Common.REF_USERS).child(userUid).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        User user = snapshot.getValue(User.class);
-                        Common.CURRENTUSER = user;
-                    }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                    }
-                });
-            } else {
-                Intent intent = new Intent(HomeActivity.this, SignInActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-    }
 
     private void requestPermissions() {
         List<String> permissionsToRequest = new ArrayList<>();

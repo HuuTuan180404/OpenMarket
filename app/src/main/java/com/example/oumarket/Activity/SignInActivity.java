@@ -98,7 +98,7 @@ public class SignInActivity extends AppCompatActivity {
 
     }
 
-    private void login(String email, String password) {
+    void login(String email, String password) {
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password).addOnCompleteListener(SignInActivity.this, task -> {
             if (task.isSuccessful()) {
                 if (FirebaseAuth.getInstance().getCurrentUser().isEmailVerified()) {

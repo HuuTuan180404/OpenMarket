@@ -24,6 +24,15 @@
         android:theme="@style/Theme.OuMarket"
         tools:targetApi="31">
         <activity
+            android:name=".Activity.IntroActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".Activity.ChangePasswordActivity"
             android:exported="false" />
         <activity
@@ -41,11 +50,9 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDwyPW5cfV3osMQ1sTA5KZp8xIUPm3GuuE" />
-<!--        <meta-data-->
-<!--            android:name="CLOUDINARY_URL"-->
-<!--            android:value="cloudinary://564718357889346:TfxQE6I3edoX7yeQrglD0avshDQ@dv2zyrxsv" />-->
-
+            android:value="AIzaSyDwyPW5cfV3osMQ1sTA5KZp8xIUPm3GuuE" /> <!-- <meta-data -->
+        <!-- android:name="CLOUDINARY_URL" -->
+        <!-- android:value="cloudinary://564718357889346:TfxQE6I3edoX7yeQrglD0avshDQ@dv2zyrxsv" /> -->
         <activity
             android:name=".Activity.SelectAddressActivity"
             android:exported="false"
@@ -87,14 +94,10 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.HomeActivity"
-            android:exported="true"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.OuMarket.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".Activity.MyOrderActivity"

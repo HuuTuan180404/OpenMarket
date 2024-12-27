@@ -299,10 +299,10 @@ public class AddNewAddressActivity extends AppCompatActivity implements OnMapRea
 
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
         try {
-            List<Address> addresses = geocoder.getFromLocation(currentLocation.getLatitude(), currentLocation.getLongitude(), 1);
+            List<Address> addresses = geocoder.getFromLocation(currentLocation.getLatitude(), currentLocation.getLongitude(), 5);
             if (addresses != null && !addresses.isEmpty()) {
                 Address address = addresses.get(0);
-
+                Log.d("ABCDE", address.getAddressLine(0));
                 String[] ss = address.getAddressLine(0).split(",");
                 addressText = new ArrayList<>();
                 for (int i = ss.length - 4; i < ss.length; i++) {

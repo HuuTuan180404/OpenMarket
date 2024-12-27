@@ -9,11 +9,6 @@
         android:title="Home" />
 
     <item
-        android:id="@+id/nav_addresses"
-        android:icon="@drawable/address"
-        android:title="Địa chỉ" />
-
-    <item
         android:id="@+id/nav_orders"
         android:icon="@drawable/ic_invoice"
         android:title="Lịch sử" />
