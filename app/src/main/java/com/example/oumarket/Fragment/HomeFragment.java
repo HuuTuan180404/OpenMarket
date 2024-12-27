@@ -12,8 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.oumarket.Activity.CartActivity;
+import com.example.oumarket.Activity.SaleListActivity;
 import com.example.oumarket.Activity.SearchActivity;
 import com.example.oumarket.Class.Category;
 import com.example.oumarket.Class.Food;
@@ -37,22 +39,32 @@ public class HomeFragment extends Fragment {
     RecyclerView recyclerView_bestSeller, recyclerView_categories, recyclerView_all_food;
     ConstraintLayout buttonSearch;
     private ImageView imageView_cart;
+    private TextView textView_topSale;
 
-    public HomeFragment() {
-    }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
+        textView_topSale = view.findViewById(R.id.top_sale);
         imageView_cart = view.findViewById(R.id.imageView_cart);
         buttonSearch = view.findViewById(R.id.button_search);
+
         //move to searchActivity
         buttonSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(requireActivity(), SearchActivity.class));
+            }
+        });
+
+        textView_topSale.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(requireActivity(), SaleListActivity.class));
             }
         });
 

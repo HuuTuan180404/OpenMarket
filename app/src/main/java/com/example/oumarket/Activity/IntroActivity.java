@@ -36,7 +36,7 @@ public class IntroActivity extends AppCompatActivity {
         setContentView(R.layout.activity_intro);
 
         Paper.init(this);
-
+        if (Common.CURRENTUSER == null) {
             String user = Paper.book().read(Common.USERNAME_KEY);
             String password = Paper.book().read(Common.PASSWORD_KEY);
 
@@ -48,7 +48,7 @@ public class IntroActivity extends AppCompatActivity {
                 Intent intent = new Intent(IntroActivity.this, SignInActivity.class);
                 startActivity(intent);
             }
-
+        }
     }
 
     void login(String email, String password) {
