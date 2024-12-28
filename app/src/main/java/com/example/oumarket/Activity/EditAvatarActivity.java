@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -39,7 +40,8 @@ public class EditAvatarActivity extends AppCompatActivity {
     ImageView pic;
     private AppCompatButton btn_luu;
     private ImageView buttonChangeImage;
-    private ImageView buttonBack;
+
+    Customer_LoadingDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,64 +54,52 @@ public class EditAvatarActivity extends AppCompatActivity {
 
         //Change Image
         buttonChangeImage = findViewById(R.id.button_changeImage);
-        buttonChangeImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                requestPermissions();
-            }
+        buttonChangeImage.setOnClickListener(v -> {
+            requestPermissions();
         });
 
-        //button back
-        buttonBack = findViewById(R.id.button_back);
-        buttonBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        dialog = new Customer_LoadingDialog(this, "Loading...");
 
         //Button save
         btn_luu = findViewById(R.id.btn_luu);
-
-        Customer_LoadingDialog dialog = new Customer_LoadingDialog(getBaseContext(), "Loading...");
-
         btn_luu.setOnClickListener(v -> {
             if (uri == null) {
                 CuteToast.ct(this, "Chưa chọn ảnh!", CuteToast.LENGTH_SHORT, CuteToast.WARN, true).show();
-            } else {
-                dialog.show();
-                MediaManager.get().upload(uri).callback(new UploadCallback() {
-                    @Override
-                    public void onStart(String requestId) {
-                    }
-
-                    @Override
-                    public void onProgress(String requestId, long bytes, long totalBytes) {
-
-                    }
-
-                    @Override
-                    public void onSuccess(String requestId, Map resultData) {
-                        Common.CURRENTUSER.setUrl((String) resultData.get("secure_url"));
-                        Common.FIREBASE_DATABASE.getReference(Common.REF_USERS).child(Common.CURRENTUSER.getIdUser()).child("url").setValue(Common.CURRENTUSER.getUrl());
-                        CuteToast.ct(getBaseContext(), "Lưu thành công!", CuteToast.LENGTH_SHORT, CuteToast.HAPPY, true).show();
-                        dialog.dismiss();
-                        finish();
-                    }
-
-                    @Override
-                    public void onError(String requestId, ErrorInfo error) {
-                        CuteToast.ct(getBaseContext(), "Lỗi!", CuteToast.LENGTH_SHORT, CuteToast.ERROR, true).show();
-                        dialog.dismiss();
-                    }
-
-                    @Override
-                    public void onReschedule(String requestId, ErrorInfo error) {
-                        CuteToast.ct(getBaseContext(), "Lỗi!", CuteToast.LENGTH_SHORT, CuteToast.ERROR, true).show();
-                        dialog.dismiss();
-                    }
-                }).dispatch();
+                return;
             }
+            dialog.show();
+            MediaManager.get().upload(uri).callback(new UploadCallback() {
+                @Override
+                public void onStart(String requestId) {
+                }
+
+                @Override
+                public void onProgress(String requestId, long bytes, long totalBytes) {
+
+                }
+
+                @Override
+                public void onSuccess(String requestId, Map resultData) {
+                    Common.CURRENTUSER.setUrl((String) resultData.get("secure_url"));
+                    Log.d("ZZZZZ", (String) resultData.get("secure_url"));
+                    Common.FIREBASE_DATABASE.getReference(Common.REF_USERS).child(Common.CURRENTUSER.getIdUser()).child("url").setValue(Common.CURRENTUSER.getUrl());
+                    CuteToast.ct(getBaseContext(), "Lưu thành công!", CuteToast.LENGTH_SHORT, CuteToast.HAPPY, true).show();
+                    dialog.dismiss();
+                    finish();
+                }
+
+                @Override
+                public void onError(String requestId, ErrorInfo error) {
+                    CuteToast.ct(getBaseContext(), "Lỗi!", CuteToast.LENGTH_SHORT, CuteToast.ERROR, true).show();
+                    dialog.dismiss();
+                }
+
+                @Override
+                public void onReschedule(String requestId, ErrorInfo error) {
+                    CuteToast.ct(getBaseContext(), "Lỗi!", CuteToast.LENGTH_SHORT, CuteToast.ERROR, true).show();
+                    dialog.dismiss();
+                }
+            }).dispatch();
         });
     }
 

@@ -12,15 +12,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MyApplication extends Application {
-
     @Override
     public void onCreate() {
         super.onCreate();
         createNotificationChannel("Cart", "Orderes successfull");
-
-       initConfig();
+        initConfig();
     }
-
     private void initConfig() {
         try {
             MediaManager.get(); // Kiểm tra nếu đã được khởi tạo
@@ -33,7 +30,6 @@ public class MyApplication extends Application {
             MediaManager.init(this, config);
         }
     }
-
     private void createNotificationChannel(String channel_name, String channel_description) {
         // Chỉ tạo kênh cho Android 8.0 trở lên
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -49,7 +45,4 @@ public class MyApplication extends Application {
             }
         }
     }
-
-
-
 }

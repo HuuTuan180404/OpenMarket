@@ -27,11 +27,8 @@ public class EditNameUserActivity extends AppCompatActivity {
 
         //button back
         buttonBack = findViewById(R.id.button_back);
-        buttonBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        buttonBack.setOnClickListener( v->{
                 finish();
-            }
         });
 
         btn_luu = findViewById(R.id.btn_luu);
