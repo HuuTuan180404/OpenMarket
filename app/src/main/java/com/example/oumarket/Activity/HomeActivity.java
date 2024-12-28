@@ -27,6 +27,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -41,51 +42,56 @@ public class HomeActivity extends AppCompatActivity {
     private BottomNavigationView bottom_navigation_view;
     HomeFragment homeFragment;
     OrderFragment orderFragment;
+    FragmentManager fragmentManager;
     ProfileFragment profileFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        fragmentManager = getSupportFragmentManager();
+
         homeFragment = new HomeFragment();
         orderFragment = new OrderFragment();
-         profileFragment = new ProfileFragment();
+        profileFragment = new ProfileFragment();
 
         requestPermissions();
-        replaceFragment(homeFragment);
+        replaceFragment(homeFragment, "HomeFragment");
         initView();
     }
 
     private void initView() {
-
         bottom_navigation_view = findViewById(R.id.bottom_navigation_view);
         bottom_navigation_view.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
                 if (item.getItemId() == R.id.nav_home) {
-                    replaceFragment(homeFragment);
+                    Fragment currentFragment = fragmentManager.findFragmentByTag("HomeFragment");
+                    if (currentFragment!=null) {
+                        if (currentFragment instanceof HomeFragment) {
+                            NestedScrollView scrollView = currentFragment.getView().findViewById(R.id.nested_scroll_view);
+                            if (scrollView != null) {
+                                scrollView.smoothScrollTo(0, 0);
+                            }
+                        }
+                    } else replaceFragment(homeFragment, "HomeFragment");
                     return true;
                 } else if (item.getItemId() == R.id.nav_orders) {
-                    replaceFragment(new OrderFragment());
+                    replaceFragment(orderFragment, "OrderFragment");
                 } else if (item.getItemId() == R.id.nav_profile) {
-                    replaceFragment(profileFragment);
+                    replaceFragment(profileFragment, "ProfileFragment");
                     return true;
                 }
                 return true;
             }
         });
-
     }
 
-
-    private void replaceFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.fragment_home, fragment)
-                .commit();
+    private void replaceFragment(Fragment fragment, String tag) {
+        fragmentManager.beginTransaction().replace(R.id.fragment_home, fragment, tag).commit();
     }
-
-
 
     private void requestPermissions() {
         List<String> permissionsToRequest = new ArrayList<>();

@@ -25,7 +25,6 @@ import com.example.oumarket.R;
 import com.example.oumarket.Adapter.BestSellerAdapter;
 import com.example.oumarket.Adapter.CategoryAdapter;
 import com.example.oumarket.Adapter.FoodAdapter;
-import com.google.android.material.appbar.MaterialToolbar;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -40,9 +39,6 @@ public class HomeFragment extends Fragment {
     ConstraintLayout buttonSearch;
     private ImageView imageView_cart;
     private TextView textView_topSale;
-
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -80,13 +76,9 @@ public class HomeFragment extends Fragment {
         recyclerView_categories = view.findViewById(R.id.recycler_categories);
         setupRecyclerCategories();
 
-//        recycler best seller
         recyclerView_bestSeller = view.findViewById(R.id.recycler_best_seller);
-        setupRecyclerViewBestSeller();
-
-//        recycler all food
         recyclerView_all_food = view.findViewById(R.id.recyclerView_all_food);
-        setupRecyclerViewAllFood();
+        setupRecyclerViewFoods();
 
         return view;
     }
@@ -116,55 +108,31 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    private void setupRecyclerViewBestSeller() {
+    private void setupRecyclerViewFoods() {
         Common.FIREBASE_DATABASE.getReference(Common.REF_FOODS).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 List<Food> list = new ArrayList<>();
+                List<Food> listAllFood = new ArrayList<>();
                 Food food;
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     food = dataSnapshot.getValue(Food.class);
                     food.setId(dataSnapshot.getKey());
-                    list.add(food);
+
+                    if (food.getDiscount().equals("0")) {
+                        listAllFood.add(food);
+                    } else list.add(food);
                 }
-                List<Food> listAdapter = new ArrayList<>();
-                if (!list.isEmpty()) {
-                    list.sort(Food::sortByDiscount);
-                    for (int i = list.size() - 1 - Common.TOP_BEST_SELLER; i < list.size(); i++) {
-                        listAdapter.add(list.get(i));
-                    }
-                }
-                Collections.reverse(listAdapter);
-                BestSellerAdapter bestSellerAdapter = new BestSellerAdapter(getContext(), listAdapter);
+
+                list.sort(Food::sortByDiscount);
+                Collections.reverse(list);
+
+                List<Food> listTopFood = list.subList(0, Math.min(Common.TOP_BEST_SELLER, list.size()));
+
+                BestSellerAdapter bestSellerAdapter = new BestSellerAdapter(getContext(), listTopFood);
                 SetUpRecyclerView.setupGridLayout(getContext(), recyclerView_bestSeller, bestSellerAdapter, 1, RecyclerView.HORIZONTAL);
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
-
-    private void setupRecyclerViewAllFood() {
-        Common.FIREBASE_DATABASE.getReference(Common.REF_FOODS).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                List<Food> list = new ArrayList<>();
-                Food food;
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    food = dataSnapshot.getValue(Food.class);
-                    food.setId(dataSnapshot.getKey());
-                    list.add(food);
-                }
-                List<Food> listAdapter = new ArrayList<>();
-                for (int i = list.size() - 1; i >= 0; i--) {
-                    if (!list.get(i).getDiscount().equals("0")) {
-                        list.remove(i);
-                    }
-                }
-                Collections.shuffle(listAdapter);
-                FoodAdapter foodAdapter = new FoodAdapter(list, getContext(), R.layout.item_food_list_view);
+                FoodAdapter foodAdapter = new FoodAdapter(listAllFood, getContext(), R.layout.item_food_list_view);
                 SetUpRecyclerView.setupLinearLayout(getContext(), recyclerView_all_food, foodAdapter);
             }
 
@@ -174,5 +142,6 @@ public class HomeFragment extends Fragment {
             }
         });
     }
+
 
 }

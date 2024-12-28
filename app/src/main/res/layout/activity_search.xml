@@ -20,26 +20,14 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardView"
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            app:cardCornerRadius="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/browser_actions_bg_grey"
-                app:menu="@menu/menu_search_activity"
-                app:navigationIcon="@drawable/im_back"
-                app:title="Tìm món ngon"
-                app:titleTextColor="@color/black"/>
-        </androidx.cardview.widget.CardView>
+            android:layout_height="?attr/actionBarSize"
+            android:theme="@style/Customer.ToolBar"
+            app:menu="@menu/menu_search_activity"
+            app:navigationIcon="@drawable/im_back"
+            app:title="Tìm món ngon" />
 
         <TextView
             android:id="@+id/tv_noData"

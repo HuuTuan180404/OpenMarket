@@ -2,12 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nested_scroll_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
     tools:context=".Fragment.HomeFragment">
-
 
     <FrameLayout
         android:id="@+id/frameLayout"
@@ -35,9 +33,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Tìm món ngon"
+                    android:textColor="@color/black"
                     android:textSize="25sp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -58,29 +56,32 @@
     </FrameLayout>
 
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/nestedScrollView2"
+        android:id="@+id/nested_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:background="@drawable/background_main"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:background="@drawable/background_main"
         app:layout_constraintTop_toBottomOf="@+id/frameLayout">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 app:cardCornerRadius="20dp">
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_categories"
                     android:layout_width="match_parent"
                     android:layout_height="268dp"
-                    android:background="@color/white"/>
+                    android:background="@color/white" />
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -88,17 +89,19 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 app:cardCornerRadius="20dp">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:background="@color/white">
+                    android:background="@color/white"
+                    android:orientation="vertical">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="10dp"
-                        android:layout_marginStart="10dp"
                         android:background="@color/white"
                         android:orientation="horizontal">
 
@@ -106,8 +109,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="TOP SALE"
                             android:fontFamily="@font/satoshi_bold"
+                            android:text="TOP SALE"
                             android:textColor="@color/xanh_bien"
                             android:textSize="22dp"
                             android:textStyle="bold" />
@@ -116,17 +119,17 @@
                             android:id="@+id/top_sale"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/black"
                             android:fontFamily="@font/satoshi_bold"
                             android:text="Xem tất cả "
+                            android:textColor="@color/black"
                             android:textSize="18dp" />
                     </LinearLayout>
+
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycler_best_seller"
                         android:layout_width="match_parent"
                         android:layout_height="300dp"
-                        android:layout_margin="10dp"
-                        />
+                        android:layout_margin="10dp" />
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
@@ -147,11 +150,11 @@
         android:layout_marginEnd="28dp"
         android:layout_marginBottom="28dp"
         android:background="@drawable/border"
-        android:padding="12dp"
         android:backgroundTint="@color/xanh_bien"
-        app:tint="@color/white"
+        android:padding="12dp"
+        android:src="@drawable/ic_cart"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:src="@drawable/ic_cart" />
+        app:tint="@color/white" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
