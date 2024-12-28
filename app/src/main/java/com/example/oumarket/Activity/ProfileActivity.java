@@ -35,8 +35,6 @@ public class ProfileActivity extends AppCompatActivity implements BottomSheetDia
     ImageView ic_next_name, ic_next_phone, ic_next_password;
     private TextView buttonLogout;
 
-    long lastClick = 0;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

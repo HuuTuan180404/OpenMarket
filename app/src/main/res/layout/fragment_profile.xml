@@ -5,8 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     android:background="@color/white"
+    android:fitsSystemWindows="true"
     tools:context=".Fragment.ProfileFragment">
 
     <ImageView
@@ -78,18 +78,18 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_toLeftOf="@+id/name"
-                android:textColor="@color/black"
                 android:fontFamily="@font/satoshi_bold"
-                android:text="Tên" />
+                android:text="Tên"
+                android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@+id/ic_next_name"
-                android:textColor="@color/black"
                 android:fontFamily="@font/satoshi_bold"
-                android:text="Nguyen Huu Tuan" />
+                android:text="Nguyen Huu Tuan"
+                android:textColor="@color/black" />
 
             <ImageView
                 android:id="@+id/ic_next_name"
@@ -117,18 +117,18 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_toLeftOf="@+id/phone"
-                android:textColor="@color/black"
                 android:fontFamily="@font/satoshi_bold"
-                android:text="Số điện thoại" />
+                android:text="Số điện thoại"
+                android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:fontFamily="@font/satoshi_bold"
                 android:layout_toLeftOf="@+id/ic_next_phone"
-                android:text="*******275" />
+                android:fontFamily="@font/satoshi_bold"
+                android:text="*******275"
+                android:textColor="@color/black" />
 
             <ImageView
                 android:id="@+id/ic_next_phone"
@@ -154,19 +154,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:textColor="@color/black"
-                android:fontFamily="@font/satoshi_bold"
                 android:layout_toLeftOf="@+id/email"
-                android:text="Email" />
+                android:fontFamily="@font/satoshi_bold"
+                android:text="Email"
+                android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:fontFamily="@font/satoshi_bold"
                 android:layout_alignParentRight="true"
-                android:text="ng*****04@gmail.com" />
+                android:fontFamily="@font/satoshi_bold"
+                android:text="ng*****04@gmail.com"
+                android:textColor="@color/black" />
 
         </RelativeLayout>
 
@@ -183,16 +183,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:textColor="@color/black"
-                android:fontFamily="@font/satoshi_bold"
                 android:layout_toLeftOf="@+id/password"
-                android:text="Mật khẩu" />
+                android:fontFamily="@font/satoshi_bold"
+                android:text="Mật khẩu"
+                android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@+id/ic_next_password"
+                android:fontFamily="@font/satoshi_variable"
                 android:text="Đổi mật khẩu"
                 android:textColor="@color/red" />
 
@@ -219,20 +220,20 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:fontFamily="@font/satoshi_bold"
                 android:layout_alignParentLeft="true"
                 android:layout_toLeftOf="@+id/address"
-                android:text="Địa chỉ" />
+                android:fontFamily="@font/satoshi_bold"
+                android:text="Địa chỉ"
+                android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@+id/ic_next_address"
-                android:text="Đại học mở cơ sở Nhà Bè"
-                android:textColor="@color/black"
-                android:fontFamily="@font/satoshi_bold" />
+                android:fontFamily="@font/satoshi_variable"
+                android:text="Thêm"
+                android:textColor="@color/black" />
 
             <ImageView
                 android:id="@+id/ic_next_address"
