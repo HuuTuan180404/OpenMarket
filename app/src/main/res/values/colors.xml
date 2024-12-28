@@ -9,6 +9,7 @@
     <color name="color_btn_dang_ky">#347928</color>
     <color name="background">#C4E1F6</color>
     <color name="yellow">#FFD700</color>
+    <color name="blue">#0D5eF9</color>
 
 
     <color name="color_background_Mode_Login_Signup">#6b8587</color>
@@ -26,7 +27,7 @@
     <color name="main_color">#124FA0</color>
 
     //
-    <color name="xanh_bien">#0D5eF9</color>
+    <color name="xanh_bien">#124FA0</color>
     <color name="den">#181e22</color>
     <color name="xam">#94979f</color>
     <color name="trang">#ffffff</color>

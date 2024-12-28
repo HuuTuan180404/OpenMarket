@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.oumarket.Class.Food;
@@ -30,13 +32,15 @@ import com.squareup.picasso.Picasso;
 
 public class FoodDetailActivity extends AppCompatActivity {
 
-    TextView price_after_discount, food_description_detail, rating, price_before_discount;
-    Toolbar food_name_detail;
+    TextView price_after_discount, food_description_detail, price_before_discount;
+    RatingBar rating;
+    TextView food_name_detail;
     ImageView food_image_detail;
-    Button btn_increase, btn_decrease;
+    TextView btn_increase, btn_decrease;
     EditText edittext_quantity;
     RelativeLayout layout_before_discount;
-    FloatingActionButton button_cart;
+    AppCompatButton button_cart;
+    ImageView button_back;
 
     String foodId = "";
 
@@ -45,18 +49,25 @@ public class FoodDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_food_detail);
 
 //         init view
         button_cart = findViewById(R.id.button_cart);
         food_description_detail = findViewById(R.id.food_description_detail);
-        food_name_detail = findViewById(R.id.toolbar_food_name);
+        food_name_detail = findViewById(R.id.food_name);
         price_after_discount = findViewById(R.id.price_after_discount);
         food_image_detail = findViewById(R.id.food_image_detail);
         rating = findViewById(R.id.rating);
         price_before_discount = findViewById(R.id.price_before_discount);
         layout_before_discount = findViewById(R.id.layout_before_discount);
+        button_back = findViewById(R.id.button_back);
+
+        button_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
 //         init number picker
         btn_increase = findViewById(R.id.button_Increase);
@@ -119,18 +130,19 @@ public class FoodDetailActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 currentFood = snapshot.getValue(Food.class);
 
-                Picasso.get().load(currentFood.getUrl()).into(food_image_detail);
-
-                food_name_detail.setTitle(currentFood.getName());
-
-                rating.setText(currentFood.getRating());
-
+                Picasso.get().load(currentFood.getUrl()).centerCrop().fit().into(food_image_detail);
+                food_name_detail.setText(currentFood.getName());
+                if(currentFood.getCountRating()>0){
+                    rating.setRating((float) currentFood.getCountStars()/currentFood.getCountRating());
+                }
+                else{
+                    rating.setRating(0);
+                }
                 price_before_discount.setText(currentFood.getPrice());
                 price_after_discount.setText(currentFood.getPriceAfterDiscount());
                 if (currentFood.getDiscount().equals("0")) {
                     layout_before_discount.setVisibility(View.GONE);
                 } else layout_before_discount.setVisibility(View.VISIBLE);
-
                 food_description_detail.setText(currentFood.getDescription());
 
             }
@@ -140,12 +152,6 @@ public class FoodDetailActivity extends AppCompatActivity {
 
             }
         });
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        finish();
     }
 
 }

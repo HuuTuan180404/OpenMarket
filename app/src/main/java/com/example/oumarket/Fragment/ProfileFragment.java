@@ -16,6 +16,7 @@ import com.example.oumarket.Activity.ChangePasswordActivity;
 import com.example.oumarket.Activity.EditAvatarActivity;
 import com.example.oumarket.Activity.EditNameUserActivity;
 import com.example.oumarket.Activity.EditPhoneUserActivity;
+import com.example.oumarket.Activity.SelectAddressActivity;
 import com.example.oumarket.Activity.SignInActivity;
 import com.example.oumarket.Common.Common;
 import com.example.oumarket.R;
@@ -49,11 +50,8 @@ public class ProfileFragment extends Fragment {
         email = view.findViewById(R.id.email);
         logout = view.findViewById(R.id.button_logout);
         buttonChangeImage = view.findViewById(R.id.button_changeImage);
-        ic_next_address = view.findViewById(R.id.ic_next_address);
 
-        ic_next_address.setOnClickListener(v -> {
-            startActivity(new Intent(requireActivity(), AddNewAddressActivity.class));
-        });
+
 
         //logout
         logout.setOnClickListener(new View.OnClickListener() {
@@ -99,6 +97,11 @@ public class ProfileFragment extends Fragment {
         ic_next_password = view.findViewById(R.id.ic_next_password);
         ic_next_password.setOnClickListener(v -> {
             startActivity(new Intent(requireActivity(), ChangePasswordActivity.class));
+        });
+
+        ic_next_address = view.findViewById(R.id.ic_next_address);
+        ic_next_address.setOnClickListener(v -> {
+            startActivity(new Intent(requireActivity(), SelectAddressActivity.class));
         });
 
         return view;

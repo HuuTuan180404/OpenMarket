@@ -230,7 +230,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@+id/ic_next_address"
-                android:text="Đại học mở cơ sở Nhà Bè"
+                android:text="Thêm"
                 android:textColor="@color/black"
                 android:fontFamily="@font/satoshi_bold" />
 

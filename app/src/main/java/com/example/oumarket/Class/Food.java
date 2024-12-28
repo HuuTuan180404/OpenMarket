@@ -92,7 +92,7 @@ public class Food {
     }
 
     public String getRating() {
-        if (this.countRating == 0) return "chưa có";
+        if (this.countRating == 0) return "---";
         double i = (double) this.getCountStars() / this.countRating;
         return String.format("%.1f", i);
     }

@@ -28,7 +28,7 @@
                 android:id="@+id/button_search"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/browser_actions_bg_grey">
+                android:background="@color/main_color">
 
                 <TextView
                     android:id="@+id/textView2"
@@ -37,7 +37,7 @@
                     android:text="Tìm món ngon"
                     android:textSize="25sp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -50,8 +50,7 @@
                     android:src="@drawable/ic_search"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:tint="@color/black" />
+                    app:layout_constraintTop_toTopOf="parent"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>
@@ -148,7 +147,7 @@
         android:layout_marginBottom="28dp"
         android:background="@drawable/border"
         android:padding="12dp"
-        android:backgroundTint="@color/xanh_bien"
+        android:backgroundTint="@color/blue"
         app:tint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
