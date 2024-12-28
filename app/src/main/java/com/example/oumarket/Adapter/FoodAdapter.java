@@ -71,6 +71,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodViewHolder> {
 
     public void setList(List<Food> list) {
         this.list = list;
+        notifyDataSetChanged();
     }
 
     public List<Food> getList() {
@@ -79,7 +80,6 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodViewHolder> {
 
     public void setItem_layout(int item_layout) {
         this.item_layout = item_layout;
-        notifyDataSetChanged();
     }
 
 

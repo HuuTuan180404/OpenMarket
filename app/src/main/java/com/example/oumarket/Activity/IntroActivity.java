@@ -29,7 +29,6 @@ import org.checkerframework.checker.units.qual.A;
 import io.paperdb.Paper;
 
 public class IntroActivity extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +49,6 @@ public class IntroActivity extends AppCompatActivity {
             }
         }
     }
-
     void login(String email, String password) {
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password).addOnCompleteListener(IntroActivity.this, task -> {
             if (task.isSuccessful()) {
@@ -71,6 +69,4 @@ public class IntroActivity extends AppCompatActivity {
             }
         });
     }
-
-
 }

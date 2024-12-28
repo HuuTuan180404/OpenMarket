@@ -51,8 +51,6 @@ public class SearchActivity extends AppCompatActivity {
         tv_noData = findViewById(R.id.tv_noData);
     }
 
-
-
     private void loadListFood(){
         Common.FIREBASE_DATABASE.getReference(Common.REF_FOODS).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

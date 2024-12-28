@@ -212,11 +212,9 @@ public class CartActivity extends AppCompatActivity {
                         break;
                     }
                 }
-
                 if (!notEmpty) {
                     CuteToast.ct(getBaseContext(), "Không có sản phẩm nào", Toast.LENGTH_SHORT, CuteToast.WARN, true).show();
                 } else {
-
                     List<Order> listOrder = new ArrayList<>();
                     for (Order i : adapter.getList()) {
                         if (i.getIsBuy().equals("1")) {
@@ -227,11 +225,8 @@ public class CartActivity extends AppCompatActivity {
                     Request request = new Request(id, Common.CURRENTUSER.getIdUser(), tv_basketTotal.getText().toString(), listOrder, diaChi, "0");
                     scheduleNotification(Common.DELAY_TIME, id);
                     data_requests.child(id).setValue(request);
-
                     CuteToast.ct(getBaseContext(), "Thank you", Toast.LENGTH_SHORT, CuteToast.SUCCESS, true).show();
-
                     database.cleanCart();
-
                     listOrder = new ArrayList<>();
                     for (Order i : adapter.getList()) {
                         if (i.getIsBuy().equals("0")) {
@@ -239,7 +234,6 @@ public class CartActivity extends AppCompatActivity {
                         }
                     }
                     database.add_list_to_cart(listOrder);
-
                     finish();
                 }
             }

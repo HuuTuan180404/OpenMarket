@@ -8,5 +8,4 @@
     android:background="@drawable/background_home"
     tools:context=".Activity.IntroActivity">
 
-
 </androidx.constraintlayout.widget.ConstraintLayout>

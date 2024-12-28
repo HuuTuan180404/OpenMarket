@@ -5,8 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     android:background="@color/white"
+    android:fitsSystemWindows="true"
     tools:context=".Activity.FoodListActivity">
 
     <ImageView
@@ -22,10 +22,11 @@
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar_FoodList"
-            app:title="FLASH SALE"
+            style="@style/Customer.ToolBar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:navigationIcon="@drawable/im_back" />
+            app:navigationIcon="@drawable/im_back"
+            app:title="FLASH SALE" />
 
         <TextView
             android:id="@+id/tv_noData"
@@ -33,8 +34,8 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:gravity="center"
-            android:textSize="20sp"
             android:text="Hết hàng"
+            android:textSize="20sp"
             android:visibility="gone" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -44,8 +45,6 @@
             android:layout_margin="5sp"
             android:scrollbars="vertical" />
 
-
     </LinearLayout>
-
 
 </FrameLayout>

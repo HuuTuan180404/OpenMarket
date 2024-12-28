@@ -52,14 +52,11 @@ public class SaleListActivity extends AppCompatActivity {
                     list.add(food);
                 }
 
-
                 for (int i = list.size() - 1; i >= 0; i--) {
                     if (list.get(i).getDiscount().equals("0")) {
                         list.remove(i);
                     }
                 }
-
-
 
                 if (list.size() > 0) {
                     recyclerView.setLayoutManager(new LinearLayoutManager(SaleListActivity.this, LinearLayoutManager.VERTICAL, false));

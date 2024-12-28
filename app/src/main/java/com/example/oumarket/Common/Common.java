@@ -19,7 +19,6 @@ import java.util.Iterator;
 import java.util.List;
 
 public class Common {
-
     public static User CURRENTUSER;
 
     public static final FirebaseDatabase FIREBASE_DATABASE = FirebaseDatabase.getInstance();
@@ -38,7 +37,7 @@ public class Common {
     public static final int NOTIFICATION_ID = 1;
     public static final String CHANNEL_CART = "1";
 
-    public static final int DELAY_TIME = 30000;
+    public static final int DELAY_TIME = 10000;
 
     public static List<City> cities(Context context, int resourceId) {
         List<City> list = new ArrayList<>();
@@ -71,7 +70,6 @@ public class Common {
         }
         return list;
     }
-
     public static List<District> districts(Context context, int resourceId, String s) {
         List<District> list = new ArrayList<>();
         try {
@@ -107,7 +105,6 @@ public class Common {
         }
         return list;
     }
-
     public static List<Ward> wards(Context context, int resourceId, String s) {
         List<Ward> list = new ArrayList<>();
         try {
@@ -141,5 +138,4 @@ public class Common {
         }
         return list;
     }
-
 }

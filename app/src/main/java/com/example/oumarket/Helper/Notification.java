@@ -6,6 +6,7 @@ import android.app.TaskStackBuilder;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
@@ -55,12 +56,13 @@ public class Notification extends BroadcastReceiver {
             Common.FIREBASE_DATABASE.getReference(Common.REF_REQUESTS).child(idRequest).child("status").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    String status=snapshot.getValue(String.class);
-                    if (status.equals("0")){
+                    String status = snapshot.getValue(String.class);
+                    if (status.equals("0")) {
                         notificationManager.notify(Common.NOTIFICATION_ID, builder.build());
                         Common.FIREBASE_DATABASE.getReference(Common.REF_REQUESTS).child(idRequest).child("status").setValue("1");
-                    }
+                    } else Log.d("ZZZZZ", status);
                 }
+
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
 
