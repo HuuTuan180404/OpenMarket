@@ -76,6 +76,14 @@ public class SignUpActivity extends AppCompatActivity {
                     return;
                 }
 
+                // Kiểm tra mật khẩu với biểu thức chính quy
+                String passwordPattern = "(?=.*[A-Z])(?=.*[!@#$%^&*()_+\\-={}|;:'\",<.>/?])(?=.*\\d).{8,}";
+                if (!password.matches(passwordPattern)) {
+                    Toast.makeText(SignUpActivity.this, "Mật khẩu phải có ít nhất 8 ký tự, một ký tự đặc biệt và một ký tự hoa!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+
                 createAccount(email, password);
             }
         });

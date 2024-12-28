@@ -20,10 +20,9 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
             android:layout_width="match_parent"
-<<<<<<< HEAD
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             app:cardCornerRadius="20dp"
@@ -41,13 +40,7 @@
                 app:navigationIcon="@drawable/im_back"
                 app:title="Tìm món ngon"/>
         </androidx.cardview.widget.CardView>
-=======
-            android:layout_height="?attr/actionBarSize"
-            android:theme="@style/Customer.ToolBar"
-            app:menu="@menu/menu_search_activity"
-            app:navigationIcon="@drawable/im_back"
-            app:title="Tìm món ngon" />
->>>>>>> 115f200a77543700d05b41aae61e6dbd77dcaff6
+
 
         <TextView
             android:id="@+id/tv_noData"

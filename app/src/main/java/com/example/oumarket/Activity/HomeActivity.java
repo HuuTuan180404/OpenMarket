@@ -41,7 +41,6 @@ public class HomeActivity extends AppCompatActivity {
     private static final int PERMISSION_REQUEST_CODE = 100;
     private BottomNavigationView bottom_navigation_view;
     HomeFragment homeFragment;
-    OrderFragment orderFragment;
     FragmentManager fragmentManager;
     ProfileFragment profileFragment;
 
@@ -53,7 +52,6 @@ public class HomeActivity extends AppCompatActivity {
         fragmentManager = getSupportFragmentManager();
 
         homeFragment = new HomeFragment();
-        orderFragment = new OrderFragment();
         profileFragment = new ProfileFragment();
 
         requestPermissions();
@@ -79,7 +77,7 @@ public class HomeActivity extends AppCompatActivity {
                     } else replaceFragment(homeFragment, "HomeFragment");
                     return true;
                 } else if (item.getItemId() == R.id.nav_orders) {
-                    replaceFragment(orderFragment, "OrderFragment");
+                    replaceFragment(new OrderFragment(), "OrderFragment");
                 } else if (item.getItemId() == R.id.nav_profile) {
                     replaceFragment(profileFragment, "ProfileFragment");
                     return true;

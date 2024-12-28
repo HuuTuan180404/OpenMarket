@@ -79,10 +79,6 @@ public class HomeFragment extends Fragment {
         recyclerView_bestSeller = view.findViewById(R.id.recycler_best_seller);
         recyclerView_all_food = view.findViewById(R.id.recyclerView_all_food);
         setupRecyclerViewFoods();
-<<<<<<< HEAD
-=======
-
->>>>>>> 115f200a77543700d05b41aae61e6dbd77dcaff6
         return view;
     }
 
@@ -145,9 +141,4 @@ public class HomeFragment extends Fragment {
             }
         });
     }
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 115f200a77543700d05b41aae61e6dbd77dcaff6
 }

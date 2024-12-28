@@ -33,13 +33,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Tìm món ngon"
-                    android:textColor="@color/black"
                     android:textSize="25sp"
                     android:textStyle="bold"
-<<<<<<< HEAD
                     android:textColor="@color/white"
-=======
->>>>>>> 115f200a77543700d05b41aae61e6dbd77dcaff6
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -150,18 +146,11 @@
         android:id="@+id/imageView_cart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="28dp"
-        android:layout_marginBottom="28dp"
         android:background="@drawable/border"
-<<<<<<< HEAD
-        android:padding="12dp"
         android:backgroundTint="@color/blue"
-        app:tint="@color/white"
-=======
-        android:backgroundTint="@color/xanh_bien"
+        android:layout_margin="20dp"
         android:padding="12dp"
         android:src="@drawable/ic_cart"
->>>>>>> 115f200a77543700d05b41aae61e6dbd77dcaff6
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:tint="@color/white" />

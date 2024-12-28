@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
@@ -28,6 +29,7 @@ import com.cloudinary.android.callback.UploadCallback;
 import com.example.oumarket.Common.Common;
 import com.example.oumarket.Helper.Customer_LoadingDialog;
 import com.example.oumarket.R;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.rejowan.cutetoast.CuteToast;
 import com.squareup.picasso.Picasso;
 
@@ -36,96 +38,101 @@ import java.util.Map;
 public class EditAvatarActivity extends AppCompatActivity {
     static final int PIC_REQ = 1;
     Uri uri;
-
+    Toolbar toolbar;
     ImageView pic;
     private AppCompatButton btn_luu;
     private ImageView buttonChangeImage;
-
-    Customer_LoadingDialog dialog;
+    Customer_LoadingDialog customerLoadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_avatar);
 
+        customerLoadingDialog = new Customer_LoadingDialog(this, "Đang lưu...");
+
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         //Load Image
         pic = findViewById(R.id.pic);
         Picasso.get().load(Common.CURRENTUSER.getUrl()).into(pic);
 
         //Change Image
-        buttonChangeImage = findViewById(R.id.button_changeImage);
-        buttonChangeImage.setOnClickListener(v -> {
-            requestPermissions();
+        buttonChangeImage= findViewById(R.id.button_changeImage);
+        buttonChangeImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                requestPermissions();
+                selectPic();
+            }
         });
 
-        dialog = new Customer_LoadingDialog(this, "Loading...");
+
 
         //Button save
         btn_luu = findViewById(R.id.btn_luu);
         btn_luu.setOnClickListener(v -> {
             if (uri == null) {
-                CuteToast.ct(this, "Chưa chọn ảnh!", CuteToast.LENGTH_SHORT, CuteToast.WARN, true).show();
-                return;
+                Toast.makeText(this, "Chưa chọn ảnh!", Toast.LENGTH_SHORT).show();
             }
-            dialog.show();
-            MediaManager.get().upload(uri).callback(new UploadCallback() {
-                @Override
-                public void onStart(String requestId) {
-                }
+            else {
+                customerLoadingDialog.show();
+                MediaManager.get().upload(uri).callback(new UploadCallback()
+                {
+                    @Override
+                    public void onStart(String requestId) {
 
-                @Override
-                public void onProgress(String requestId, long bytes, long totalBytes) {
+                    }
 
-                }
+                    @Override
+                    public void onProgress(String requestId, long bytes, long totalBytes) {
 
-                @Override
-                public void onSuccess(String requestId, Map resultData) {
-                    Common.CURRENTUSER.setUrl((String) resultData.get("secure_url"));
-                    Log.d("ZZZZZ", (String) resultData.get("secure_url"));
-                    Common.FIREBASE_DATABASE.getReference(Common.REF_USERS).child(Common.CURRENTUSER.getIdUser()).child("url").setValue(Common.CURRENTUSER.getUrl());
-                    CuteToast.ct(getBaseContext(), "Lưu thành công!", CuteToast.LENGTH_SHORT, CuteToast.HAPPY, true).show();
-                    dialog.dismiss();
-                    finish();
-                }
+                    }
 
-                @Override
-                public void onError(String requestId, ErrorInfo error) {
-                    CuteToast.ct(getBaseContext(), "Lỗi!", CuteToast.LENGTH_SHORT, CuteToast.ERROR, true).show();
-                    dialog.dismiss();
-                }
+                    @Override
+                    public void onSuccess(String requestId, Map resultData) {
+                        Common.CURRENTUSER.setUrl((String) resultData.get("secure_url"));
+                        Common.FIREBASE_DATABASE.getReference(Common.REF_USERS).child(Common.CURRENTUSER.getIdUser()).child("url").setValue(Common.CURRENTUSER.getUrl());
+                        customerLoadingDialog.dismiss();
+                        Toast.makeText(EditAvatarActivity.this, "Lưu thành công!", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
 
-                @Override
-                public void onReschedule(String requestId, ErrorInfo error) {
-                    CuteToast.ct(getBaseContext(), "Lỗi!", CuteToast.LENGTH_SHORT, CuteToast.ERROR, true).show();
-                    dialog.dismiss();
-                }
-            }).dispatch();
+                    @Override
+                    public void onError(String requestId, ErrorInfo error) {
+                        customerLoadingDialog.dismiss();
+                    }
+
+                    @Override
+                    public void onReschedule(String requestId, ErrorInfo error) {
+                        customerLoadingDialog.dismiss();
+                    }
+                }).dispatch();
+            }
         });
+
+
+
     }
 
     private void requestPermissions() {
         if (ContextCompat.checkSelfPermission(EditAvatarActivity.this, android.Manifest.permission.READ_MEDIA_IMAGES) == PackageManager.PERMISSION_GRANTED) {
             selectPic();
         } else {
-            ActivityCompat.requestPermissions(EditAvatarActivity.this, new String[]{android.Manifest.permission.READ_MEDIA_IMAGES}, PIC_REQ);
+            ActivityCompat.requestPermissions( EditAvatarActivity.this, new String[]{android.Manifest.permission.READ_MEDIA_IMAGES}, PIC_REQ);
         }
     }
 
     private void selectPic() {
+
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intent, PIC_REQ);
+
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -134,5 +141,13 @@ public class EditAvatarActivity extends AppCompatActivity {
             uri = data.getData();
             Picasso.get().load(uri).into(pic);
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == android.R.id.home){
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

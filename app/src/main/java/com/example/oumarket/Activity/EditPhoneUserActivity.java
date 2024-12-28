@@ -1,6 +1,8 @@
 package com.example.oumarket.Activity;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -37,6 +39,7 @@ public class EditPhoneUserActivity extends AppCompatActivity {
         input = findViewById(R.id.input);
 
         input.setText(Common.CURRENTUSER.getPhone());
+
 
         btn_luu.setOnClickListener(v -> {
             String newText = input.getText().toString().trim();
