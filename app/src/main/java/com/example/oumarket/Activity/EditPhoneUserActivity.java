@@ -40,6 +40,36 @@ public class EditPhoneUserActivity extends AppCompatActivity {
 
         input.setText(Common.CURRENTUSER.getPhone());
 
+        input.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String newText = s.toString().trim();
+                if (newText.equals(Common.CURRENTUSER.getPhone()) || newText.length() != 10) {
+                    btn_luu.setBackgroundColor(getResources().getColor(R.color.gray));
+                    btn_luu.setEnabled(false);
+                } else {
+                    btn_luu.setBackgroundColor(getResources().getColor(R.color.xanh_bien));
+                    btn_luu.setEnabled(true);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String newText = s.toString().trim();
+                if (newText.equals(Common.CURRENTUSER.getPhone()) || newText.length() != 10) {
+                    btn_luu.setBackgroundColor(getResources().getColor(R.color.gray));
+                    btn_luu.setEnabled(false);
+                } else {
+                    btn_luu.setBackgroundColor(getResources().getColor(R.color.xanh_bien));
+                    btn_luu.setEnabled(true);
+                }
+            }
+        });
 
         btn_luu.setOnClickListener(v -> {
             String newText = input.getText().toString().trim();

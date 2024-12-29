@@ -9,12 +9,14 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.oumarket.Activity.AddNewAddressActivity;
 import com.example.oumarket.Class.AnAddress;
 import com.example.oumarket.Common.AddressType;
 import com.example.oumarket.R;
@@ -24,12 +26,14 @@ import java.util.List;
 
 class SelectAddressViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    TextView name, phone, address, ward_getPath, typeAddress;
-    CardView isDefault, anAddress;
+    TextView name, phone, address, ward_getPath, typeAddress, updateAddress;
+    CardView isDefault;
+    RelativeLayout relativeLayout;
 
     public SelectAddressViewHolder(@NonNull View itemView) {
         super(itemView);
-        this.anAddress = itemView.findViewById(R.id.anAddress);
+
+        relativeLayout = itemView.findViewById(R.id.relativeLayout);
         this.name = itemView.findViewById(R.id.name);
         this.phone = itemView.findViewById(R.id.phone);
         this.address = itemView.findViewById(R.id.address);
@@ -37,6 +41,8 @@ class SelectAddressViewHolder extends RecyclerView.ViewHolder implements View.On
         this.ward_getPath = itemView.findViewById(R.id.ward_getPath);
 
         this.isDefault = itemView.findViewById(R.id.isDefault);
+
+        this.updateAddress = itemView.findViewById(R.id.update_address);
 
         itemView.setOnClickListener(this);
     }
@@ -86,13 +92,20 @@ public class SelectAddressAdapter extends RecyclerView.Adapter<SelectAddressView
         if (anAddress.getIsDefault()) holder.isDefault.setVisibility(View.VISIBLE);
         else holder.isDefault.setVisibility(View.GONE);
 
-        holder.anAddress.setOnClickListener(new View.OnClickListener() {
+        holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("selectedItem", position);
                 ((Activity) context).setResult(RESULT_OK, resultIntent);
                 ((Activity) context).finish();
+            }
+        });
+
+        holder.updateAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                context.startActivity(new Intent(context, AddNewAddressActivity.class).putExtra("editAnAddress", position));
             }
         });
     }

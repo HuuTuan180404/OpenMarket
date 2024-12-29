@@ -32,7 +32,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class FoodListActivity extends AppCompatActivity implements BottomSheetDialogSave {
+public class FoodListActivity extends AppCompatActivity implements BottomSheetDialogSave{
 
     DatabaseReference data_foods;
 
@@ -40,7 +40,6 @@ public class FoodListActivity extends AppCompatActivity implements BottomSheetDi
 
     String categoryId;
 
-    SearchView searchView;
     Toolbar toolbar;
     FoodAdapter adapter;
 
@@ -149,7 +148,7 @@ public class FoodListActivity extends AppCompatActivity implements BottomSheetDi
 
         MenuItem item_search = menu.findItem(R.id.action_search);
 
-        searchView = (SearchView) item_search.getActionView();
+        SearchView searchView = (SearchView) item_search.getActionView();
         searchView.setQueryHint("Input");
         searchView.clearFocus();
 
@@ -189,10 +188,6 @@ public class FoodListActivity extends AppCompatActivity implements BottomSheetDi
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onSave(User user) {
-
-    }
 
     @Override
     public void inFoodListActivity(String key) {

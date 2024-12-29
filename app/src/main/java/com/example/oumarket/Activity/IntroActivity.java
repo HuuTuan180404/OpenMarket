@@ -35,20 +35,20 @@ public class IntroActivity extends AppCompatActivity {
         setContentView(R.layout.activity_intro);
 
         Paper.init(this);
-        if (Common.CURRENTUSER == null) {
-            String user = Paper.book().read(Common.USERNAME_KEY);
-            String password = Paper.book().read(Common.PASSWORD_KEY);
+        String user = Paper.book().read(Common.USERNAME_KEY);
+        String password = Paper.book().read(Common.PASSWORD_KEY);
 
-            if (user != null && password != null) {
-                if (!user.isEmpty() && !password.isEmpty()) {
-                    login(user, password);
-                }
-            } else {
-                Intent intent = new Intent(IntroActivity.this, SignInActivity.class);
-                startActivity(intent);
+        if (user != null && password != null) {
+            if (!user.isEmpty() && !password.isEmpty()) {
+                login(user, password);
             }
+        } else {
+            Intent intent = new Intent(IntroActivity.this, SignInActivity.class);
+            startActivity(intent);
+            finish();
         }
     }
+
     void login(String email, String password) {
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password).addOnCompleteListener(IntroActivity.this, task -> {
             if (task.isSuccessful()) {

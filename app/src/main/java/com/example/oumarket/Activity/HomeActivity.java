@@ -112,7 +112,7 @@ public class HomeActivity extends AppCompatActivity {
             permissionsToRequest.add(android.Manifest.permission.POST_NOTIFICATIONS);
         }
 
-        // Nếu còn quyền chưa được cấp, yêu cầu tất cả trong một lần
+        // Nếu còn quyền chưa được cấp, yêu cầu tất cả trong một lần+
         if (!permissionsToRequest.isEmpty()) {
             ActivityCompat.requestPermissions(this, permissionsToRequest.toArray(new String[0]), PERMISSION_REQUEST_CODE);
         }
