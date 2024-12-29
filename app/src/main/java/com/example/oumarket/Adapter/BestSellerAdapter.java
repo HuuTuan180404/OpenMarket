@@ -22,7 +22,9 @@ import com.example.oumarket.R;
 import com.rejowan.cutetoast.CuteToast;
 import com.squareup.picasso.Picasso;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 class BestSellerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -73,7 +75,15 @@ public class BestSellerAdapter extends RecyclerView.Adapter<BestSellerViewHolder
         holder.discount.setText(food.getDiscount()+"%\nOFF");
         Picasso.get().load(food.getUrl()).into(holder.pic);
         holder.name_of_food.setText(food.getName());
-        holder.price.setText(food.getPrice());
+
+
+        String priceString = list.get(position).getPrice();
+        double price = Double.parseDouble(priceString);
+        NumberFormat formatter = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
+        String formattedPrice = formatter.format(price);
+        holder.price.setText(formattedPrice);
+
+
         holder.pic.setOnClickListener(v -> {
             Intent foodDetail = new Intent(context, FoodDetailActivity.class);
             foodDetail.putExtra("FoodId", food.getId());

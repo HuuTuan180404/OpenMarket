@@ -23,8 +23,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 class OrderDetailViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -79,11 +81,19 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailViewHold
     @Override
     public void onBindViewHolder(@NonNull OrderDetailViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.name.setText(list.get(position).getProductName());
-        holder.price.setText(list.get(position).getPrice());
+
+
+        String priceString = list.get(position).getPrice();
+        double price = Double.parseDouble(priceString);
+        NumberFormat formatter = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
+        String formattedPrice = formatter.format(price);
+        holder.price.setText(formattedPrice);
+
+
         holder.quantity.setText(list.get(position).getQuantity());
         holder.discount.setText(list.get(position).getDiscount());
 
-        holder.image.setOnClickListener(v -> {
+        holder.itemView.setOnClickListener(v -> {
             Intent foodDetail = new Intent(context, FoodDetailActivity.class);
             foodDetail.putExtra("FoodId", list.get(position).getProductId());
             context.startActivity(foodDetail);

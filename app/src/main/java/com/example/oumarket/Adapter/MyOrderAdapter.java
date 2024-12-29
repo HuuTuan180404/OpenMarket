@@ -224,15 +224,6 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderViewHolder> {
 
     }
 
-    private String status(String s) {
-        if (s.equals("0")) {
-            return "Đang chuẩn bị hàng";
-        }
-        if (s.equals("1")) {
-            return "Đang vận chuyển";
-        }
-        return "Đã giao hàng";
-    }
 
     @Override
     public int getItemCount() {

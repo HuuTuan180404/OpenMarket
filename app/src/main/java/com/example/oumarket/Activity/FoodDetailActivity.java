@@ -30,6 +30,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.rejowan.cutetoast.CuteToast;
 import com.squareup.picasso.Picasso;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 public class FoodDetailActivity extends AppCompatActivity {
 
     TextView price_after_discount, food_description_detail, price_before_discount;
@@ -138,8 +141,20 @@ public class FoodDetailActivity extends AppCompatActivity {
                 else{
                     rating.setRating(0);
                 }
-                price_before_discount.setText(currentFood.getPrice());
-                price_after_discount.setText(currentFood.getPriceAfterDiscount());
+
+                String priceStringBefore = currentFood.getPrice();
+                double priceBefore = Double.parseDouble(priceStringBefore);
+                NumberFormat formatterBefore = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
+                String formattedPriceBefore = formatterBefore.format(priceBefore);
+                price_before_discount.setText(formattedPriceBefore);
+
+
+                String priceStringAfter = currentFood.getPriceAfterDiscount().toString();
+                double priceAfter = Double.parseDouble(priceStringAfter);
+                NumberFormat formatterAfter = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
+                String formattedPriceAfter = formatterAfter.format(priceAfter);
+                price_after_discount.setText(formattedPriceAfter);
+
                 if (currentFood.getDiscount().equals("0")) {
                     layout_before_discount.setVisibility(View.GONE);
                 } else layout_before_discount.setVisibility(View.VISIBLE);

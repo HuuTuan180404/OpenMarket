@@ -30,8 +30,10 @@ import com.google.firebase.database.ValueEventListener;
 import com.rey.material.widget.CheckBox;
 import com.squareup.picasso.Picasso;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 class CartViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -112,7 +114,15 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
     public void onBindViewHolder(@NonNull CartViewHolder holder, @SuppressLint("RecyclerView") int position) {
         String foodId = list.get(position).getProductId();
         holder.name_cart_item.setText(list.get(position).getProductName());
-        holder.price_cart_item.setText(list.get(position).getPrice());
+
+
+        String priceString = list.get(position).getPrice();
+        double price = Double.parseDouble(priceString);
+        NumberFormat formatter = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
+        String formattedPrice = formatter.format(price);
+        holder.price_cart_item.setText(formattedPrice);
+
+
         holder.quantity_cart_item.setText(list.get(position).getQuantity());
 
         holder.quantity_cart_item.addTextChangedListener(new TextWatcher() {
@@ -141,9 +151,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
 
         holder.btnDecrease.setOnClickListener(v -> {
             int quantity = Integer.parseInt(holder.quantity_cart_item.getText().toString());
-            if (quantity == 1) {
-                Toast.makeText(context, "Lỗi số lượng", Toast.LENGTH_SHORT).show();
-            } else {
+            if (quantity >1){
                 quantity -= 1;
 
                 new Database(context).updateQuantity(list.get(position).getProductId(), holder.quantity_cart_item.getText().toString());
