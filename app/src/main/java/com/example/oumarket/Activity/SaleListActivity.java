@@ -1,6 +1,7 @@
 package com.example.oumarket.Activity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -42,7 +43,6 @@ public class SaleListActivity extends AppCompatActivity implements BottomSheetDi
     TextView tv_noData;
     FoodAdapter adapter;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,7 +79,7 @@ public class SaleListActivity extends AppCompatActivity implements BottomSheetDi
 
                 if (list.size() > 0) {
                     recyclerView.setLayoutManager(new LinearLayoutManager(SaleListActivity.this, LinearLayoutManager.VERTICAL, false));
-                    RecyclerView.Adapter adapter = new FoodAdapter(list, SaleListActivity.this, R.layout.item_food_list_view);
+                    adapter = new FoodAdapter(list, SaleListActivity.this, R.layout.item_food_list_view);
                     recyclerView.setAdapter(adapter);
                 }
 
@@ -128,13 +128,10 @@ public class SaleListActivity extends AppCompatActivity implements BottomSheetDi
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_toolbar_food_list, menu);
-
         MenuItem item_search = menu.findItem(R.id.action_search);
-
         SearchView searchView = (SearchView) item_search.getActionView();
         searchView.setQueryHint("Input");
         searchView.clearFocus();
-
         searchView.setOnQueryTextListener(new androidx.appcompat.widget.SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -148,12 +145,10 @@ public class SaleListActivity extends AppCompatActivity implements BottomSheetDi
                 return true;
             }
         });
-
         searchView.setOnCloseListener(() -> {
             searchView.onActionViewCollapsed();
             return true;
         });
-
         return true;
     }
 
@@ -196,9 +191,8 @@ public class SaleListActivity extends AppCompatActivity implements BottomSheetDi
                 SetUpRecyclerView.setupGridLayout(this, recyclerView, adapter, 2, RecyclerView.VERTICAL);
                 break;
         }
+
     }
-
-
 
     private void sortByComparator(Comparator<Food> comparator) {
         List<Food> list = adapter.getList();
