@@ -74,7 +74,7 @@ public class EditAvatarActivity extends AppCompatActivity {
         btn_luu = findViewById(R.id.btn_luu);
         btn_luu.setOnClickListener(v -> {
             if (uri == null) {
-                Toast.makeText(this, "Chưa chọn ảnh!", Toast.LENGTH_SHORT).show();
+                CuteToast.ct(this, "Chưa chọn ảnh!", CuteToast.LENGTH_SHORT, CuteToast.ERROR, true).show();
             }
             else {
                 customerLoadingDialog.show();
@@ -95,7 +95,7 @@ public class EditAvatarActivity extends AppCompatActivity {
                         Common.CURRENTUSER.setUrl((String) resultData.get("secure_url"));
                         Common.FIREBASE_DATABASE.getReference(Common.REF_USERS).child(Common.CURRENTUSER.getIdUser()).child("url").setValue(Common.CURRENTUSER.getUrl());
                         customerLoadingDialog.dismiss();
-                        Toast.makeText(EditAvatarActivity.this, "Lưu thành công!", Toast.LENGTH_SHORT).show();
+                        CuteToast.ct(EditAvatarActivity.this, "Lưu thành công!", CuteToast.LENGTH_SHORT, CuteToast.SUCCESS, true).show();
                         finish();
                     }
 

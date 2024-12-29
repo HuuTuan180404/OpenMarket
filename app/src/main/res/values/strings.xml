@@ -23,7 +23,7 @@
 
     <string name="title_activity_requests">Requests</string>
     <string name="status__1">Đã hủy</string>
-    <string name="status_1">Đã giao hàng</string>
+    <string name="status_1">Đã giao</string>
     <string name="status_0">Đang vận chuyển</string>
 
     <string name="CURRENCY">đ</string>

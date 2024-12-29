@@ -480,18 +480,11 @@ public class AddNewAddressActivity extends AppCompatActivity implements OnMapRea
     }
 
     private void updateSpinnerCity(String ward, String district, String city) {
-
-        Customer_LoadingDialog dialog_updateSpinnerCity = new Customer_LoadingDialog(this, "Loading...");
-        dialog_updateSpinnerCity.show();
-
         for (City i : adapterCity.getCityList()) {
             if (i.getName().contains(city)) {
-
                 spinner_city.setSelection(adapterCity.getPosition(i), false);
-
                 adapterDistricts.setDistrictList(Common.districts(context, R.raw.district, i.getCode()));
                 adapterDistricts.notifyDataSetChanged();
-
                 break;
             }
         }
@@ -499,27 +492,23 @@ public class AddNewAddressActivity extends AppCompatActivity implements OnMapRea
         new android.os.Handler().postDelayed(() -> {
             for (District j : adapterDistricts.getDistrictList()) {
                 if (j.getName().contains(district)) {
-
                     spinner_district.setSelection(adapterDistricts.getPosition(j), false);
-
                     adapterWards.setWardList(Common.wards(context, R.raw.ward, j.getCode()));
                     adapterWards.notifyDataSetChanged();
-
                     break;
                 }
             }
-        }, 300);
 
-        new android.os.Handler().postDelayed(() -> {
-            for (Ward k : adapterWards.getWardList()) {
-                if (k.getName().contains(ward)) {
-                    spinner_ward.setSelection(adapterWards.getPosition(k), true);
-                    break;
+            new android.os.Handler().postDelayed(() -> {
+                for (Ward k : adapterWards.getWardList()) {
+                    if (k.getName().contains(ward)) {
+                        spinner_ward.setSelection(adapterWards.getPosition(k), true);
+                        break;
+                    }
                 }
-            }
-        }, 300);
+            }, 300);
 
-        dialog_updateSpinnerCity.dismiss();
+        }, 300);
     }
 
 }

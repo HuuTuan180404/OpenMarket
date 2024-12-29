@@ -20,6 +20,7 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.rejowan.cutetoast.CuteToast;
 
 import io.paperdb.Paper;
 
@@ -72,12 +73,10 @@ public class ChangePasswordActivity extends AppCompatActivity {
                                 if (task1.isSuccessful()) {
                                     Paper.init(ChangePasswordActivity.this);
                                     Paper.book().write(Common.PASSWORD_KEY, password_1);
-//                                    CuteToast.ct(getContext(), "Mật khẩu đã được thay đổi", CuteToast.LENGTH_SHORT, CuteToast.SUCCESS, true).show();
-                                    Toast.makeText(ChangePasswordActivity.this, "Mật khẩu đã được thay đổi", Toast.LENGTH_SHORT).show();
+                                    CuteToast.ct(ChangePasswordActivity.this, "Mật khẩu đã được thay đổi", CuteToast.LENGTH_SHORT, CuteToast.SUCCESS, true).show();
                                     finish();
                                 } else {
-//                                    CuteToast.ct(getContext(), "Đã xảy ra lỗi, hãy thử lại", CuteToast.LENGTH_SHORT, CuteToast.ERROR, true).show();
-                                    Toast.makeText(ChangePasswordActivity.this, "Đã xảy ra lỗi, hãy thử lại", Toast.LENGTH_SHORT).show();
+                                    CuteToast.ct(ChangePasswordActivity.this, "Đã xảy ra lỗi, hãy thử lại", CuteToast.LENGTH_SHORT, CuteToast.ERROR, true).show();
                                 }
                             });
                         }

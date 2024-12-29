@@ -25,6 +25,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
+import com.rejowan.cutetoast.CuteToast;
 
 import java.util.ArrayList;
 
@@ -79,7 +80,7 @@ public class SignUpActivity extends AppCompatActivity {
                 // Kiểm tra mật khẩu với biểu thức chính quy
                 String passwordPattern = "(?=.*[A-Z])(?=.*[!@#$%^&*()_+\\-={}|;:'\",<.>/?])(?=.*\\d).{8,}";
                 if (!password.matches(passwordPattern)) {
-                    Toast.makeText(SignUpActivity.this, "Mật khẩu phải có ít nhất 8 ký tự, một ký tự đặc biệt và một ký tự hoa!", Toast.LENGTH_SHORT).show();
+                    CuteToast.ct(SignUpActivity.this, "Mật khẩu ít nhất 8 ký tự, một ký tự đặc biệt và một ký tự hoa!", CuteToast.LENGTH_SHORT, CuteToast.ERROR, true).show();
                     return;
                 }
 

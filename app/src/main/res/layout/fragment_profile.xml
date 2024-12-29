@@ -249,7 +249,7 @@
                     android:layout_toLeftOf="@+id/ic_next_address"
                     android:fontFamily="@font/satoshi_bold"
                     android:text="Thêm"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/red" />
 
 
                 <ImageView

@@ -170,7 +170,7 @@
                             style="@style/Customer.TextView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Total: $  " />
+                            android:text="Tổng cộng: đ  " />
 
                         <TextView
                             android:id="@+id/total"
@@ -283,7 +283,7 @@
                             android:background="@color/trang"
                             android:fontFamily="@font/satoshi_variable"
                             android:gravity="center_vertical|left"
-                            android:text="Cash" />
+                            android:text="Thanh toán khi nhận hàng" />
                     </LinearLayout>
 
                     <TextView

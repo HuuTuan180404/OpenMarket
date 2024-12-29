@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -20,6 +21,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
+
+import java.time.format.ResolverStyle;
 
 public class OrderDetailFragment extends BottomSheetDialogFragment {
 
@@ -61,7 +64,13 @@ public class OrderDetailFragment extends BottomSheetDialogFragment {
                     phone.setText(request.getAnAddress().getPhone());
                     address.setText(request.getAnAddress().getAddress());
                     total.setText(request.getTotal());
-
+                    orderTime.setText(request.getTime());
+                    if (request.getStatus().equals("1")) {
+                        status.setTextColor(ContextCompat.getColor(requireActivity(), R.color.xanh_chuoi));
+                    }
+                    if (request.getStatus().equals("-1")) {
+                        status.setTextColor(ContextCompat.getColor(requireActivity(), R.color.Do));
+                    }
                     status.setText(getStringStatus(request.getStatus()));
 
                     adapter = new OrderDetailAdapter(request.getOrders(), getContext());
@@ -86,10 +95,12 @@ public class OrderDetailFragment extends BottomSheetDialogFragment {
     private String getStringStatus(String sta) {
 
         if (sta.equals("1")) {
+            status.setTextColor(ContextCompat.getColor(requireActivity(), R.color.xanh_chuoi));
             return getContext().getResources().getString(R.string.status_1);
         }
 
         if (sta.equals("-1")) {
+            status.setTextColor(ContextCompat.getColor(requireActivity(), R.color.Do));
             return getContext().getResources().getString(R.string.status__1);
         }
 
