@@ -187,11 +187,6 @@ public class SearchActivity extends AppCompatActivity implements BottomSheetDial
     }
 
     @Override
-    public void onSave(User user) {
-
-    }
-
-    @Override
     public void inFoodListActivity(String key) {
         switch (key) {
             case "price_desc":
