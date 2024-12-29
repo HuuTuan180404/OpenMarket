@@ -41,6 +41,7 @@
             android:layout_marginLeft="20sp"
             android:layout_marginRight="20sp"
             android:hint="Email"
+            android:textColorHint="@color/black"
             app:boxCornerRadiusBottomEnd="20sp"
             app:boxCornerRadiusBottomStart="20sp"
             app:boxCornerRadiusTopEnd="20sp"
@@ -63,6 +64,7 @@
             android:layout_marginTop="10sp"
             android:layout_marginRight="20sp"
             android:hint="Password"
+            android:textColorHint="@color/black"
             app:boxCornerRadiusBottomEnd="20sp"
             app:boxCornerRadiusBottomStart="20sp"
             app:boxCornerRadiusTopEnd="20sp"
@@ -90,6 +92,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/satoshi_variable"
                 android:gravity="center"
+                android:textColor="@color/black"
                 android:text="Lưu tài khoản đăng nhập" />
 
             <TextView
@@ -98,6 +101,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
+                android:textColor="@color/black"
                 android:fontFamily="@font/satoshi_variable"
                 android:text="Quên mật khẩu" />
 
@@ -137,6 +141,7 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/satoshi_variable"
                 android:gravity="center"
+                android:textColor="@color/black"
                 android:text="or continue with"
                 android:textSize="14sp" />
 
@@ -159,7 +164,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/satoshi_variable"
                 android:text="Lần đầu đến với OuM ?  "
-                android:textColor="@color/den"
+                android:textColor="@color/black"
                 android:textSize="20dp" />
 
             <TextView

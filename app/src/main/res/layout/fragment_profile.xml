@@ -22,6 +22,7 @@
         android:layout_height="?attr/actionBarSize"
         android:layout_gravity="top"
         android:theme="@style/Customer.ToolBar"
+        app:titleTextColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:title="Tài khoản" />

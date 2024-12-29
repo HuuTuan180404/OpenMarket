@@ -11,6 +11,7 @@
         android:id="@+id/orderDetail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         android:scrollbars="vertical">
 
         <RelativeLayout
@@ -42,6 +43,7 @@
                             android:layout_height="wrap_content"
                             android:background="@color/trang"
                             android:gravity="center"
+                            android:textColor="@color/black"
                             android:text="Thông tin giao hàng" />
 
                     </androidx.cardview.widget.CardView>
@@ -66,6 +68,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
+                                android:textColor="@color/black"
                                 android:gravity="center"
                                 android:text="username" />
 
@@ -84,6 +87,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
+                                android:textColor="@color/black"
                                 android:text="phone" />
 
                         </androidx.cardview.widget.CardView>
@@ -105,7 +109,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="address" />
+                            android:text="address"
+                            android:textColor="@color/black" />
 
                     </androidx.cardview.widget.CardView>
 
@@ -137,7 +142,8 @@
                         android:layout_height="wrap_content"
                         android:background="@color/trang"
                         android:gravity="center"
-                        android:text="Sản phẩm" />
+                        android:text="Sản phẩm"
+                        android:textColor="@color/black" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recyclerOrderDetail"
@@ -170,11 +176,13 @@
                             style="@style/Customer.TextView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:text="Tổng cộng: " />
 
                         <TextView
                             android:id="@+id/total"
                             style="@style/Customer.TextView"
+                            android:textColor="@color/black"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="12" />
@@ -209,6 +217,7 @@
                             android:layout_width="0sp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:textColor="@color/black"
                             android:background="@color/trang"
                             android:fontFamily="@font/satoshi_variable"
                             android:gravity="left"
@@ -239,6 +248,7 @@
                             android:layout_width="0sp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:textColor="@color/black"
                             android:background="@color/trang"
                             android:fontFamily="@font/satoshi_variable"
                             android:gravity="left"
@@ -249,6 +259,7 @@
                             android:layout_width="0sp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
+                            android:textColor="@color/black"
                             android:background="@color/trang"
                             android:fontFamily="@font/satoshi_variable"
                             android:gravity="left"
@@ -271,6 +282,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:background="@color/trang"
+                            android:textColor="@color/black"
                             android:fontFamily="@font/satoshi_variable"
                             android:gravity="left"
                             android:text="Phương thức thanh toán" />
@@ -280,6 +292,7 @@
                             android:layout_width="0sp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
+                            android:textColor="@color/black"
                             android:background="@color/trang"
                             android:fontFamily="@font/satoshi_variable"
                             android:gravity="center_vertical|left"
@@ -301,6 +314,7 @@
                             android:layout_width="0sp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:textColor="@color/black"
                             android:background="@color/trang"
                             android:fontFamily="@font/satoshi_variable"
                             android:gravity="left"
@@ -311,6 +325,7 @@
                             android:layout_width="0sp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
+                            android:textColor="@color/black"
                             android:background="@color/trang"
                             android:fontFamily="@font/satoshi_variable"
                             android:gravity="left"

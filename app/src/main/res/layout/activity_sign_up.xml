@@ -41,6 +41,7 @@
             android:layout_marginRight="20sp"
             android:layout_marginBottom="10dp"
             android:hint="Tên"
+            android:textColorHint="@color/black"
             app:boxCornerRadiusBottomEnd="20sp"
             app:boxCornerRadiusBottomStart="20sp"
             app:boxCornerRadiusTopEnd="20sp"
@@ -63,6 +64,7 @@
             android:layout_marginRight="20sp"
             android:layout_marginBottom="10dp"
             android:hint="Email"
+            android:textColorHint="@color/black"
             app:boxCornerRadiusBottomEnd="20sp"
             app:boxCornerRadiusBottomStart="20sp"
             app:boxCornerRadiusTopEnd="20sp"
@@ -85,6 +87,7 @@
             android:layout_marginRight="20sp"
             android:layout_marginBottom="10dp"
             android:hint="Số điện thoại"
+            android:textColorHint="@color/black"
             app:boxCornerRadiusBottomEnd="20sp"
             app:boxCornerRadiusBottomStart="20sp"
             app:boxCornerRadiusTopEnd="20sp"
@@ -107,6 +110,7 @@
             android:layout_marginRight="20sp"
             android:layout_marginBottom="10dp"
             android:hint="Mật khẩu"
+            android:textColorHint="@color/black"
             app:boxCornerRadiusBottomEnd="20sp"
             app:boxCornerRadiusBottomStart="20sp"
             app:boxCornerRadiusTopEnd="20sp"
@@ -130,6 +134,7 @@
             android:layout_marginRight="20sp"
             android:layout_marginBottom="10dp"
             android:hint="Xác nhận mật khẩu"
+            android:textColorHint="@color/black"
             app:boxCornerRadiusBottomEnd="20sp"
             app:boxCornerRadiusBottomStart="20sp"
             app:boxCornerRadiusTopEnd="20sp"
@@ -155,7 +160,7 @@
             android:background="@drawable/gradient_button_lognin_signup"
             android:fontFamily="@font/satoshi_variable"
             android:text="@string/signup"
-            android:textColor="@color/trang"
+            android:textColor="@color/white"
             android:textSize="25dp" />
 
         <LinearLayout

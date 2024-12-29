@@ -27,6 +27,7 @@
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
+                app:titleTextColor="@color/black"
                 android:layout_height="?attr/actionBarSize"
                 android:theme="@style/Customer.ToolBar"
                 app:title="Lịch sử đơn hàng" />
