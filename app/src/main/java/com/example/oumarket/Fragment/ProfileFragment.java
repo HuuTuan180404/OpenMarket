@@ -11,13 +11,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.oumarket.Activity.AddNewAddressActivity;
 import com.example.oumarket.Activity.ChangePasswordActivity;
 import com.example.oumarket.Activity.EditAvatarActivity;
 import com.example.oumarket.Activity.EditNameUserActivity;
 import com.example.oumarket.Activity.EditPhoneUserActivity;
-import com.example.oumarket.Activity.SelectAddressActivity;
 import com.example.oumarket.Activity.SignInActivity;
+import com.example.oumarket.Activity.YourAddressesActivity;
 import com.example.oumarket.Common.Common;
 import com.example.oumarket.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -101,7 +100,7 @@ public class ProfileFragment extends Fragment {
 
         ic_next_address = view.findViewById(R.id.ic_next_address);
         ic_next_address.setOnClickListener(v -> {
-            startActivity(new Intent(requireActivity(), SelectAddressActivity.class));
+            startActivity(new Intent(requireActivity(), YourAddressesActivity.class));
         });
 
         return view;

@@ -29,7 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:theme="@style/Customer.ToolBar"
-                app:title="My Orders" />
+                app:title="Lịch sử đơn hàng" />
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabLayout"

@@ -12,6 +12,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -75,7 +76,7 @@ public class AddNewAddressActivity extends AppCompatActivity implements OnMapRea
     DistrictAdapter adapterDistricts;
     WardAdapter adapterWards;
 
-    AddressType addressType = AddressType.HOME;
+    AddressType addressType;
 
     Database database;
     Context context;
@@ -202,7 +203,7 @@ public class AddNewAddressActivity extends AppCompatActivity implements OnMapRea
 
             current_location.performClick();
 
-            new android.os.Handler().postDelayed(() -> {
+            new Handler().postDelayed(() -> {
                 getAddressFromLocation();
             }, 500);
 
@@ -219,15 +220,20 @@ public class AddNewAddressActivity extends AppCompatActivity implements OnMapRea
                     selectedTypeAddress(AddressType.HOME);
                 } else if (checkedId == R.id.btn_work) {
                     selectedTypeAddress(AddressType.WORK);
-                } else {
+                } else if(checkedId == R.id.btn_other){
                     selectedTypeAddress(AddressType.OTHER);
-                }
+                }else
+                    selectedTypeAddress(AddressType.HOME);
             }
         });
 
         switchMaterial = findViewById(R.id.switch_dia_chi);
 
         btn_save = findViewById(R.id.btn_save);
+    }
+
+    private void selectedTypeAddress(AddressType s) {
+        addressType = s;
     }
 
     private void editAnAddress(AnAddress newAnAddress) {
@@ -302,15 +308,12 @@ public class AddNewAddressActivity extends AppCompatActivity implements OnMapRea
             List<Address> addresses = geocoder.getFromLocation(currentLocation.getLatitude(), currentLocation.getLongitude(), 5);
             if (addresses != null && !addresses.isEmpty()) {
                 Address address = addresses.get(0);
-                Log.d("ABCDE", address.getAddressLine(0));
                 String[] ss = address.getAddressLine(0).split(",");
                 addressText = new ArrayList<>();
                 for (int i = ss.length - 4; i < ss.length; i++) {
                     addressText.add(ss[i].trim());
                 }
                 updateSpinnerCity(addressText.get(0), addressText.get(1), addressText.get(2));
-            } else {
-                Log.e("GeocoderError", "No address found for the location");
             }
         } catch (IOException e) {
             Log.e("GeocoderError", "Failed to get address: " + e.getMessage());
@@ -354,30 +357,7 @@ public class AddNewAddressActivity extends AppCompatActivity implements OnMapRea
         }
     }
 
-    private void selectedTypeAddress(AddressType s) {
 
-        btn_home.setBackgroundColor(getResources().getColor(R.color.trang));
-        btn_work.setBackgroundColor(getResources().getColor(R.color.trang));
-        btn_other.setBackgroundColor(getResources().getColor(R.color.trang));
-
-        btn_home.setTextColor(getResources().getColor(R.color.den));
-        btn_work.setTextColor(getResources().getColor(R.color.den));
-        btn_other.setTextColor(getResources().getColor(R.color.den));
-
-        if (s == AddressType.HOME) {
-            btn_home.setBackgroundColor(getResources().getColor(R.color.cam));
-            btn_home.setTextColor(getResources().getColor(R.color.trang));
-        } else if (s == AddressType.WORK) {
-            btn_work.setBackgroundColor(getResources().getColor(R.color.cam));
-            btn_work.setTextColor(getResources().getColor(R.color.trang));
-        } else {
-            btn_other.setBackgroundColor(getResources().getColor(R.color.cam));
-            btn_other.setTextColor(getResources().getColor(R.color.trang));
-        }
-
-        addressType = s;
-
-    }
 
     private void initSpinner() {
 

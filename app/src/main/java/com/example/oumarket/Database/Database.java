@@ -123,7 +123,6 @@ public class Database extends SQLiteAssetHelper {
         deleteTable("OrderDetail");
     }
 
-    ////////////////////////////////
 
     public void deleteTable(String table) {
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();

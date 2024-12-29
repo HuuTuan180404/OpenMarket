@@ -126,7 +126,7 @@ public class CartActivity extends AppCompatActivity {
 
         ic_next = findViewById(R.id.ic_next);
         ic_next.setOnClickListener(v -> {
-            Intent intent = new Intent(CartActivity.this, SelectAddressActivity.class);
+            Intent intent = new Intent(CartActivity.this, YourAddressesActivity.class);
             launcher.launch(intent);
         });
 

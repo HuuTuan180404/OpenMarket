@@ -95,7 +95,7 @@
                 android:layout_marginBottom="5dp"
                 app:layout_constraintBottom_toTopOf="@+id/textView9"
                 app:layout_constraintStart_toStartOf="parent"
-                app:srcCompat="@drawable/star_ic"
+                app:srcCompat="@drawable/ic_star"
                 app:tint="@color/yellow" />
 
             <TextView

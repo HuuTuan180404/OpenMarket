@@ -112,12 +112,12 @@ public class SignUpActivity extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 createInfo(FirebaseAuth.getInstance().getCurrentUser().getUid());
                             } else {
-                                Toast.makeText(getApplicationContext(), "1 Failed!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Xác thực không thành công!", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
                 } else {
-                    Toast.makeText(getApplicationContext(), "2 Failed!", Toast.LENGTH_SHORT).show();
+                    CuteToast.ct(SignUpActivity.this, "Tài khoản đã tồn tại!", CuteToast.LENGTH_SHORT, CuteToast.ERROR, true).show();
                 }
             }
         });
