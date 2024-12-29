@@ -57,13 +57,6 @@
                 android:gravity="center">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="5sp"
-                    android:textStyle="bold"
-                    android:text="@string/CURRENCY" />
-
-                <TextView
                     android:id="@+id/price_before_discount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

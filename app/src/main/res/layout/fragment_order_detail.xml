@@ -170,7 +170,7 @@
                             style="@style/Customer.TextView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Tổng cộng: đ  " />
+                            android:text="Tổng cộng: " />
 
                         <TextView
                             android:id="@+id/total"

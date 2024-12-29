@@ -171,18 +171,6 @@
         app:layout_constraintStart_toStartOf="parent">
 
 
-        <TextView
-            android:id="@+id/textView10"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
-            android:text="đ"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <RelativeLayout
             android:id="@+id/layout_before_discount"
             android:layout_width="wrap_content"
@@ -214,11 +202,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="1000"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/textView10"
-            app:layout_constraintStart_toEndOf="@+id/textView10"
-            app:layout_constraintTop_toTopOf="@+id/textView10" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"  />
 
 
         <androidx.appcompat.widget.AppCompatButton

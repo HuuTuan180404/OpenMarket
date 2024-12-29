@@ -84,7 +84,21 @@ public class HomeActivity extends AppCompatActivity {
                 }
                 return true;
             }
+
         });
+        String navigateTo = getIntent().getStringExtra("flag");
+        if (navigateTo != null) {
+            if (navigateTo.equals("notification")) {
+                bottom_navigation_view.setSelectedItemId(R.id.nav_orders);
+            }
+        } else replaceFragment(homeFragment, "HomeFragment");
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (bottom_navigation_view.getSelectedItemId() != R.id.nav_home) {
+            bottom_navigation_view.setSelectedItemId(R.id.nav_home);
+        } else super.onBackPressed();
     }
 
     private void replaceFragment(Fragment fragment, String tag) {
