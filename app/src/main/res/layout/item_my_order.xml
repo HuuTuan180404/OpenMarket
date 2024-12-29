@@ -144,7 +144,7 @@
             android:layout_weight="1"
             android:background="@drawable/rounded_20sp_trang_xanh"
             android:fontFamily="@font/satoshi_variable"
-            android:text="Rate"
+            android:text="Đánh giá"
             android:textColor="@color/xanh_bien" />
 
         <androidx.appcompat.widget.AppCompatButton
@@ -157,7 +157,7 @@
             android:background="@drawable/rounded_20sp"
             android:backgroundTint="@color/xanh_bien"
             android:fontFamily="@font/satoshi_variable"
-            android:text="Re-Order"
+            android:text="Đặt lại"
             android:textColor="@color/trang" />
 
     </LinearLayout>
@@ -186,7 +186,7 @@
             android:layout_weight="1"
             android:background="@drawable/rounded_20sp_trang_xanh"
             android:fontFamily="@font/satoshi_variable"
-            android:text="Cancel"
+            android:text="Hủy"
             android:textColor="@color/xanh_bien" />
 
     </LinearLayout>
