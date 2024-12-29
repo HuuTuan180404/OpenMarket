@@ -93,65 +93,73 @@
 
     </LinearLayout>
 
-    <TextView
-        style="@style/Customer.TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Chế độ xem" />
-
     <LinearLayout
+        android:id="@+id/layout_view_mode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingHorizontal="60dp">
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/Customer.TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Chế độ xem" />
 
         <LinearLayout
-            android:id="@+id/list_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:background="@drawable/border"
-            android:gravity="center"
-            android:padding="3dp">
+            android:orientation="vertical"
+            android:paddingHorizontal="60dp">
 
-            <ImageView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/list_view"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_list_view" />
+                android:layout_margin="5dp"
+                android:background="@drawable/border"
+                android:gravity="center"
+                android:padding="3dp">
 
-            <TextView
-                style="@style/Customer.TextView"
-                android:layout_width="wrap_content"
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_list_view" />
+
+                <TextView
+                    style="@style/Customer.TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:text="Dọc"
+                    android:textSize="15dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/grid_view"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:text="Dọc"
-                android:textSize="15dp" />
+                android:layout_margin="5dp"
+                android:background="@drawable/border"
+                android:gravity="center"
+                android:padding="3dp">
 
-        </LinearLayout>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_grid_view" />
 
-        <LinearLayout
-            android:id="@+id/grid_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:background="@drawable/border"
-            android:gravity="center"
-            android:padding="3dp">
+                <TextView
+                    style="@style/Customer.TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:text="Lưới"
+                    android:textSize="15dp" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_grid_view" />
-
-            <TextView
-                style="@style/Customer.TextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:text="Lưới"
-                android:textSize="15dp" />
+            </LinearLayout>
 
         </LinearLayout>
 

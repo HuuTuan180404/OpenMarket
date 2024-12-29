@@ -35,7 +35,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="@color/browser_actions_bg_grey"
-                app:menu="@menu/menu_search_activity"
+                app:menu="@menu/menu_toolbar_search_activity"
                 android:theme="@style/Customer.ToolBar"
                 app:navigationIcon="@drawable/im_back"
                 app:title="Tìm món ngon"/>
@@ -59,4 +59,5 @@
             android:layout_margin="5sp"
             android:scrollbars="vertical" />
     </LinearLayout>
+
 </FrameLayout>

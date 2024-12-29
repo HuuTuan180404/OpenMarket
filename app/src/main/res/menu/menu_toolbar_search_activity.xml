@@ -9,4 +9,12 @@
         android:title=""
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_setting"
+        android:icon="@drawable/ic_sort"
+        android:orderInCategory="200"
+        android:title="More"
+        app:showAsAction="always" />
+
 </menu>

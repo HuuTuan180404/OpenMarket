@@ -32,8 +32,9 @@ public class SearchFoodAdapter extends RecyclerView.Adapter<SearchFoodAdapter.Vi
         return list;
     }
 
-    public void setItems(ArrayList<Food> list) {
+    public void setItems(List<Food> list) {
         this.list = list;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -63,6 +64,7 @@ public class SearchFoodAdapter extends RecyclerView.Adapter<SearchFoodAdapter.Vi
     public int getItemCount() {
         return list.size();
     }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         ImageView pic;

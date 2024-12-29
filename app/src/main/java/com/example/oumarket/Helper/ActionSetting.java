@@ -22,9 +22,16 @@ public class ActionSetting extends BottomSheetDialogFragment {
     BottomSheetDialogSave bottomSheetDialogSave;
 
     TextView price_desc, price_asc, name, rating;
-    LinearLayout list_view, grid_view;
+    LinearLayout list_view, grid_view, layout_view_mode;
+
+    boolean isGone;
 
     public ActionSetting() {
+        isGone = false;
+    }
+
+    public ActionSetting(boolean flag) {
+        isGone = flag;
     }
 
     @Override
@@ -37,6 +44,7 @@ public class ActionSetting extends BottomSheetDialogFragment {
         rating = view.findViewById(R.id.rating);
         list_view = view.findViewById(R.id.list_view);
         grid_view = view.findViewById(R.id.grid_view);
+        layout_view_mode = view.findViewById(R.id.layout_view_mode);
 
         price_desc.setOnClickListener(v -> {
             bottomSheetDialogSave.inFoodListActivity("price_desc");
@@ -61,6 +69,10 @@ public class ActionSetting extends BottomSheetDialogFragment {
         grid_view.setOnClickListener(v -> {
             bottomSheetDialogSave.inFoodListActivity("grid_view");
         });
+
+        if (isGone) {
+            layout_view_mode.setVisibility(View.GONE);
+        }
 
         return view;
     }
