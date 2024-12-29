@@ -11,6 +11,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 
+import com.example.oumarket.Activity.HomeActivity;
 import com.example.oumarket.Class.Request;
 import com.example.oumarket.Class.User;
 import com.example.oumarket.Common.Common;
@@ -29,11 +30,9 @@ public class Notification extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        Intent intent1 = new Intent(context, OrderFragment.class);
-
-
+        Intent intent1 = new Intent(context, HomeActivity.class);
         String idRequest = intent.getStringExtra("idRequest");
-
+        intent1.putExtra("flag", "notification");
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
         stackBuilder.addNextIntentWithParentStack(intent1);
 

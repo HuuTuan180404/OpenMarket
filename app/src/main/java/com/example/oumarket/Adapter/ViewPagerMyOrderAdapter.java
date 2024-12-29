@@ -39,13 +39,13 @@ public class ViewPagerMyOrderAdapter extends FragmentStatePagerAdapter {
         String title = "";
         switch (position) {
             case 0:
-                title = "Ongoing";
+                title = "Đang giao";
                 break;
             case 1:
-                title = "History";
+                title = "Lịch sử";
                 break;
             default:
-                title = "Ongoing";
+                title = "Đang giao";
                 break;
         }
         return title;

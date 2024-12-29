@@ -35,8 +35,10 @@ import com.example.oumarket.Adapter.CartAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.rejowan.cutetoast.CuteToast;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class CartActivity extends AppCompatActivity {
     RecyclerView recyclerView;
@@ -300,4 +302,10 @@ public class CartActivity extends AppCompatActivity {
         }
     }
 
+    private String formatPrice(String p) {
+        double price = Double.parseDouble(p);
+        NumberFormat formatter = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
+        String formattedPrice = formatter.format(price);
+        return formattedPrice;
+    }
 }
