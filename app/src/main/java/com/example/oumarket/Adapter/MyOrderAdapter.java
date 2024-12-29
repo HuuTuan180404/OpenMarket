@@ -173,7 +173,6 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderViewHolder> {
                     if (snapshot.exists()) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(context);
                         builder.setTitle("Warming");
-//                            builder.setIcon()
                         builder.setMessage("Bạn chắc chắn muốn hủy đơn hàng này?");
                         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override

@@ -280,18 +280,18 @@ public class CartActivity extends AppCompatActivity {
 
                 String s;
                 if (basketTotal >= 0) {
-                    s = String.format("%.1f", basketTotal);
+                    s = formatPrice(basketTotal);
                     tv_basketTotal.setText(s);
                 } else tv_basketTotal.setText("---");
 
                 if (discount >= 0) {
-                    s = String.format("%.1f", discount);
+                    s = formatPrice(discount);
                     tv_discount.setText(s);
                 } else tv_discount.setText("---");
 
                 double total = basketTotal - discount;
                 if (total >= 0) {
-                    s = String.format("%.1f", total);
+                    s = formatPrice(total);
                     tv_total.setText(s);
                 } else tv_total.setText("---");
             } else {
@@ -302,8 +302,7 @@ public class CartActivity extends AppCompatActivity {
         }
     }
 
-    private String formatPrice(String p) {
-        double price = Double.parseDouble(p);
+    private String formatPrice(double price) {
         NumberFormat formatter = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
         String formattedPrice = formatter.format(price);
         return formattedPrice;
