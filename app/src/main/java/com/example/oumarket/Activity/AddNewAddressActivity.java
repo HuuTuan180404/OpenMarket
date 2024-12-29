@@ -107,7 +107,6 @@ public class AddNewAddressActivity extends AppCompatActivity implements OnMapRea
     }
 
     private void handleIntent() {
-
         if (getIndexAnAddress != -1) {
 
             btn_save.setOnClickListener(v -> {
@@ -116,32 +115,22 @@ public class AddNewAddressActivity extends AppCompatActivity implements OnMapRea
                     editAnAddress(address);
                 }
             });
-
             if (getIndexAnAddress != -1) {
-
                 AnAddress getAnAddress = Common.CURRENTUSER.getAddresses().get(getIndexAnAddress);
-
                 editText_house_number.setText(getAnAddress.getAddress());
                 editText_name.setText(getAnAddress.getName());
                 editText_phone.setText(getAnAddress.getPhone());
-
                 switchMaterial.setChecked(getAnAddress.getIsDefault());
-
                 if (getAnAddress.getTypeAddress() == AddressType.HOME) btn_home.performClick();
                 else if (getAnAddress.getTypeAddress() == AddressType.WORK) btn_work.performClick();
                 else btn_other.performClick();
-
                 String[] ss = getAnAddress.getWard().getPath().split(",");
                 addressText = new ArrayList<>();
                 for (int i = 0; i < ss.length; i++) {
                     addressText.add(ss[i].trim());
                 }
-
                 updateSpinnerCity(addressText.get(0), addressText.get(1), addressText.get(2));
-
             }
-
-
         } else {
             btn_save.setOnClickListener(v -> {
                 if (validateAndSaveAddress()) {
@@ -150,7 +139,6 @@ public class AddNewAddressActivity extends AppCompatActivity implements OnMapRea
                 }
             });
         }
-
     }
 
     private boolean validateAndSaveAddress() {
@@ -158,12 +146,10 @@ public class AddNewAddressActivity extends AppCompatActivity implements OnMapRea
             CuteToast.ct(context, "Hãy nhập thông tin liên hệ", CuteToast.LENGTH_SHORT, CuteToast.WARN, true).show();
             return false;
         }
-
         if (spinner_ward.getSelectedItemPosition() == 0) {
             CuteToast.ct(context, "Hãy chọn địa chỉ", CuteToast.LENGTH_SHORT, CuteToast.WARN, true).show();
             return false;
         }
-
         if (TextUtils.isEmpty(editText_house_number.getText().toString())) {
             CuteToast.ct(context, "Hãy Số nhà, Tên đường, Tòa nhà", CuteToast.LENGTH_SHORT, CuteToast.WARN, true).show();
             return false;
@@ -220,9 +206,9 @@ public class AddNewAddressActivity extends AppCompatActivity implements OnMapRea
                     selectedTypeAddress(AddressType.HOME);
                 } else if (checkedId == R.id.btn_work) {
                     selectedTypeAddress(AddressType.WORK);
-                } else if(checkedId == R.id.btn_other){
+                } else if (checkedId == R.id.btn_other) {
                     selectedTypeAddress(AddressType.OTHER);
-                }else
+                } else
                     selectedTypeAddress(AddressType.HOME);
             }
         });
@@ -356,7 +342,6 @@ public class AddNewAddressActivity extends AppCompatActivity implements OnMapRea
             ActivityCompat.requestPermissions(this, permissionsToRequest.toArray(new String[0]), PERMISSION_REQUEST_CODE);
         }
     }
-
 
 
     private void initSpinner() {

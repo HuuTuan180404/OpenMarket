@@ -69,13 +69,11 @@ public class SelectAddressAdapter extends RecyclerView.Adapter<SelectAddressView
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.item_address_detail, parent, false);
         return new SelectAddressViewHolder(view);
-
     }
 
     @Override
     public void onBindViewHolder(@NonNull SelectAddressViewHolder holder, @SuppressLint("RecyclerView") int position) {
         AnAddress anAddress = list.get(position);
-
         holder.name.setText(anAddress.getName());
         holder.phone.setText(anAddress.getPhone());
 

@@ -25,12 +25,10 @@ class AnAddressViewHolder extends RecyclerView.ViewHolder implements View.OnClic
 
     TextView name, phone, address, ward_getPath, typeAddress, updateAddress;
     CardView isMap, isDefault;
-    RelativeLayout relativeLayout;
 
     public AnAddressViewHolder(@NonNull View itemView) {
         super(itemView);
 
-        relativeLayout = itemView.findViewById(R.id.relativeLayout);
         this.name = itemView.findViewById(R.id.name);
         this.phone = itemView.findViewById(R.id.phone);
         this.address = itemView.findViewById(R.id.address);
@@ -141,7 +139,9 @@ public class AnAddressAdapter extends RecyclerView.Adapter<AnAddressViewHolder> 
             holder.typeAddress.setText("WORK");
         else holder.typeAddress.setText("OTHER");
 
-        holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
+        holder.updateAddress.setVisibility(View.GONE);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, AddNewAddressActivity.class);
@@ -150,12 +150,6 @@ public class AnAddressAdapter extends RecyclerView.Adapter<AnAddressViewHolder> 
             }
         });
 
-        holder.updateAddress.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                context.startActivity(new Intent(context, AddNewAddressActivity.class).putExtra("editAnAddress", position));
-            }
-        });
     }
 
     @Override

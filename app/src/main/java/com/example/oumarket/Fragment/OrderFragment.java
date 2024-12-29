@@ -14,13 +14,9 @@ import com.example.oumarket.Adapter.ViewPagerMyOrderAdapter;
 import com.example.oumarket.R;
 import com.google.android.material.tabs.TabLayout;
 
-
 public class OrderFragment extends Fragment {
-
     private TabLayout tabLayout;
     private ViewPager viewPager2;
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

@@ -30,7 +30,7 @@
         android:layout_height="?attr/actionBarSize"
         android:theme="@style/Customer.ToolBar"
         app:navigationIcon="@drawable/im_back"
-        app:title="Cart" />
+        app:title="Giỏ hàng" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list_cart"
@@ -65,7 +65,7 @@
                 android:layout_marginLeft="20sp"
                 android:layout_weight="1"
                 android:fontFamily="@font/satoshi_variable"
-                android:text="Basket total"
+                android:text="Tổng"
                 android:textSize="15sp" />
 
             <LinearLayout
@@ -105,7 +105,7 @@
                 android:layout_marginLeft="20sp"
                 android:layout_weight="1"
                 android:fontFamily="@font/satoshi_variable"
-                android:text="Discount"
+                android:text="Giảm giá"
                 android:textSize="15sp" />
 
             <LinearLayout
@@ -145,7 +145,7 @@
                 android:layout_marginLeft="20sp"
                 android:layout_weight="1"
                 android:fontFamily="@font/satoshi_variable"
-                android:text="Total"
+                android:text="Tổng thanh toán"
                 android:textSize="15sp" />
 
             <LinearLayout

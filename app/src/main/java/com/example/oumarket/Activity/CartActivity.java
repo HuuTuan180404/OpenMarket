@@ -116,11 +116,8 @@ public class CartActivity extends AppCompatActivity {
         } else {
             null_address.setVisibility(View.INVISIBLE);
             layout_selected_address.setVisibility(View.VISIBLE);
-
             diaChi = Common.CURRENTUSER.getAddresses().get(0);
-
             updateLayoutDiaChi();
-
         }
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
@@ -128,7 +125,7 @@ public class CartActivity extends AppCompatActivity {
 
         ic_next = findViewById(R.id.ic_next);
         ic_next.setOnClickListener(v -> {
-            Intent intent = new Intent(CartActivity.this, YourAddressesActivity.class);
+            Intent intent = new Intent(CartActivity.this, SelectAddressActivity.class);
             launcher.launch(intent);
         });
 
