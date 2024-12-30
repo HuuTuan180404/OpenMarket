@@ -186,9 +186,7 @@ public class AddNewAddressActivity extends AppCompatActivity implements OnMapRea
 
         layout_btn_current_location = findViewById(R.id.layout_btn_current_location);
         layout_btn_current_location.setOnClickListener(v -> {
-
             current_location.performClick();
-
             new Handler().postDelayed(() -> {
                 getAddressFromLocation();
             }, 500);
@@ -343,7 +341,6 @@ public class AddNewAddressActivity extends AppCompatActivity implements OnMapRea
         }
     }
 
-
     private void initSpinner() {
 
         cities = Common.cities(getBaseContext(), R.raw.city);
@@ -445,6 +442,7 @@ public class AddNewAddressActivity extends AppCompatActivity implements OnMapRea
     }
 
     private void updateSpinnerCity(String ward, String district, String city) {
+
         for (City i : adapterCity.getCityList()) {
             if (i.getName().contains(city)) {
                 spinner_city.setSelection(adapterCity.getPosition(i), false);
