@@ -29,7 +29,7 @@ import com.example.oumarket.Class.District;
 import com.example.oumarket.Class.Ward;
 import com.example.oumarket.Class.AnAddress;
 import com.example.oumarket.Common.Common;
-import com.example.oumarket.Common.AddressType;
+import com.example.oumarket.Helper.AddressType;
 import com.example.oumarket.Database.Database;
 import com.example.oumarket.Adapter.CityAdapter;
 import com.example.oumarket.Adapter.DistrictAdapter;

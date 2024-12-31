@@ -1,4 +1,4 @@
-package com.example.oumarket.Common;
+package com.example.oumarket.Helper;
 
 public enum AddressType {
     HOME,

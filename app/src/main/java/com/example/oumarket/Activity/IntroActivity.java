@@ -67,6 +67,12 @@ public class IntroActivity extends AppCompatActivity {
                     }
                 });
             }
+            else{
+                Paper.clear(IntroActivity.this);
+                Intent intent = new Intent(IntroActivity.this, SignInActivity.class);
+                startActivity(intent);
+                finish();
+            }
         });
     }
 }

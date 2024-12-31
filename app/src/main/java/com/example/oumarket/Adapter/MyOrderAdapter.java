@@ -119,7 +119,10 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderViewHolder> {
         holder.total.setText(list.get(position).getTotal());
         holder.time.setText(list.get(position).getTime());
 
-        int countItems = (list.get(position).getOrders()).size();
+        int countItems = 0;
+        for(Order order : list.get(position).getOrders()){
+            countItems += Integer.parseInt(order.getQuantity());
+        }
         holder.countItems.setText(String.valueOf(countItems));
         holder.item_items.setText(list.size() == 1 ? "item" : "items");
 
@@ -207,7 +210,7 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderViewHolder> {
         });
 
         if (list.get(position).getStatus().equals("0")) { //ongoing
-            holder.status.setVisibility(View.GONE);
+            holder.status.setVisibility(View.VISIBLE);
             holder.status.setText(R.string.status_0);
             holder.buttonLayoutHistory.setVisibility(View.GONE);
         } else {

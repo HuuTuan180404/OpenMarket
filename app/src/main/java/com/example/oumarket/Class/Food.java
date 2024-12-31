@@ -50,16 +50,6 @@ public class Food {
         this.countRating = countRating;
     }
 
-    public int sortByTopFood(Food other) {
-        int rating = this.sortByRating(other);
-        if (rating == 0) {
-            int discount = this.sortByDiscount(other);
-            if (discount == 0) return this.sortByName(other);
-            return discount;
-        }
-        return rating;
-    }
-
     public int sortByDiscount(Food other) {
         double a = Double.parseDouble(this.getDiscount());
         double b = Double.parseDouble(other.getDiscount());

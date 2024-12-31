@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.oumarket.Activity.AddNewAddressActivity;
 import com.example.oumarket.Class.AnAddress;
-import com.example.oumarket.Common.AddressType;
+import com.example.oumarket.Helper.AddressType;
 import com.example.oumarket.R;
 
 import java.util.ArrayList;

@@ -1,8 +1,6 @@
 package com.example.oumarket.Class;
 
-import com.example.oumarket.Common.AddressType;
-
-import java.util.Objects;
+import com.example.oumarket.Helper.AddressType;
 
 public class AnAddress {
 

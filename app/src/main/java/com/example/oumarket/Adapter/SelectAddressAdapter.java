@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.oumarket.Activity.AddNewAddressActivity;
 import com.example.oumarket.Class.AnAddress;
-import com.example.oumarket.Common.AddressType;
+import com.example.oumarket.Helper.AddressType;
 import com.example.oumarket.R;
 
 import java.util.ArrayList;
